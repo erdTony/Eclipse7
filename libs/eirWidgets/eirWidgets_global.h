@@ -1,0 +1,12 @@
+#ifndef EIRWIDGETS_GLOBAL_H
+#define EIRWIDGETS_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(EIRWIDGETS_LIBRARY)
+#define EIRWIDGETS_EXPORT Q_DECL_EXPORT
+#else
+#define EIRWIDGETS_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // EIRWIDGETS_GLOBAL_H

@@ -1,0 +1,12 @@
+#ifndef EIRFACEBASE_GLOBAL_H
+#define EIRFACEBASE_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(EIRFACEBASE_LIBRARY)
+#define EIRFACEBASE_EXPORT Q_DECL_EXPORT
+#else
+#define EIRFACEBASE_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // EIRFACEBASE_GLOBAL_H
