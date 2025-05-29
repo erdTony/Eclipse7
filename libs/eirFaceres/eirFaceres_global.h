@@ -1,0 +1,12 @@
+#ifndef EIRFACERES_GLOBAL_H
+#define EIRFACERES_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(EIRFACERES_LIBRARY)
+#define EIRFACERES_EXPORT Q_DECL_EXPORT
+#else
+#define EIRFACERES_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // EIRFACERES_GLOBAL_H

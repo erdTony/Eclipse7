@@ -1,0 +1,12 @@
+#ifndef EIRGRAPHICS_GLOBAL_H
+#define EIRGRAPHICS_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(EIRGRAPHICS_LIBRARY)
+#define EIRGRAPHICS_EXPORT Q_DECL_EXPORT
+#else
+#define EIRGRAPHICS_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // EIRGRAPHICS_GLOBAL_H
