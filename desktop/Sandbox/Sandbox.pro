@@ -9,11 +9,24 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    SandboxApplication.cpp \
+    SandboxData.cpp \
+    SandboxEngine.cpp \
+    SandboxMainWindow.cpp \
+    SandboxScene.cpp \
+    SandboxView.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    SandboxApplication.h \
+    SandboxData.h \
+    SandboxEngine.h \
+    SandboxMainWindow.h \
+    SandboxScene.h \
+    SandboxView.h \
+    mainwindow.h \
+    version.h
 
 FORMS += \
     mainwindow.ui
@@ -22,3 +35,12 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+SUBDIRS += \
+    ozSandbox.pro
+
+RESOURCES += \
+    ozSandbox.qrc
+
+DISTFILES += \
+    MM512A.jpg
