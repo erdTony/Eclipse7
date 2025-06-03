@@ -23,11 +23,14 @@ public: // const
 
 public: // non-const
 
+
+public: // pointers
+    MainWindowPageStack * pageStack();
+
 private slots:
-    void nameChange(const QString &n);
 
 private:
-    MainWindowPageStack * mpStack=nullptr;
+    MainWindowPageStack * mpPageStack=nullptr;
     QLayout * mpLayout=nullptr;
     QString mName;
 };

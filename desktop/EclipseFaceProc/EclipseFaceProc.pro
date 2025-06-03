@@ -10,18 +10,27 @@ CONFIG += c++17
 
 include(../desktop.pri)
 include(../../useBase.pri)
+include(../../useCore.pri)
+include(../../useType.pri)
 include(../../useWidgets.pri)
 
 SOURCES += \
     EFPApplication.cpp \
     EFPMainWindow.cpp \
+    EFPSplash.cpp \
     main.cpp
 
 HEADERS += \
     EFPApplication.h \
-    EFPMainWindow.h
+    EFPMainWindow.h \
+    EFPSplash.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=
+
+RESOURCES += \
+    EclipseFaceProc.qrc

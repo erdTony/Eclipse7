@@ -82,6 +82,6 @@ eirImage.depends    = eirBase
 eirObjdet.depends   = eirBase
 eirQtCV.depends     = eirBase
 eirStore.depends    = eirBase
-EclipseFaceProc.depends    = eirBase eirWidgets
+EclipseFaceProc.depends    = eirBase eirCore eirType eirWidgets
 
 

@@ -4,12 +4,10 @@
 
 BaseMainWindowPage::BaseMainWindowPage(const QString &n, MainWindowPageStack *pMWPS)
     : QWidget(pMWPS)
-    , mpStack(pMWPS)
+    , mpPageStack(pMWPS)
 {
     setObjectName("SplashPage:" + n);
     q_check_ptr(pMWPS);
-    connect(this, &BaseMainWindowPage::nameChanged,
-            this, &BaseMainWindowPage::nameChange);
     name(n);
 }
 
@@ -21,12 +19,9 @@ void BaseMainWindowPage::name(const QString n)
 
 void BaseMainWindowPage::layout(QLayout *pLayout)
 {
+    qDebug() << Q_FUNC_INFO;
     mpLayout = pLayout;
     QWidget::setLayout(mpLayout);
+    qDebug() << Q_FUNC_INFO << "exit";
     emit layoutSet(mpLayout);
-}
-
-void BaseMainWindowPage::nameChange(const QString &n)
-{
-
 }

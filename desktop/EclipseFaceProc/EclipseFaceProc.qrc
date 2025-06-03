@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/logos">
+        <file>EclipseFaceProcessing.png</file>
+        <file>EclipseIRLogo.png</file>
+        <file>INDI200.png</file>
+    </qresource>
+    <qresource prefix="/new/prefix1"/>
+</RCC>
