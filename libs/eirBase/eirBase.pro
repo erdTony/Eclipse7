@@ -10,6 +10,7 @@ SOURCES += \
     eirbase.cpp
 
 HEADERS += \
+    Types.h \
     eirBase_global.h \
     eirbase.h
 

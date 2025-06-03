@@ -5,11 +5,20 @@ CONFIG += c++17
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include (../libs.pri)
+include (../../useBase.pri)
 
 SOURCES += \
+    BaseMainWindowPage.cpp \
+    BaseWidgetApplication.cpp \
+    MainWindowPageStack.cpp \
+    SplashPage.cpp \
     eirwidgets.cpp
 
 HEADERS += \
+    BaseMainWindowPage.h \
+    BaseWidgetApplication.h \
+    MainWindowPageStack.h \
+    SplashPage.h \
     eirWidgets_global.h \
     eirwidgets.h
 

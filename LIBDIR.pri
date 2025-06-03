@@ -1,3 +1,3 @@
 # {ozCode}/src/LIBDIR.pri
-LIBDIR = "/home/code/repo/ottoZcode/src/libs"
+LIBDIR = "/data/code/repo/Eclipse7/libs"
 #message(............/src/LIBDIR.pri = $$LIBDIR)

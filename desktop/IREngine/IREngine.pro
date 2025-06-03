@@ -5,8 +5,10 @@ CONFIG += c++17
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include(../desktop.pri)
+include(../../OpenCV4.pri)
 
 SOURCES += \
+    BaseObjdetEngine.cpp \
     BaseObjdetMarker.cpp \
     VersionInfo.cpp \
     main.cpp \
@@ -34,6 +36,7 @@ SOURCES += \
     ObjectHelper.cpp  \
 
 HEADERS += \
+    BaseObjdetEngine.h \
     BaseObjdetMarker.h \
     EyesMarker.h  \
 #    EyesObjdet.h  \
