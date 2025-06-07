@@ -25,8 +25,8 @@ SUBDIRS +=          \
 	eirStore		\
     eirSvg \
     eirType \
-	eirWidgets		\
     eirVideo \
+    eirWidgets		\
 	eirXml  		\
     EclipseFaceProc        \
 
@@ -52,36 +52,42 @@ eirGui.subdir       = libs/eirGui
 eirImage.subdir     = libs/eirImage
 eirObjdet.subdir    = libs/eirObjdet
 eirQtCV.subdir      = libs/eirQtCV
+eirState.subdir     = libs/eirState
 eirStore.subdir     = libs/eirStore
-eirXml.subdir       = libs/eirXml
+eirSvg.subdir     = libs/eirSvg
+eirType.subdir     = libs/eirType
+eirVideo.subdir   = libs/eirVideo
 eirWidgets.subdir   = libs/eirWidgets
+eirXml.subdir       = libs/eirXml
 EclipseFaceProc.subdir     = desktop/EclipseFaceProc
 
 eirBase.depends     =
-eirExe.depends     = eirBase
-eirFaceres.depends     = eirBase
-eirGraphics.depends     = eirBase
 eirLogger.depends     = eirBase
-eirLogmgr.depends     = eirBase
+eirType.depends    = eirBase
 eirMatgeo.depends     = eirBase
-eirNetwork.depends     = eirBase
-eirQtVlan.depends     = eirBase
-eirRemote.depends     = eirBase
-eirState.depends     = eirBase
-eirSvg.depends     = eirBase
-eirType.depends     = eirBase
-eirVideo.depends     = eirBase
 eirCore.depends     = eirBase
 eirGui.depends      = eirBase
-eirWidgets.depends  = eirBase
-eirXml.depends      = eirBase
-eirFacebase.depends = eirBase
+eirWidgets.depends    = eirBase
+eirState.depends    = eirBase
+eirExe.depends     = eirBase    eirCore
+eirLogmgr.depends     = eirBase
+
 eirColor.depends    = eirBase
-eirFacerec.depends  = eirBase
 eirImage.depends    = eirBase
-eirObjdet.depends   = eirBase
 eirQtCV.depends     = eirBase
+eirObjdet.depends   = eirBase
+eirQtVlan.depends     = eirBase
+eirVideo.depends    = eirBase
+
+eirGraphics.depends     = eirBase
+eirNetwork.depends     = eirBase
+eirXml.depends    = eirBase
 eirStore.depends    = eirBase
-EclipseFaceProc.depends    = eirBase eirCore eirType eirWidgets
+eirSvg.depends    = eirBase
+eirFacerec.depends  = eirBase
+eirFaceres.depends     = eirBase
+eirFacebase.depends = eirBase
+eirRemote.depends     = eirBase
+EclipseFaceProc.depends    = eirBase eirType eirCore eirWidgets
 
 

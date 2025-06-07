@@ -17,11 +17,4 @@ void BaseMainWindowPage::name(const QString n)
     emit nameChanged(mName);
 }
 
-void BaseMainWindowPage::layout(QLayout *pLayout)
-{
-    qDebug() << Q_FUNC_INFO;
-    mpLayout = pLayout;
-    QWidget::setLayout(mpLayout);
-    qDebug() << Q_FUNC_INFO << "exit";
-    emit layoutSet(mpLayout);
-}
+

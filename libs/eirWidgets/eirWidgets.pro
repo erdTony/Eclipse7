@@ -10,6 +10,7 @@ include (../../useBase.pri)
 SOURCES += \
     BaseMainWindowPage.cpp \
     BaseWidgetApplication.cpp \
+    Label.cpp \
     MainWindowPageStack.cpp \
     SplashPage.cpp \
     eirwidgets.cpp
@@ -17,6 +18,7 @@ SOURCES += \
 HEADERS += \
     BaseMainWindowPage.h \
     BaseWidgetApplication.h \
+    Label.h \
     MainWindowPageStack.h \
     SplashPage.h \
     eirWidgets_global.h \

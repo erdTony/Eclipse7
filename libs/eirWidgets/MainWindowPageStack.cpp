@@ -51,7 +51,7 @@ Index MainWindowPageStack::add(BaseMainWindowPage *pBMWP)
 {
     q_check_ptr(pBMWP);
     Index result = -1;
-    (void)remove(pBMWP);
+    //(void)remove(pBMWP);
     result = tabs()->addTab(pBMWP, pBMWP->name());
     qDebug() << Q_FUNC_INFO << result;
     return result;

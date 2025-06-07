@@ -12,10 +12,8 @@ public: // ctors
 
 public slots:
     void name(const QString n);
-    void layout(QLayout *pLayout);
 
 signals:
-    void layoutSet(const QLayout * pLayout);
     void nameChanged(const QString &n);
 
 public: // const
@@ -31,7 +29,6 @@ private slots:
 
 private:
     MainWindowPageStack * mpPageStack=nullptr;
-    QLayout * mpLayout=nullptr;
     QString mName;
 };
 

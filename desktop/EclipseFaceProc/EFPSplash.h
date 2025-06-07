@@ -4,6 +4,8 @@
 
 class QGridLayout;
 
+class Label;
+
 class EFPSplash : public BaseMainWindowPage
 {
     Q_OBJECT
@@ -23,5 +25,8 @@ public: // pointers
 
 
 private:
-    QGridLayout * mpLayout=nullptr;
+    QGridLayout * mpMainGrid=nullptr;
+    Label * mpEircLabel=nullptr;
+    Label * mpIndiLabel=nullptr;
+    Label * mpEfpLabel=nullptr;
 };
