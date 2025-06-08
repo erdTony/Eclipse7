@@ -1,17 +1,18 @@
 QT -= gui
 TEMPLATE = lib
 DEFINES += EIRCORE_LIBRARY
-CONFIG += c++17
+CONFIG += c++23
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include (../libs.pri)
 
 SOURCES += \
+    ObjectHelper.cpp \
     VersionInfo.cpp \
     eirCore.cpp
 
 HEADERS += \
-    Types.h \
+    ObjectHelper.h \
     VersionInfo.h \
     eirCore_global.h \
     eirCore.h

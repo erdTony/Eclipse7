@@ -3,7 +3,7 @@ QT -= gui
 TEMPLATE = lib
 DEFINES += EIRLOGMGR_LIBRARY
 
-CONFIG += c++17
+CONFIG += c++23
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

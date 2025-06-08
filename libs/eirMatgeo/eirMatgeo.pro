@@ -1,18 +1,20 @@
 QT -= gui
-
 TEMPLATE = lib
 DEFINES += EIRMATGEO_LIBRARY
+CONFIG += c++23
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
-CONFIG += c++17
-
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+include (../libs.pri)
+include (../../useBase.pri)
 
 SOURCES += \
+    SCLine.cpp \
+    SCRect.cpp \
     eirmatgeo.cpp
 
 HEADERS += \
+    SCLine.h \
+    SCRect.h \
     eirMatgeo_global.h \
     eirmatgeo.h
 

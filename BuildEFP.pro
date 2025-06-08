@@ -61,24 +61,24 @@ eirWidgets.subdir   = libs/eirWidgets
 eirXml.subdir       = libs/eirXml
 EclipseFaceProc.subdir     = desktop/EclipseFaceProc
 
-eirBase.depends     =
-eirLogger.depends     = eirBase
-eirType.depends    = eirBase
-eirMatgeo.depends     = eirBase
-eirCore.depends     = eirBase
-eirGui.depends      = eirBase
-eirWidgets.depends    = eirBase
-eirState.depends    = eirBase
-eirExe.depends     = eirBase    eirCore
-eirLogmgr.depends     = eirBase
+eirBase.depends             =
+eirLogger.depends           = eirBase
+eirType.depends             = eirBase
+eirMatgeo.depends           = eirBase eirType
+eirCore.depends             = eirBase
+eirWidgets.depends          = eirBase
+eirExe.depends              = eirBase eirType
+eirObjdet.depends           = eirBase eirMatgeo
+EclipseFaceProc.depends     = eirBase eirType eirMatgeo eirCore eirWidgets eirExe
 
+eirGui.depends              = eirBase
+eirState.depends            = eirBase
+eirLogmgr.depends           = eirBase
 eirColor.depends    = eirBase
 eirImage.depends    = eirBase
 eirQtCV.depends     = eirBase
-eirObjdet.depends   = eirBase
 eirQtVlan.depends     = eirBase
 eirVideo.depends    = eirBase
-
 eirGraphics.depends     = eirBase
 eirNetwork.depends     = eirBase
 eirXml.depends    = eirBase
@@ -88,6 +88,5 @@ eirFacerec.depends  = eirBase
 eirFaceres.depends     = eirBase
 eirFacebase.depends = eirBase
 eirRemote.depends     = eirBase
-EclipseFaceProc.depends    = eirBase eirType eirCore eirWidgets
 
 

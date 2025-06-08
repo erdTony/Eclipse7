@@ -1,13 +1,11 @@
-# {ottoZcode}/src/useType.pri
+# {Eclipse7}/useBase.pri
 include(LIBDIR.pri)
 include(DESTDIR.pri)
 
-INCLUDEPATH *= $$LIBDIR/eirType # ../../libs/eirWidget ../eirWidget
-windows:LIBS *= -leirType7
-linux:LIBS *= -leirType
+INCLUDEPATH *= $$LIBDIR/eirBase
+windows:LIBS *= -leirBase7
+linux:LIBS *= -leirBase
 LIBS *= -L$$DESTDIR
-message(--------/src/useType.pri LIBS=$$LIBS DESTDIR==$$DESTDIR LIBDIR==$$LIBDIR INCLUDEPATH==$$INCLUDEPATH )
-
-HEADERS +=
+message(--------/src/useBase.pri LIBS=$$LIBS DESTDIR==$$DESTDIR INCLUDEPATH==$$INCLUDEPATH )
 
 

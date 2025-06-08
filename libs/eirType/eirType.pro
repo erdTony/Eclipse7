@@ -1,26 +1,25 @@
 QT -= gui
 TEMPLATE = lib
 DEFINES += EIRTYPE_LIBRARY
-CONFIG += c++17
+CONFIG += c++23
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include(../libs.pri))
+include(../../useBase.pri)
 
 SOURCES += \
-    AText.cpp \
+    Iota.cpp \
     Key.cpp \
     KeySeg.cpp \
     KeySegList.cpp \
-    UText.cpp \
     eirtype.cpp
 
 HEADERS += \
-    AText.h \
+    Iota.h \
     Key.h \
     KeyMap.h \
     KeySeg.h \
     KeySegList.h \
-    UText.h \
     eirType_global.h \
     eirtype.h
 

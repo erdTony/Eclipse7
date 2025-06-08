@@ -7,7 +7,6 @@
 
 class QCoreApplication;
 
-
 class VersionInfoData;
 
 class VersionInfo

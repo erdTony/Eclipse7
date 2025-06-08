@@ -20,4 +20,4 @@ OURDEST = $$replace(OURDEST, "{ver}", $$VER_STRING)
 #message(OURDEST = $$OURDEST)
 
 DESTDIR = $$OURDEST
-message(DESTDIR = $$DESTDIR)
+#message(DESTDIR = $$DESTDIR)
