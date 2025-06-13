@@ -14,7 +14,7 @@
 #include "DetectorResultList.h"
 #include "ObjdetParameters.h"
 #include "ObjdetRawArguments.h"
-#include "../eirMatgeo/SCRect.h"
+#include <SCRect.h>
 #include <VersionInfo.h>
 
 #include <opencv2/opencv.hpp>

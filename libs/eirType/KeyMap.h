@@ -3,11 +3,11 @@
 #include <QVariant>
 
 #include "AText.h"
+#include "Key.h"
 #include "KeySeg.h"
-#include "KeySegList.h"
 
 template <typename KEY, typename T>
-class KeyMapT : QMap<KEY, T>
+class KeyMapT : public QMap<KEY, T>
 {
 public:
     KeyMapT() {;}
@@ -16,6 +16,6 @@ public:
 
 };
 
-typedef KeyMapT<KeySegList, QVariant> KeyMap;
-typedef KeyMapT<KeySegList, AText> KeyTextMap;
+typedef KeyMapT<Key, QVariant> KeyMap;
+typedef KeyMapT<Key, AText> KeyTextMap;
 typedef KeyMapT<KeySeg, QVariant> KeySegMap;

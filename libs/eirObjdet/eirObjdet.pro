@@ -8,8 +8,9 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 include (../libs.pri)
 include (../../OpenCV4.pri)
 include (../../useBase.pri)
-include (../../useCore.pri)
+include (../../useType.pri)
 include (../../useMatgeo.pri)
+include (../../useCore.pri)
 
 SOURCES += \
     DetectorResult.cpp \

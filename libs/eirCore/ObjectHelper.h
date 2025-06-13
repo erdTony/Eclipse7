@@ -5,10 +5,15 @@
 #include <QString>
 #include <QStringList>
 
+#include <KeyMap.h>
+
 class ObjectHelper
 {
-public:
-    ObjectHelper(const QObject * obj);
+public: // types
+    typedef KeyMapT<KeySeg, QMetaProperty> NameMetaPropertyMap;
+
+public: // ctors
+    ObjectHelper(QObject *obj);
 
 public: // const
     const QMetaObject * metaObject() const;
@@ -18,8 +23,20 @@ public: // const
     bool enumIsFlags(const QString &enumName) const;
     QString enumKey(const QString &enumName, const int value) const;
     int enumValue(const QString &enumName, const QString &key) const;
-    QStringList flagKeys(const QString &enumName, int flags, const bool isSet=true) const;
+    QStringList flagKeys(const QString &enumName, int flags,
+                         const bool isSet=true) const;
+    bool isValidPropertyName(const KeySeg &name, const bool okDynamic=true) const;
+
+public: // non-const
+    NameMetaPropertyMap readProperties(const bool readAll=false);
+    void set(const KeySegMap values, const bool okDynamic=false);
+
+public: // pointers
+    QObject * obj();
 
 private:
-    const QObject * cmpObject=nullptr;
+    QObject * mpObject=nullptr;
+    NameMetaPropertyMap mNameMetaPropertyMap;
 };
+
+inline QObject *ObjectHelper::obj() { Q_CHECK_PTR(mpObject); return mpObject; }

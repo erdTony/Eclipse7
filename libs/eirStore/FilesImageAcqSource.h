@@ -6,8 +6,20 @@
 class FilesImageAcqSource : public BaseImageAcqSource
 {
     Q_OBJECT
-public:
+public: // ctors
     explicit FilesImageAcqSource(QObject *parent = nullptr);
 
+public slots:
+
 signals:
+
+public: // const
+
+public: // non-const
+
+public: // pointers
+
+
+private:
+
 };

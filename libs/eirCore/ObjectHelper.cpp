@@ -5,13 +5,16 @@
 #include <QString>
 #include <QStringList>
 
-ObjectHelper::ObjectHelper(const QObject *obj) : cmpObject(obj) {;}
+#include <KeySeg.h>
+#include <Types.h>
+
+ObjectHelper::ObjectHelper(QObject *obj) : mpObject(obj) {;}
 
 const QMetaObject * ObjectHelper::metaObject() const
 {
     const QMetaObject * result = nullptr;
-    Q_CHECK_PTR(cmpObject);
-    result = cmpObject->metaObject();
+    Q_CHECK_PTR(mpObject);
+    result = mpObject->metaObject();
     Q_CHECK_PTR(result);
     return result;
 }
@@ -102,5 +105,42 @@ QStringList ObjectHelper::flagKeys(const QString &enumName, int flags, const boo
     qDebug() << Q_FUNC_INFO << "result" << result;
 #endif
     return result;
+}
+
+
+bool ObjectHelper::isValidPropertyName(const KeySeg &name, const bool okDynamic) const
+{
+    return mNameMetaPropertyMap.contains(name)
+                && (okDynamic || mNameMetaPropertyMap.value(name).isValid());
+}
+
+ObjectHelper::NameMetaPropertyMap ObjectHelper::readProperties(const bool readAll)
+{
+    NameMetaPropertyMap result;
+    const QMetaObject * pMO = metaObject();
+    const int cPropCount = pMO->propertyCount();
+    for (Index ix = readAll ? 0 : pMO->propertyOffset();
+         ix < (Index)cPropCount;
+         ++ix)
+    {
+        const QMetaProperty cMP = pMO->property(ix);
+        const KeySeg cName = cMP.name();
+        result.insert(cName, cMP);
+    }
+    foreach (const QByteArray cBA, obj()->dynamicPropertyNames())
+        result.insert(KeySeg(AText(cBA)), QMetaProperty());
+    return mNameMetaPropertyMap = result;
+}
+
+void ObjectHelper::set(const KeySegMap values, const bool okDynamic)
+{
+    foreach (const KeySeg &name, values.keys())
+    {
+        if (okDynamic || isValidPropertyName(name))
+        {
+            const QVariant cVar = values.value(name);
+            obj()->setProperty(name, cVar);
+        }
+    }
 }
 
