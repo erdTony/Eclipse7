@@ -1,8 +1,10 @@
 #pragma once
+#include "eirtype.h"
+
 
 #include "AText.h"
 
-class KeySeg : public AText
+class EIRTYPE_EXPORT KeySeg : public AText
 {
 public:
     KeySeg() {;}

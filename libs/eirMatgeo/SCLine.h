@@ -1,4 +1,6 @@
 #pragma once
+#include "eirmatgeo.h"
+
 
 #include <QLine>
 #include <QPoint>
@@ -6,7 +8,7 @@
 
 #include "SCRect.h"
 
-class SCLine
+class EIRMATGEO_EXPORT SCLine
 {
 public: // ctors
     SCLine();

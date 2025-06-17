@@ -1,4 +1,6 @@
 #pragma once
+#include "eirwidgets.h"
+
 
 #include "BaseMainWindowPage.h"
 
@@ -7,7 +9,7 @@
 
 class MainWindowPageStack;
 
-class SplashPage : public BaseMainWindowPage
+class EIRWIDGETS_EXPORT SplashPage : public BaseMainWindowPage
 {
     Q_OBJECT
 public: // ctors

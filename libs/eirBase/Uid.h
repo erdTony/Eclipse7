@@ -1,6 +1,8 @@
 #pragma once
+#include "eirbase.h"
 
-class Uid
+
+class EIRBASE_EXPORT Uid
 {
 public:
     Uid();

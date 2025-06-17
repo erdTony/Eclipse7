@@ -1,4 +1,5 @@
 #pragma once
+#include "eirstore.h"
 
 #include <QObject>
 
@@ -7,7 +8,7 @@
 
 #include "ImageAcqConfig.h"
 
-class ImageAcqManager : public QObject
+class EIRSTORE_EXPORT ImageAcqManager : public QObject
 {
     Q_OBJECT
 public:

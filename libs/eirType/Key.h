@@ -1,8 +1,10 @@
 #pragma once
+#include "eirtype.h"
+
 
 #include "KeySegList.h"
 
-class Key : public KeySegList
+class EIRTYPE_EXPORT Key : public KeySegList
 {
 public:
     Key() {;}

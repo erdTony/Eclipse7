@@ -1,4 +1,5 @@
 #pragma once
+#include "eirsvg.h"
 
 #include <QObject>
 
@@ -8,7 +9,7 @@
 
 class QSvgRenderer;
 
-class SvgRender : public QObject
+class EIRSVG_EXPORT SvgRender : public QObject
 {
     Q_OBJECT
 public:

@@ -1,4 +1,6 @@
 #pragma once
+#include "eirwidgets.h"
+
 
 #include <QMainWindow>
 
@@ -14,7 +16,7 @@ class QStackedLayout;
 class QTabWidget;
 class QWidget;
 
-class MainWindowPageStack : public QMainWindow
+class EIRWIDGETS_EXPORT MainWindowPageStack : public QMainWindow
 {
     Q_OBJECT
 public: // ctors

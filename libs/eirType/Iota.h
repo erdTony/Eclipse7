@@ -1,8 +1,10 @@
 #pragma once
+#include "eirtype.h"
+
 
 #include <Types.h>
 
-class Iota : public IntList
+class EIRTYPE_EXPORT Iota : public IntList
 {
 public: // ctors
     Iota() { set(); }

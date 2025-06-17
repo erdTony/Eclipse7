@@ -1,4 +1,5 @@
 #pragma once
+#include "eirmatgeo.h"
 
 #include <QList>
 #include <QPoint>
@@ -6,7 +7,7 @@
 #include <QSize>
 #include <QSizeF>
 
-class SCRect
+class EIRMATGEO_EXPORT SCRect
 {
 public: // types
     typedef QList<SCRect> List;

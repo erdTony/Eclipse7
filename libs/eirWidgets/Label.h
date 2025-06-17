@@ -1,4 +1,6 @@
 #pragma once
+#include "eirwidgets.h"
+
 
 #include <QLabel>
 
@@ -9,7 +11,7 @@
 #include <QWidget>
 
 
-class Label : public QLabel
+class EIRWIDGETS_EXPORT Label : public QLabel
 {
     Q_OBJECT
 public: // typedef

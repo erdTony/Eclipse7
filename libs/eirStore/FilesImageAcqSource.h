@@ -1,9 +1,11 @@
 #pragma once
+#include "eirstore.h"
+
 
 #include <QObject>
 #include "BaseImageAcqSource.h"
 
-class FilesImageAcqSource : public BaseImageAcqSource
+class EIRSTORE_EXPORT FilesImageAcqSource : public BaseImageAcqSource
 {
     Q_OBJECT
 public: // ctors

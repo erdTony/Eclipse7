@@ -1,9 +1,11 @@
 #pragma once
+#include "eirbase.h"
+
 
 #include <QByteArray>
 #include <QString>
 
-class AText : public QByteArray
+class EIRBASE_EXPORT AText : public QByteArray
 {
 public: // typedef
     typedef QList<AText> List;

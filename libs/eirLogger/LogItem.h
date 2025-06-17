@@ -1,10 +1,11 @@
 #pragma once
+#include "eirlogger.h"
 
 #include <QSharedDataPointer>
 
 class LogItemData;
 
-class LogItem
+class EIRLOGGER_EXPORT LogItem
 {
 
 

@@ -1,8 +1,10 @@
 #pragma once
+#include "eirtype.h"
+
 
 #include <QFileInfo>
 
-class FileInfo : public QFileInfo
+class EIRTYPE_EXPORT  FileInfo : public QFileInfo
 {
 public:
     FileInfo();

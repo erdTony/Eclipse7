@@ -1,4 +1,5 @@
 #pragma once
+#include "eirnetwork.h"
 
 #include <QUrl>
 
@@ -6,7 +7,7 @@
 
 #include <AText.h>
 
-class Url : public QUrl
+class EIRNETWORK_EXPORT Url : public QUrl
 {
 public: // typedef
     enum Type

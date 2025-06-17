@@ -1,4 +1,5 @@
 #pragma once
+#include "eirtype.h"
 
 #include "KeySeg.h"
 #include <QList>
@@ -7,7 +8,7 @@
 #include <QStringList>
 
 
-class KeySegList : QList<KeySeg>
+class EIRTYPE_EXPORT  KeySegList : public QList<KeySeg>
 {
 public:
     KeySegList() { set(); }
@@ -29,6 +30,8 @@ public: // non-const
 
 
 public: // pointers
+    KeySegList it() const;
+    KeySegList & it();
 
 protected: // static
     static char hinge();
@@ -39,4 +42,6 @@ protected: // static
 inline void KeySegList::set() { clear(); }
 inline void KeySegList::set(const char *pch) { set(AText(pch)); }
 inline void KeySegList::set(const QString &s) { set(AText(s.toLocal8Bit())); }
+inline KeySegList KeySegList::it() const { return *this; }
+inline KeySegList &KeySegList::it()  { return *this; }
 inline char KeySegList::hinge() { return ' '; }
