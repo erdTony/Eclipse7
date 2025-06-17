@@ -9,12 +9,18 @@ include(../../useBase.pri) # ONLY!
 
 SOURCES += \
     LogCategory.cpp \
+    LogContext.cpp \
     LogItem.cpp \
+    LogObject.cpp \
+    QtLogFields.cpp \
     eirlogger.cpp
 
 HEADERS += \
     LogCategory.h \
+    LogContext.h \
     LogItem.h \
+    LogObject.h \
+    QtLogFields.h \
     eirLogger_global.h \
     eirlogger.h
 

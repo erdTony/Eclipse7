@@ -1,12 +1,15 @@
 #pragma once
 
+#include <QtLogging>
 #include <QByteArray>
+#include <QList>
 #include <QString>
 
 class AText : public QByteArray
 {
-public: // typedef
+public: // types
     typedef QList<AText> List;
+    typedef QPair<AText, AText>  Pair;
     enum Clean
     {
         $null = 0, All, TrimL, TrimR, Trim, Simplify
@@ -19,7 +22,9 @@ public: // ctors
     AText(const QString &s) { set(s); }
 
 public: // const
-    List toList() const;
+    List toList(const char ch=0) const;
+    Pair split(const char ch) const;
+    QtMsgType toMsgType() const;
     QString toString() const;
     operator QString() const;
 
@@ -34,8 +39,9 @@ public: // non-const
     void setList(const QByteArray &ba);
     void setList(const QString &s);
 
-
 public: // pointers
+    AText it() const;
+    AText & it();
 
 public: // static
     static char hinge();

@@ -5,6 +5,8 @@
 #include <QCommandLineOption>
 #include <QList>
 
+#include <VersionInfo.h>
+
 class CommandLine;
 class KeySeg;
 class KeySegList;
@@ -43,6 +45,7 @@ public: // pointers
     Settings * stgs();
 
 private:
+    VersionInfo mVersionInfo;
     CommandLine * mpCommandLine=nullptr;
     Options * mpOptions=nullptr;
     Settings * mpSettings=nullptr;

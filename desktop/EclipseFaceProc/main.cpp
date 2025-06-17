@@ -16,5 +16,6 @@ int main(int argc, char *argv[])
                           EIRVER_ORGNAME, EIRVER_PRODUCT);
     EFPApplication a(argc, argv);
     EFPMainWindow w(&a);
+    cVI.updateApp(&a);
     return a.exec();
 }

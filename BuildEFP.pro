@@ -2,33 +2,34 @@
 
 TEMPLATE = subdirs
 
-SUBDIRS +=          \
-	eirBase			\
-	eirColor		\
-	eirCore			\
-    eirExe \
-	eirFacebase		\
-	eirFacerec		\
-    eirFaceres \
-    eirGraphics \
-	eirGui			\
-	eirImage		\
-    eirLogger \
-    eirLogmgr \
-    eirMatgeo \
-    eirNetwork \
+SUBDIRS +=              \
+        eirBase		\
+        eirColor	\
+        eirCore		\
+        eirExe          \
+        eirFacebase     \
+        eirFacerec      \
+        eirFaceres      \
+        eirGraphics     \
+        eirGui          \
+        eirImage        \
+        eirLogger       \
+        eirLogmgr       \
+        eirMatgeo       \
+        eirNetwork      \
 #	eirObjdet		\
-	eirQtCV			\
-    eirQtVlan \
-    eirRemote \
-    eirState \
-	eirStore		\
-    eirSvg \
-    eirType \
-    eirVideo \
-    eirWidgets		\
-	eirXml  		\
-    EclipseFaceProc        \
+        eirQtCV         \
+        eirQtVlan       \
+        eirRemote       \
+        eirState        \
+        eirStore	\
+        eirSvg          \
+        eirType         \
+        eirVideo        \
+        eirWidgets	\
+        eirXml  	\
+        EclipseFaceProc \
+
 
 eirBase.subdir      = libs/eirBase
 eirExe.subdir      = libs/eirExe
@@ -65,11 +66,11 @@ eirBase.depends             =
 eirLogger.depends           = eirBase
 eirType.depends             = eirBase
 eirMatgeo.depends           = eirBase eirType
+eirExe.depends              = eirBase eirType           eirCore
 eirCore.depends             = eirBase eirType
 eirNetwork.depends          = eirBase
 eirStore.depends            = eirBase eirType eirNetwork
-eirWidgets.depends          = eirBase
-eirExe.depends              = eirBase eirType
+eirWidgets.depends          = eirBase                           eirExe
 #eirObjdet.depends           = eirBase eirType eirMatgeo eirCore
 EclipseFaceProc.depends     = eirBase eirType eirMatgeo eirCore eirWidgets eirExe
 

@@ -8,12 +8,26 @@ include(../libs.pri)
 
 SOURCES += \
     AText.cpp \
+    ATextList.cpp \
+    FileInfo.cpp \
+    FileName.cpp \
+    FilePath.cpp \
+    FunctionInfo.cpp \
+    FunctionName.cpp \
+    TimeString.cpp \
     UText.cpp \
     Uid.cpp \
     eirbase.cpp
 
 HEADERS += \
     AText.h \
+    ATextList.h \
+    FileInfo.h \
+    FileName.h \
+    FilePath.h \
+    FunctionInfo.h \
+    FunctionName.h \
+    TimeString.h \
     Types.h \
     UText.h \
     Uid.h \

@@ -8,7 +8,6 @@ include(../libs.pri))
 include(../../useBase.pri)
 
 SOURCES += \
-    FileInfo.cpp \
     Iota.cpp \
     Key.cpp \
     KeySeg.cpp \
@@ -16,7 +15,6 @@ SOURCES += \
     eirtype.cpp
 
 HEADERS += \
-    FileInfo.h \
     Iota.h \
     Key.h \
     KeyMap.h \
