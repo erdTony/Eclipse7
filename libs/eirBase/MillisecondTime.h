@@ -10,7 +10,7 @@ class EIRBASE_EXPORT MillisecondTime
 {
 public: // ctors
     MillisecondTime(void);
-    MillisecondTime(EpochMilliseconds ems);
+    MillisecondTime(Milliseconds ems);
     MillisecondTime(const QDateTime & dt);
 
 public: // const
@@ -20,7 +20,7 @@ public: // const
     MillisecondTime delta(MillisecondTime ems=current()) const;
     QDateTime toDateTime(void) const;
     QString toString(const QString & format=QString()) const;
-    operator EpochMilliseconds(void) const;
+    operator Milliseconds(void) const;
 
 public: // non-const
     void set(const MillisecondTime other);
@@ -29,7 +29,7 @@ public: // non-const
     void nullify(void);
 
 public: // static
-    static EpochMilliseconds base(void);
+    static Milliseconds base(void);
     static MillisecondTime null(void);
     static MillisecondTime deltaBase(MillisecondTime ems=current());
     static QString baseString(const QString & format=QString());
@@ -38,7 +38,7 @@ public: // static
     static MillisecondTime fromString(const QString & dateTime);
 
 private:
-    EpochMilliseconds mEpochMS;
+    Milliseconds mEpochMS;
     static const QDateTime smBaseDateTime;
     static const MillisecondTime smBaseMST;
     static const MillisecondTime smNullMST;

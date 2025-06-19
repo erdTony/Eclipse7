@@ -23,7 +23,7 @@ typedef signed          INT;
 typedef unsigned        UINT;
 typedef QWORD           Id;
 
-typedef QWORD           EpochMilliseconds;
+typedef QWORD           Milliseconds;
 typedef qsizetype       Index;
 typedef size_t          Count;
 typedef Count           Seq;

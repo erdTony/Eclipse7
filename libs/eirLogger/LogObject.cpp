@@ -38,21 +38,50 @@ void Log::releaseTroll()
     qSetMessagePattern("%{if-category}%{category}: %{endif}%{message}");
 }
 
-Log::TrollFields Log::parseTrollFields(const QString &trollMessage,
-                                       const QMessageLogContext &context)
+QtMsgType Log::qMsgType(const MsgType mt)
 {
-    TrollFields result;
-    ATextList tMessageFields, tKeyList, tValueList;
-    tMessageFields = trollMessage.split('\n');
-    QPair<ATextList, ATextList> tPair = tMessageFields.split('=');
-    for (Index ix = 0; ix < tPair.first.count(); ++ix)
+    QtMsgType result = QtWarningMsg;
+    switch (mt)
     {
-        AText tKey = tPair.first.at(ix);
-        AText tValue = tPair.second.at(ix);
-        if ("Appname" == tKey)      result.sAppname = tValue;
+    case $nullMsgType:                          break;
+    case InfoType:      result = QtInfoMsg;     break;
+    case TraceType:     result = QtDebugMsg;    break;
+    case WarnType:      result = QtWarningMsg;  break;
+    case ErrorType:     result = QtCriticalMsg; break;
+    case AbortType:     result = QtFatalMsg;    break;
     }
+    return result;
+}
 
-    result.sFunction = context.function;
+Log::MsgType Log::msgType(const Level lvl)
+{
+    Log::MsgType result = $nullMsgType;
+    switch (lvl)
+    {
+    case Detail:    case Info:      result = InfoType;  break;
+    case TDetail:   case TInfo:
+    case FnArg:     case FnExit:    case FnEnter:
+    case TDump:     case Trace:     case TPrefer:
+    case TWarning:  case TError:    result = TraceType; break;
+    case Warning:                   result = WarnType;  break;
+    case Error:
+    case Expect:    case Assert:    result = ErrorType; break;
+    case Abort:     case Memory:
+    case Shutdown:  case Network:   result = AbortType; break;
+    default:                        result = $fallback; break;
+    }
+    return result;
+}
+
+Log::MsgType Log::msgType(const AText &at)
+{
+    Log::MsgType result = Log::$nullMsgType;
+         if ("Info"  == at)     result = InfoType;
+    else if ("Trace" == at)     result = TraceType;
+    else if ("Warn"  == at)     result = WarnType;
+    else if ("Error" == at)     result = ErrorType;
+    else if ("Abort" == at)     result = AbortType;
+    else                        result = $fallback;
     return result;
 }
 

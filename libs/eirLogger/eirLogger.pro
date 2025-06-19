@@ -8,18 +8,24 @@ include(../libs.pri)
 include(../../useBase.pri) # ONLY!
 
 SOURCES += \
+    BaseLogOutput.cpp \
     LogCategory.cpp \
     LogContext.cpp \
     LogItem.cpp \
     LogObject.cpp \
+    Logger.cpp \
     QtLogFields.cpp \
     eirlogger.cpp
 
 HEADERS += \
+    BaseLogOutput.h \
+    Log.h \
     LogCategory.h \
     LogContext.h \
     LogItem.h \
+    LogMacros.h \
     LogObject.h \
+    Logger.h \
     QtLogFields.h \
     eirLogger_global.h \
     eirlogger.h

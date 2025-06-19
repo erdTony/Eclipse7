@@ -22,10 +22,10 @@ typedef Log::Level LogLevel;
 typedef Log::Operation LogOperation;
 
 #define LOGITEM_DATAPROPS(TND) \
-    TND(EpochMilliseconds, TimeStamp, 0) \
-    TND(LogLevel, Level, LogLevel::$nullLevel) \
+    TND(Milliseconds, TimeStamp, 0) \
     TND(Uid, ItemUid, Uid()) \
     TND(LogContext, Context, LogContext()) \
+    TND(AText, Message, AText()) /*TODO UText*/ \
     TND(UText, Format, UText()) \
     TND(AText, PrintF, AText()) \
     TND(QVariantList, Values, QVariantList()) \
@@ -52,22 +52,11 @@ class EIRLOGGER_EXPORT LogItem
 public: // data
 
 public: // our ctors
-
+    LogItem(const LogContext ctx, const char * msg);
 
 public: // const
     bool isNull() const;
 
 public: // non-const
-
-
-
-public: // static non-const
-    static bool isEmpty();
-    static Count queueCount();
-    static void enqueue();
-    static bool eequeue(LogItem * pItem);
-
-private: // static
-    static QQueue<LogItem> smItemQueue;
-
+    void setUid();
 };

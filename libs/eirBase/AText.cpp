@@ -29,17 +29,6 @@ AText::Pair AText::split(const char ch) const
     return Pair(tKey, tValue);
 }
 
-QtMsgType AText::toMsgType() const
-{
-    QtMsgType result= QtMsgType::QtInfoMsg;
-    if ("info" == it())         result = QtMsgType::QtInfoMsg;
-    if ("debug" == it())        result = QtMsgType::QtDebugMsg;
-    if ("warning" == it())      result = QtMsgType::QtWarningMsg;
-    if ("critical" == it())     result = QtMsgType::QtCriticalMsg;
-    if ("fatal" == it())        result = QtMsgType::QtFatalMsg;
-    return result;
-}
-
 void AText::set(const char *pch)
 {
     clear();

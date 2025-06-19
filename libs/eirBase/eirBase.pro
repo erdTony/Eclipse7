@@ -15,6 +15,7 @@ SOURCES += \
     FunctionInfo.cpp \
     FunctionName.cpp \
     MillisecondTime.cpp \
+    NibbleArray.cpp \
     TimeString.cpp \
     UText.cpp \
     Uid.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     FunctionInfo.h \
     FunctionName.h \
     MillisecondTime.h \
+    NibbleArray.h \
     TimeString.h \
     Types.h \
     UText.h \

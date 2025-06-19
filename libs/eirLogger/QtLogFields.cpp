@@ -37,7 +37,7 @@ void QtLogFields::set(const AText &key, const AText &val)
     if ("ProcessId" == key)         setProcessId(val.toInt());
     if ("ThreadId" == key)          setThreadId(val.toInt());
     if ("ThreadAddress" == key)     setThreadAddress(val.toInt());
-    if ("MsgType" == key)           setMsgType(val.toMsgType());
+    if ("MsgType" == key)           setMsgType(Log::msgType(val));
     if ("BootMsec" == key)          setBootMsec(val.toInt());
     if ("TimeString" == key)        setTimeString(val);
     if ("BackTrace" == key)         setBackTrace(val);

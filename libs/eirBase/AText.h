@@ -26,7 +26,6 @@ public: // ctors
 public: // const
     List toList(const char ch=0) const;
     Pair split(const char ch) const;
-    QtMsgType toMsgType() const;
     QString toString() const;
     operator QString() const;
 

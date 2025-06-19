@@ -8,12 +8,16 @@
 #include <QMessageLogContext>
 #include <QString>
 
-#include "AText.h"
-#include "FileName.h"
-#include "FilePath.h"
-#include "FunctionName.h"
-#include "TimeString.h"
-#include "Types.h"
+#include <AText.h>
+#include <FileName.h>
+#include <FilePath.h>
+#include <FunctionName.h>
+#include <TimeString.h>
+#include <Types.h>
+
+#include "LogObject.h"
+
+typedef Log::MsgType LogMsgType;
 
 #define QTLOGFIELDS_DATAPROPS(TND) \
     TND(FileName, Appname, FileName()) \
@@ -24,8 +28,8 @@
     TND(unsigned, ProcessId, 0) \
     TND(unsigned, ThreadId, 0) \
     TND(qptrdiff, ThreadAddress, 0) \
-    TND(QtMsgType, MsgType, QtInfoMsg) \
-    TND(EpochMilliseconds, BootMsec, EpochMilliseconds()) \
+    TND(LogMsgType, MsgType, Log::$nullMsgType) \
+    TND(Milliseconds, BootMsec, Milliseconds()) \
     TND(TimeString, TimeString, TimeString()) \
     TND(AText, BackTrace, AText()) \
     TND(FunctionName, FunctionName, FunctionName()) \

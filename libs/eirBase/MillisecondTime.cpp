@@ -9,7 +9,7 @@ MillisecondTime::MillisecondTime(void)
 {
 }
 
-MillisecondTime::MillisecondTime(EpochMilliseconds ems)
+MillisecondTime::MillisecondTime(Milliseconds ems)
     : mEpochMS(ems)
 {
 }
@@ -52,7 +52,7 @@ bool MillisecondTime::isBaseNull(void) const
     return smNullMST == smBaseMST;
 }
 
-MillisecondTime::operator EpochMilliseconds(void) const
+MillisecondTime::operator Milliseconds(void) const
 {
     return mEpochMS;
 }
@@ -79,7 +79,7 @@ void MillisecondTime::nullify(void)
     mEpochMS = smNullMST;
 }
 
-EpochMilliseconds MillisecondTime::base(void)
+Milliseconds MillisecondTime::base(void)
 {
     return smBaseMST;
 }

@@ -94,21 +94,15 @@ public: // types
         Less,
     };
 
-    struct TrollFields
+    enum MsgType
     {
-        FileName            sAppname;
-        AText               sCategory;
-        FilePath            sFilePath;
-        Count               sFileLine;
-        AText               sMessage;
-        unsigned            sPid;
-        unsigned            sTid;
-        qptrdiff            sThreadAddress;
-        QtMsgType           sMsgType;
-        EpochMilliseconds   sBootMsec;
-        TimeString          sTimeString;
-        AText               sBackTrace;
-        AText               sFunction; // TODO Specialize AText
+        $nullMsgType    = 0,
+        InfoType,
+        TraceType,
+        WarnType,
+        ErrorType,
+        AbortType,
+        $fallback       = WarnType
     };
 
 public: // ctors
@@ -126,8 +120,9 @@ public: // const
 public: // non-const
 
 public: // static
-    static TrollFields parseTrollFields(const QString &trollMessage,
-                                        const QMessageLogContext &context);
+    static MsgType msgType(const AText &at);
+    static MsgType msgType(const Level lvl);
+    static QtMsgType qMsgType(const MsgType mt);
 
 public: // pointers
 
