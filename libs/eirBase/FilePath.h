@@ -1,10 +1,10 @@
 #pragma once
+#include "eirBase.h"
 
 #include "AText.h"
 
-class AText;
 
-class FilePath : public AText
+class EIRBASE_EXPORT FilePath : public AText
 {
 public:
     FilePath();

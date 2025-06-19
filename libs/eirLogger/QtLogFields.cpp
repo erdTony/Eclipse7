@@ -5,8 +5,15 @@
 #include <AText.h>
 #include <ATextList.h>
 
+#include "QtLogFields.h"
 
-QtLogFields::QtLogFields(const QString &trollMessage, const QMessageLogContext &context) { set(trollMessage, context); }
+DEFINE_DATAPROPS(QtLogFields, QtLogFieldsData)
+
+QtLogFields::QtLogFields(const QString &trollMessage,
+                         const QMessageLogContext &context)
+{ set(trollMessage, context); }
+void QtLogFields::ctor(void) {;}
+void QtLogFields::dtor(void) {;}
 
 void QtLogFields::set(const QString &trollMessage, const QMessageLogContext &context)
 {
@@ -22,46 +29,18 @@ void QtLogFields::set(const QString &trollMessage, const QMessageLogContext &con
 
 void QtLogFields::set(const AText &key, const AText &val)
 {
-    if ("Appname" == key)           data->dAppname = val;
-    if ("Category" == key)          data->dCategory = val;
-    if ("FilePath" == key)          data->dFilePath = val;
-    if ("FileLine" == key)          data->dFileLine = val.toInt();
-    if ("Message" == key)           data->dMessage = val;
-    if ("ProcessId" == key)         data->dProcessId = val.toInt();
-    if ("ThreadId" == key)          data->dThreadId = val.toInt();
-    if ("ThreadAddress" == key)     data->dThreadAddress = val.toInt();
-    if ("MsgType" == key)           data->dMsgType = val.toMsgType();
-    if ("BootMsec" == key)          data->dBootMsec = val.toInt();
-    if ("TimeString" == key)        data->dTimeString = val;
-    if ("BackTrace" == key)         data->dBackTrace = val;
-    if ("Function" == key)          data->dFunction = val;
+    if ("Appname" == key)           setAppname(val);
+    if ("Category" == key)          setCategory(val);
+    if ("FilePath" == key)          setFilePath(val);
+    if ("FileLine" == key)          setFileLine(val.toInt());
+    if ("Message" == key)           setMessage(val);
+    if ("ProcessId" == key)         setProcessId(val.toInt());
+    if ("ThreadId" == key)          setThreadId(val.toInt());
+    if ("ThreadAddress" == key)     setThreadAddress(val.toInt());
+    if ("MsgType" == key)           setMsgType(val.toMsgType());
+    if ("BootMsec" == key)          setBootMsec(val.toInt());
+    if ("TimeString" == key)        setTimeString(val);
+    if ("BackTrace" == key)         setBackTrace(val);
+    if ("FunctionName" == key)      setFunctionName(val);
 }
 
-// ======== For QSharedDataPointer =======
-QtLogFields::QtLogFields()
-    : data(new QtLogFieldsData)
-{}
-
-QtLogFields::QtLogFields(const QtLogFields &rhs)
-    : data{rhs.data}
-{}
-
-QtLogFields::QtLogFields(QtLogFields &&rhs)
-    : data{std::move(rhs.data)}
-{}
-
-QtLogFields &QtLogFields::operator=(const QtLogFields &rhs)
-{
-    if (this != &rhs)
-        data = rhs.data;
-    return *this;
-}
-
-QtLogFields &QtLogFields::operator=(QtLogFields &&rhs)
-{
-    if (this != &rhs)
-        data = std::move(rhs.data);
-    return *this;
-}
-
-QtLogFields::~QtLogFields() {}

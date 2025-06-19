@@ -8,3 +8,8 @@ BaseImageAcqSource::BaseImageAcqSource(const Url &Url, QObject *parent)
 {
 
 }
+
+void BaseImageAcqSource::dequeueInfo(const Count k)
+{
+
+}

@@ -1,4 +1,6 @@
 #pragma once
+#include "eirstore.h"
+
 
 #include <QObject>
 
@@ -8,7 +10,7 @@
 #include <KeyMap.h>
 #include <Types.h>
 
-class ImageAcqConfig : public QObject
+class EIRSTORE_EXPORT ImageAcqConfig : public QObject
 {
     Q_GADGET
 public: // types

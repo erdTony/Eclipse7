@@ -1,11 +1,13 @@
 #pragma once
+#include "eirBase.h"
+
 
 #include <QtLogging>
 #include <QByteArray>
 #include <QList>
 #include <QString>
 
-class AText : public QByteArray
+class EIRBASE_EXPORT AText : public QByteArray
 {
 public: // types
     typedef QList<AText> List;
@@ -63,5 +65,7 @@ inline AText::operator QString() const { return toString(); }
 inline void AText::set() { clear(); }
 inline void AText::set(const QByteArray &ba) { set(ba.constData()); }
 inline void AText::set(const QString &s)  { set(s.toLocal8Bit()); }
+inline AText AText::it() const { return *this; }
+inline AText &AText::it() { return *this; }
 inline char AText::hinge() { return smHingeChar; }
 

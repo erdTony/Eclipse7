@@ -1,4 +1,6 @@
 #pragma once
+#include "eirCore.h"
+
 
 #include <QSharedDataPointer>
 
@@ -9,7 +11,7 @@ class QCoreApplication;
 
 class VersionInfoData;
 
-class VersionInfo
+class EIRCORE_EXPORT VersionInfo
 {
 public: // types
     struct WindowsVersion   { qint16     word[4]; };

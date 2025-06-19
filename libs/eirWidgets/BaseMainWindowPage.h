@@ -1,10 +1,12 @@
 #pragma once
+#include "eirwidgets.h"
+
 
 #include <QWidget>
 
 class MainWindowPageStack;
 
-class BaseMainWindowPage : public QWidget
+class EIRWIDGETS_EXPORT BaseMainWindowPage : public QWidget
 {
     Q_OBJECT
 public: // ctors

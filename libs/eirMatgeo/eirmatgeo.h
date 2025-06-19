@@ -1,6 +1,4 @@
-#ifndef EIRMATGEO_H
-#define EIRMATGEO_H
-
+#pragma once
 #include "eirMatgeo_global.h"
 
 class EIRMATGEO_EXPORT eirMatgeo
@@ -9,4 +7,3 @@ public:
     eirMatgeo();
 };
 
-#endif // EIRMATGEO_H

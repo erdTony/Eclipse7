@@ -1,10 +1,12 @@
 #pragma once
+#include "eirBase.h"
+
 
 #include <QFileInfo>
 
 class AText;
 
-class FileInfo : public QFileInfo
+class EIRBASE_EXPORT  FileInfo : public QFileInfo
 {
 public:
     FileInfo();

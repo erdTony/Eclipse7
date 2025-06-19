@@ -1,8 +1,9 @@
 #pragma once
+#include "eirwidgets.h"
 
 #include <QApplication>
 
-class BaseWidgetApplication : public QApplication
+class EIRWIDGETS_EXPORT BaseWidgetApplication : public QApplication
 {
     Q_OBJECT
 public:

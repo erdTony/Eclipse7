@@ -1,4 +1,6 @@
 #pragma once
+#include "eirstore.h"
+
 
 #include <QObject>
 
@@ -9,7 +11,7 @@
 #include <Types.h>
 #include <FileInfo.h>
 
-class BaseImageAcqSource : public QObject
+class EIRSTORE_EXPORT BaseImageAcqSource : public QObject
 {
     Q_OBJECT
 public:

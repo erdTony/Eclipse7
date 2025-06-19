@@ -1,4 +1,4 @@
-# QT -= gui
+ QT += svg
 TEMPLATE = lib
 DEFINES += EIRSVG_LIBRARY
 CONFIG += c++23

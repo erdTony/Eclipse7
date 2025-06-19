@@ -1,34 +1,55 @@
 #pragma once
+#include "eirlogger.h"
 
-#include <QSharedDataPointer>
+
+#include <QSharedData>
+
+#include <DataProperty.h>
 
 #include <QVariant>
 #include <QVariantList>
 
-#include <Uid.h>
+#include <AText.h>
+#include <MillisecondTime.h>
 #include <Types.h>
+#include <Uid.h>
+#include <UText.h>
 
 #include "LogContext.h"
 #include "LogObject.h"
 
-class LogItemData;
+typedef Log::Level LogLevel;
+typedef Log::Operation LogOperation;
 
-class LogItem
+#define LOGITEM_DATAPROPS(TND) \
+    TND(EpochMilliseconds, TimeStamp, 0) \
+    TND(LogLevel, Level, LogLevel::$nullLevel) \
+    TND(Uid, ItemUid, Uid()) \
+    TND(LogContext, Context, LogContext()) \
+    TND(UText, Format, UText()) \
+    TND(AText, PrintF, AText()) \
+    TND(QVariantList, Values, QVariantList()) \
+    TND(LogOperation, Operation, LogOperation()) \
+    TND(AText, ExpectedName, AText()) \
+    TND(QVariant, ExpectedValue, QVariant()) \
+    TND(AText, ActualName, AText()) \
+    TND(QVariant, ActualValue, QVariant()) \
+
+class LogItemData : public QSharedData
 {
+    DECLARE_CHILD_DATAPROPS(LOGITEM_DATAPROPS)
+public:
+    LogItemData(void)
+    {
+        DEFINE_DATAPROPS_CTORS(LOGITEM_DATAPROPS)
+    }
+};
+
+class EIRLOGGER_EXPORT LogItem
+{
+    DECLARE_PARENT_DATAPROPS(LOGITEM_DATAPROPS)
+    DECLARE_DATAPROPS(LogItem, LogItemData)
 public: // data
-    Uid                 dItemUid;
-    Log::Level          dLevel;
-    LogContext          dContext;
-    EpochMilliseconds   dEms;
-    UText               dMessage;
-    UText               dFormat;
-    AText               dPrintF;
-    QVariantList        dValues;
-    Log::Operation      dOperation;
-    AText               dExpectedName;
-    QVariant            dExpectedValue;
-    AText               dActualName;
-    QVariant            dActualValue;
 
 public: // our ctors
 
@@ -49,14 +70,4 @@ public: // static non-const
 private: // static
     static QQueue<LogItem> smItemQueue;
 
-    // ========= built in QSharedDataPointer ========
-public:
-    LogItem();
-    LogItem(const LogItem &);
-    LogItem(LogItem &&);
-    LogItem &operator=(const LogItem &);
-    LogItem &operator=(LogItem &&);
-    ~LogItem();
-private:
-    QSharedDataPointer<LogItemData> data;
 };

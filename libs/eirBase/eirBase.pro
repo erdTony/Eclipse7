@@ -14,25 +14,28 @@ SOURCES += \
     FilePath.cpp \
     FunctionInfo.cpp \
     FunctionName.cpp \
+    MillisecondTime.cpp \
     TimeString.cpp \
     UText.cpp \
     Uid.cpp \
-    eirbase.cpp
+    eirBase.cpp
 
 HEADERS += \
     AText.h \
     ATextList.h \
+    DataProperty.h \
     FileInfo.h \
     FileName.h \
     FilePath.h \
     FunctionInfo.h \
     FunctionName.h \
+    MillisecondTime.h \
     TimeString.h \
     Types.h \
     UText.h \
     Uid.h \
-    eirBase_global.h \
-    eirbase.h
+    eirBase.h \
+    eirBase_global.h
 
 # Default rules for deployment.
 unix {

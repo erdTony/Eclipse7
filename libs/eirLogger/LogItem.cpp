@@ -1,37 +1,20 @@
 #include "LogItem.h"
 
-#include <utility>
 
-class LogItemData : public QSharedData
-{
-public:
+#include "LogItem.h"
 
-};
-
-LogItem::LogItem()
+DEFINE_DATAPROPS(LogItem, LogItemData)
+/*
+LogItem::LogItem(const int size)
     : data(new LogItemData)
-{}
-
-LogItem::LogItem(const LogItem &rhs)
-    : data{rhs.data}
-{}
-
-LogItem::LogItem(LogItem &&rhs)
-    : data{std::move(rhs.data)}
-{}
-
-LogItem &LogItem::operator=(const LogItem &rhs)
+    , size_i(size)
 {
-    if (this != &rhs)
-        data = rhs.data;
-    return *this;
+    ctor();
+}
+*/
+void LogItem::ctor(void)
+{
+    setTimeStamp(MillisecondTime::current());
 }
 
-LogItem &LogItem::operator=(LogItem &&rhs)
-{
-    if (this != &rhs)
-        data = std::move(rhs.data);
-    return *this;
-}
-
-LogItem::~LogItem() {}
+void LogItem::dtor(void) {;}

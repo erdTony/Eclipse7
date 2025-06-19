@@ -9,3 +9,9 @@ CommandLine::CommandLine(QObject *parent)
     setObjectName("CommandLine:" + QCoreApplication::applicationName());
 
 }
+
+void CommandLine::add(const QCommandLineOption opt)
+{
+    // TODO
+    emit added(opt);
+}
