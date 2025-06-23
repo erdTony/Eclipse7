@@ -1,4 +1,5 @@
 QT -= gui
+QT *= network
 TEMPLATE = lib
 DEFINES += EIRLOGGER_LIBRARY
 CONFIG += c++23
@@ -15,6 +16,7 @@ SOURCES += \
     LogObject.cpp \
     Logger.cpp \
     QtLogFields.cpp \
+    TextFileLogOutput.cpp \
     eirlogger.cpp
 
 HEADERS += \
@@ -27,6 +29,7 @@ HEADERS += \
     LogObject.h \
     Logger.h \
     QtLogFields.h \
+    TextFileLogOutput.h \
     eirLogger_global.h \
     eirlogger.h
 

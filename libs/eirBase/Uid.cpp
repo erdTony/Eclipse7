@@ -1,22 +1,23 @@
 #include "Uid.h"
 
 Uid::Uid(const bool nil) : NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF) {;}
-
-Uid::Uid(const Class klass)
-{
-    switch (klass)
-    {
-    case V8MacMsecSeq:   generateV8(V8MacMsecSeq);      break;
-    }
-}
+Uid::Uid(const Class klass) { generate(klass); }
 
 Uid Uid::generate(const Class klass)
 {
-    return Uid();
+    Uid result(false);
+    switch (klass)
+    {
+    case V8MacMsecSeq:   result = generateV8(V8MacMsecSeq);     break;
+    default:                                                    break;
+    }
+    return result;
 }
 
 Uid Uid::generateV8(const Class klass)
 {
+    Q_UNUSED(klass);
+    // TODO
     return Uid(true);
 }
 

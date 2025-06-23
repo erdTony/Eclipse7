@@ -2,6 +2,8 @@
 
 #include <QTimer>
 
+#include <Url.h>
+
 #include "LogContext.h"
 
 Logger::Logger(QObject *parent)
@@ -14,6 +16,11 @@ Logger::Logger(QObject *parent)
 void Logger::enqueue(const LogItem &item)
 {
     mInputQueue.enqueue(item);;
+}
+
+bool Logger::addOutput(const Url &url)
+{
+// TODO    const Url::Type cType = url.type();
 }
 
 void Logger::initialize()
@@ -32,7 +39,7 @@ void Logger::handleInputQueue()
     if (mInputQueue.isEmpty())  return;
     const LogItem cItem = mInputQueue.dequeue();
     const Log::MsgType cItemType = cItem.getContext().msgType();
-    mTypeQueue[cItemType].enqueue(cItem);
+    mTypeQueueMap[cItemType].enqueue(cItem);
 }
 
 void Logger::poll()

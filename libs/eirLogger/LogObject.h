@@ -4,9 +4,6 @@
 #include <QtLogging>
 
 #include <ATextList.h>
-#include <FileName.h>
-#include <FilePath.h>
-#include <TimeString.h>
 #include <Types.h>
 
 class Log : public QObject

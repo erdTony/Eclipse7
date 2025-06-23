@@ -14,6 +14,8 @@ public: // ctors
 public: // const
     virtual Count length() const;
     virtual BYTE at(const Index ix) const;
+    bool equals(const NibbleArray &other) const;
+    virtual bool operator == (const NibbleArray &other) const;
 
 public: // non-const
     void set(const Index ix, const BYTE b);
@@ -28,5 +30,6 @@ private:
 
 };
 
+inline bool NibbleArray::operator ==(const NibbleArray &other) const { return equals(other); }
 inline const void *NibbleArray::data() const { return QByteArray::data(); }
 inline void *NibbleArray::data()  { return QByteArray::data(); }

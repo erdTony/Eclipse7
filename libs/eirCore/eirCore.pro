@@ -9,12 +9,10 @@ include (../../useBase.pri)
 include (../../useType.pri)
 
 SOURCES += \
-    ObjectHelper.cpp \
     VersionInfo.cpp \
     eirCore.cpp
 
 HEADERS += \
-    ObjectHelper.h \
     VersionInfo.h \
     eirCore_global.h \
     eirCore.h

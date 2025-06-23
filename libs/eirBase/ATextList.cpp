@@ -44,7 +44,7 @@ ATextList::Pair ATextList::split(const char ch) const
     ATextList tLtList, tRtList;
     foreach (const AText cTextIn, *this)
     {
-        AText::Pair tPair = cTextIn.split(ch);
+        AText::Pair tPair = cTextIn.pair(ch);
         tLtList << tPair.first, tRtList << tPair.second;
     }
     return Pair(tLtList, tRtList);

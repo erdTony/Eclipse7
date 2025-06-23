@@ -25,7 +25,7 @@ public: // ctors
 
 public: // const
     List toList(const char ch=0) const;
-    Pair split(const char ch) const;
+    Pair pair(const char ch) const;
     QString toString() const;
     operator QString() const;
 
@@ -39,6 +39,10 @@ public: // non-const
     void setList(const char * pch);
     void setList(const QByteArray &ba);
     void setList(const QString &s);
+    AText append(const AText &more);
+    AText append(const char ch);
+    AText operator += (const AText &more);
+    AText operator += (const char ch);
 
 public: // pointers
     AText it() const;
@@ -64,6 +68,8 @@ inline AText::operator QString() const { return toString(); }
 inline void AText::set() { clear(); }
 inline void AText::set(const QByteArray &ba) { set(ba.constData()); }
 inline void AText::set(const QString &s)  { set(s.toLocal8Bit()); }
+inline AText AText::operator +=(const AText &more) { return append(more); }
+inline AText AText::operator +=(const char ch) { return append(ch); }
 inline AText AText::it() const { return *this; }
 inline AText &AText::it() { return *this; }
 inline char AText::hinge() { return smHingeChar; }

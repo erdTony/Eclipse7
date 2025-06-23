@@ -10,4 +10,9 @@ LogContext::LogContext(const Log::Level level,
 
 }
 
+AText LogContext::baseFileName() const
+{
+    return fileInfo().baseName();
+}
+
 

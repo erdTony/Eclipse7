@@ -9,17 +9,10 @@ include(../../useBase.pri)
 
 SOURCES += \
     Iota.cpp \
-    Key.cpp \
-    KeySeg.cpp \
-    KeySegList.cpp \
     eirtype.cpp
 
 HEADERS += \
     Iota.h \
-    Key.h \
-    KeyMap.h \
-    KeySeg.h \
-    KeySegList.h \
     eirType_global.h \
     eirtype.h
 

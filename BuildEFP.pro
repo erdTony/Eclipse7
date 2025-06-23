@@ -17,7 +17,7 @@ SUBDIRS +=              \
         eirLogmgr       \
         eirMatgeo       \
         eirNetwork      \
-#	eirObjdet		\
+        eirObjdet	\
         eirQtCV         \
         eirQtVlan       \
         eirRemote       \
@@ -51,7 +51,7 @@ eirFacebase.subdir  = libs/eirFacebase
 eirFacerec.subdir   = libs/eirFacerec
 eirGui.subdir       = libs/eirGui
 eirImage.subdir     = libs/eirImage
-#eirObjdet.subdir    = libs/eirObjdet
+eirObjdet.subdir    = libs/eirObjdet
 eirQtCV.subdir      = libs/eirQtCV
 eirState.subdir     = libs/eirState
 eirStore.subdir     = libs/eirStore
@@ -71,7 +71,7 @@ eirCore.depends             = eirBase eirType
 eirNetwork.depends          = eirBase
 eirStore.depends            = eirBase eirType eirNetwork
 eirWidgets.depends          = eirBase                           eirExe
-#eirObjdet.depends           = eirBase eirType eirMatgeo eirCore
+eirObjdet.depends           = eirBase eirType eirMatgeo eirCore
 EclipseFaceProc.depends     = eirBase eirType eirMatgeo eirCore eirWidgets eirExe
 
 eirGui.depends              = eirBase

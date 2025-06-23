@@ -47,6 +47,7 @@ public: // ctors
 
 
 public: // const
+    bool isNull() const;
     QUuid uuid() const;
     OWORD oword() const;
     QWORD hi() const;
@@ -76,6 +77,7 @@ private:
 
 };
 
+inline bool Uid::isNull() const { return it() == Uid(true); }
 inline QUuid Uid::uuid() const { return QUuid::fromBytes(p()); }
 inline OWORD Uid::oword() const { return *(OWORD *)(p()); }
 inline QWORD Uid::hi() const { return *(QWORD *)(p()); }

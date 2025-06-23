@@ -56,7 +56,13 @@ public: // our ctors
 
 public: // const
     bool isNull() const;
+    bool isWarn() const;
 
 public: // non-const
     void setUid();
+
+public: // pointer
+    const LogItem it() const;
 };
+
+inline const LogItem LogItem::it() const { return *this; }

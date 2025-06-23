@@ -5,7 +5,7 @@
 #include <FunctionInfo.h>
 #include <Types.h>
 
-#include "LogObject.h"
+#include <AText.h>
 
 #include "LogObject.h"
 
@@ -21,10 +21,13 @@ public:
 public: // const
     Log::Level level() const;
     Log::MsgType msgType() const;
+    AText qFuncInfo() const;
+    FileInfo fileInfo() const;
+    AText baseFileName() const;
 
 private:
     Log::Level      mLevel;
-    FileInfo        mFilePath;
+    FileInfo        mFileInfo;
     Count           mFileLine;
     AText           mQFuncInfo;
     FunctionInfo    mFunctionInfo;
@@ -32,5 +35,7 @@ private:
 
 inline Log::Level LogContext::level() const { return mLevel; }
 inline Log::MsgType LogContext::msgType() const { return Log::msgType(level()); }
+inline AText LogContext::qFuncInfo() const { return mQFuncInfo; }
+inline FileInfo LogContext::fileInfo() const { return mFileInfo; }
 
 

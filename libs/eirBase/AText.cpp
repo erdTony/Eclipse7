@@ -16,7 +16,7 @@ AText::List AText::toList(const char ch) const
     return ATextList(mid(0).split(ch ? ch : hinge()));
 }
 
-AText::Pair AText::split(const char ch) const
+AText::Pair AText::pair(const char ch) const
 {
     AText tKey, tValue;
     Index ix = indexOf(ch);
@@ -42,6 +42,18 @@ void AText::set(const char *pch)
         ++pch;
     }
     QByteArray::append(char(0));
+}
+
+AText AText::append(const AText &more)
+{
+    QByteArray::append(more);
+    return it();
+}
+
+AText AText::append(const char ch)
+{
+    QByteArray::append(ch);
+    return it();
 }
 
 bool AText::isValidFirst(const char ch)

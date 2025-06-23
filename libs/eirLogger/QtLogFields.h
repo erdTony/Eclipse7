@@ -9,10 +9,7 @@
 #include <QString>
 
 #include <AText.h>
-#include <FileName.h>
-#include <FilePath.h>
-#include <FunctionName.h>
-#include <TimeString.h>
+#include <CText.h>
 #include <Types.h>
 
 #include "LogObject.h"
@@ -20,9 +17,9 @@
 typedef Log::MsgType LogMsgType;
 
 #define QTLOGFIELDS_DATAPROPS(TND) \
-    TND(FileName, Appname, FileName()) \
+    TND(CText, Appname, CText()) \
     TND(AText, Category, AText()) \
-    TND(FilePath, FilePath, FilePath()) \
+    TND(CText, FilePath, CText()) \
     TND(Count, FileLine, 0) \
     TND(AText, Message, AText()) \
     TND(unsigned, ProcessId, 0) \
@@ -30,9 +27,9 @@ typedef Log::MsgType LogMsgType;
     TND(qptrdiff, ThreadAddress, 0) \
     TND(LogMsgType, MsgType, Log::$nullMsgType) \
     TND(Milliseconds, BootMsec, Milliseconds()) \
-    TND(TimeString, TimeString, TimeString()) \
+    TND(AText, TimeString, CText()) \
     TND(AText, BackTrace, AText()) \
-    TND(FunctionName, FunctionName, FunctionName()) \
+    TND(CText, FunctionName, CText()) \
 
 class QtLogFieldsData : public QSharedData
 {

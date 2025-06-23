@@ -20,5 +20,15 @@ void LogItem::dtor(void) {;}
 LogItem::LogItem(const LogContext ctx, const char *msg)
 {
     setContext(ctx), setMessage(msg);
-    LOG->enqueue(*this);
+// TODO    LOG->enqueue(it());
+}
+
+bool LogItem::isNull() const
+{
+    return getItemUid().isNull();
+}
+
+bool LogItem::isWarn() const
+{
+    return getContext().msgType() >= Log::WarnType;
 }

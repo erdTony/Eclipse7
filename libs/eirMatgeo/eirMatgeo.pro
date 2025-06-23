@@ -1,4 +1,4 @@
-QT -= gui
+QT *= gui
 TEMPLATE = lib
 DEFINES += EIRMATGEO_LIBRARY
 CONFIG += c++23
@@ -8,11 +8,13 @@ include (../libs.pri)
 include (../../useBase.pri)
 
 SOURCES += \
+    ByteHistogram.cpp \
     SCLine.cpp \
     SCRect.cpp \
     eirmatgeo.cpp
 
 HEADERS += \
+    ByteHistogram.h \
     SCLine.h \
     SCRect.h \
     eirMatgeo_global.h \

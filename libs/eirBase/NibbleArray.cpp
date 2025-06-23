@@ -20,6 +20,11 @@ BYTE NibbleArray::at(const Index ix) const
     return tByte;
 }
 
+bool NibbleArray::equals(const NibbleArray &other) const
+{
+    return 0 == compare(QByteArray(other));
+}
+
 void NibbleArray::set(const Index ix, const BYTE b)
 {
     const bool cOddIndex = ix & 1;

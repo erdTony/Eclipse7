@@ -9,16 +9,17 @@
 #include <QString>
 #include <QStringList>
 
+#include <opencv2/opencv.hpp>
+#include <opencv2/objdetect.hpp>
+
+#include <SCRect.h>
+#include <VersionInfo.h>
 
 #include "DetectorResult.h"
 #include "DetectorResultList.h"
 #include "ObjdetParameters.h"
 #include "ObjdetRawArguments.h"
-#include <SCRect.h>
-#include <VersionInfo.h>
 
-#include <opencv2/opencv.hpp>
-#include <opencv2/objdetect.hpp>
 
 class Objdet : public QObject
 {

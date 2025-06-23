@@ -3,6 +3,7 @@
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
+#include <QMetaProperty>
 
 #include <opencv2/opencv.hpp>
 

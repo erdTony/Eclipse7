@@ -8,13 +8,11 @@ include(../libs.pri)
 include(../../useBase.pri)
 
 SOURCES += \
-    Url.cpp \
-    eirnetwork.cpp
+    eirNetwork.cpp
 
 HEADERS += \
-    Url.h \
-    eirNetwork_global.h \
-    eirnetwork.h
+    eirNetwork.h \
+    eirNetwork_global.h
 
 # Default rules for deployment.
 unix {

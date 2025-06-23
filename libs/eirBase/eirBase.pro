@@ -1,4 +1,5 @@
 QT -= gui
+QT *= network
 TEMPLATE = lib
 DEFINES += EIRBASE_LIBRARY
 CONFIG += c++23
@@ -9,33 +10,40 @@ include(../libs.pri)
 SOURCES += \
     AText.cpp \
     ATextList.cpp \
+    CText.cpp \
     FileInfo.cpp \
-    FileName.cpp \
-    FilePath.cpp \
+    FuncVarName.cpp \
     FunctionInfo.cpp \
-    FunctionName.cpp \
+    Key.cpp \
+    KeySeg.cpp \
+    KeySegList.cpp \
     MillisecondTime.cpp \
     NibbleArray.cpp \
-    TimeString.cpp \
+    ObjectHelper.cpp \
     UText.cpp \
     Uid.cpp \
+    Url.cpp \
     eirBase.cpp
 
 HEADERS += \
     AText.h \
     ATextList.h \
+    CText.h \
     DataProperty.h \
     FileInfo.h \
-    FileName.h \
-    FilePath.h \
+    FuncVarName.h \
     FunctionInfo.h \
-    FunctionName.h \
+    Key.h \
+    KeyMap.h \
+    KeySeg.h \
+    KeySegList.h \
     MillisecondTime.h \
     NibbleArray.h \
-    TimeString.h \
+    ObjectHelper.h \
     Types.h \
     UText.h \
     Uid.h \
+    Url.h \
     eirBase.h \
     eirBase_global.h
 
