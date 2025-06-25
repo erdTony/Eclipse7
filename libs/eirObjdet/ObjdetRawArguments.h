@@ -9,7 +9,6 @@ class ObjdetRawArgumentsData;
 #include <opencv2/core.hpp>
 #include <opencv2/objdetect.hpp>
 
-
 class ObjdetRawArguments
 {
 public: // types

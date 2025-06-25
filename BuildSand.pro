@@ -28,14 +28,16 @@ eirWidgets.subdir   = libs/eirWidgets
 Sandbox.subdir     = desktop/Sandbox
 
 eirBase.depends     =
-eirColor.depends    = eirBase
+eirColor.depends    = eirBase eirMatgeo
 eirCore.depends     = eirBase
-eirExe.depends     = eirBase
+eirExe.depends     = eirBase eirType eirCore
 eirGraphics.depends     = eirBase
 eirGui.depends      = eirBase
+eirImage.depends     = eirBase eirMatgeo eirColor
 eirMatgeo.depends     = eirBase
 eirType.depends     = eirBase
 eirWidgets.depends  = eirBase
-Sandbox.depends    = eirBase eirColor eirImage eirMatGeo eirWidgets
+Sandbox.depends    = eirBase eirType eirMatgeo eirCore \
+           eirWidgets eirExe eirColor  eirImage
 
 

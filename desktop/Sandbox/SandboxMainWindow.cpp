@@ -10,7 +10,7 @@
 #include <QTimer>
 #include <QWidget>
 
-#include <Key.h>
+#include <KeySeg.h>
 
 #include "SandboxApplication.h"
 #include "SandboxEngine.h"
@@ -65,14 +65,13 @@ void SandboxMainWindow::setup()
     qInfo() << Q_FUNC_INFO;
 
     setupActions();
-    actConnect();
 
     addToolBar(Qt::TopToolBarArea, toolBar());
     toolBar()->show();
     update();
 
     scene()->set(SandboxScene::BackColor, Qt::green);
-//    scene()->setup();
+    scene()->setup();
     setMinimumSize(scene()->viewRect().size());
     setCentralWidget(scene()->widget());
     update();
@@ -117,17 +116,17 @@ QToolBar * SandboxMainWindow::createMainToolBar()
     return result;
 }
 
-QIcon SandboxMainWindow::styleIcon(const Key aKey) const
+QIcon SandboxMainWindow::styleIcon(const KeySeg &key) const
 {
     QIcon result;
     QStyle * pStyle = QApplication::style();
-    if ("Splash" == aKey())
+    if ("Splash" == key)
         result = pStyle->standardIcon(QStyle::SP_DesktopIcon);
-    else if ("Gallery" == aKey())
+    else if ("Gallery" == key)
         result = pStyle->standardIcon(QStyle::SP_DirOpenIcon);
-    else if ("Log" == aKey())
+    else if ("Log" == key)
         result = pStyle->standardIcon(QStyle::SP_FileIcon);
-    else if ("Quit" == aKey())
+    else if ("Quit" == key)
         result = pStyle->standardIcon(QStyle::SP_ArrowRight);
     return result;
 }

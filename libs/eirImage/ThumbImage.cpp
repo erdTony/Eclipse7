@@ -1,13 +1,13 @@
 #include "ThumbImage.h"
 
-QQSize ThumbImage::smDefaltSize(192);
+Size ThumbImage::smDefaultSize(192);
 
 ThumbImage::ThumbImage()
     : cmAspectMode(Qt::KeepAspectRatio)
     , cmAspectCenter(false) {;}
 
 ThumbImage::ThumbImage(const BaseImage &origImage,
-                       const QQSize thumbSize,
+                       const Size thumbSize,
                        const Qt::AspectRatioMode aspectMode,
                        const bool aspectCenter,
                        const QColor backColor)
@@ -20,9 +20,9 @@ ThumbImage::ThumbImage(const BaseImage &origImage,
     set();
 }
 
-void ThumbImage::defaltSize(const QQSize sz)
+void ThumbImage::defaultSize(const Size sz)
 {
-    smDefaltSize = sz;
+    smDefaultSize = sz;
 }
 
 void ThumbImage::set()

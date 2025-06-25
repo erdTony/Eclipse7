@@ -1,5 +1,5 @@
 #pragma once
-#include "ozImage.h"
+#include "eirImage.h"
 
 #include <QObject>
 
@@ -9,7 +9,7 @@
 #include <KeySegList.h>
 #include <ObjectHelper.h>
 
-class OZIMAGE_EXPORT SupportedFormats : public QObject
+class EIRIMAGE_EXPORT SupportedFormats : public QObject
 {
     Q_OBJECT
 public: // types

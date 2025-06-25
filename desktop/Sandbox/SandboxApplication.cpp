@@ -1,6 +1,6 @@
 #include "SandboxApplication.h"
 
-#include <ApplicationHelper.h>
+#include <ExeSupport.h>
 #include <Image.h>
 
 #include "SandboxEngine.h"
@@ -32,7 +32,7 @@ void SandboxApplication::objconnect()
 {
     qInfo() << Q_FUNC_INFO;
     connect(this, &SandboxApplication::objconnected,
-            mainWindow(), &SandboxMainWindow::actConnected);
+            mainWindow(), &SandboxMainWindow::actConnect);
     connect(mainWindow(), &SandboxMainWindow::actConnected,
             this, &SandboxApplication::configure);
     connect(this, &SandboxApplication::configured,
@@ -87,10 +87,10 @@ SandboxScene *SandboxApplication::scene()
 
 CommandLine *SandboxApplication::commandLine()
 {
-    return nullptr; //appHelper()->commandLine();
+    return exe()->cli();
 }
 
-AppSettings *SandboxApplication::settings()
+Settings *SandboxApplication::settings()
 {
-    return nullptr; //appHelper()->appSettings();
+    return exe()->stgs();
 }

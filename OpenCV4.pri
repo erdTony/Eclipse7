@@ -1,13 +1,14 @@
 # file: {Eclipse7 repo}/OpenCV4.pri
 
 windows:{
-INCLUDEPATH *= /code/3rdParty/OpenCV-v4.8.0/include
-#LIBS *= -L/code/3rdParty/OpenCV-v4.8.0/x64/mingw/lib
-LIBS *= /code/3rdParty/OpenCV-v4.8.0/x64/mingw/lib/libopencv_core480d.dll.a
-LIBS *= /code/3rdParty/OpenCV-v4.8.0/x64/mingw/lib/libopencv_imgproc480d.dll.a
-LIBS *= /code/3rdParty/OpenCV-v4.8.0/x64/mingw/lib/libopencv_objdetect480d.dll.a
-#LIBS *= -lopencv_imageproc480
-#LIBS *= -lopencv_objdetect480
+INCLUDEPATH *= \code\3rdParty\OpenCV4\include
+LIBS *= -L/code/3rdParty/OpenCV4/x64/mingw/lib
+LIBS *= -lopencv_core4100
+LIBS *= -lopencv_imgproc4100
+LIBS *= -lopencv_objdetect4100
+#LIBS *= /code/3rdParty/OpenCV4/x64/mingw/lib/libopencv_core4100.dll.a
+#LIBS *= /code/3rdParty/OpenCV4/x64/mingw/lib/libopencv_imgproc4100.dll.a
+#LIBS *= /code/3rdParty/OpenCV4/x64/mingw/lib/libopencv_objdetect4100.dll.a
 }
 
 linux:{

@@ -3,8 +3,6 @@
 #include <QImageReader>
 #include <QImageWriter>
 
-#include <Debug.h>
-
 SupportedFormats::SupportedFormats(const Class cls)
     : cmClass(cls), mpObjectHelper(new ObjectHelper(this))
     { setObjectName("SupportedFormats"); set(); }

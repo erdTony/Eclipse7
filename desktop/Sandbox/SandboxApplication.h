@@ -2,8 +2,8 @@
 
 #include <QApplication>
 
-class ApplicationHelper;
-class AppSettings;
+class ExeSupport;
+class Settings;
 class CommandLine;
 
 #include "SandboxData.h"
@@ -44,15 +44,15 @@ public: // non-const
 public: // pointers
     SandboxMainWindow * mainWindow();
     SandboxEngine * engine();
-//    ApplicationHelper * appHelper();
+    ExeSupport * exe();
     SandboxScene * scene();
     CommandLine * commandLine();
-    AppSettings * settings();
+    Settings * settings();
 
 private:
     SandboxMainWindow * mpMainWindow=nullptr;
     SandboxEngine * mpEngine=nullptr;
-  //  ApplicationHelper * mpHelper=nullptr;
+    ExeSupport * mpHelper=nullptr;
     SandboxData mData;
 
 };
@@ -61,5 +61,5 @@ inline SandboxData SandboxApplication::data() const { return mData; }
 inline void SandboxApplication::set(SandboxMainWindow *pMainWindow) { Q_CHECK_PTR(pMainWindow); mpMainWindow = pMainWindow; }
 inline SandboxMainWindow *SandboxApplication::mainWindow() { Q_CHECK_PTR(mpMainWindow); return mpMainWindow; }
 inline SandboxEngine *SandboxApplication::engine() { Q_CHECK_PTR(mpEngine); return mpEngine; }
-//inline ApplicationHelper *SandboxApplication::appHelper() { Q_CHECK_PTR(mpHelper); return mpHelper; }
+inline ExeSupport *SandboxApplication::exe() { Q_CHECK_PTR(mpHelper); return mpHelper; }
 

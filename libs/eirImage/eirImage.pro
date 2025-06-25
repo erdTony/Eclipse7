@@ -5,6 +5,9 @@ CONFIG += c++23
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include (../libs.pri)
+include(../../useBase.pri)
+include(../../useMatgeo.pri)
+include(../../useColor.pri)
 
 SOURCES += \
     BaseImage.cpp \
@@ -18,7 +21,7 @@ SOURCES += \
     PixmapStack.cpp \
     SupportedFormats.cpp \
     ThumbImage.cpp \
-    eirimage.cpp
+    eirImage.cpp
 
 HEADERS += \
     BaseImage.h \
@@ -32,8 +35,8 @@ HEADERS += \
     PixmapStack.h \
     SupportedFormats.h \
     ThumbImage.h \
-    eirImage_global.h \
-    eirimage.h
+    eirImage.h \
+    eirImage_global.h
 
 # Default rules for deployment.
 unix {

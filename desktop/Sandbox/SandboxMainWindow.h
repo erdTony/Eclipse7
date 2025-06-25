@@ -10,7 +10,7 @@ class QWidget;
 
 #include <Types.h>
 class CommandLine;
-class Key;
+class KeySeg;
 
 class SandboxApplication;
 class SandboxScene;
@@ -55,7 +55,7 @@ private slots:
     QToolBar * createMainToolBar();
 
 private:
-    QIcon styleIcon(const Key aKey) const;
+    QIcon styleIcon(const KeySeg &key) const;
 
 private:
     SandboxApplication * mpApplication=nullptr;

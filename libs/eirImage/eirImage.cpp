@@ -1,3 +1,3 @@
-#include "eirimage.h"
+#include "eirImage.h"
 
 eirImage::eirImage() {}

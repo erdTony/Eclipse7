@@ -1,3 +1,3 @@
-#include "eircolor.h"
+#include "eirColor.h"
 
 eirColor::eirColor() {}

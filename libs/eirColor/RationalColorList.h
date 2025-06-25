@@ -1,5 +1,5 @@
 #pragma once
-#include "ozColor.h"
+#include "eirColor.h"
 
 #include <QList>
 
@@ -9,7 +9,7 @@
 
 #include "Color.h"
 
-class OZCOLOR_EXPORT RationalColorList
+class EIRCOLOR_EXPORT RationalColorList
 {
 
 

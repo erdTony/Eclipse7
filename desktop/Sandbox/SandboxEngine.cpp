@@ -2,7 +2,8 @@
 
 #include <QColor>
 
-#include <QQSize.h>
+#include <Size.h>
+#include <Point.h>
 
 #include "SandboxApplication.h"
 #include "SandboxScene.h"
@@ -40,9 +41,9 @@ void SandboxEngine::setSubjectImage(const ColorImage &aCP)
     const QImage cColorImage
         = aCP.baseImage().copy(scene()->viewRect().toQRect());
     mSubjectImage.set(cColorImage);
-    QMultiMap<WORD, QQPoint> mGreyPointMMap;
+    QMultiMap<WORD, QPoint> mGreyPointMMap;
     SCRect cImageRect(cColorImage.rect());
-    QQSize cImageSize = cImageRect.size();
+    Size cImageSize = cImageRect.size();
     Count cPixelCount = cImageSize.area();
     QImage tIndexImage(cImageSize, QImage::Format_Indexed8);
     tIndexImage.setColorTable(mColorTable);
@@ -50,7 +51,7 @@ void SandboxEngine::setSubjectImage(const ColorImage &aCP)
     Q_ASSERT(pRgbPixel);
     for (Index ix = 0; ix < Index(cPixelCount); ++ix)
     {
-        const QQPoint cPt(cImageSize, ix);
+        const Point cPt(cImageSize, ix);
         const QRgb cRgb = *pRgbPixel++;
         const float cGreyF
             = ((float(qRed(cRgb))   / 255.0) * 0.2989)
@@ -79,8 +80,8 @@ bool SandboxEngine::processOnce(const QTransform &xf)
         const Index cStep = (cLastRowIx & 1) ? -1 : +1;
         for (Index tCol = cStartColIx; tCol != cFinisColIx; tCol += cStep)
         {
-            const QQPoint cDestPoint(tCol, tRow);
-            const QQPoint cSourcePoint = xf.map(cDestPoint);
+            const Point (cDestPoint)(int(tCol), (int)(tRow));
+            const Point cSourcePoint = xf.map(cDestPoint);
             const BYTE cPixelBelow = mPreviousIndexedImage.baseImage().pixel(cSourcePoint);
             const BYTE cPixelAbove = mPreviousIndexedImage.baseImage().pixel(cSourcePoint.up());
             const bool cSwap = cPixelBelow > cPixelAbove;
@@ -108,29 +109,29 @@ void SandboxEngine::setupColorTable()
 {
     mColorTable.fill(QColor(Qt::transparent).rgba(), 256);
     setupColorTableLinear(  0,   3, 240, /* Low */
-        QQColor(0x10, 0x10, 0x10), QQColor(0x30, 0x30, 0x30));
+        QColor(0x10, 0x10, 0x10), QColor(0x30, 0x30, 0x30));
     setupColorTableLinear(236, 255, 240, /* High */
-        QQColor(0xC0, 0xC0, 0xC0), QQColor(0xF0, 0xF0, 0xF0));
+        QColor(0xC0, 0xC0, 0xC0), QColor(0xF0, 0xF0, 0xF0));
     setupColorTableLinear(  4,  19, 240, /* Bronze */
-        QQColor(0x5F, 0x3F, 0x22), QQColor(0x7F, 0x5F, 0x42));
+        QColor(0x5F, 0x3F, 0x22), QColor(0x7F, 0x5F, 0x42));
     setupColorTableLinear(236, 251, 240, /* Silver */
-        QQColor(0xB0, 0xB0, 0xB0), QQColor(0xC0, 0xC0, 0xC0));
+        QColor(0xB0, 0xB0, 0xB0), QColor(0xC0, 0xC0, 0xC0));
     setupColorTableLinear(120, 135, 240, /* Gold */
-        QQColor(0x90, 0x40, 0x00), QQColor(0xCF, 0x7F, 0x2F));
+        QColor(0x90, 0x40, 0x00), QColor(0xCF, 0x7F, 0x2F));
 #if 1
     setupColorTableLinear( 20, 119, 240, /* Sand */
-        QQColor( 48,  48,  16), QQColor(151, 151,  48));
+        QColor( 48,  48,  16), QColor(151, 151,  48));
     setupColorTableLinear(136, 235, 240, /* Water */
-        QQColor( 32, 128, 128), QQColor(64, 231, 231));
+        QColor( 32, 128, 128), QColor(64, 231, 231));
 #else
     setupColorTableBilinear( 16, 119, 160, /* Sand */
-                            QQColor(0x00, 0x20, 0x20),
-                            QQColor(0x00, 0x50, 0x50),
-                            QQColor(0x50, 0x70, 0x70));
+                            QColor(0x00, 0x20, 0x20),
+                            QColor(0x00, 0x50, 0x50),
+                            QColor(0x50, 0x70, 0x70));
     setupColorTableBilinear(136, 239, 80, /* Water */
-                            QQColor(0xD6, 0xB0, 0x69),
-                            QQColor(0xEC, 0xCC, 0xA2),
-                            QQColor(0xFF, 0xF0, 0xDB));
+                            QColor(0xD6, 0xB0, 0x69),
+                            QColor(0xEC, 0xCC, 0xA2),
+                            QColor(0xFF, 0xF0, 0xDB));
 #endif
 #if 0
     for (Index ix = 0; ix < 255; ix += 8)
@@ -145,8 +146,8 @@ void SandboxEngine::setupColorTable()
 void SandboxEngine::setupColorTableLinear(const BYTE aFrom,
                                           const BYTE aTo,
                                           const BYTE aOpacity,
-                                          const QQColor aLoColor,
-                                          const QQColor aHiColor)
+                                          const QColor aLoColor,
+                                          const QColor aHiColor)
 {
     QColor tColor;
     tColor.setAlpha(aOpacity);
@@ -173,9 +174,9 @@ void SandboxEngine::setupColorTableLinear(const BYTE aFrom,
 void SandboxEngine::setupColorTableBilinear(const BYTE aFrom,
                                             const BYTE aTo,
                                             const BYTE aOpacity,
-                                            const QQColor aLoColor,
-                                            const QQColor aMidColor,
-                                            const QQColor aHiColor)
+                                            const QColor aLoColor,
+                                            const QColor aMidColor,
+                                            const QColor aHiColor)
 {
     const BYTE cMidIx = aFrom + aTo / 2;
     setupColorTableLinear(aFrom,  cMidIx, aOpacity, aLoColor, aMidColor);

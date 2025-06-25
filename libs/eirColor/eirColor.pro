@@ -4,7 +4,9 @@ DEFINES += EIRCOLOR_LIBRARY
 CONFIG += c++23
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
-include (../libs.pri)
+include(../libs.pri)
+include(../../useBase.pri)
+include(../../useMatgeo.pri)
 
 SOURCES += \
     AnyColor.cpp \
@@ -16,7 +18,7 @@ SOURCES += \
     RationalColorList.cpp \
     RgbColor.cpp \
     Rgba32Table.cpp \
-    eircolor.cpp
+    eirColor.cpp
 
 HEADERS += \
     AnyColor.h \
@@ -28,8 +30,8 @@ HEADERS += \
     RationalColorList.h \
     RgbColor.h \
     Rgba32Table.h \
-    eirColor_global.h \
-    eircolor.h
+    eirColor.h \
+    eirColor_global.h
 
 # Default rules for deployment.
 unix {

@@ -1,6 +1,7 @@
 #pragma once
+#include "eirColor.h"
 
-class ColorTable
+class EIRCOLOR_EXPORT ColorTable
 {
 public:
     ColorTable();

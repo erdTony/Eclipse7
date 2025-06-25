@@ -1,6 +1,7 @@
 #include "BaseImage.h"
 
 #include <SCRect.h>
+#include <Size.h>
 
 BaseImage::BaseImage() : mType(Image::$null) {;}
 BaseImage::BaseImage(const Image::Type aType, const QImage &aQImage)
@@ -10,37 +11,30 @@ BaseImage::BaseImage(const Image::Type aType, const QPixmap &aPixmap)
     : mType(aType)
     , mBaseImage(aPixmap.toImage().convertedTo(Image::qformat(type()))) {;}
 
-QQPoint BaseImage::center() const
+QPoint BaseImage::center() const
 {
     return baseImage().rect().center();
 }
 
-QQSize BaseImage::size() const
+QSize BaseImage::size() const
 {
     return baseImage().size();
 }
 
-BaseImage BaseImage::scaledCrop(const QQSize aCropSize,
+BaseImage BaseImage::scaledCrop(const QSize aCropSize,
     const unsigned int minScale, const unsigned int maxScale)
 {
-    BaseImage result(*this);
-    if (size() == aCropSize) return result;             /*===\*/
+    BaseImage result;
+    const Size cImageSize = size();
+    const Size cNewSize(aCropSize, cImageSize.aspect());
 
-    signed tRatio = size().factor(aCropSize);
-    if (0 == tRatio)
-    {
-        const SCRect cCropRect(aCropSize, center());
-        result.baseImage() = result.baseImage().copy(cCropRect.toQRect());
-        return result;                                  /*===\*/
-    }
+    if (cImageSize == cNewSize) return it();             /*===\*/
+    const qreal cScaleF = cImageSize.scaleF(cNewSize);
+    const unsigned cScale = qBound(minScale, unsigned(cScaleF), maxScale);
+    if (cScale <= 1) return it();
 
-    QQSize tResize;
-    if (tRatio < 0)
-        tRatio = qMax(tRatio, - (signed)minScale);
-    else
-        tRatio = qMin(tRatio, (signed)maxScale);
-    result.scale(tRatio);
-    return result;
+    scale(cScale);
+    return result = it();
 }
 
 void BaseImage::set(const BaseImage &rhs)
@@ -56,7 +50,7 @@ void BaseImage::set(const QImage &aQImage)
 
 void BaseImage::scale(const signed int aRatio)
 {
-    QQSize tNewSize = size();
+    Size tNewSize = size();
     if (aRatio < 0)
         tNewSize /= ( - aRatio);
     else if (aRatio > 0)

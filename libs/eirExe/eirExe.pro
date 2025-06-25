@@ -10,15 +10,15 @@ include(../../useType.pri)
 include(../../useCore.pri)
 
 SOURCES += \
-    ApplicationHelper.cpp \
     CommandLine.cpp \
+    ExeSupport.cpp \
     Options.cpp \
     Settings.cpp \
     eirexe.cpp
 
 HEADERS += \
-    ApplicationHelper.h \
     CommandLine.h \
+    ExeSupport.h \
     Options.h \
     Settings.h \
     eirExe_global.h \

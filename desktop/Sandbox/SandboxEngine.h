@@ -2,6 +2,7 @@
 
 #include <QObject>
 
+#include <QColor>
 #include <QTransform>
 
 #include <BrightnessContrast.h>
@@ -9,7 +10,6 @@
 #include <ColorImage.h>
 #include <Grey16Image.h>
 #include <IndexedImage.h>
-#include <QQColor.h>
 #include <Types.h>
 
 
@@ -58,14 +58,14 @@ private:
     void setupColorTableLinear(const BYTE aFrom,
                                const BYTE aTo,
                                const BYTE aOpacity,
-                               const QQColor aLoColor,
-                               const QQColor aHiColor);
+                               const QColor aLoColor,
+                               const QColor aHiColor);
     void setupColorTableBilinear(const BYTE aFrom,
                                 const BYTE aTo,
                                 const BYTE aOpacity,
-                                const QQColor aLoColor,
-                                const QQColor aMidColor,
-                                const QQColor aHiColor);
+                                const QColor aLoColor,
+                                const QColor aMidColor,
+                                const QColor aHiColor);
 
 private:
     SandboxApplication * mpApplication=nullptr;

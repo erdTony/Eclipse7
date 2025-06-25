@@ -2,6 +2,8 @@
 
 #include <QGraphicsPixmapItem>
 #include <QGraphicsView>
+#include <QPoint>
+#include <QSize>
 
 #include <BaseImage.h>
 
@@ -10,7 +12,7 @@
 SandboxScene::SandboxScene(SandboxMainWindow *parent)
     : QGraphicsScene{parent}
     , mpMainWindow(parent)
-    , mViewRect(QQSize(512, 512), QQPoint(0, 0))
+    , mViewRect(QSize(512, 512), QPoint(0, 0))
 {
     qInfo() << Q_FUNC_INFO;
     setObjectName("SandboxScene");

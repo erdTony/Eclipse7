@@ -1,12 +1,12 @@
 #pragma once
-#include "ozImage.h"
+#include "eirImage.h"
 
 #include <BrightnessContrast.h>
 
 #include "BaseImage.h"
 #include "Grey16Image.h"
 
-class OZIMAGE_EXPORT IndexedImage : public BaseImage
+class EIRIMAGE_EXPORT IndexedImage : public BaseImage
 {
 public:
     IndexedImage();

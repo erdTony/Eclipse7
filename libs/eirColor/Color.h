@@ -1,12 +1,12 @@
 #pragma once
-#include "ozColor.h"
+#include "eirColor.h"
 
 #include <QColor>
 #include <QObject>
 
 #include <Types.h>
 
-class OZCOLOR_EXPORT Color
+class EIRCOLOR_EXPORT Color
 {
     Q_GADGET
 public: // types

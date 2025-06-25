@@ -1,7 +1,7 @@
 #pragma once
-#include "ozImage.h"
+#include "eirImage.h"
 
-class OZIMAGE_EXPORT BasePixel32
+class EIRIMAGE_EXPORT BasePixel32
 {
 public:
     BasePixel32();

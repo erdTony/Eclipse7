@@ -1,7 +1,7 @@
 #pragma once
-#include "ozImage.h"
+#include "eirImage.h"
 
-class OZIMAGE_EXPORT BasePixelBehavior
+class EIRIMAGE_EXPORT BasePixelBehavior
 {
 public:
     BasePixelBehavior();

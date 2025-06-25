@@ -48,7 +48,7 @@ protected:  // ctors
 
 public slots:
     void loadDetectorName(const QString & name) { Q_UNUSED(name); } // TODO
-    void loadDetectorXml(const QString & fileName);
+    bool loadDetectorXml(const QString & fileName);
     void unloadDetector();
 
 signals:
@@ -69,7 +69,6 @@ public: // const
     DetectorResultList resultList(void) const;
     QList<SCRect> allRects(void) const;
     QList<QSize> detectorSizes(void) const;
-    bool isDetectorLoaded(void);
     QFileInfo detectorFileInfo() const;
     QSize sizeFromDetectorXml(const QString & fileName);
     QSize minObjectSize(void) const;
@@ -128,7 +127,6 @@ inline ObjdetRawArguments Objdet::raw() const { return mRawArgs; }
 inline QImage Objdet::inputImage() const { return mInputImage; }
 inline DetectorResultList Objdet::resultList() const { return mResultList; }
 inline QList<SCRect> Objdet::allRects() const { return mAllRects; }
-inline bool Objdet::isDetectorLoaded() { return ! cascade()->empty(); }
 inline QFileInfo Objdet::detectorFileInfo() const { return mCascadeFileInfo; }
 inline ObjdetRawArguments &Objdet::raw() { return mRawArgs; }
 inline void Objdet::cascade(cv::CascadeClassifier *pc) { mpCascade = pc; }

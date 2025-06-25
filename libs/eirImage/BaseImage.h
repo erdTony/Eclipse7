@@ -1,15 +1,14 @@
 #pragma once
-#include "ozImage.h"
+#include "eirImage.h"
 
 #include <QImage>
 #include <QPixmap>
-
-#include <QQPoint.h>
-#include <QQSize.h>
+#include <QPoint>
+#include <QSize>
 
 #include "Image.h"
 
-class OZIMAGE_EXPORT BaseImage
+class EIRIMAGE_EXPORT BaseImage
 {
 public: // ctors
     BaseImage();
@@ -18,9 +17,9 @@ public: // ctors
 
 public: // const
     QImage baseImage() const;
-    QQPoint center() const;
-    QQSize size() const;
-    BaseImage scaledCrop(const QQSize aCropSize,
+    QPoint center() const;
+    QSize size() const;
+    BaseImage scaledCrop(const QSize aCropSize,
         const unsigned minScale=4, const unsigned maxScale=4);
 
 public: // non-const
@@ -33,6 +32,10 @@ public: // virtual const
     virtual Image::Type type() const;
     virtual bool isPlanar() const;
 
+private: // pointer
+    BaseImage it() const;
+    BaseImage & it();
+
 
 private:
     Image::Type mType=Image::$null;
@@ -42,3 +45,5 @@ private:
 inline QImage BaseImage::baseImage() const { return mBaseImage; }
 inline QImage & BaseImage::baseImage() { return mBaseImage; }
 inline Image::Type BaseImage::type() const { return mType; }
+inline BaseImage BaseImage::it() const { return *this; }
+inline BaseImage &BaseImage::it() { return *this; }

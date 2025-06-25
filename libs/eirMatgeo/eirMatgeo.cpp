@@ -1,3 +1,3 @@
-#include "eirmatgeo.h"
+#include "eirMatgeo.h"
 
 eirMatgeo::eirMatgeo() {}

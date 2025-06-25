@@ -1,10 +1,11 @@
 #pragma once
+#include "eirImage.h"
 
 #include <QObject>
 
 #include <QImage>
 
-class Image : public QObject
+class EIRIMAGE_EXPORT Image : public QObject
 {
     Q_OBJECT
 public: // types

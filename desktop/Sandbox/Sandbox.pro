@@ -6,10 +6,13 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include(../desktop.pri)
 include(../../useBase.pri)
+include(../../useType.pri)
+include(../../useMatgeo.pri)
+include(../../useCore.pri)
+include(../../useWidgets.pri)
+include(../../useExe.pri)
 include(../../useColor.pri)
 include(../../useImage.pri)
-include(../../useMatGeo.pri)
-include(../../useWidgets.pri)
 
 SOURCES += \
     SandboxApplication.cpp \
@@ -19,7 +22,6 @@ SOURCES += \
     SandboxScene.cpp \
     SandboxView.cpp \
     main.cpp \
-#    mainwindow.cpp
 
 HEADERS += \
     SandboxApplication.h \
@@ -28,7 +30,6 @@ HEADERS += \
     SandboxMainWindow.h \
     SandboxScene.h \
     SandboxView.h \
-#    mainwindow.h \
     version.h
 
 FORMS += \

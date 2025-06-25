@@ -6,6 +6,7 @@
 #include <QMetaProperty>
 
 #include <opencv2/opencv.hpp>
+#include <opencv2/objdetect.hpp>
 
 #include <ObjectHelper.h>
 #include "ObjdetRawArguments.h"
@@ -25,46 +26,47 @@ Objdet::~Objdet()
 Objdet::Objdet(const Class objcls, QObject *parent)
     : QObject{parent}
     , cmClass(objcls)
-    , mpCascade(new cv::CascadeClassifier())
 {
     setObjectName("Objdet:" + QString::number(objcls));
 }
 
-void Objdet::loadDetectorXml(const QString &fileName)
+bool Objdet::loadDetectorXml(const QString &fileName)
 {
     qDebug() << Q_FUNC_INFO << fileName;
-    unloadDetector();
+    unloadDetector(); Q_ASSERT( ! mpCascade);
+
     QFileInfo tFI(fileName);
     if ( ! tFI.isReadable())
     {
         QString tErrMsg("File not readable:" + tFI.absoluteFilePath());
         emit error(tErrMsg);
         qCritical() << tErrMsg;
+        return false;
     }
-    std::basic_string<char,
-                           std::char_traits<char>,
-                           std::allocator<char> > const&
-        cStdCascadeXmlName = tFI.absoluteFilePath().toStdString();
 
-    Q_ASSERT(mpCascade);
-    if ( ! mpCascade->load(cStdCascadeXmlName))
+    cv::CascadeClassifier * pCC = new cv::CascadeClassifier(qPrintable(tFI.absoluteFilePath()));
+    Q_CHECK_PTR(pCC);
+    if (pCC->empty())
     {
         QString tErrMsg("File failed to load:" + tFI.absoluteFilePath());
         emit error(tErrMsg);
         qCritical() << tErrMsg;
         unloadDetector();
+        return false;
     }
-    mCascadeFileInfo = tFI;
-    Q_ASSERT( ! mpCascade->empty());
+    else
+    {
+        mpCascade = pCC;
+        mCascadeFileInfo = tFI;
+        return true;
+    }
 }
 
 void Objdet::unloadDetector()
 {
-    Q_ASSERT(mpCascade);
-    if (isDetectorLoaded())
-        mpCascade->load("");
+    if (mpCascade) delete mpCascade;
+    mpCascade = nullptr;
     mCascadeFileInfo = QFileInfo();
-    Q_ASSERT(mpCascade->empty());
 }
 
 QStringList Objdet::info() const
@@ -135,19 +137,16 @@ bool Objdet::processCascadeClassifier(const bool returnAll)
     qInfo() << Q_FUNC_INFO << returnAll << inputImage().size();
     foreach (const QString cs, info()) qDebug() << cs;
     bool result = false;
-    if ( ! isDetectorLoaded())
-        return result;                                  /*=====*/
     if (inputImage().isNull())
         return result;                                  /*=====*/
     std::vector<cv::Rect> tRectVector;
     std::vector<int> tCountVector;
     std::vector<cv::Rect> tAllRectVector;
-    Q_ASSERT(mpCascade);
-    mpCascade->detectMultiScale(mGreyMat, tRectVector, tCountVector,
+    cascade()->detectMultiScale(mGreyMat, tRectVector, tCountVector,
                                 raw().factor(), raw().neighbors(), raw().flags(),
                                 raw().cvMinSize(), raw().cvMaxSize());
     if (returnAll)
-        mpCascade->detectMultiScale(mGreyMat, tAllRectVector,
+        cascade()->detectMultiScale(mGreyMat, tAllRectVector,
                                     raw().factor(), 0, raw().flags(),
                                     raw().cvMinSize(), raw().cvMaxSize());
 

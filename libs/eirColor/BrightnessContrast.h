@@ -1,9 +1,9 @@
 #pragma once
-#include "ozColor.h"
+#include "eirColor.h"
 
 #include <Types.h>
 
-class OZCOLOR_EXPORT BrightnessContrast
+class EIRCOLOR_EXPORT BrightnessContrast
 {
 public: // ctors
     BrightnessContrast(const bool makeFlat=false);

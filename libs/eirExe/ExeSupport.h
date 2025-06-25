@@ -13,18 +13,18 @@ class KeySegList;
 class Options;
 class Settings;
 
-class ApplicationHelper : public QObject
+class ExeSupport : public QObject
 {
     Q_OBJECT
 public: // typedef
     typedef QList<QCommandLineOption> OptionList;
 
 public: // ctors
-    explicit ApplicationHelper(QObject *parent = nullptr);
+    explicit ExeSupport(QObject *parent = nullptr);
 
 public slots:
     void add(const QCommandLineOption opt);
-    void add(const ApplicationHelper::OptionList opts);
+    void add(const ExeSupport::OptionList opts);
     void addOption(const KeySeg &name);
     void addOption(const KeySegList &names);
     void addOption(const KeySeg &name, const QString &desc);
@@ -51,6 +51,6 @@ private:
     Settings * mpSettings=nullptr;
 };
 
-inline CommandLine *ApplicationHelper::cli() { Q_CHECK_PTR(mpCommandLine); return mpCommandLine; }
-inline Options *ApplicationHelper::opts() { Q_CHECK_PTR(mpOptions); return mpOptions; }
-inline Settings *ApplicationHelper::stgs() { Q_CHECK_PTR(mpSettings); return mpSettings; }
+inline CommandLine *ExeSupport::cli() { Q_CHECK_PTR(mpCommandLine); return mpCommandLine; }
+inline Options *ExeSupport::opts() { Q_CHECK_PTR(mpOptions); return mpOptions; }
+inline Settings *ExeSupport::stgs() { Q_CHECK_PTR(mpSettings); return mpSettings; }

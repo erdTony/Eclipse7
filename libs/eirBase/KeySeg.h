@@ -7,12 +7,18 @@
 class EIRBASE_EXPORT KeySeg : public AText
 {
 public:
-    KeySeg() {;}
-    KeySeg(const char * pch) : AText(pch) {;}
-    KeySeg(const AText &other) : AText(other) {;}
-    KeySeg(const QString &s) : AText(s) {;}
+    KeySeg();
+    KeySeg(const char * pch);
+    KeySeg(const AText &other);
+    KeySeg(const QString &s);
 
+public: // const
+    bool equals(const KeySeg &other) const;
+    bool equals(const char * pch) const;
+    bool operator == (const KeySeg &other) const;
+    bool operator == (const char * pch) const;
 
+public: // non-const
 
 public: // pointers
 
@@ -24,3 +30,7 @@ private:
 
 
 };
+
+inline bool KeySeg::equals(const char *pch) const { return equals(KeySeg(pch)); }
+inline bool KeySeg::operator ==(const KeySeg &other) const { return equals(other); }
+inline bool KeySeg::operator ==(const char *pch) const { return equals(pch); }

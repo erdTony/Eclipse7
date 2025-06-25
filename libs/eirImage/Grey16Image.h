@@ -1,9 +1,9 @@
 #pragma once
-#include "ozImage.h"
+#include "eirImage.h"
 
 #include "BaseImage.h"
 
-class OZIMAGE_EXPORT Grey16Image : public BaseImage
+class EIRIMAGE_EXPORT Grey16Image : public BaseImage
 {
 public:
     Grey16Image();

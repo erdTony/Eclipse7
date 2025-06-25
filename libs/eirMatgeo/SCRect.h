@@ -1,5 +1,5 @@
 #pragma once
-#include "eirmatgeo.h"
+#include "eirMatgeo.h"
 
 #include <QList>
 #include <QPoint>

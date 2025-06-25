@@ -1,6 +1,7 @@
 #pragma once
+#include "eirColor.h"
 
-class RgbColor
+class EIRCOLOR_EXPORT RgbColor
 {
 public:
     RgbColor();

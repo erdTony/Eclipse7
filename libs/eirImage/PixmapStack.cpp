@@ -1,12 +1,11 @@
 #include "PixmapStack.h"
 
 #include <QPainter>
-
-#include <QQRect.h>
+#include <QRect>
 
 PixmapStack::PixmapStack() {}
 
-PixmapStack::PixmapStack(const QQSize aImageSize,
+PixmapStack::PixmapStack(const Size aImageSize,
                          const Qt::AspectRatioMode aQARM)
     : mImageSize(aImageSize), mQARM(aQARM) {;}
 
@@ -22,7 +21,7 @@ Count PixmapStack::rawCount() const
 
 bool PixmapStack::isValid() const
 {
-    return mImageSize.isValid() && mImageSize.notEmpty();
+    return mImageSize.isValid() && ! mImageSize.isEmpty();
 }
 
 bool PixmapStack::isEmpty() const
@@ -60,14 +59,14 @@ QPixmap PixmapStack::resolve() const
 {
     QPixmap result(imageSize());
     QPainter tPainter(&result);
-    tPainter.fillRect(QQRect(imageSize()), Qt::black);
+    tPainter.fillRect(QRect(QPoint(0, 0), imageSize()), Qt::black);
     for (Index ix = 0; ix < Index(rawCount()); ++ix)
         tPainter.drawPixmap(0, 0, rawAt(ix));
     tPainter.end();
     return result;
 }
 
-void PixmapStack::set(const QQSize aImageSize, const Qt::AspectRatioMode aQARM)
+void PixmapStack::set(const Size aImageSize, const Qt::AspectRatioMode aQARM)
 {
     set(aImageSize);
     set(aQARM);

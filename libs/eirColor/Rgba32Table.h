@@ -1,12 +1,12 @@
 #pragma once
-#include "ozColor.h"
+#include "eirColor.h"
 
 #include <QList>
 #include <QRgb>
 
 class AnyColorTable;
 
-class OZCOLOR_EXPORT Rgba32Table
+class EIRCOLOR_EXPORT Rgba32Table
 {
 public:
     Rgba32Table();

@@ -9,16 +9,24 @@ include (../../useBase.pri)
 
 SOURCES += \
     ByteHistogram.cpp \
+    Point.cpp \
+    Rational.cpp \
+    RationalList.cpp \
     SCLine.cpp \
     SCRect.cpp \
-    eirmatgeo.cpp
+    Size.cpp \
+    eirMatgeo.cpp
 
 HEADERS += \
     ByteHistogram.h \
+    Point.h \
+    Rational.h \
+    RationalList.h \
     SCLine.h \
     SCRect.h \
-    eirMatgeo_global.h \
-    eirmatgeo.h
+    Size.h \
+    eirMatgeo.h \
+    eirMatgeo_global.h
 
 # Default rules for deployment.
 unix {
