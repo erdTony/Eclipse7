@@ -3,6 +3,7 @@
 
 #include <QSize>
 
+#include "Point.h"
 #include "Rational.h"
 
 class EIRMATGEO_EXPORT Size : public QSize
@@ -18,6 +19,7 @@ public:
 public: // const
     unsigned area() const;
     Rational aspect() const;
+    Point center() const;
     qreal scaleF(const Size &rhs) const;
 
 public: // non-const

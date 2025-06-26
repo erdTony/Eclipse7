@@ -1,3 +1,3 @@
-#include "eirexe.h"
+#include "eirExe.h"
 
 eirExe::eirExe() {}

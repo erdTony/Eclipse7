@@ -1,5 +1,7 @@
 #include "Point.h"
 
+#include "Size.h"
+
 Point::Point() {;}
 Point::Point(const QPoint &other) : QPoint(other) {;}
 Point::Point(const int x, const int y) : QPoint(x, y) {;}

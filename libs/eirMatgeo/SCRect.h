@@ -2,10 +2,11 @@
 #include "eirMatgeo.h"
 
 #include <QList>
-#include <QPoint>
 #include <QRect>
-#include <QSize>
 #include <QSizeF>
+
+#include "Point.h"
+#include "Size.h"
 
 class EIRMATGEO_EXPORT SCRect
 {
@@ -14,13 +15,14 @@ public: // types
 
 public: // ctors
     SCRect();
-    SCRect(const QSize sz, const QPoint cpt);
+    SCRect(const Size sz);
+    SCRect(const Size sz, const Point cpt);
     SCRect(const QRect qrc);
 
 public: // const
-    QSize size() const;
-    QSizeF sizeF() const;
-    QPoint center() const;
+    Size size() const;
+    QSizeF toQSizeF() const;
+    Point center() const;
     int x() const;
     int y() const;
     int top() const;
@@ -29,10 +31,10 @@ public: // const
     int right() const;
     int height() const;
     int width() const;
-    QPoint topLeft() const;
+    Point topLeft() const;
     bool isEmpty() const;
     bool isNull() const;
-    bool contains(const QPoint pt) const;
+    bool contains(const Point pt) const;
     QRect toQRect() const;
     SCRect scaled(const unsigned u) const;
     SCRect scaled(const qreal f) const;
@@ -51,7 +53,7 @@ public: // non-const
     SCRect trim(const int i);
     SCRect scale(const unsigned u);
     SCRect scale(const qreal f);
-    SCRect offset(const QPoint pt);
+    SCRect offset(const Point pt);
     SCRect operator *= (const unsigned u);
 
     friend SCRect operator & (const SCRect scr, const QRect qrc);
@@ -60,20 +62,20 @@ public: // debug
     QString toDebugString() const;
 
 private:
-    QSize mSize;
-    QPoint mCenter;
+    Size mSize;
+    Point mCenter;
 };
 
-extern QDebug operator<<(QDebug &stream, const SCRect scr);
+extern EIRMATGEO_EXPORT QDebug operator<<(QDebug &stream, const SCRect scr);
 
-inline QSize SCRect::size() const { return mSize; }
-inline QSizeF SCRect::sizeF() const { return QSizeF(size()); }
-inline QPoint SCRect::center() const { return mCenter; }
+inline Size SCRect::size() const { return mSize; }
+inline QSizeF SCRect::toQSizeF() const { return QSizeF((qreal)width(), (qreal)height()); }
+inline Point SCRect::center() const { return mCenter; }
 inline int SCRect::x() const { return center().x(); }
 inline int SCRect::y() const { return center().y(); }
 inline int SCRect::height() const { return size().height(); }
 inline int SCRect::width() const { return size().width(); }
-inline QPoint SCRect::topLeft() const { return QPoint(left(), top()); }
+inline Point SCRect::topLeft() const { return QPoint(left(), top()); }
 inline bool SCRect::isEmpty() const { return size().isEmpty(); }
 inline bool SCRect::isNull() const { return size().isNull(); }
 inline QRect SCRect::toQRect() const { return QRect(topLeft(), size()); }

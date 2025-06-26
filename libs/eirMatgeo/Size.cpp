@@ -12,6 +12,11 @@ unsigned int Size::area() const
     return isValid() ? (width() * height()) : 0;
 }
 
+Point Size::center() const
+{
+    return Point(width() / 2, height() / 2);
+}
+
 qreal Size::scaleF(const Size &rhs) const
 {
     return qMin(qreal(width()) / qreal(rhs.width()),

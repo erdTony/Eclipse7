@@ -12,13 +12,15 @@ class EIRIMAGE_EXPORT BaseImage
 {
 public: // ctors
     BaseImage();
-    BaseImage(const Image::Type aType, const QImage &aQImage);
+    BaseImage(const Image::Type type, const BaseImage &other);
+    BaseImage(const Image::Type aType, const QImage &qimage);
     BaseImage(const Image::Type aType, const QPixmap &aPixmap);
 
 public: // const
     QImage baseImage() const;
     QPoint center() const;
     QSize size() const;
+    BaseImage convertedTo(const Image::Type type) const;
     BaseImage scaledCrop(const QSize aCropSize,
         const unsigned minScale=4, const unsigned maxScale=4);
 

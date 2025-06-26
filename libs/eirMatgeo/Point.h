@@ -5,7 +5,7 @@
 
 #include <Types.h>
 
-#include "Size.h"
+class Size;
 
 class EIRMATGEO_EXPORT Point : public QPoint
 {

@@ -1,4 +1,5 @@
-QT -= gui
+QT *= core
+QT *= gui
 TEMPLATE = lib
 DEFINES += EIREXE_LIBRARY
 CONFIG += c++23
@@ -10,19 +11,21 @@ include(../../useType.pri)
 include(../../useCore.pri)
 
 SOURCES += \
+    ActionManager.cpp \
     CommandLine.cpp \
     ExeSupport.cpp \
     Options.cpp \
     Settings.cpp \
-    eirexe.cpp
+    eirExe.cpp
 
 HEADERS += \
+    ActionManager.h \
     CommandLine.h \
     ExeSupport.h \
     Options.h \
     Settings.h \
-    eirExe_global.h \
-    eirexe.h
+    eirExe.h \
+    eirExe_global.h
 
 # Default rules for deployment.
 unix {

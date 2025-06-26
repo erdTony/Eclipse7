@@ -37,7 +37,7 @@ public: // ctors
 
 public slots:
     void initialize(void);
-    void configure(void) {;}
+    void configure(void);
     void setup(void);
     void start(void) {;}
 
@@ -52,10 +52,10 @@ public: // const
 
 public: // non-const
     void viewRect(const SCRect &aViewRect);
-    void set(const Layer aLayer, const QColor &aFillColor);
-    void set(const Layer aLayer, const BaseImage &aImage);
-    void set(const Layer aLayer, const QImage &aImage);
-    void set(const Layer aLayer, const QPixmap &aPixmap);
+    void set(const Layer layer, const QColor &fill);
+    void set(const Layer layer, const BaseImage &bi);
+    void set(const Layer layer, const QImage &qi);
+    void set(const Layer layer, const QPixmap &pm);
 
 public: // pointers
     SandboxMainWindow * mainWindow();

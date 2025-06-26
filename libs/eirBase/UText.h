@@ -5,7 +5,7 @@
 
 class EIRBASE_EXPORT UText : public QString
 {
-public:
+public: //ctors
     UText();
     UText(const char * pch);
     UText(const QByteArray &ba);

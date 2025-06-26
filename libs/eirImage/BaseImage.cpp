@@ -4,12 +4,12 @@
 #include <Size.h>
 
 BaseImage::BaseImage() : mType(Image::$null) {;}
-BaseImage::BaseImage(const Image::Type aType, const QImage &aQImage)
-    : mType(aType)
-    , mBaseImage(aQImage.convertedTo(Image::qformat(type()))) {;}
+BaseImage::BaseImage(const Image::Type type, const BaseImage &other)
+    : mType(type), mBaseImage(other.convertedTo(type).baseImage()) {;}
+BaseImage::BaseImage(const Image::Type aType, const QImage &qimage)
+    : mType(aType), mBaseImage(qimage.convertedTo(Image::qformat(type()))) {;}
 BaseImage::BaseImage(const Image::Type aType, const QPixmap &aPixmap)
-    : mType(aType)
-    , mBaseImage(aPixmap.toImage().convertedTo(Image::qformat(type()))) {;}
+    : mType(aType), mBaseImage(aPixmap.toImage().convertedTo(Image::qformat(type()))) {;}
 
 QPoint BaseImage::center() const
 {
@@ -19,6 +19,11 @@ QPoint BaseImage::center() const
 QSize BaseImage::size() const
 {
     return baseImage().size();
+}
+
+BaseImage BaseImage::convertedTo(const Image::Type type) const
+{
+    return BaseImage(type, baseImage());
 }
 
 BaseImage BaseImage::scaledCrop(const QSize aCropSize,

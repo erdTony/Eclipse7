@@ -1,10 +1,11 @@
 #include "SCRect.h"
 
-
 #include <QtDebug>
 
+
 SCRect::SCRect() : mSize(0,0), mCenter(0,0) {;}
-SCRect::SCRect(const QSize sz, const QPoint cpt) : mSize(sz), mCenter(cpt)  {;}
+SCRect::SCRect(const Size sz) : mSize(sz), mCenter(sz.center()) {;}
+SCRect::SCRect(const Size sz, const Point cpt) : mSize(sz), mCenter(cpt)  {;}
 SCRect::SCRect(const QRect qrc) : mSize(qrc.size()), mCenter(qrc.center())  {;}
 
 int SCRect::top() const
@@ -27,7 +28,7 @@ int SCRect::right() const
     return center().x() + size().width() / 2;
 }
 
-bool SCRect::contains(const QPoint pt) const
+bool SCRect::contains(const Point pt) const
 {
     return toQRect().contains(pt);
 }
@@ -39,7 +40,8 @@ SCRect SCRect::scaled(const unsigned int u) const
 
 SCRect SCRect::scaled(const qreal f) const
 {
-    return SCRect((sizeF() * f).toSize(), center());
+    // TODO Should center be multiplied?
+    return SCRect((toQSizeF() * f).toSize(), center());
 }
 
 SCRect SCRect::trimmed(const int i) const
@@ -76,7 +78,7 @@ SCRect SCRect::scale(const qreal f)
     return *this = scaled(f);
 }
 
-SCRect SCRect::offset(const QPoint pt)
+SCRect SCRect::offset(const Point pt)
 {
     mCenter += pt;
     return *this;

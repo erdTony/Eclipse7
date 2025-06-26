@@ -1,5 +1,9 @@
 #include "SandboxApplication.h"
 
+#include <QTimer>
+#include <QToolBar>
+
+#include <ActionManager.h>
 #include <ExeSupport.h>
 #include <Image.h>
 
@@ -7,7 +11,7 @@
 #include "SandboxMainWindow.h"
 
 SandboxApplication::SandboxApplication(int &argc, char **argv)
-    : QApplication{argc, argv}
+    : BaseWidgetApplication{argc, argv}
 {
     qInfo() << Q_FUNC_INFO;
     setObjectName("SandboxApplication:" + applicationName());
@@ -32,8 +36,6 @@ void SandboxApplication::objconnect()
 {
     qInfo() << Q_FUNC_INFO;
     connect(this, &SandboxApplication::objconnected,
-            mainWindow(), &SandboxMainWindow::actConnect);
-    connect(mainWindow(), &SandboxMainWindow::actConnected,
             this, &SandboxApplication::configure);
     connect(this, &SandboxApplication::configured,
             mainWindow(), &SandboxMainWindow::configure);
@@ -45,6 +47,7 @@ void SandboxApplication::objconnect()
             this, &SandboxApplication::start);
     connect(this, &SandboxApplication::started,
             mainWindow(), &SandboxMainWindow::start);
+
     emit objconnected();
 }
 
@@ -61,15 +64,18 @@ void SandboxApplication::configure()
 void SandboxApplication::setup()
 {
     qInfo() << Q_FUNC_INFO;
+
     engine()->setup();
     QImage tSubjectImage(":/image/MM512A.jpg");
     engine()->setSubjectImage(BaseImage(Image::Color, tSubjectImage));
+
     emit setuped();
 }
 
 void SandboxApplication::start()
 {
     qInfo() << Q_FUNC_INFO;
+    QTimer::singleShot(2000, engine(), &SandboxEngine::start);
     emit started();
 }
 

@@ -3,7 +3,7 @@
 #include <QObject>
 
 #include <QColor>
-#include <QTransform>
+class QTimer;
 
 #include <BrightnessContrast.h>
 #include <ByteHistogram.h>
@@ -27,8 +27,8 @@ public slots:
     void initialize(void);
     void configure(void) {;}
     void setup(void);
-    void start(void) {;}
-    void process(const QTransform &xf);
+    void start(void);
+    void process();
 
     void setSubjectImage(const ColorImage &aCP);
 
@@ -43,16 +43,15 @@ public: // pointers
     SandboxScene * scene();
     QObject * object();
 
-public: // ctors
 
 public: // const
 
 public: // non-const
 
 private slots:
+    bool processOnce();
 
 private:
-    bool processOnce(const QTransform &xf);
     BrightnessContrast processHistogram(const Grey16Image aGrey16Image);
     void setupColorTable();
     void setupColorTableLinear(const BYTE aFrom,
@@ -69,6 +68,7 @@ private:
 
 private:
     SandboxApplication * mpApplication=nullptr;
+    QTimer * mpProcessTimer=nullptr;
     ColorImage mSubjectImage;
     Grey16Image mGrey16Image;
     IndexedImage mPreviousIndexedImage;

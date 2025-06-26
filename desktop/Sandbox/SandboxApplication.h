@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QApplication>
+#include <BaseWidgetApplication.h>
 
 class ExeSupport;
 class Settings;
@@ -12,7 +12,7 @@ class SandboxMainWindow;
 class SandboxScene;
 
 
-class SandboxApplication : public QApplication
+class SandboxApplication : public BaseWidgetApplication
 {
     Q_OBJECT
 public: // ctors
@@ -44,7 +44,6 @@ public: // non-const
 public: // pointers
     SandboxMainWindow * mainWindow();
     SandboxEngine * engine();
-    ExeSupport * exe();
     SandboxScene * scene();
     CommandLine * commandLine();
     Settings * settings();
@@ -52,7 +51,6 @@ public: // pointers
 private:
     SandboxMainWindow * mpMainWindow=nullptr;
     SandboxEngine * mpEngine=nullptr;
-    ExeSupport * mpHelper=nullptr;
     SandboxData mData;
 
 };
@@ -61,5 +59,4 @@ inline SandboxData SandboxApplication::data() const { return mData; }
 inline void SandboxApplication::set(SandboxMainWindow *pMainWindow) { Q_CHECK_PTR(pMainWindow); mpMainWindow = pMainWindow; }
 inline SandboxMainWindow *SandboxApplication::mainWindow() { Q_CHECK_PTR(mpMainWindow); return mpMainWindow; }
 inline SandboxEngine *SandboxApplication::engine() { Q_CHECK_PTR(mpEngine); return mpEngine; }
-inline ExeSupport *SandboxApplication::exe() { Q_CHECK_PTR(mpHelper); return mpHelper; }
 
