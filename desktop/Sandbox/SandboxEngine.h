@@ -12,8 +12,7 @@ class QTimer;
 #include <IndexedImage.h>
 #include <Types.h>
 
-
-class SandboxApplication;
+#include "SandboxApplication.h"
 class SandboxScene;
 
 class SandboxEngine : public QObject
@@ -30,7 +29,7 @@ public slots:
     void start(void);
     void process();
 
-    void setSubjectImage(const ColorImage &aCP);
+    void setSubjectImage(const ColorImage &ci);
 
 signals:
     void initialized(void);
@@ -69,6 +68,7 @@ private:
 private:
     SandboxApplication * mpApplication=nullptr;
     QTimer * mpProcessTimer=nullptr;
+    const int cmBorderWidth = 4;
     ColorImage mSubjectImage;
     Grey16Image mGrey16Image;
     IndexedImage mPreviousIndexedImage;
@@ -78,3 +78,5 @@ private:
 };
 
 inline SandboxApplication *SandboxEngine::app() { Q_ASSERT(mpApplication); return mpApplication; }
+inline SandboxScene *SandboxEngine::scene() { return app()->scene(); }
+inline QObject *SandboxEngine::object() { return parent(); }

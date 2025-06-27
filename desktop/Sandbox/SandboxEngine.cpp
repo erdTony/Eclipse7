@@ -48,78 +48,92 @@ void SandboxEngine::process()
         tChanged = processOnce();
 }
 
-void SandboxEngine::setSubjectImage(const ColorImage &aCP)
+void SandboxEngine::setSubjectImage(const ColorImage &ci)
 {
     qInfo() << Q_FUNC_INFO << scene()->viewRect();
-    const QImage cBaseIn = aCP.baseImage();
+    const QImage cBaseImage = ci.baseImage();
     const QRect cCropRect = scene()->viewRect().toQRect();
-    const QImage cBaseCrop = cBaseIn.copy(cCropRect);
+    const QImage cBaseCrop = cBaseImage.copy(cCropRect);
     const ColorImage cColorImage(cBaseCrop);
     mSubjectImage.set(cColorImage);
     SCRect cImageRect(cColorImage.rect());
     Size cImageSize = cImageRect.size();
     QImage tIndexImage(cImageSize, QImage::Format_Indexed8);
+    tIndexImage.fill(255);
     tIndexImage.setColorTable(mColorTable);
-    for (int rx = 0; rx < cImageSize.height(); ++rx)
-        for (int cx = 0; cx < cImageSize.width(); ++cx)
+    for (int rx = cmBorderWidth; rx < cImageSize.height() - cmBorderWidth; ++rx)
+        for (int cx = cmBorderWidth; cx < cImageSize.width() - cmBorderWidth; ++cx)
         {
             const Point cPoint(rx, cx);
             const QRgb cRgbIn = cColorImage.pixel(cPoint);
             const BYTE cGrey = qGray(cRgbIn);
-            tIndexImage.setPixel(cPoint, cGrey);
+            tIndexImage.setPixel(cPoint, qBound(BYTE(1), cGrey, BYTE(254)));
         }
     qInfo() << "Saving IndexImage.png:"
             << tIndexImage.save("IndexImage.png");
-    mPreviousIndexedImage = IndexedImage(tIndexImage);
-    scene()->set(SandboxScene::OldSubject, mPreviousIndexedImage.baseImage());
-    scene()->set(SandboxScene::OldSubject, tIndexImage);
+    mCurrentIndexedImage = IndexedImage(tIndexImage);
+    scene()->set(SandboxScene::NewSubject, mCurrentIndexedImage);
 }
 
 bool SandboxEngine::processOnce()
 {
-    qInfo() << Q_FUNC_INFO
-            << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     bool result = false;
     mPreviousIndexedImage = mCurrentIndexedImage;
+    scene()->set(SandboxScene::OldSubject, mPreviousIndexedImage);
     const Index cWidth = mCurrentIndexedImage.size().width();
-    const Index cLastRowIx = mCurrentIndexedImage.size().height() - 1;
-    for (Index tRow = cLastRowIx; tRow > 0; --tRow)
+    const Index cHeight = mCurrentIndexedImage.size().height();
+    for (Index tRow = cHeight - cmBorderWidth; tRow > cmBorderWidth; --tRow)
     {
-        const Index cStartColIx = (cLastRowIx & 1) ? (cWidth - 1) : 0;
-        const Index cFinisColIx = (cLastRowIx & 1) ? 0 : (cWidth - 1);
-        const Index cStep = (cLastRowIx & 1) ? -1 : +1;
-        for (Index tCol = cStartColIx; tCol != cFinisColIx; tCol += cStep)
+        for (Index tCol = cmBorderWidth; tCol <= cWidth - cmBorderWidth; ++tCol)
         {
-            const Point cDestPoint(int(tCol), (int)(tRow));
-            const BYTE cPixelBelow = mPreviousIndexedImage.baseImage().pixel(cDestPoint);
-            const BYTE cPixelAbove = mPreviousIndexedImage.baseImage().pixel(cDestPoint.up());
-            const bool cSwap = cPixelBelow > cPixelAbove;
-            result |= cSwap;
-            mCurrentIndexedImage.baseImage().setPixel(cDestPoint, cSwap ? cPixelAbove : cPixelBelow);
-            mCurrentIndexedImage.baseImage().setPixel(cDestPoint.up(), cSwap ? cPixelBelow : cPixelAbove);
+            QMultiMap<BYTE, Point> tValuePointMMap;
+            const Point cCenterPoint(int(tRow), (int)(tCol));
+            const BYTE cNW = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point(-1, -1));
+            const BYTE cN  = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point(-1,  0));
+            const BYTE cNE = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point(-1, +1));
+            const BYTE cW  = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point( 0, -1));
+            const BYTE cE  = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point( 0, +1));
+            const BYTE cSW = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point(+1, -1));
+            const BYTE cS  = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point(+1,  0));
+            const BYTE cSE = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point(+1, +1));
+            if (cNW != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point(-1, -1));
+            if (cN  != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point(-1, -1));
+            if (cNE != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point(-1, -1));
+            if (cW  != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point( 0, -1));
+            if (cE  != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point( 0, +1));
+            if (cSW != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point(+1, -1));
+            if (cS  != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point(+1,  0));
+            if (cSE != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point(+1, +1));
+
+            const Point cDkPoint = tValuePointMMap.first();
+            const Point cLtPoint = tValuePointMMap.last();
+            BYTE cDkValue = mPreviousIndexedImage.baseImage().pixel(cDkPoint);
+            BYTE cLtValue = mPreviousIndexedImage.baseImage().pixel(cLtPoint);
+            if (cDkValue != cLtValue)
+            {
+                result |= true;
+                mCurrentIndexedImage.baseImage().setPixel(cDkPoint, cLtValue);
+                mCurrentIndexedImage.baseImage().setPixel(cLtPoint, cDkValue);
+            }
         }
     }
     scene()->set(SandboxScene::NewSubject, mCurrentIndexedImage);
+    qInfo() << Q_FUNC_INFO << result
+            << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     return result;
 }
 
-SandboxScene *SandboxEngine::scene()
-{
-    return app()->scene();
-}
 
-QObject *SandboxEngine::object()
-{
-    return parent();
-}
+
+
 
 
 void SandboxEngine::setupColorTable()
 {
     mColorTable.fill(QColor(Qt::transparent).rgba(), 256);
-    setupColorTableLinear(  0,   3, 240, /* Low */
+    setupColorTableLinear(  1,   3, 240, /* Low */
         QColor(0x10, 0x10, 0x10), QColor(0x30, 0x30, 0x30));
-    setupColorTableLinear(236, 255, 240, /* High */
+    setupColorTableLinear(236, 254, 240, /* High */
         QColor(0xC0, 0xC0, 0xC0), QColor(0xF0, 0xF0, 0xF0));
     setupColorTableLinear(  4,  19, 240, /* Bronze */
         QColor(0x5F, 0x3F, 0x22), QColor(0x7F, 0x5F, 0x42));
@@ -127,6 +141,8 @@ void SandboxEngine::setupColorTable()
         QColor(0xB0, 0xB0, 0xB0), QColor(0xC0, 0xC0, 0xC0));
     setupColorTableLinear(120, 135, 240, /* Gold */
         QColor(0x90, 0x40, 0x00), QColor(0xCF, 0x7F, 0x2F));
+    mColorTable[0] = QColor(Qt::transparent).rgba();
+    mColorTable[255] = QColor(0, 0x40, 0).rgba();
 #if 1
     setupColorTableLinear( 20, 119, 240, /* Sand */
         QColor( 48,  48,  16), QColor(151, 151,  48));
