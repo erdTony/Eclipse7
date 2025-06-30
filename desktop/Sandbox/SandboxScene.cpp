@@ -53,7 +53,7 @@ void SandboxScene::setup()
 
 void SandboxScene::set(const Layer layer, const QColor &fill)
 {
-    qInfo() << Q_FUNC_INFO << layer;
+//    qInfo() << Q_FUNC_INFO << layer;
     QPixmap tPixmap(viewRect().size());
     tPixmap.fill(fill);
     set(layer, tPixmap);
@@ -61,19 +61,19 @@ void SandboxScene::set(const Layer layer, const QColor &fill)
 
 void SandboxScene::set(const Layer layer, const BaseImage &bi)
 {
-    qInfo() << Q_FUNC_INFO << layer;
+//    qInfo() << Q_FUNC_INFO << layer;
     set(layer, bi.baseImage());
 }
 
 void SandboxScene::set(const Layer layer, const QImage &qi)
 {
-    qInfo() << Q_FUNC_INFO << layer;
+//    qInfo() << Q_FUNC_INFO << layer;
     set(layer, QPixmap::fromImage(qi));
 }
 
 void SandboxScene::set(const Layer layer, const QPixmap &pm)
 {
-    qInfo() << Q_FUNC_INFO << layer;
+//    qInfo() << Q_FUNC_INFO << layer;
     if (mPixmapItems.isEmpty())
         mPixmapItems.fill(nullptr, Layer::$max);
     QGraphicsPixmapItem * pOldItem = mPixmapItems[layer];

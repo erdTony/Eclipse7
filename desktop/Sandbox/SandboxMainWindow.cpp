@@ -1,10 +1,13 @@
 #include "SandboxMainWindow.h"
 
 #include <QApplication>
+#include <QDateTime>
 #include <QGraphicsView>
 #include <QGridLayout>
 #include <QIcon>
 #include <QLabel>
+#include <QLCDNumber>
+#include <QStatusBar>
 #include <QStyle>
 #include <QToolBar>
 #include <QTimer>
@@ -56,8 +59,12 @@ void SandboxMainWindow::setup()
     qInfo() << Q_FUNC_INFO;
 
     mpMainToolBar = QMainWindow::addToolBar("Main");
-
+    Q_CHECK_PTR(mpMainToolBar);
     setupActions();
+
+    mpStatusBar = QMainWindow::statusBar();
+    Q_CHECK_PTR(mpStatusBar);
+    mpStatusBar->setSizeGripEnabled(false);
 
     scene()->set(SandboxScene::BackColor, Qt::green);
     scene()->setup();
@@ -75,6 +82,16 @@ void SandboxMainWindow::start()
     qInfo() << Q_FUNC_INFO;
     scene()->start();
     emit started();
+}
+
+void SandboxMainWindow::pass(const Count swaps)
+{
+    const qreal cPixelCount = scene()->viewRect().area();
+    QString msg = QString("%1 Pass: %2 Swap: %3 %4%")
+                      .arg(QDateTime::currentDateTime().toString("hh:mm:ss.zzz"))
+                      .arg(++mPassCount, 6).arg(swaps, 6)
+                      .arg(qRound(100.0 * qreal(swaps) / cPixelCount), 3);
+    mpStatusBar->showMessage(msg);
 }
 
 QAction *SandboxMainWindow::action(const Key &key)

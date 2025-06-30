@@ -9,6 +9,7 @@ include (../../useBase.pri)
 
 SOURCES += \
     ByteHistogram.cpp \
+    Iota.cpp \
     Point.cpp \
     Rational.cpp \
     RationalList.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     ByteHistogram.h \
+    Iota.h \
     Point.h \
     Rational.h \
     RationalList.h \

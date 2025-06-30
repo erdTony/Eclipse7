@@ -10,6 +10,7 @@ class QTimer;
 #include <ColorImage.h>
 #include <Grey16Image.h>
 #include <IndexedImage.h>
+#include <Rgba32Table.h>
 #include <Types.h>
 
 #include "SandboxApplication.h"
@@ -36,6 +37,7 @@ signals:
     void configured(void);
     void setuped(void);
     void started(void);
+    void passComplete(const Count swaps);
 
 public: // pointers
     SandboxApplication * app();
@@ -48,7 +50,7 @@ public: // const
 public: // non-const
 
 private slots:
-    bool processOnce();
+    Count processOnce();
 
 private:
     BrightnessContrast processHistogram(const Grey16Image aGrey16Image);
@@ -68,12 +70,11 @@ private:
 private:
     SandboxApplication * mpApplication=nullptr;
     QTimer * mpProcessTimer=nullptr;
-    const int cmBorderWidth = 4;
     ColorImage mSubjectImage;
     Grey16Image mGrey16Image;
     IndexedImage mPreviousIndexedImage;
     IndexedImage mCurrentIndexedImage;
-    QList<QRgb> mColorTable;
+    Rgba32Table::RgbList mColorTable;
     ByteHistogram mGrey8Histogram;
 };
 

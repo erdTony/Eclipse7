@@ -14,7 +14,7 @@ void Iota::set(const Count k)
         append(tIx++);
 }
 
-void Iota::set(const Count k, const signed int org)
+void Iota::set(const Count k, const unsigned int org)
 {
     clear();
     reserve(k);
@@ -23,7 +23,7 @@ void Iota::set(const Count k, const signed int org)
         append(tIx++);
 }
 
-void Iota::set(const Count k, const signed int org, const signed int delta)
+void Iota::set(const Count k, const unsigned int org, const unsigned int delta)
 {
     clear();
     reserve(k);

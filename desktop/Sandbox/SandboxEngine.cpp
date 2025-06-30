@@ -1,11 +1,15 @@
 #include "SandboxEngine.h"
 
+#include <QByteArray>
 #include <QTimer>
 #include <QDateTime>
 
+#include <cstring>
+
 #include <Size.h>
+#include <ExeSupport.h>
 #include <Point.h>
-#include <Rgba32Table.h>
+#include <Random.h>
 
 #include "SandboxApplication.h"
 #include "SandboxScene.h"
@@ -60,9 +64,10 @@ void SandboxEngine::setSubjectImage(const ColorImage &ci)
     Size cImageSize = cImageRect.size();
     QImage tIndexImage(cImageSize, QImage::Format_Indexed8);
     tIndexImage.fill(255);
-    tIndexImage.setColorTable(mColorTable);
-    for (int rx = cmBorderWidth; rx < cImageSize.height() - cmBorderWidth; ++rx)
-        for (int cx = cmBorderWidth; cx < cImageSize.width() - cmBorderWidth; ++cx)
+    tIndexImage.setColorTable(Rgba32Table::greyTable());
+    //tIndexImage.setColorTable(mColorTable);
+    for (int rx = 0; rx < cImageSize.height(); ++rx)
+        for (int cx = 0; cx < cImageSize.width(); ++cx)
         {
             const Point cPoint(rx, cx);
             const QRgb cRgbIn = cColorImage.pixel(cPoint);
@@ -75,51 +80,80 @@ void SandboxEngine::setSubjectImage(const ColorImage &ci)
     scene()->set(SandboxScene::NewSubject, mCurrentIndexedImage);
 }
 
-bool SandboxEngine::processOnce()
+Count SandboxEngine::processOnce()
 {
-    bool result = false;
+    Count result = false;
     mPreviousIndexedImage = mCurrentIndexedImage;
     scene()->set(SandboxScene::OldSubject, mPreviousIndexedImage);
     const Index cWidth = mCurrentIndexedImage.size().width();
     const Index cHeight = mCurrentIndexedImage.size().height();
-    for (Index tRow = cHeight - cmBorderWidth; tRow > cmBorderWidth; --tRow)
-    {
-        for (Index tCol = cmBorderWidth; tCol <= cWidth - cmBorderWidth; ++tCol)
+    QByteArray tAboveRow(cWidth, 0);
+    QByteArray tBelowRow((const char *)mCurrentIndexedImage.baseImage().constScanLine(0), cWidth);
+#if 1
+    for (int tRow = 1; tRow < cHeight; ++tRow)
+    {   // downward from second row
+        tAboveRow = tBelowRow;
+        tBelowRow = QByteArray((const char *)mCurrentIndexedImage.baseImage().constScanLine(tRow), cWidth);
+        const SIntList cRandomCols = app()->exe()->rand()->random(cWidth);
+        for (int tColIx = 1; tColIx < cWidth - 1; ++tColIx)
         {
-            QMultiMap<BYTE, Point> tValuePointMMap;
-            const Point cCenterPoint(int(tRow), (int)(tCol));
-            const BYTE cNW = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point(-1, -1));
-            const BYTE cN  = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point(-1,  0));
-            const BYTE cNE = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point(-1, +1));
-            const BYTE cW  = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point( 0, -1));
-            const BYTE cE  = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point( 0, +1));
-            const BYTE cSW = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point(+1, -1));
-            const BYTE cS  = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point(+1,  0));
-            const BYTE cSE = mPreviousIndexedImage.baseImage().pixel(cCenterPoint + Point(+1, +1));
-            if (cNW != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point(-1, -1));
-            if (cN  != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point(-1, -1));
-            if (cNE != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point(-1, -1));
-            if (cW  != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point( 0, -1));
-            if (cE  != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point( 0, +1));
-            if (cSW != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point(+1, -1));
-            if (cS  != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point(+1,  0));
-            if (cSE != 255) tValuePointMMap.insert(cNW, cCenterPoint + Point(+1, +1));
-
-            const Point cDkPoint = tValuePointMMap.first();
-            const Point cLtPoint = tValuePointMMap.last();
-            BYTE cDkValue = mPreviousIndexedImage.baseImage().pixel(cDkPoint);
-            BYTE cLtValue = mPreviousIndexedImage.baseImage().pixel(cLtPoint);
-            if (cDkValue != cLtValue)
+            int tCol = qBound(1, cRandomCols[tColIx], cWidth-2);
+            BYTE tAboveValue = tAboveRow[tCol];
+            if (true || tAboveValue < 128)
             {
-                result |= true;
-                mCurrentIndexedImage.baseImage().setPixel(cDkPoint, cLtValue);
-                mCurrentIndexedImage.baseImage().setPixel(cLtPoint, cDkValue);
+                BYTE tBelowLeft = tBelowRow[tCol - 1], tBelowValue = tBelowRow[tCol], tBelowRight = tBelowRow[tCol + 1];
+                BYTE tBelowLightest = qMax(tBelowValue, qMax(tBelowLeft, tBelowRight));
+                if (tBelowLightest < tAboveValue)
+                {
+                    ++result;
+                    if (tBelowLightest == tBelowValue)
+                        qSwap(tAboveRow[tCol], tBelowRow[tCol]);
+                    else if (tBelowLightest == tBelowLeft)
+                        qSwap(tAboveRow[tCol], tBelowRow[tCol - 1]);
+                    else if (tBelowLightest == tBelowRight)
+                        qSwap(tAboveRow[tCol], tBelowRow[tCol + 1]);
+                }
             }
         }
+        std::memcpy((void *)(mCurrentIndexedImage.baseImage().constScanLine(tRow - 1)), tAboveRow.constData(), cWidth);
     }
+    std::memcpy((void *)(mCurrentIndexedImage.baseImage().constScanLine(cHeight - 1)), tBelowRow.constData(), cWidth);
+#endif
+#if 0
+    tAboveRow = QByteArray((const char *)mCurrentIndexedImage.baseImage().constScanLine(cHeight - 1), cWidth);
+    for (int tRow = cHeight - 2; tRow > 1; --tRow)
+    {   // upward from second last
+        tBelowRow = tAboveRow;
+        tAboveRow = QByteArray((const char *)mCurrentIndexedImage.baseImage().constScanLine(tRow), cWidth);
+        const SIntList cRandomCols = app()->exe()->rand()->random(cWidth);
+        for (int tColIx = 1; tColIx < cWidth - 1; ++tColIx)
+        {
+            int tCol = qBound(1, cRandomCols[tColIx], cWidth-2);
+            BYTE tBelowValue = tBelowRow[tCol];
+            if (true || tBelowValue < 128)
+            { // pushing sky up
+                BYTE tAboveLeft = tAboveRow[tCol - 1], tAboveValue = tAboveRow[tCol], tAboveRight = tAboveRow[tCol + 1];
+                BYTE tAboveDarkest  = qMin(tAboveValue, qMin(tAboveLeft, tAboveRight));
+                if (tAboveDarkest > tBelowValue)
+                {
+                    ++result;
+                    if (tAboveDarkest == tAboveValue)
+                        qSwap(tBelowRow[tCol], tAboveRow[tCol]);
+                    else if (tAboveDarkest ==  tAboveLeft)
+                        qSwap(tBelowRow[tCol], tAboveRow[tCol - 1]);
+                    else if (tAboveDarkest ==  tAboveRight)
+                        qSwap(tBelowRow[tCol], tAboveRow[tCol + 1]);
+                }
+            }
+        }
+        std::memcpy((void *)(mCurrentIndexedImage.baseImage().constScanLine(tRow - 1)), tBelowRow.constData(), cWidth);
+    }
+    std::memcpy((void *)(mCurrentIndexedImage.baseImage().constScanLine(0)), tAboveRow.constData(), cWidth);
+#endif
     scene()->set(SandboxScene::NewSubject, mCurrentIndexedImage);
-    qInfo() << Q_FUNC_INFO << result
-            << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+//    qInfo() << Q_FUNC_INFO << result
+  //          << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+    emit passComplete(result);
     return result;
 }
 

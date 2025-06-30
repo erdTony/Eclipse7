@@ -2,18 +2,22 @@
 
 #include <QCoreApplication>
 
+
+#include "ActionManager.h"
 #include "CommandLine.h"
 #include "KeySegList.h"
 #include "Options.h"
+#include "Random.h"
 #include "Settings.h"
 
-ExeSupport::ExeSupport(QObject *parent)
-    : QObject{parent}
-    , mpCommandLine(new CommandLine(this))
-    , mpOptions(new Options(this))
-    , mpSettings(new Settings(this))
+ExeSupport::ExeSupport(QCoreApplication *app)
+    : mpCoreApplication(app)
+    , mpActionManager(new ActionManager(app))
+    , mpCommandLine(new CommandLine(app))
+    , mpOptions(new Options(app))
+    , mpRandom(new Random(app))
+    , mpSettings(new Settings(app))
 {
-    setObjectName("ApplicationHelper:" + QCoreApplication::applicationName());
 }
 
 void ExeSupport::add(const QCommandLineOption opt)

@@ -7,10 +7,7 @@ Point::Point(const QPoint &other) : QPoint(other) {;}
 Point::Point(const int x, const int y) : QPoint(x, y) {;}
 Point::Point(const Size sz, const Index ix) { set(sz, ix); }
 
-Point Point::up(const int dy) const
-{
-    return Point(x(), y() + dy);
-}
+
 
 Point Point::set(const Size sz, const Index ix)
 {

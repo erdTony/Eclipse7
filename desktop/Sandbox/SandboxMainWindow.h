@@ -4,6 +4,8 @@
 
 #include <QPixmap>
 #include <QSize>
+class QLabel;
+class QStatusBar;
 class QToolBar;
 class QToolButton;
 class QWidget;
@@ -30,6 +32,7 @@ public slots:
     void configure();
     void setup();
     void start();
+    void pass(const Count swaps);
 
 signals:
     void initialized();
@@ -63,6 +66,10 @@ private:
     QToolBar * mpMainToolBar=nullptr;
     QToolButton * mpQuitButton=nullptr;
     QToolButton * mpFlipButton=nullptr;
+    QStatusBar * mpStatusBar=nullptr;
+    Count mPassCount=0;
+    QLabel * mpStatusPass=nullptr;
+    QLabel * mpStatusSwap=nullptr;
 };
 
 inline SandboxApplication *SandboxMainWindow::app() { Q_ASSERT(mpApplication); return mpApplication; }

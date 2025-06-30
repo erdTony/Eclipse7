@@ -8,11 +8,11 @@ include(../libs.pri))
 include(../../useBase.pri)
 
 SOURCES += \
-    Iota.cpp \
     eirtype.cpp
 
 HEADERS += \
-    Iota.h \
+    List.h \
+    Queue.h \
     eirType_global.h \
     eirtype.h
 

@@ -1,10 +1,9 @@
 #pragma once
 #include "eirExe.h"
 
-#include <QObject>
-
 #include <QCommandLineOption>
 #include <QList>
+class QCoreApplication;
 
 #include <VersionInfo.h>
 
@@ -13,31 +12,30 @@ class CommandLine;
 class KeySeg;
 class KeySegList;
 class Options;
+class Random;
 class Settings;
 
-class EIREXE_EXPORT ExeSupport : public QObject
+class EIREXE_EXPORT ExeSupport
 {
-    Q_OBJECT
-public: // typedef
+public: // types
     typedef QList<QCommandLineOption> OptionList;
 
 public: // ctors
-    explicit ExeSupport(QObject *parent = nullptr);
+    explicit ExeSupport(QCoreApplication *app);
 
-public slots:
-    void add(const QCommandLineOption opt);
-    void add(const ExeSupport::OptionList opts);
-    void addOption(const KeySeg &name);
-    void addOption(const KeySegList &names);
-    void addOption(const KeySeg &name, const QString &desc);
-    void addOption(const KeySegList &names, const QString &desc);
+public:
 
-signals:
 
 public: // const
 
 
 public: // non-const
+    void add(const ExeSupport::OptionList opts);
+    void add(const QCommandLineOption opt);
+    void addOption(const KeySeg &name);
+    void addOption(const KeySegList &names);
+    void addOption(const KeySeg &name, const QString &desc);
+    void addOption(const KeySegList &names, const QString &desc);
 
 
 
@@ -45,17 +43,21 @@ public: // pointers
     ActionManager * act();
     CommandLine * cli();
     Options *  opts();
+    Random * rand();
     Settings * stgs();
 
 private:
-    VersionInfo mVersionInfo;
+    QCoreApplication * mpCoreApplication=nullptr;
     ActionManager * mpActionManager=nullptr;
     CommandLine * mpCommandLine=nullptr;
     Options * mpOptions=nullptr;
+    Random * mpRandom=nullptr;
     Settings * mpSettings=nullptr;
+    VersionInfo mVersionInfo;
 };
 
 inline ActionManager *ExeSupport::act() { Q_CHECK_PTR(mpActionManager); return mpActionManager; }
 inline CommandLine *ExeSupport::cli() { Q_CHECK_PTR(mpCommandLine); return mpCommandLine; }
 inline Options *ExeSupport::opts() { Q_CHECK_PTR(mpOptions); return mpOptions; }
+inline Random *ExeSupport::rand()  { Q_CHECK_PTR(mpRandom); return mpRandom; }
 inline Settings *ExeSupport::stgs() { Q_CHECK_PTR(mpSettings); return mpSettings; }

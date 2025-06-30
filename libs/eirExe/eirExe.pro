@@ -8,6 +8,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 include(../libs.pri)
 include(../../useBase.pri)
 include(../../useType.pri)
+include(../../useMatgeo.pri)
 include(../../useCore.pri)
 
 SOURCES += \
@@ -15,6 +16,7 @@ SOURCES += \
     CommandLine.cpp \
     ExeSupport.cpp \
     Options.cpp \
+    Random.cpp \
     Settings.cpp \
     eirExe.cpp
 
@@ -23,6 +25,7 @@ HEADERS += \
     CommandLine.h \
     ExeSupport.h \
     Options.h \
+    Random.h \
     Settings.h \
     eirExe.h \
     eirExe_global.h

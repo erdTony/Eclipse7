@@ -21,6 +21,7 @@ public: // ctors
 
 public: // const
     Size size() const;
+    Count area() const;
     QSizeF toQSizeF() const;
     Point center() const;
     int x() const;
@@ -69,6 +70,7 @@ private:
 extern EIRMATGEO_EXPORT QDebug operator<<(QDebug &stream, const SCRect scr);
 
 inline Size SCRect::size() const { return mSize; }
+inline Count SCRect::area() const { return size().area(); }
 inline QSizeF SCRect::toQSizeF() const { return QSizeF((qreal)width(), (qreal)height()); }
 inline Point SCRect::center() const { return mCenter; }
 inline int SCRect::x() const { return center().x(); }

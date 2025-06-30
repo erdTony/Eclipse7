@@ -21,13 +21,18 @@ typedef quintptr        NWORD;
 typedef qptrdiff        SNWORD;
 typedef signed          INT;
 typedef unsigned        UINT;
-typedef QWORD           Id;
+
+typedef QWORD           ID;
+typedef double          FLOAT;
 
 typedef QWORD           Milliseconds;
 typedef qsizetype       Index;
 typedef size_t          Count;
 typedef Count           Seq;
 
-typedef QList<signed>   IntList;
+typedef QList<Index>    IndexList;
+typedef QList<signed>   SIntList;
 typedef QList<unsigned> UIntList;
+typedef QList<QWORD>    QWordList;
+typedef QList<double>   FloatList;
 
