@@ -11,10 +11,10 @@ public: // ctors
 public: // const
 
 public: // non-const
-    List<T> takeFirst(const qsizetype k);
+    List<T> takeFirstList(const qsizetype k);
 };
 
-template<class T> inline List<T> List<T>::takeFirst(const qsizetype k)
+template<class T> inline List<T> List<T>::takeFirstList(const qsizetype k)
 {
     QList<T> result = QList<T>::first(k);
     QList<T>::remove(0, k);

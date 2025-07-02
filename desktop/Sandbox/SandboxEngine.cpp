@@ -26,7 +26,9 @@ SandboxEngine::SandboxEngine(SandboxApplication *parent)
 void SandboxEngine::initialize()
 {
     qInfo() << Q_FUNC_INFO;
-
+    Q_CHECK_PTR(mpProcessTimer);
+    Q_ASSERT(connect(mpProcessTimer, &QTimer::timeout,
+                     this, &SandboxEngine::processOnce));
 }
 
 void SandboxEngine::setup()
@@ -39,17 +41,16 @@ void SandboxEngine::start()
 {
     qInfo() << Q_FUNC_INFO;
     Q_CHECK_PTR(mpProcessTimer);
-    Q_ASSERT(connect(mpProcessTimer, &QTimer::timeout,
-                     this, &SandboxEngine::processOnce));
-    mpProcessTimer->start(1000);
+    mpProcessTimer->start(100);
     emit started();
 }
 
-void SandboxEngine::process()
+void SandboxEngine::flip()
 {
-    bool tChanged = true;
-    while (tChanged)
-        tChanged = processOnce();
+    qInfo() << Q_FUNC_INFO;
+    mpProcessTimer->stop();
+    mCurrentIndexedImage.baseImage().mirror();
+    start();
 }
 
 void SandboxEngine::setSubjectImage(const ColorImage &ci)
@@ -64,8 +65,8 @@ void SandboxEngine::setSubjectImage(const ColorImage &ci)
     Size cImageSize = cImageRect.size();
     QImage tIndexImage(cImageSize, QImage::Format_Indexed8);
     tIndexImage.fill(255);
-    tIndexImage.setColorTable(Rgba32Table::greyTable());
-    //tIndexImage.setColorTable(mColorTable);
+    //tIndexImage.setColorTable(Rgba32Table::greyTable());
+    tIndexImage.setColorTable(mColorTable);
     for (int rx = 0; rx < cImageSize.height(); ++rx)
         for (int cx = 0; cx < cImageSize.width(); ++cx)
         {
@@ -87,73 +88,54 @@ Count SandboxEngine::processOnce()
     scene()->set(SandboxScene::OldSubject, mPreviousIndexedImage);
     const Index cWidth = mCurrentIndexedImage.size().width();
     const Index cHeight = mCurrentIndexedImage.size().height();
+
     QByteArray tAboveRow(cWidth, 0);
     QByteArray tBelowRow((const char *)mCurrentIndexedImage.baseImage().constScanLine(0), cWidth);
-#if 1
     for (int tRow = 1; tRow < cHeight; ++tRow)
     {   // downward from second row
         tAboveRow = tBelowRow;
         tBelowRow = QByteArray((const char *)mCurrentIndexedImage.baseImage().constScanLine(tRow), cWidth);
-        const SIntList cRandomCols = app()->exe()->rand()->random(cWidth);
+        const UIntList cRandomCols = app()->exe()->rand()->take(cWidth, cWidth);
         for (int tColIx = 1; tColIx < cWidth - 1; ++tColIx)
         {
-            int tCol = qBound(1, cRandomCols[tColIx], cWidth-2);
+            int tCol = qBound(1U, cRandomCols[tColIx], UINT(cWidth-2));
             BYTE tAboveValue = tAboveRow[tCol];
-            if (true || tAboveValue < 128)
+            BYTE tBelowLeft = tBelowRow[tCol - 1], tBelowValue = tBelowRow[tCol], tBelowRight = tBelowRow[tCol + 1];
+            BYTE tBelowLightest = qMax(tBelowValue, qMax(tBelowLeft, tBelowRight));
+            if (tBelowLightest > tAboveValue)
             {
-                BYTE tBelowLeft = tBelowRow[tCol - 1], tBelowValue = tBelowRow[tCol], tBelowRight = tBelowRow[tCol + 1];
-                BYTE tBelowLightest = qMax(tBelowValue, qMax(tBelowLeft, tBelowRight));
-                if (tBelowLightest < tAboveValue)
-                {
-                    ++result;
-                    if (tBelowLightest == tBelowValue)
-                        qSwap(tAboveRow[tCol], tBelowRow[tCol]);
-                    else if (tBelowLightest == tBelowLeft)
-                        qSwap(tAboveRow[tCol], tBelowRow[tCol - 1]);
-                    else if (tBelowLightest == tBelowRight)
-                        qSwap(tAboveRow[tCol], tBelowRow[tCol + 1]);
-                }
+                ++result;
+                if (tBelowLightest == tBelowValue)
+                    qSwap(tAboveRow[tCol], tBelowRow[tCol]);
+                else if (tBelowLightest == tBelowLeft)
+                    qSwap(tAboveRow[tCol], tBelowRow[tCol - 1]);
+                else if (tBelowLightest == tBelowRight)
+                    qSwap(tAboveRow[tCol], tBelowRow[tCol + 1]);
+            }
+            tBelowValue = tBelowRow[tCol];
+            // pushing sky up
+            tAboveValue = tAboveRow[tCol];
+            BYTE tAboveLeft = tAboveRow[tCol - 1], tAboveRight = tAboveRow[tCol + 1];
+            BYTE tAboveDarkest  = qMin(tAboveValue, qMin(tAboveLeft, tAboveRight));
+            if (tAboveDarkest < tBelowValue)
+            {
+                ++result;
+                if (tAboveDarkest == tAboveValue)
+                    qSwap(tBelowRow[tCol], tAboveRow[tCol]);
+                else if (tAboveDarkest ==  tAboveLeft)
+                    qSwap(tBelowRow[tCol], tAboveRow[tCol - 1]);
+                else if (tAboveDarkest ==  tAboveRight)
+                    qSwap(tBelowRow[tCol], tAboveRow[tCol + 1]);
             }
         }
         std::memcpy((void *)(mCurrentIndexedImage.baseImage().constScanLine(tRow - 1)), tAboveRow.constData(), cWidth);
     }
     std::memcpy((void *)(mCurrentIndexedImage.baseImage().constScanLine(cHeight - 1)), tBelowRow.constData(), cWidth);
-#endif
-#if 0
-    tAboveRow = QByteArray((const char *)mCurrentIndexedImage.baseImage().constScanLine(cHeight - 1), cWidth);
-    for (int tRow = cHeight - 2; tRow > 1; --tRow)
-    {   // upward from second last
-        tBelowRow = tAboveRow;
-        tAboveRow = QByteArray((const char *)mCurrentIndexedImage.baseImage().constScanLine(tRow), cWidth);
-        const SIntList cRandomCols = app()->exe()->rand()->random(cWidth);
-        for (int tColIx = 1; tColIx < cWidth - 1; ++tColIx)
-        {
-            int tCol = qBound(1, cRandomCols[tColIx], cWidth-2);
-            BYTE tBelowValue = tBelowRow[tCol];
-            if (true || tBelowValue < 128)
-            { // pushing sky up
-                BYTE tAboveLeft = tAboveRow[tCol - 1], tAboveValue = tAboveRow[tCol], tAboveRight = tAboveRow[tCol + 1];
-                BYTE tAboveDarkest  = qMin(tAboveValue, qMin(tAboveLeft, tAboveRight));
-                if (tAboveDarkest > tBelowValue)
-                {
-                    ++result;
-                    if (tAboveDarkest == tAboveValue)
-                        qSwap(tBelowRow[tCol], tAboveRow[tCol]);
-                    else if (tAboveDarkest ==  tAboveLeft)
-                        qSwap(tBelowRow[tCol], tAboveRow[tCol - 1]);
-                    else if (tAboveDarkest ==  tAboveRight)
-                        qSwap(tBelowRow[tCol], tAboveRow[tCol + 1]);
-                }
-            }
-        }
-        std::memcpy((void *)(mCurrentIndexedImage.baseImage().constScanLine(tRow - 1)), tBelowRow.constData(), cWidth);
-    }
-    std::memcpy((void *)(mCurrentIndexedImage.baseImage().constScanLine(0)), tAboveRow.constData(), cWidth);
-#endif
+
     scene()->set(SandboxScene::NewSubject, mCurrentIndexedImage);
-//    qInfo() << Q_FUNC_INFO << result
-  //          << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     emit passComplete(result);
+    if (result < (scene()->viewRect().area() / 10))
+        flip();
     return result;
 }
 

@@ -62,8 +62,8 @@ private slots:
 
 signals: // private
     void pulsed();
-    void refilling(const Count currentCount);
-    void refillingF(const Count currentCount);
+    void refilled(const Count currentCount);
+    void refilledF(const Count currentCount);
 
 private:
     QRandomGenerator mGenerator;

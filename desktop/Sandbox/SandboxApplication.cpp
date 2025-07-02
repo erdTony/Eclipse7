@@ -49,6 +49,8 @@ void SandboxApplication::objconnect()
             mainWindow(), &SandboxMainWindow::start);
     connect(engine(), &SandboxEngine::passComplete,
             mainWindow(), &SandboxMainWindow::pass);
+    connect(engine(), &SandboxEngine::finished,
+            engine(), &SandboxEngine::flip);
     emit objconnected();
 }
 

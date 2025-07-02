@@ -25,13 +25,13 @@ void Random::initialize()
     if (enableFloat)
         Q_ASSERT(connect(this, &Random::pulsed,
                          this, &Random::refillF));
-    // TODO
-
+    mpPulseTimer->start(shortPulseMsec);
     emit initialized();
 }
 
 void Random::reseed(const DWORD dw)
 {
+    clear();
     mGenerator.seed(dw);
 }
 
@@ -57,12 +57,23 @@ void Random::dequeueF(const Count k)
 
 UINT Random::take()
 {
-
+    UINT result = mUIntQueue.dequeue();
+    emit taken(result);
+    return result;
 }
 
 UIntList Random::take(const Count k, const UINT bound)
 {
-    UIntList result = (k >= count()) ? mUIntQueue.dequeue(k) : direct(k);
+    UIntList result;
+    if (k <= count())
+    {
+        while (result.count() < k)
+            result.append(take());
+    }
+    else
+    {
+        result = direct(k);
+    }
     if (bound)
         for (Index ix = 0; ix < k; ++ix)
             result[ix] %= bound;
@@ -71,32 +82,54 @@ UIntList Random::take(const Count k, const UINT bound)
 
 FLOAT Random::takeF()
 {
-
+    UINT result = mUIntQueue.dequeue();
+    emit taken(result);
+    return result;
 }
 
 FloatList Random::takeF(const Count k)
 {
-
+    FloatList result;
+    if (k <= count())
+    {
+        while (result.count() < k)
+            result.append(takeF());
+    }
+    else
+    {
+        result = directF(k);
+    }
+    return result;
 }
 
 UINT Random::direct()
 {
-
+    UINT result = mGenerator.generate64();
+    emit directed(result);
+    return result;
 }
 
 UIntList Random::direct(const Count k)
 {
-
+    UIntList result;
+    while (result.count() < k)
+        result.append(direct());
+    return result;
 }
 
 FLOAT Random::directF()
 {
-
+    FLOAT result = mGenerator.generateDouble();
+    emit directedF(result);
+    return result;
 }
 
 FloatList Random::directF(const Count k)
 {
-
+    FloatList result;
+    while (result.count() < k)
+        result.append(directF());
+    return result;
 }
 
 UIntList Random::randomIota(const Count iotaCount)
@@ -116,23 +149,6 @@ void Random::randomize(UIntList &pList)
 
 
 
-void Random::pulse()
-{
-    Q_CHECK_PTR(mpPulseTimer);
-    mpPulseTimer->setInterval(isFull() ? longPulseMsec : shortPulseMsec);
-    emit pulsed();
-}
-
-void Random::refill()
-{
-
-}
-
-void Random::refillF()
-{
-
-}
-
 bool Random::isFull() const
 {
     return (enableUInt && count() >= hiCount)
@@ -143,4 +159,29 @@ void Random::clear()
 {
     mUIntQueue.clear();
     mFloatQueue.clear();
+}
+
+void Random::pulse()
+{
+    Q_CHECK_PTR(mpPulseTimer);
+    mpPulseTimer->setInterval(isFull() ? longPulseMsec : shortPulseMsec);
+    emit pulsed();
+}
+
+void Random::refill()
+{
+    UIntList tList;
+    while (tList.count() < blockCount)
+        tList.append(mGenerator.generate64());
+    mUIntQueue.enqueue(tList);
+    emit refilled(mUIntQueue.count());
+}
+
+void Random::refillF()
+{
+    FloatList tList;
+    while (tList.count() < blockCount)
+        tList.append(mGenerator.generateDouble());
+    mFloatQueue.enqueue(tList);
+    emit refilledF(mFloatQueue.count());
 }

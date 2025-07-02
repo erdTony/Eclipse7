@@ -27,7 +27,7 @@ public: // non-const
     void push(const T &t);
     void push(const ListT &lt);
     T dequeue();
-    ListT dequeue(const Count k);
+    ListT dequeueList(const Count k);
     T pop();
     ListT pop(const Count k);
 
@@ -47,7 +47,7 @@ template<class T> inline void Queue<T>::enqueue(const ListT &lt) { mQueue.append
 template<class T> inline void Queue<T>::push(const T &t) { mQueue.prepend(t); }
 template<class T> inline void Queue<T>::push(const ListT &lt) { mQueue.prepend(lt); }
 template<class T> inline T Queue<T>::dequeue() { return mQueue.takeFirst(); }
-template<class T> inline Queue<T>::ListT Queue<T>::dequeue(const Count k) { return mQueue.takeFirst(k); }
+template<class T> inline Queue<T>::ListT Queue<T>::dequeueList(const Count k) { return mQueue.takeFirstList(k); }
 template<class T> inline T Queue<T>::pop() { return mQueue.takeLast(); }
 template<class T> inline Queue<T>::ListT Queue<T>::pop(const Count k) { return mQueue.takeLast(k); }
 

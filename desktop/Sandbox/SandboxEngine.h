@@ -28,7 +28,7 @@ public slots:
     void configure(void) {;}
     void setup(void);
     void start(void);
-    void process();
+    void flip(void);
 
     void setSubjectImage(const ColorImage &ci);
 
@@ -38,6 +38,7 @@ signals:
     void setuped(void);
     void started(void);
     void passComplete(const Count swaps);
+    void finished(const Count swaps);
 
 public: // pointers
     SandboxApplication * app();
