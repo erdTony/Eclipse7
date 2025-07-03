@@ -27,7 +27,7 @@ void TextFileLogOutput::start()
 
 void TextFileLogOutput::writeLine(const LogItem li)
 {
-    const LogContext cItemContext  = li.getContext();
+    const LogContext cItemContext  = li.context();
     if (mCurrentContext.qFuncInfo() == cItemContext.qFuncInfo())
     {
         const AText cContextText = ">>>"

@@ -5,6 +5,7 @@ Size::Size(const QSize other) : QSize(other) {;}
 Size::Size(const int w, const int h) : QSize(w, h) {;}
 Size::Size(const int dim) : QSize(dim, dim) {;}
 Size::Size(const int dim, const Rational aspect) { set(dim, aspect); }
+Size::Size(const Size &other) : QSize(other) {;}
 Size::Size(const Size other, const Rational aspect) { set(other, aspect); }
 
 unsigned int Size::area() const
@@ -17,10 +18,26 @@ Point Size::center() const
     return Point(width() / 2, height() / 2);
 }
 
-qreal Size::scaleF(const Size &rhs) const
+Size Size::added(const int i) const
+{
+    return Size(width() + i, height() + i);
+}
+
+Size Size::scaled(const unsigned int u) const
+{
+    return Size(width() * u, height() * u);
+}
+
+qreal Size::scaleToF(const Size &rhs) const
 {
     return qMin(qreal(width()) / qreal(rhs.width()),
                 qreal(height()) / qreal(rhs.height()));
+}
+
+Size Size::unioned(const Size &rhs) const
+{
+    return Size(qMax(width(),  rhs.width()),
+                qMax(height(), rhs.height()));
 }
 
 Size Size::set(const Size other, const Rational aspect)
@@ -43,3 +60,21 @@ Size Size::set(const Size other, const Rational aspect)
     }
 }
 
+Size Size::unionWith(const Size &rhs)
+{
+    return it() = unioned(rhs);
+}
+
+Size Size::operator =(const Size &rhs)
+{
+    if (rhs.isValid())
+        set(rhs.width(), rhs.height());
+    return it();
+}
+
+
+Size Size::set(const int w, const int h)
+{
+    QSize::setWidth(w), QSize::setHeight(h);
+    return it();
+}

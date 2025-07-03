@@ -10,18 +10,21 @@ include(../../useType.pri)
 include(../../useCore.pri)
 include(../../useMatgeo.pri)
 include(../../useWidgets.pri)
+include(../../useGraphics.pri)
 include(../../useExe.pri)
 
 SOURCES += \
     EFPApplication.cpp \
+    EFPFramesPage.cpp \
     EFPMainWindow.cpp \
-    EFPSplash.cpp \
+    EFPSplashPage.cpp \
     main.cpp
 
 HEADERS += \
     EFPApplication.h \
+    EFPFramesPage.h \
     EFPMainWindow.h \
-    EFPSplash.h
+    EFPSplashPage.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

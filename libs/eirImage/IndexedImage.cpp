@@ -19,8 +19,8 @@ void IndexedImage::set(const Grey16Image &aGrey16, const BrightnessContrast aBC)
 {
     for (Index rix = 0; rix < aGrey16.size().height(); ++rix)
     {
-        WORD * pInPixel  = (WORD *)aGrey16.baseImage().scanLine(rix);
-        BYTE * pOutPixel = (BYTE *)baseImage().scanLine(rix);
+        WORD * pInPixel  = (WORD *)aGrey16.qImage().scanLine(rix);
+        BYTE * pOutPixel = (BYTE *)qImage().scanLine(rix);
         for (Index cix = 0; cix < aGrey16.size().width(); ++cix)
         {
             const WORD cInPixel = *pInPixel++;

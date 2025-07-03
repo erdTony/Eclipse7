@@ -6,11 +6,11 @@ class QGridLayout;
 
 class Label;
 
-class EFPSplash : public BaseMainWindowPage
+class EFPSplashPage : public BaseMainWindowPage
 {
     Q_OBJECT
 public: // ctors
-    explicit EFPSplash(MainWindowPageStack *pMWPS);
+    explicit EFPSplashPage(MainWindowPageStack *pMWPS);
 
 public slots:
     void setup();

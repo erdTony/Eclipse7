@@ -15,11 +15,11 @@ In .h file:
 
 class LogItemData : public QSharedData
 {
-    DECLARE_CHILD_DATAPROPS(LOGITEM_DATAPROPS)
+    DECLARE_CHILD_DATAPROPS(LOGITEM_DATAPROPS);
 public:
     LogItemData(void)
     {
-        DEFINE_DATAPROPS_CTORS(LOGITEM_DATAPROPS)
+        DEFINE_DATAPROPS_CTORS(LOGITEM_DATAPROPS);
     }
 };
 
@@ -58,8 +58,8 @@ void LogItem::dtor(void) {}
 #define DATAPROP_DECLARE_PARENT(TYPE, NAME, DFLT) \
     public: \
         void init##NAME(void)               { if (data) data->init##NAME(); } \
-        void set##NAME(const TYPE v)        { if (data) data->set##NAME(v);    } \
-        TYPE get##NAME(void) const          { return (data) ? data->get##NAME() : DFLT; } \
+        void NAME(const TYPE v)             { if (data) data->NAME(v);    } \
+        TYPE NAME(void) const               { return (data) ? data->NAME() : DFLT; } \
         TYPE * ptr##NAME(void)              { return (data) ? data->ptr##NAME() : 0; } \
         const TYPE * ptr##NAME(void) const  { return (data) ? data->ptr##NAME() : 0; } \
 
@@ -72,8 +72,8 @@ void LogItem::dtor(void) {}
         TYPE TYPE##_##NAME; \
     public: \
         void init##NAME(void)               { TYPE##_##NAME = DFLT; } \
-        void set##NAME(const TYPE v)        { TYPE##_##NAME = v;    } \
-        TYPE get##NAME(void) const          { return TYPE##_##NAME; } \
+        void NAME(const TYPE v)             { TYPE##_##NAME = v;    } \
+        TYPE NAME(void) const               { return TYPE##_##NAME; } \
         TYPE * ptr##NAME(void)              { return & TYPE##_##NAME; } \
         const TYPE * ptr##NAME(void) const  { return & TYPE##_##NAME; } \
 
@@ -105,10 +105,10 @@ void LogItem::dtor(void) {}
         QSharedDataPointer<DATA> data; \
 
 #define DEFINE_DATAPROPS(CLASS, DATA) \
-CLASS::CLASS() : data(new DATA) { ctor(); } \
-CLASS::CLASS(const CLASS &rhs) : data(rhs.data) {} \
-CLASS &CLASS::operator=(const CLASS &rhs) \
-{ if (this != &rhs) data.operator=(rhs.data); return *this; } \
-CLASS::~CLASS() { dtor(); } \
+    CLASS::CLASS() : data(new DATA) { ctor(); } \
+    CLASS::CLASS(const CLASS &rhs) : data(rhs.data) {} \
+    CLASS &CLASS::operator=(const CLASS &rhs) \
+        { if (this != &rhs) data.operator=(rhs.data); return *this; } \
+    CLASS::~CLASS() { dtor(); } \
  \
 

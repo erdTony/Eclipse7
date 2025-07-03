@@ -20,10 +20,16 @@ MainWindowPageStack::MainWindowPageStack(BaseWidgetApplication *pBWA)
 
 void MainWindowPageStack::setup()
 {
-    qDebug() << Q_FUNC_INFO;
+    qInfo() << Q_FUNC_INFO;
     tabs()->setTabPosition(QTabWidget::West);
     setCentralWidget(tabs());
     qDebug() << Q_FUNC_INFO << "exit";
+}
+
+void MainWindowPageStack::select(const Index ix)
+{
+    qInfo() << Q_FUNC_INFO << ix;
+    mpStackLayout->setCurrentIndex(ix);;
 }
 
 Index MainWindowPageStack::nameIndex(BaseMainWindowPage *pBMWP) const
@@ -49,10 +55,11 @@ bool MainWindowPageStack::isValidIndex(const Index ix)
 
 Index MainWindowPageStack::add(BaseMainWindowPage *pBMWP)
 {
-    q_check_ptr(pBMWP);
+    Q_CHECK_PTR(pBMWP);
     Index result = -1;
-    //(void)remove(pBMWP);
     result = tabs()->addTab(pBMWP, pBMWP->name());
+    pBMWP->pageIndex(result);
+    mMinimumSize |= pBMWP->minimumSize();
     qDebug() << Q_FUNC_INFO << result;
     return result;
 }

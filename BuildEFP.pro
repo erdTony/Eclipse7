@@ -10,7 +10,7 @@ SUBDIRS +=              \
 #        eirFacebase     \
 #        eirFacerec      \
 #        eirFaceres      \
-#        eirGraphics     \
+        eirGraphics     \
 #        eirGui          \
         eirImage        \
         eirLogger       \
@@ -34,6 +34,7 @@ eirBase.subdir          = libs/eirBase
 eirColor.subdir         = libs/eirColor
 eirCore.subdir          = libs/eirCore
 eirExe.subdir           = libs/eirExe
+eirGraphics.subdir      = libs/eirGraphics
 eirImage.subdir         = libs/eirImage
 eirLogger.subdir        = libs/eirLogger
 eirMatgeo.subdir        = libs/eirMatgeo
@@ -47,7 +48,6 @@ EclipseFaceProc.subdir  = desktop/EclipseFaceProc
 #eirFacerec.subdir       = libs/eirFacerec
 #eirFaceres.subdir       = libs/eirFaceres
 #eirGui.subdir           = libs/eirGui
-#eirGraphics.subdir      = libs/eirGraphics
 #eirObjdet.subdir        = libs/eirObjdet
 #eirQtCV.subdir          = libs/eirQtCV
 #eirQtVlan.subdir        = libs/eirQtVlan
@@ -63,9 +63,10 @@ eirType.depends         = eirBase
 eirMatgeo.depends       = eirBase eirType
 eirColor.depends        = eirBase eirMatgeo
 eirImage.depends        = eirBase eirMatgeo eirColor
+eirGraphics.depends     = eirBase eirMatgeo eirImage
 eirCore.depends         = eirBase eirType
 eirExe.depends          = eirBase eirType eirMatgeo eirCore
-eirWidgets.depends      = eirBase eirCore eirExe
+eirWidgets.depends      = eirBase eirMatgeo eirCore eirExe
 eirNetwork.depends      = eirBase
 eirStore.depends        = eirBase eirType eirNetwork
 #eirObjdet.depends       = eirBase eirType eirMatgeo eirCore
@@ -76,7 +77,6 @@ EclipseFaceProc.depends = eirBase eirType eirMatgeo eirCore eirWidgets eirExe
 #eirQtCV.depends         = eirBase
 #eirQtVlan.depends       = eirBase
 #eirVideo.depends        = eirBase
-#eirGraphics.depends     = eirBase
 #eirXml.depends          = eirBase
 #eirSvg.depends          = eirBase
 #eirFacerec.depends      = eirBase

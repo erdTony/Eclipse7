@@ -7,6 +7,7 @@
 #include <QList>
 #include <QString>
 
+#include <Size.h>
 #include <Types.h>
 
 class BaseMainWindowPage;
@@ -24,6 +25,7 @@ public: // ctors
 
 public slots:
     void setup();
+    void select(const Index ix);
 
 signals:
     void added(const QString n, BaseMainWindowPage * pBMWP);
@@ -34,9 +36,11 @@ public: // const
     Index nameIndex(BaseMainWindowPage * pBMWP) const;
     Index nameIndex(const QString n) const;
     bool isValidIndex(const Index ix);
+    Size minimumSize() const;
 
 public: // non-const
     Index add(BaseMainWindowPage * pBMWP);
+    void minimumSize(const Size sz);
     bool remove(BaseMainWindowPage * pBMWP);
     bool remove(const Index ix);
 
@@ -57,8 +61,11 @@ private:
     QTabWidget * mpTabWidget=nullptr;
     QWidget* mpStackWidget=nullptr;
     QList<BaseMainWindowPage *> mPageList;
+    Size mMinimumSize;
 };
 
+inline Size MainWindowPageStack::minimumSize() const { return mMinimumSize; }
+inline void MainWindowPageStack::minimumSize(const Size sz) { mMinimumSize = sz; }
 inline BaseWidgetApplication *MainWindowPageStack::app() { q_check_ptr(mpApp); return mpApp; }
 inline QTabWidget *MainWindowPageStack::tabs() { q_check_ptr(mpTabWidget); return mpTabWidget; }
 inline QStackedLayout *MainWindowPageStack::stackLayout() { q_check_ptr(mpStackLayout); return mpStackLayout; }

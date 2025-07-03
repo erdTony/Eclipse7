@@ -14,15 +14,15 @@ bool ColorImage::isPlanar() const
 
 SCRect ColorImage::rect() const
 {
-    return baseImage().rect();
+    return qImage().rect();
 }
 
 QRgb ColorImage::pixel(const Point pt) const
 {
-    return baseImage().pixel(pt);
+    return qImage().pixel(pt);
 }
 
 void ColorImage::pixel(const Point pt, const QRgb rgb)
 {
-    baseImage().setPixel(pt, rgb);
+    qImage().setPixel(pt, rgb);
 }

@@ -21,6 +21,7 @@ SOURCES += \
 HEADERS += \
     ByteHistogram.h \
     Iota.h \
+    MatrixT.h \
     Point.h \
     Rational.h \
     RationalList.h \

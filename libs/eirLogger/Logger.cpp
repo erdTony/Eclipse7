@@ -38,7 +38,7 @@ void Logger::handleInputQueue()
 {
     if (mInputQueue.isEmpty())  return;
     const LogItem cItem = mInputQueue.dequeue();
-    const Log::MsgType cItemType = cItem.getContext().msgType();
+    const Log::MsgType cItemType = cItem.context().msgType();
     mTypeQueueMap[cItemType].enqueue(cItem);
 }
 

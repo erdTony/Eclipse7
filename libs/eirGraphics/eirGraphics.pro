@@ -1,20 +1,31 @@
 QT += widgets
-
 TEMPLATE = lib
 DEFINES += EIRGRAPHICS_LIBRARY
-
 CONFIG += c++23
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+include(../libs.pri)
+include(../../useBase.pri)
+include(../../useMatgeo.pri)
+include(../../useImage.pri)
+
 
 SOURCES += \
-    eirgraphics.cpp
+    Gallery.cpp \
+    GalleryFrame.cpp \
+    GalleryProperties.cpp \
+    GalleryScene.cpp \
+    GalleryView.cpp \
+    eirGraphics.cpp
 
 HEADERS += \
-    eirGraphics_global.h \
-    eirgraphics.h
+    Gallery.h \
+    GalleryFrame.h \
+    GalleryProperties.h \
+    GalleryScene.h \
+    GalleryView.h \
+    eirGraphics.h \
+    eirGraphics_global.h
 
 # Default rules for deployment.
 unix {
