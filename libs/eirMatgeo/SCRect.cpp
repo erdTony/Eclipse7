@@ -4,7 +4,7 @@
 
 
 SCRect::SCRect() : mSize(0,0), mCenter(0,0) {;}
-SCRect::SCRect(const Size sz) : mSize(sz), mCenter(sz.center()) {;}
+SCRect::SCRect(const Size sz, const bool centered) : mSize(sz), mCenter(centered ? sz.center() : QPoint(0, 0)) {;}
 SCRect::SCRect(const Size sz, const Point cpt) : mSize(sz), mCenter(cpt)  {;}
 SCRect::SCRect(const QRect qrc) : mSize(qrc.size()), mCenter(qrc.center())  {;}
 
@@ -61,6 +61,11 @@ SCRect SCRect::intersected(const SCRect other) const
 SCRect SCRect::intersected(const QRect qrc) const
 {
     return SCRect(toQRect().intersected(qrc));
+}
+
+SCRect SCRect::added(const Point pt) const
+{
+    return SCRect(size(), center() + pt);
 }
 
 SCRect SCRect::trim(const int i)

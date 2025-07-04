@@ -19,5 +19,5 @@ Point Point::set(const Size sz, const Index ix)
         const unsigned cX = ix % cWidth;
         result = Point(cX, cY);
     }
-    return result;
+    return it() = result;
 }

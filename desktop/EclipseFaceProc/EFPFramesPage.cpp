@@ -15,7 +15,7 @@ EFPFramesPage::EFPFramesPage(MainWindowPageStack *pMWPS)
 void EFPFramesPage::setup()
 {
     //const Size cPageSize = QWidget::size();
-    gallery()->props().calculateFromItems(Size(6, 2), Size(256), 8);
+    gallery()->props().calculateFromItems(Size(5, 2), Size(256), 8);
     gallery()->setup();
     QBoxLayout * pBox = new QHBoxLayout();
     pBox->addWidget(gallery()->widget());

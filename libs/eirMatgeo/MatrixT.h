@@ -27,6 +27,10 @@ public: // non-const
         if (isValid(cix)) mTList[cix] = t; }
     void fill(const Size sz, const T &t)
     { mSize = sz; mTList.fill(t, mSize.area()); }
+    T & ref(const Index ix) { return mTList[ix]; }
+    T & ref(const Point pt) { return mTList[index(pt)]; }
+    T & operator [] (const Index ix) { return ref(ix); }
+    T & operator [] (const Point pt) { return ref(pt); }
 
 private:
     Count area() const { return mSize.area(); }
@@ -38,10 +42,10 @@ private:
     { return ix >= 0 && ix < area(); }
     bool isValid(const int x, const int y) const
     { const Index ix = index(x, y); return isValid(ix); }
-    bool isValid(const QQPoint pt) const
+    bool isValid(const Point pt) const
     { return isValid(pt.x(), pt.y()); }
 
 private:
-    QQSize mSize;
-    QList<T> mTList;
+    Size mSize;
+    List<T> mTList;
 };

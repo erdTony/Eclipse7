@@ -3,6 +3,9 @@
 
 #include <QObject>
 
+#include <MatrixT.h>
+#include <SCRect.h>
+
 #include "GalleryProperties.h"
 class GalleryFrame;
 class GalleryScene;
@@ -15,11 +18,16 @@ public: // types
     enum Option
     {
         $null = 0,
-        RollingGrid = 0x00000001,
+        RollingRow          = 0x00000001,
+        RollingCol          = 0x00000002,
+        RollingGridByRow    = 0x00000004,
+        RollingGridByCol    = 0x00000008,
     };
     Q_ENUM(Option);
     Q_DECLARE_FLAGS(Options, Option);
     Q_FLAG(Options);
+
+    typedef MatrixT<SCRect> RectMatrix;
 
 public: // ctors
     explicit Gallery(QWidget *parent = nullptr);
@@ -47,7 +55,7 @@ private:
     GalleryProperties mProperties;
     GalleryScene * mpScene=nullptr;
     GalleryView * mpView=nullptr;
-
+    RectMatrix mItemRectMatrix;
 };
 
 inline GalleryFrame *Gallery::frame() { Q_CHECK_PTR(mpFrame); return mpFrame; }
