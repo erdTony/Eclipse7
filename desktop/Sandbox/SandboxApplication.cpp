@@ -47,12 +47,10 @@ void SandboxApplication::objconnect()
             this, &SandboxApplication::start);
     connect(this, &SandboxApplication::started,
             mainWindow(), &SandboxMainWindow::start);
-    connect(engine(), &SandboxEngine::passComplete,
-            mainWindow(), &SandboxMainWindow::pass);
-    connect(engine(), &SandboxEngine::finished,
-            engine(), &SandboxEngine::flip);
-    connect(engine(), &SandboxEngine::flipped,
-            mainWindow(), &SandboxMainWindow::flip);
+    connect(engine(), &SandboxEngine::frameSwapped,
+            mainWindow(), &SandboxMainWindow::showSwapping);
+    connect(engine(), &SandboxEngine::frameFlipped,
+            mainWindow(), &SandboxMainWindow::showFlipped);
     emit objconnected();
 }
 
@@ -71,8 +69,6 @@ void SandboxApplication::setup()
     qInfo() << Q_FUNC_INFO;
 
     engine()->setup();
-    QImage tSubjectImage(":/Monroe.jpg");
-    engine()->setSubjectImage(BaseImage(Image::Color, tSubjectImage));
 
     emit setuped();
 }
@@ -80,7 +76,6 @@ void SandboxApplication::setup()
 void SandboxApplication::start()
 {
     qInfo() << Q_FUNC_INFO;
-    QTimer::singleShot(2000, engine(), &SandboxEngine::start);
     emit started();
 }
 
@@ -89,11 +84,6 @@ void SandboxApplication::actQuit(const bool checked)
     qInfo() << Q_FUNC_INFO;
     Q_UNUSED(checked);
     exit(0);
-}
-
-SandboxScene *SandboxApplication::scene()
-{
-    return mainWindow()->scene();
 }
 
 CommandLine *SandboxApplication::commandLine()

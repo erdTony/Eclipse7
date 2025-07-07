@@ -9,7 +9,6 @@ class CommandLine;
 #include "SandboxData.h"
 class SandboxEngine;
 class SandboxMainWindow;
-class SandboxScene;
 
 
 class SandboxApplication : public BaseWidgetApplication
@@ -44,7 +43,6 @@ public: // non-const
 public: // pointers
     SandboxMainWindow * mainWindow();
     SandboxEngine * engine();
-    SandboxScene * scene();
     CommandLine * commandLine();
     Settings * settings();
 

@@ -3,18 +3,14 @@
 #include <QObject>
 
 #include <QColor>
+#include <QImage>
 class QTimer;
 
-#include <BrightnessContrast.h>
-#include <ByteHistogram.h>
-#include <ColorImage.h>
-#include <Grey16Image.h>
-#include <IndexedImage.h>
 #include <Rgba32Table.h>
 #include <Types.h>
 
-#include "SandboxApplication.h"
-class SandboxScene;
+class SandboxApplication;
+//#include "SandboxApplication.h"
 
 class SandboxEngine : public QObject
 {
@@ -28,34 +24,40 @@ public slots:
     void configure(void) {;}
     void setup(void);
     void start(void);
-    void flip(void);
 
-    void setSubjectImage(const ColorImage &ci);
 
 signals:
     void initialized(void);
     void configured(void);
     void setuped(void);
     void started(void);
-    void passComplete(const Count swaps);
-    void flipped();
-    void finished(const Count swaps);
-
-public: // pointers
-    SandboxApplication * app();
-    SandboxScene * scene();
-    QObject * object();
+    void frameSwapped(const Count swapPass,
+                      const Count numSwaps,
+                      const QImage &qi);
+    void frameSwapFinished(void);
+    void frameFlipped(const QImage &qi);
 
 
 public: // const
+    QImage subjectImage() const;
+    QImage processImage() const;
 
 public: // non-const
+    void subjectImage(const QImage &qi);
+    void processImage(const QImage &qi);
+
+public: // pointers
+    SandboxApplication * app();
+    QObject * object();
 
 private slots:
-    Count processOnce();
+    void startFrame();
+    void swapFrame();
+    void finishFrame();
+    void flipFrame();
 
 private:
-    BrightnessContrast processHistogram(const Grey16Image aGrey16Image);
+    Count processSwaps();
     void setupColorTable();
     void setupColorTableLinear(const BYTE aFrom,
                                const BYTE aTo,
@@ -71,15 +73,15 @@ private:
 
 private:
     SandboxApplication * mpApplication=nullptr;
-    QTimer * mpProcessTimer=nullptr;
-    ColorImage mSubjectImage;
-    Grey16Image mGrey16Image;
-    IndexedImage mPreviousIndexedImage;
-    IndexedImage mCurrentIndexedImage;
+    QTimer * mpSwapTimer=nullptr;
+    QImage mSubjectImage;
+    QImage mProcessImage;
+    Count mSwapCount;
     Rgba32Table::RgbList mColorTable;
-    ByteHistogram mGrey8Histogram;
 };
 
+inline QImage SandboxEngine::subjectImage() const { return mSubjectImage; }
+inline QImage SandboxEngine::processImage() const { return mProcessImage; }
+inline void SandboxEngine::processImage(const QImage &qi) { mProcessImage = qi; }
 inline SandboxApplication *SandboxEngine::app() { Q_ASSERT(mpApplication); return mpApplication; }
-inline SandboxScene *SandboxEngine::scene() { return app()->scene(); }
 inline QObject *SandboxEngine::object() { return parent(); }

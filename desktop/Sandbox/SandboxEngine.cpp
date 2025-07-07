@@ -6,18 +6,19 @@
 
 #include <cstring>
 
-#include <Size.h>
 #include <ExeSupport.h>
 #include <Point.h>
 #include <Random.h>
+#include <SCRect.h>
+#include <Size.h>
 
 #include "SandboxApplication.h"
-#include "SandboxScene.h"
+#include "SandboxMainWindow.h"
 
 SandboxEngine::SandboxEngine(SandboxApplication *parent)
     : QObject(parent)
     , mpApplication(parent)
-    , mpProcessTimer(new QTimer(this))
+    , mpSwapTimer(new QTimer(this))
 {
     qInfo() << Q_FUNC_INFO;
     setObjectName("SandboxEngine");
@@ -26,9 +27,9 @@ SandboxEngine::SandboxEngine(SandboxApplication *parent)
 void SandboxEngine::initialize()
 {
     qInfo() << Q_FUNC_INFO;
-    Q_CHECK_PTR(mpProcessTimer);
-    Q_ASSERT(connect(mpProcessTimer, &QTimer::timeout,
-                     this, &SandboxEngine::processOnce));
+    Q_CHECK_PTR(mpSwapTimer);
+    Q_ASSERT(connect(mpSwapTimer, &QTimer::timeout,
+                     this, &SandboxEngine::processSwaps));
 }
 
 void SandboxEngine::setup()
@@ -40,31 +41,26 @@ void SandboxEngine::setup()
 void SandboxEngine::start()
 {
     qInfo() << Q_FUNC_INFO;
-    Q_CHECK_PTR(mpProcessTimer);
-    mpProcessTimer->start(100);
+    Q_CHECK_PTR(mpSwapTimer);
+    Q_ASSERT(connect(this, &SandboxEngine::started,
+                     this, &SandboxEngine::startFrame));
+    Q_ASSERT(connect(mpSwapTimer, &QTimer::timeout,
+                     this, &SandboxEngine::swapFrame));
+    Q_ASSERT(connect(this, &SandboxEngine::frameSwapFinished,
+                     this, &SandboxEngine::finishFrame));
+
     emit started();
 }
 
-void SandboxEngine::flip()
-{
-    qInfo() << Q_FUNC_INFO;
-    mpProcessTimer->stop();
-    mCurrentIndexedImage.qImage().flip();
-    emit flipped();
-    start();
-}
 
-void SandboxEngine::setSubjectImage(const ColorImage &ci)
+void SandboxEngine::subjectImage(const QImage &qi)
 {
-    qInfo() << Q_FUNC_INFO << scene()->viewRect();
-    const QImage cBaseImage = ci.qImage();
-    const QRect cCropRect = scene()->viewRect().toQRect();
-    const QImage cBaseCrop = cBaseImage.copy(cCropRect);
-    const ColorImage cColorImage(cBaseCrop);
-    mSubjectImage.set(cColorImage);
-    SCRect cImageRect(cColorImage.rect());
-    Size cImageSize = cImageRect.size();
-    QImage tIndexImage(cImageSize, QImage::Format_Indexed8);
+    qInfo() << Q_FUNC_INFO << qi;
+    const Size cImageSize = app()->mainWindow()->baseSize();
+    const SCRect cBaseRect(cImageSize);
+    const QImage cBaseImage = qi.copy(cBaseRect);
+    mSubjectImage = cBaseImage;
+    QImage tIndexImage(mSubjectImage.size(), QImage::Format_Indexed8);
     tIndexImage.fill(255);
     //tIndexImage.setColorTable(Rgba32Table::greyTable());
     tIndexImage.setColorTable(mColorTable);
@@ -72,37 +68,75 @@ void SandboxEngine::setSubjectImage(const ColorImage &ci)
         for (int cx = 0; cx < cImageSize.width(); ++cx)
         {
             const Point cPoint(rx, cx);
-            const QRgb cRgbIn = cColorImage.pixel(cPoint);
+            const QRgb cRgbIn = cBaseImage.pixel(cPoint);
             const BYTE cGrey = qGray(cRgbIn);
             tIndexImage.setPixel(cPoint, qBound(BYTE(1), cGrey, BYTE(254)));
         }
-    qInfo() << "Saving IndexImage.png:"
+    qDebug() << "Saving IndexImage.png:"
             << tIndexImage.save("IndexImage.png");
-    mCurrentIndexedImage = IndexedImage(tIndexImage);
-    scene()->set(SandboxScene::NewSubject, mCurrentIndexedImage);
+    processImage(tIndexImage);
 }
 
-Count SandboxEngine::processOnce()
+void SandboxEngine::startFrame()
 {
-    Count result = false;
-    mPreviousIndexedImage = mCurrentIndexedImage;
-    scene()->set(SandboxScene::OldSubject, mPreviousIndexedImage);
-    const Index cWidth = mCurrentIndexedImage.size().width();
-    const Index cHeight = mCurrentIndexedImage.size().height();
+    qInfo() << Q_FUNC_INFO;
+    mSwapCount = 0;
+    Q_CHECK_PTR(mpSwapTimer);
+    mpSwapTimer->start(50);
+}
+
+void SandboxEngine::swapFrame()
+{
+//    qInfo() << Q_FUNC_INFO;
+    if (++mSwapCount < Count(processImage().height()))
+    {
+        const Count cNumSwaps = processSwaps();
+        emit frameSwapped(mSwapCount, cNumSwaps, processImage());
+    }
+    else
+    {
+        emit frameSwapFinished();
+    }
+
+}
+
+void SandboxEngine::finishFrame()
+{
+    qInfo() << Q_FUNC_INFO;
+    Q_CHECK_PTR(mpSwapTimer);
+    mpSwapTimer->stop();
+    QTimer::singleShot(500, this, &SandboxEngine::flipFrame);
+}
+
+void SandboxEngine::flipFrame()
+{
+    qInfo() << Q_FUNC_INFO;
+    mProcessImage.flip();
+    QTimer::singleShot(100, this, &SandboxEngine::startFrame);
+    emit frameFlipped(processImage());
+}
+
+Count SandboxEngine::processSwaps()
+{
+    Count result = 0;
+    QImage tImage = processImage();
+    const Index cWidth = tImage.size().width();
+    const Index cHeight = tImage.size().height();
 
     QByteArray tAboveRow(cWidth, 0);
-    QByteArray tBelowRow((const char *)mCurrentIndexedImage.qImage().constScanLine(0), cWidth);
+    QByteArray tBelowRow((const char *)tImage.constScanLine(0), cWidth);
     for (int tRow = 1; tRow < cHeight; ++tRow)
     {   // downward from second row
         tAboveRow = tBelowRow;
-        tBelowRow = QByteArray((const char *)mCurrentIndexedImage.qImage().constScanLine(tRow), cWidth);
+        tBelowRow = QByteArray((const char *)tImage.constScanLine(tRow), cWidth);
         const UIntList cRandomCols = app()->exe()->rand()->take(cWidth, cWidth);
         for (int tColIx = 1; tColIx < cWidth - 1; ++tColIx)
         {
             int tCol = qBound(1U, cRandomCols[tColIx], UINT(cWidth-2));
             BYTE tAboveValue = tAboveRow[tCol];
+            BYTE tAboveLeft =  tAboveRow[tCol - 1], tAboveRight =  tAboveRow[tCol + 1];
             BYTE tBelowLeft = tBelowRow[tCol - 1], tBelowValue = tBelowRow[tCol], tBelowRight = tBelowRow[tCol + 1];
-            BYTE tBelowLightest = qMax(tBelowValue, qMax(tBelowLeft, tBelowRight));
+            BYTE tBelowLightest = qMax(tBelowValue, qMax(qMax(tAboveLeft, tAboveRight), qMax(tBelowLeft, tBelowRight)));
             if (tBelowLightest > tAboveValue)
             {
                 ++result;
@@ -112,12 +146,17 @@ Count SandboxEngine::processOnce()
                     qSwap(tAboveRow[tCol], tBelowRow[tCol - 1]);
                 else if (tBelowLightest == tBelowRight)
                     qSwap(tAboveRow[tCol], tBelowRow[tCol + 1]);
+                else if (tBelowLightest == tAboveLeft)
+                    qSwap(tBelowRow[tCol], tBelowRow[tCol + 1]);
+                else if (tBelowLightest == tAboveRight)
+                    qSwap(tBelowRow[tCol], tBelowRow[tCol + 1]);
             }
             tBelowValue = tBelowRow[tCol];
             // pushing sky up
             tAboveValue = tAboveRow[tCol];
-            BYTE tAboveLeft = tAboveRow[tCol - 1], tAboveRight = tAboveRow[tCol + 1];
-            BYTE tAboveDarkest  = qMin(tAboveValue, qMin(tAboveLeft, tAboveRight));
+            tBelowLeft =  tAboveRow[tCol - 1], tBelowRight =  tAboveRow[tCol + 1];
+            tAboveLeft = tAboveRow[tCol - 1], tAboveRight = tAboveRow[tCol + 1];
+            BYTE tAboveDarkest  = qMin(tAboveValue, qMin(qMin(tBelowLeft, tBelowRight), qMin(tAboveLeft, tAboveRight)));
             if (tAboveDarkest < tBelowValue)
             {
                 ++result;
@@ -127,26 +166,16 @@ Count SandboxEngine::processOnce()
                     qSwap(tBelowRow[tCol], tAboveRow[tCol - 1]);
                 else if (tAboveDarkest ==  tAboveRight)
                     qSwap(tBelowRow[tCol], tAboveRow[tCol + 1]);
+                else if (tAboveDarkest ==  tBelowLeft)
+                    qSwap(tBelowRow[tCol], tBelowRow[tCol + 1]);
+                else if (tAboveDarkest ==  tBelowRight)
+                    qSwap(tBelowRow[tCol], tBelowRow[tCol + 1]);
             }
         }
-        std::memcpy((void *)(mCurrentIndexedImage.qImage().constScanLine(tRow - 1)), tAboveRow.constData(), cWidth);
+        std::memcpy((void *)(tImage.scanLine(tRow - 1)), tAboveRow.constData(), cWidth);
     }
-    std::memcpy((void *)(mCurrentIndexedImage.qImage().constScanLine(cHeight - 1)), tBelowRow.constData(), cWidth);
-
-    scene()->set(SandboxScene::NewSubject, mCurrentIndexedImage);
-    emit passComplete(result);
-    static QList<Count> sSwapList;
-    sSwapList << result;
-    if (sSwapList.count() > 8)
-    {
-        const int cFirstSwap = sSwapList.takeFirst();
-        const int cDelta = result - cFirstSwap;
-        const qreal cSlope = qreal(qAbs(cDelta)) / 8.0;
-        if (cSlope < 16.0)
-            flip();
-//        qDebug() << cFirstSwap << result << cDelta << cSlope;
-    }
-
+    std::memcpy((void *)(tImage.scanLine(cHeight - 1)), tBelowRow.constData(), cWidth);
+    processImage(tImage);
     return result;
 }
 
@@ -236,38 +265,3 @@ void SandboxEngine::setupColorTableBilinear(const BYTE aFrom,
     mColorTable[cMidIx] = aMidColor.rgb();
 }
 
-#if 0
-BrightnessContrast SandboxEngine::processHistogram(const Grey16Image aGrey16Image)
-{
-    qInfo() << Q_FUNC_INFO;
-    BrightnessContrast result;
-
-    // Gather Histogram
-    WORD * pGrey16Data = (WORD *)aGrey16Image.baseImage().constBits();
-    const Count nPixel = QQSize(aGrey16Image.baseImage().size()).area();
-    Count kPixel = 0;
-    do
-    {
-        const WORD cGrey16Pixel = *pGrey16Data++;
-        mGrey8Histogram.add(cGrey16Pixel >> 8);
-    } while (++kPixel < nPixel);
-
-    // Trim tails from histogram
-    const Count cTailBinCount = nPixel / 16;
-    const Index cAllBinCount = mGrey8Histogram.binCount();
-    Count tTailCount = 0;
-    Index tBinIndex = 0;
-    while (tTailCount < cTailBinCount && tBinIndex < cAllBinCount)
-        tTailCount += mGrey8Histogram[tBinIndex++];
-    const BYTE tLoBin = tBinIndex;
-
-    tTailCount = 0;
-    tBinIndex = cAllBinCount - 1;
-    while (tTailCount < cTailBinCount && tBinIndex > 0)
-        tTailCount += mGrey8Histogram[tBinIndex--];
-    const BYTE tHiBin = tBinIndex;
-
-    result.set(tLoBin, tHiBin);
-    return result;
-}
-#endif
