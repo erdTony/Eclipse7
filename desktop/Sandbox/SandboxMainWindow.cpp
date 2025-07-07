@@ -6,7 +6,7 @@
 #include <QGridLayout>
 #include <QIcon>
 #include <QLabel>
-#include <QLCDNumber>
+#include <QProgressBar>
 #include <QStatusBar>
 #include <QStyle>
 #include <QToolBar>
@@ -62,13 +62,21 @@ void SandboxMainWindow::setup()
     Q_CHECK_PTR(mpMainToolBar);
     setupActions();
 
+    mpProgressBar = new QProgressBar(this);
+    Q_CHECK_PTR(mpProgressBar);
+    mpProgressBar->setMaximumWidth(100);
+    mpProgressBar->setMaximum(101);
+    mpProgressBar->setMinimum(0);
+
     mpStatusBar = QMainWindow::statusBar();
     Q_CHECK_PTR(mpStatusBar);
     mpStatusBar->setSizeGripEnabled(false);
+    mpStatusBar->addPermanentWidget(mpProgressBar);
+    mpStatusBar->setMinimumHeight(mpProgressBar->height());
 
     scene()->set(SandboxScene::BackColor, Qt::green);
     scene()->setup();
-    setMinimumSize(scene()->viewRect().size());
+    setMinimumSize(scene()->viewRect().size().expanded(Size(8)));
     setCentralWidget(scene()->widget());
     update();
 
@@ -84,14 +92,23 @@ void SandboxMainWindow::start()
     emit started();
 }
 
+void SandboxMainWindow::flip()
+{
+    ++mFlipCount;
+    mPassCount = 0;
+}
+
 void SandboxMainWindow::pass(const Count swaps)
 {
     const qreal cPixelCount = scene()->viewRect().area();
-    QString msg = QString("%1 Pass: %2 Swap: %3 %4%")
+    const unsigned cPercent = qRound(100.0 * qreal(swaps) / cPixelCount);
+    QString msg = QString("%1 Pass: %2 + %3 Swap: %4")
                       .arg(QDateTime::currentDateTime().toString("hh:mm:ss.zzz"))
-                      .arg(++mPassCount, 6).arg(swaps, 6)
-                      .arg(qRound(100.0 * qreal(swaps) / cPixelCount), 3);
+                      .arg(mFlipCount, 6)
+                      .arg(++mPassCount, -6)
+                      .arg(swaps, 6);
     mpStatusBar->showMessage(msg);
+    mpProgressBar->setValue(cPercent);
 }
 
 QAction *SandboxMainWindow::action(const Key &key)

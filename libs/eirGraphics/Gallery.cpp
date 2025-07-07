@@ -24,7 +24,7 @@ Gallery::Gallery(QWidget *parent)
 void Gallery::setup()
 {
     qInfo() << Q_FUNC_INFO;
-    frame()->setMinimumSize(props().galleryPixelSize().added(8));
+    frame()->setMinimumSize(props().galleryPixelSize().expanded(16));
     QGraphicsRectItem * pFrameItem =
         scene()->addRect(SCRect(props().galleryPixelSize()),
                      QPen(), QBrush(QColor(48, 48, 64)));

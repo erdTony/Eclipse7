@@ -49,14 +49,15 @@ void SandboxEngine::flip()
 {
     qInfo() << Q_FUNC_INFO;
     mpProcessTimer->stop();
-    mCurrentIndexedImage.baseImage().mirror();
+    mCurrentIndexedImage.qImage().flip();
+    emit flipped();
     start();
 }
 
 void SandboxEngine::setSubjectImage(const ColorImage &ci)
 {
     qInfo() << Q_FUNC_INFO << scene()->viewRect();
-    const QImage cBaseImage = ci.baseImage();
+    const QImage cBaseImage = ci.qImage();
     const QRect cCropRect = scene()->viewRect().toQRect();
     const QImage cBaseCrop = cBaseImage.copy(cCropRect);
     const ColorImage cColorImage(cBaseCrop);
@@ -90,11 +91,11 @@ Count SandboxEngine::processOnce()
     const Index cHeight = mCurrentIndexedImage.size().height();
 
     QByteArray tAboveRow(cWidth, 0);
-    QByteArray tBelowRow((const char *)mCurrentIndexedImage.baseImage().constScanLine(0), cWidth);
+    QByteArray tBelowRow((const char *)mCurrentIndexedImage.qImage().constScanLine(0), cWidth);
     for (int tRow = 1; tRow < cHeight; ++tRow)
     {   // downward from second row
         tAboveRow = tBelowRow;
-        tBelowRow = QByteArray((const char *)mCurrentIndexedImage.baseImage().constScanLine(tRow), cWidth);
+        tBelowRow = QByteArray((const char *)mCurrentIndexedImage.qImage().constScanLine(tRow), cWidth);
         const UIntList cRandomCols = app()->exe()->rand()->take(cWidth, cWidth);
         for (int tColIx = 1; tColIx < cWidth - 1; ++tColIx)
         {
@@ -128,14 +129,24 @@ Count SandboxEngine::processOnce()
                     qSwap(tBelowRow[tCol], tAboveRow[tCol + 1]);
             }
         }
-        std::memcpy((void *)(mCurrentIndexedImage.baseImage().constScanLine(tRow - 1)), tAboveRow.constData(), cWidth);
+        std::memcpy((void *)(mCurrentIndexedImage.qImage().constScanLine(tRow - 1)), tAboveRow.constData(), cWidth);
     }
-    std::memcpy((void *)(mCurrentIndexedImage.baseImage().constScanLine(cHeight - 1)), tBelowRow.constData(), cWidth);
+    std::memcpy((void *)(mCurrentIndexedImage.qImage().constScanLine(cHeight - 1)), tBelowRow.constData(), cWidth);
 
     scene()->set(SandboxScene::NewSubject, mCurrentIndexedImage);
     emit passComplete(result);
-    if (result < (scene()->viewRect().area() / 10))
-        flip();
+    static QList<Count> sSwapList;
+    sSwapList << result;
+    if (sSwapList.count() > 8)
+    {
+        const int cFirstSwap = sSwapList.takeFirst();
+        const int cDelta = result - cFirstSwap;
+        const qreal cSlope = qreal(qAbs(cDelta)) / 8.0;
+        if (cSlope < 16.0)
+            flip();
+//        qDebug() << cFirstSwap << result << cDelta << cSlope;
+    }
+
     return result;
 }
 

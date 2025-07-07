@@ -2,4 +2,7 @@
     <qresource prefix="/image">
         <file>MM512A.jpg</file>
     </qresource>
+    <qresource prefix="/">
+        <file>Monroe.jpg</file>
+    </qresource>
 </RCC>

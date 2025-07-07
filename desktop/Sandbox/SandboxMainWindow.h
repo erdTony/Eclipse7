@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <QSize>
 class QLabel;
+class QProgressBar;
 class QStatusBar;
 class QToolBar;
 class QToolButton;
@@ -32,6 +33,7 @@ public slots:
     void configure();
     void setup();
     void start();
+    void flip();
     void pass(const Count swaps);
 
 signals:
@@ -67,6 +69,8 @@ private:
     QToolButton * mpQuitButton=nullptr;
     QToolButton * mpFlipButton=nullptr;
     QStatusBar * mpStatusBar=nullptr;
+    QProgressBar * mpProgressBar=nullptr;
+    Count mFlipCount=0;
     Count mPassCount=0;
     QLabel * mpStatusPass=nullptr;
     QLabel * mpStatusSwap=nullptr;

@@ -51,6 +51,8 @@ void SandboxApplication::objconnect()
             mainWindow(), &SandboxMainWindow::pass);
     connect(engine(), &SandboxEngine::finished,
             engine(), &SandboxEngine::flip);
+    connect(engine(), &SandboxEngine::flipped,
+            mainWindow(), &SandboxMainWindow::flip);
     emit objconnected();
 }
 
@@ -69,7 +71,7 @@ void SandboxApplication::setup()
     qInfo() << Q_FUNC_INFO;
 
     engine()->setup();
-    QImage tSubjectImage(":/image/MM512A.jpg");
+    QImage tSubjectImage(":/Monroe.jpg");
     engine()->setSubjectImage(BaseImage(Image::Color, tSubjectImage));
 
     emit setuped();

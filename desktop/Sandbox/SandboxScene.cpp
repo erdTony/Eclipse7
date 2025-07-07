@@ -62,7 +62,7 @@ void SandboxScene::set(const Layer layer, const QColor &fill)
 void SandboxScene::set(const Layer layer, const BaseImage &bi)
 {
 //    qInfo() << Q_FUNC_INFO << layer;
-    set(layer, bi.baseImage());
+    set(layer, bi.qImage());
 }
 
 void SandboxScene::set(const Layer layer, const QImage &qi)

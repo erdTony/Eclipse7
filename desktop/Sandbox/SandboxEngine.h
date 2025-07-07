@@ -38,6 +38,7 @@ signals:
     void setuped(void);
     void started(void);
     void passComplete(const Count swaps);
+    void flipped();
     void finished(const Count swaps);
 
 public: // pointers

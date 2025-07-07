@@ -18,9 +18,9 @@ Point Size::center() const
     return Point(width() / 2, height() / 2);
 }
 
-Size Size::added(const int i) const
+Size Size::expanded(const Size sz) const
 {
-    return Size(width() + i, height() + i);
+    return Size(width() + sz.width(), height() + sz.height());
 }
 
 Size Size::scaled(const unsigned int u) const
