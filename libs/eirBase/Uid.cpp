@@ -1,37 +1,29 @@
 #include "Uid.h"
 
-Uid::Uid(const bool nil) : NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF) {;}
-Uid::Uid(const Class klass) { generate(klass); }
+#include <QtEndian>
 
-Uid Uid::generate(const Class klass)
+#include "MillisecondTime.h"
+
+Uid::Uid(const bool nil) : mNibbles(NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF)) {;}
+Uid::Uid(const Type type) { generate(type); }
+
+Uid Uid::generate(const Type type)
 {
     Uid result(false);
-    switch (klass)
+    switch (type)
     {
-    case V8MacMsecSeq:   result = generateV8(V8MacMsecSeq);     break;
-    default:                                                    break;
+    case Type83:   result = generate83(type);     break;
+    default:                                      break;
     }
     return result;
 }
 
-Uid Uid::generateV8(const Class klass)
+Uid Uid::generate83(const Type type)
 {
-    Q_UNUSED(klass);
-    // TODO
-    return Uid(true);
+    Uid result;
+    Milliseconds tCurrentEms = MillisecondTime::current();
+    quint64 tNetworkEms = qToBigEndian<quint64>(tCurrentEms);
+    //mNibbles.set()
+    return result;
 }
 
-const void *Uid::p(const Index nIx) const
-{
-    return (BYTE *)(NibbleArray::data()) + byteIndex(nIx);
-}
-
-void *Uid::p(const Index nIx)
-{
-    return (BYTE *)(NibbleArray::data()) + byteIndex(nIx);
-}
-
-Index Uid::byteIndex(const Index nibbleIndex)
-{
-    return nibbleIndex / 2;
-}

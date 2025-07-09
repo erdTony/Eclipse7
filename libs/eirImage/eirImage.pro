@@ -17,6 +17,10 @@ SOURCES += \
     Grey16Image.cpp \
     GreyImage.cpp \
     Image.cpp \
+    ImageItem.cpp \
+    ImageObject.cpp \
+    ImageSet.cpp \
+    ImageUid.cpp \
     IndexedImage.cpp \
     PixmapStack.cpp \
     SupportedFormats.cpp \
@@ -31,6 +35,10 @@ HEADERS += \
     Grey16Image.h \
     GreyImage.h \
     Image.h \
+    ImageItem.h \
+    ImageObject.h \
+    ImageSet.h \
+    ImageUid.h \
     IndexedImage.h \
     PixmapStack.h \
     SupportedFormats.h \

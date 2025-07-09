@@ -12,19 +12,9 @@ include(../../useImage.pri)
 
 
 SOURCES += \
-    Gallery.cpp \
-    GalleryFrame.cpp \
-    GalleryProperties.cpp \
-    GalleryScene.cpp \
-    GalleryView.cpp \
     eirGraphics.cpp
 
 HEADERS += \
-    Gallery.h \
-    GalleryFrame.h \
-    GalleryProperties.h \
-    GalleryScene.h \
-    GalleryView.h \
     eirGraphics.h \
     eirGraphics_global.h
 

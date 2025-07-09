@@ -1,5 +1,6 @@
-QT -= gui
-QT *= network
+QT += core
+QT += gui
+QT += network
 TEMPLATE = lib
 DEFINES += EIRBASE_LIBRARY
 CONFIG += c++23
@@ -23,6 +24,7 @@ SOURCES += \
     UText.cpp \
     Uid.cpp \
     Url.cpp \
+    XText.cpp \
     eirBase.cpp
 
 HEADERS += \
@@ -44,6 +46,7 @@ HEADERS += \
     UText.h \
     Uid.h \
     Url.h \
+    XText.h \
     eirBase.h \
     eirBase_global.h
 

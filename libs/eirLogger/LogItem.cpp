@@ -12,7 +12,7 @@ DEFINE_DATAPROPS(LogItem, LogItemData)
 void LogItem::ctor(void)
 {
     timeStamp(MillisecondTime::current());
-    itemUid(Uid(Uid::V8MacMsecSeq));
+    itemUid(Uid(true)); //Uid::V8MacMsecSeq));
 }
 
 void LogItem::dtor(void) {;}

@@ -1,3 +1,3 @@
-#include "eirwidgets.h"
+#include "eirWidgets.h"
 
 eirWidgets::eirWidgets() {}

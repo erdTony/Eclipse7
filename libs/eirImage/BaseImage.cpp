@@ -3,13 +3,13 @@
 #include <SCRect.h>
 #include <Size.h>
 
-BaseImage::BaseImage() : mType(Image::$null) {;}
-BaseImage::BaseImage(const Image::Type type, const BaseImage &other)
+BaseImage::BaseImage() : mType(ImageObject::$null) {;}
+BaseImage::BaseImage(const ImageObject::Type type, const BaseImage &other)
     : mType(type), mBaseImage(other.convertedTo(type).qImage()) {;}
-BaseImage::BaseImage(const Image::Type aType, const QImage &qimage)
-    : mType(aType), mBaseImage(qimage.convertedTo(Image::qformat(type()))) {;}
-BaseImage::BaseImage(const Image::Type aType, const QPixmap &aPixmap)
-    : mType(aType), mBaseImage(aPixmap.toImage().convertedTo(Image::qformat(type()))) {;}
+BaseImage::BaseImage(const ImageObject::Type aType, const QImage &qimage)
+    : mType(aType), mBaseImage(qimage.convertedTo(ImageObject::qformat(type()))) {;}
+BaseImage::BaseImage(const ImageObject::Type aType, const QPixmap &aPixmap)
+    : mType(aType), mBaseImage(aPixmap.toImage().convertedTo(ImageObject::qformat(type()))) {;}
 
 Point BaseImage::center() const
 {
@@ -21,7 +21,7 @@ Size BaseImage::size() const
     return qImage().size();
 }
 
-BaseImage BaseImage::convertedTo(const Image::Type type) const
+BaseImage BaseImage::convertedTo(const ImageObject::Type type) const
 {
     return BaseImage(type, qImage());
 }
@@ -50,7 +50,7 @@ void BaseImage::set(const BaseImage &rhs)
 
 void BaseImage::set(const QImage &qi)
 {
-    mBaseImage = qi.convertedTo(Image::qformat(type()));
+    mBaseImage = qi.convertedTo(ImageObject::qformat(type()));
 }
 
 void BaseImage::scale(const signed int aRatio)
@@ -82,6 +82,6 @@ QPixmap BaseImage::pixmap(const Size sz)
 
 bool BaseImage::isPlanar() const
 {
-    return Image::isPlanar(mType);
+    return ImageObject::isPlanar(mType);
 }
 

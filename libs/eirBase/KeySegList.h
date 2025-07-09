@@ -18,6 +18,7 @@ public:
 
 public: // const
     QString toString() const;
+    QString toString(const QString &separator) const;
     operator QString() const;
     QStringList toStringList() const;
     operator QStringList() const;

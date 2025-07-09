@@ -1,5 +1,5 @@
 #pragma once
-#include "eirGraphics.h"
+#include "eirWidgets.h"
 
 #include <QObject>
 
@@ -15,7 +15,7 @@ class EIRGRAPHICS_EXPORT Gallery : public QObject
 {
     Q_OBJECT
 public: // types
-    enum Option
+    enum Mode
     {
         $null = 0,
         RollingRow          = 0x00000001,
@@ -23,11 +23,10 @@ public: // types
         RollingGridByRow    = 0x00000004,
         RollingGridByCol    = 0x00000008,
     };
-    Q_ENUM(Option);
-    Q_DECLARE_FLAGS(Options, Option);
-    Q_FLAG(Options);
+    Q_ENUM(Mode);
+    Q_DECLARE_FLAGS(Modes, Mode);
+    Q_FLAG(Modes);
 
-    typedef MatrixT<SCRect> RectMatrix;
 
 public: // ctors
     explicit Gallery(QWidget *parent = nullptr);

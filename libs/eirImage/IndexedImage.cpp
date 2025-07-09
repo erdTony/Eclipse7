@@ -6,11 +6,11 @@
 
 IndexedImage::IndexedImage() {}
 IndexedImage::IndexedImage(const QImage aIndexImage)
-    : BaseImage(Image::Index, aIndexImage) {;}
+    : BaseImage(ImageObject::Index, aIndexImage) {;}
 IndexedImage::IndexedImage(const BaseImage &other) : BaseImage(other) {;}
 IndexedImage::IndexedImage(const Grey16Image &aGrey16,
                        const BrightnessContrast aBC)
-    : BaseImage(Image::Index, QImage(aGrey16.size(), QImage::Format_Indexed8))
+    : BaseImage(ImageObject::Index, QImage(aGrey16.size(), QImage::Format_Indexed8))
 {
     set(aGrey16, aBC);
 }

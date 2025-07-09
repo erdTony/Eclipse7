@@ -13,19 +13,29 @@ include (../../useExe.pri)
 SOURCES += \
     BaseMainWindowPage.cpp \
     BaseWidgetApplication.cpp \
+    Gallery.cpp \
+    GalleryFrame.cpp \
+    GalleryGrid.cpp \
+    GalleryProperties.cpp \
+    GalleryUid.cpp \
     Label.cpp \
     MainWindowPageStack.cpp \
     SplashPage.cpp \
-    eirwidgets.cpp
+    eirWidgets.cpp
 
 HEADERS += \
     BaseMainWindowPage.h \
     BaseWidgetApplication.h \
+    Gallery.h \
+    GalleryFrame.h \
+    GalleryGrid.h \
+    GalleryProperties.h \
+    GalleryUid.h \
     Label.h \
     MainWindowPageStack.h \
     SplashPage.h \
-    eirWidgets_global.h \
-    eirwidgets.h
+    eirWidgets.h \
+    eirWidgets_global.h
 
 # Default rules for deployment.
 unix {
