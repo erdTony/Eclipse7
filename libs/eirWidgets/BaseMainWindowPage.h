@@ -46,3 +46,4 @@ inline Index BaseMainWindowPage::pageIndex() const { return mPageIndex; }
 inline Size BaseMainWindowPage::minimumSize() const { return mMinimumSize; }
 inline void BaseMainWindowPage::minimumSize(const Size sz) { mMinimumSize = sz; }
 inline void BaseMainWindowPage::pageIndex(const Index ix) { mPageIndex = ix; }
+inline MainWindowPageStack *BaseMainWindowPage::pageStack() { Q_CHECK_PTR(mpPageStack); return mpPageStack; }

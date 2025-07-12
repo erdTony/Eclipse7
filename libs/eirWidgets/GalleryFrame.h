@@ -1,9 +1,9 @@
 #pragma once
-#include "eirGraphics.h"
+#include "eirWidgets.h"
 
 #include <QFrame>
 
-class EIRGRAPHICS_EXPORT GalleryFrame : public QFrame
+class EIRWIDGETS_EXPORT GalleryFrame : public QFrame
 {
     Q_OBJECT
 public:

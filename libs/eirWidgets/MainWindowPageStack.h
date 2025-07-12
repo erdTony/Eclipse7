@@ -37,6 +37,7 @@ public: // const
     Index nameIndex(const QString n) const;
     bool isValidIndex(const Index ix);
     Size minimumSize() const;
+    Size clientSize();
 
 public: // non-const
     Index add(BaseMainWindowPage * pBMWP);
@@ -65,6 +66,7 @@ private:
 };
 
 inline Size MainWindowPageStack::minimumSize() const { return mMinimumSize; }
+inline Size MainWindowPageStack::clientSize() { return contentsRect().size(); }
 inline void MainWindowPageStack::minimumSize(const Size sz) { mMinimumSize = sz; }
 inline BaseWidgetApplication *MainWindowPageStack::app() { q_check_ptr(mpApp); return mpApp; }
 inline QTabWidget *MainWindowPageStack::tabs() { q_check_ptr(mpTabWidget); return mpTabWidget; }

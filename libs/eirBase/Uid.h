@@ -7,21 +7,6 @@
 
 #include "Types.h"
 
-/**************************************************************
- * UUID:    00112233-4455-6677-8899-AABBCCDDEEFF
- * Version:          ____/^
- * Variant:               ____/^
- * DWORD0:  ^^^^^^^^
- * WORD4:            ^^^^
- * 12BIT6:                 ^^^
- * 12BIT8:                      ^^^
- * WORDA:                           ^^^^
- * DWORDC:                              ^^^^^^^^
- *
- * For Type83R/S (Millisecond+8 & Random/Sequence)
- *          ^^^^^^^^ ^^^^ 3x^^
- *          \_MSec48____/   \/ MSec-Split
- **************************************************************/
 
 class EIRBASE_EXPORT Uid
 {
@@ -37,7 +22,7 @@ public: // types
     enum Type
     {
         $null = 0,
-        Type83,
+        Type7,
     };
 
 public: // ctors
@@ -63,7 +48,7 @@ public: // static
     static Index byteIndex(const Index nibbleIndex);
 
 private: // non-const
-    Uid generate83(const Type type);
+    Uid generate7(const Type type);
 
 private:
     NibbleArray mNibbles;

@@ -1,22 +1,32 @@
 #pragma once
-#include "eirGraphics.h"
+#include "eirWidgets.h"
 
 #include <QSharedData>
 #include <DataProperty.h>
+
+#include <QFrame>
 
 #include <Size.h>
 #include <Types.h>
 
 
-typedef unsigned GalleryOptions;
 
 #define GALLERY_DATAPROPS(TND) \
-    TND(Size, galleryPixelSize, Size()) \
-    TND(GalleryOptions, options, 0) \
-    TND(Size, itemSize, Size(256)) \
+    TND(Size, framePixelSize, Size()) \
+    TND(unsigned, modes, 0x11) \
+    TND(Size, itemPixelSize, Size(256)) \
+    TND(Size, cellPixelSize, Size(272)) \
     TND(Size, spacingSize, Size(8)) \
     TND(Count, selectionWidth, 4) \
     TND(Size, itemsInFrame, Size()) \
+    TND(int, frameShape, QFrame::Box) \
+    TND(QColor, frameForeground, QColor(128, 128, 192)) \
+    TND(QColor, frameBackground, QColor(128, 128, 160)) \
+    TND(QColor, itemForeground, QColor(64, 64, 192)) \
+    TND(QColor, itemBackground, QColor(64, 64, 160)) \
+
+
+
 
 
 class GalleryPropertiesData : public QSharedData
@@ -29,7 +39,7 @@ public:
     }
 };
 
-class EIRGRAPHICS_EXPORT GalleryProperties
+class EIRWIDGETS_EXPORT GalleryProperties
 {
     DECLARE_PARENT_DATAPROPS(GALLERY_DATAPROPS);
     DECLARE_DATAPROPS(GalleryProperties, GalleryPropertiesData);

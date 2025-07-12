@@ -6,6 +6,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include (../libs.pri)
 include (../../useBase.pri)
+include (../../useType.pri)
 include (../../useMatgeo.pri)
 include (../../useCore.pri)
 include (../../useExe.pri)
@@ -14,6 +15,7 @@ SOURCES += \
     BaseMainWindowPage.cpp \
     BaseWidgetApplication.cpp \
     Gallery.cpp \
+    GalleryCell.cpp \
     GalleryFrame.cpp \
     GalleryGrid.cpp \
     GalleryProperties.cpp \
@@ -27,6 +29,7 @@ HEADERS += \
     BaseMainWindowPage.h \
     BaseWidgetApplication.h \
     Gallery.h \
+    GalleryCell.h \
     GalleryFrame.h \
     GalleryGrid.h \
     GalleryProperties.h \

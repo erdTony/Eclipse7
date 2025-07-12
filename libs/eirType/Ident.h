@@ -5,7 +5,6 @@
 #include <DataProperty.h>
 #include <QSharedData>
 
-#include <QtGui/QTextDocument>
 #include <QVariant>
 
 #include <AText.h>
@@ -18,7 +17,7 @@
     TND(ID, id, 0) \
     TND(Key, key, Key()) \
     TND(AText, name, AText()) \
-    TND(QTextDocument, description, QTextDocument()) \
+    TND(QVariant, description, QVariant()) \
     TND(Milliseconds, ctorEms, 0) \
     TND(QWORD, ctorSeq, 0) \
 
@@ -38,7 +37,7 @@ class EIRTYPE_EXPORT Ident
     DECLARE_DATAPROPS(Ident, IdentData);
 
 public: // our ctors
-    Ident(const bool nilUid=true); // else maxUid
+    Ident(const bool nilUid); // else maxUid
     Ident(const Uid &u);
     Ident(const Uid &u, const ID i);
     Ident(const Uid &u, const Key &k);
@@ -50,10 +49,7 @@ public: // our ctors
     Ident(const ID i);
     Ident(const Key &k);
     Ident(const AText &n);
-    Ident(const Uid &u, const ID i, const Key &k, const AText &n)
-    {
-
-    }
+    Ident(const Uid &u, const ID i, const Key &k, const AText &n);
     Ident(const Uid::Type t, const ID i, const Key &k, const AText &n);
 
 public: // const

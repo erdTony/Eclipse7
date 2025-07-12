@@ -10,9 +10,9 @@ void GalleryProperties::calculateFromFrame(const Size frameSz,
                                            const Size spacingSz)
 {
     if (spacingSz) spacingSize(spacingSz);
-    if (itemSz) itemSize(itemSz);
+    if (itemSz) itemPixelSize(itemSz);
     const Size cSpacingSize = spacingSize();
-    const Size cItemSize = itemSize();
+    const Size cItemSize = itemPixelSize();
     const uint cPixelWidth = frameSz.width() - cSpacingSize.width();
     const uint cPixelHeight = frameSz.height() - cSpacingSize.height();
     const uint cItemsAcross = cPixelWidth / (cItemSize.width() + cSpacingSize.width());
@@ -25,13 +25,13 @@ void GalleryProperties::calculateFromItems(const Size items,
                                            const Size spacingSz)
 {
     if (spacingSz) spacingSize(spacingSz);
-    if (itemSz) itemSize(itemSz);
+    if (itemSz) itemPixelSize(itemSz);
     itemsInFrame(items);
     const Size cSpacingSize = spacingSize();
-    const Size cItemSize = itemSize();
+    const Size cItemSize = itemPixelSize();
     const uint cPixelWidth = cSpacingSize.width() + items.width()
                             * (cItemSize.width() + cSpacingSize.width());
     const uint cPixelHeight = cSpacingSize.height() + items.height()
                             * (cItemSize.height() + cSpacingSize.height());
-    galleryPixelSize(Size(cPixelWidth, cPixelHeight));
+    framePixelSize(Size(cPixelWidth, cPixelHeight));
 }

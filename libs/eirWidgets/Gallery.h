@@ -8,10 +8,8 @@
 
 #include "GalleryProperties.h"
 class GalleryFrame;
-class GalleryScene;
-class GalleryView;
 
-class EIRGRAPHICS_EXPORT Gallery : public QObject
+class EIRWIDGETS_EXPORT Gallery : public QObject
 {
     Q_OBJECT
 public: // types
@@ -22,6 +20,10 @@ public: // types
         RollingCol          = 0x00000002,
         RollingGridByRow    = 0x00000004,
         RollingGridByCol    = 0x00000008,
+        AlignTop            = 0x00000010,
+        AlignRight          = 0x00000020,
+        AlignBottom         = 0x00000040,
+        AlignLeft           = 0x00000080,
     };
     Q_ENUM(Mode);
     Q_DECLARE_FLAGS(Modes, Mode);
@@ -30,6 +32,8 @@ public: // types
 
 public: // ctors
     explicit Gallery(QWidget *parent = nullptr);
+    explicit Gallery(const Modes modes,
+                     QWidget *parent = nullptr);
 
 
 public slots:
@@ -45,21 +49,14 @@ public: // pointers
     GalleryFrame * frame();
     GalleryProperties props() const;
     GalleryProperties & props();
-    GalleryScene * scene();
-    GalleryView * view();
     QWidget * widget();
 
 private:
     GalleryFrame * mpFrame=nullptr;
     GalleryProperties mProperties;
-    GalleryScene * mpScene=nullptr;
-    GalleryView * mpView=nullptr;
-    RectMatrix mItemRectMatrix;
 };
 
 inline GalleryFrame *Gallery::frame() { Q_CHECK_PTR(mpFrame); return mpFrame; }
 inline GalleryProperties &Gallery::props() { return mProperties; }
 inline GalleryProperties Gallery::props() const { return mProperties; }
-inline GalleryScene *Gallery::scene() { Q_CHECK_PTR(mpScene); return mpScene; }
-inline GalleryView *Gallery::view() { Q_CHECK_PTR(mpView); return mpView; }
 inline QWidget *Gallery::widget() { return (QWidget *)frame(); }
