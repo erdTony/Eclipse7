@@ -13,15 +13,16 @@
 
 #define GALLERY_DATAPROPS(TND) \
     TND(Size, framePixelSize, Size()) \
+    TND(int, frameStyle, 0) \
+    TND(QColor, frameForeground, QColor(128, 128, 192)) \
+    TND(QColor, frameBackground, QColor(128, 128, 160)) \
     TND(unsigned, modes, 0) \
+    TND(Size, galleryPixelSize, Size()) \
     TND(Size, itemPixelSize, Size()) \
     TND(Size, cellPixelSize, Size()) \
     TND(Size, spacingSize, Size()) \
     TND(Count, selectionWidth, 0) \
     TND(Size, itemsInFrame, Size()) \
-    TND(int, frameStyle, 0) \
-    TND(QColor, frameForeground, QColor(128, 128, 192)) \
-    TND(QColor, frameBackground, QColor(128, 128, 160)) \
     TND(QColor, itemForeground, QColor(64, 64, 192)) \
     TND(QColor, itemBackground, QColor(64, 64, 160)) \
 

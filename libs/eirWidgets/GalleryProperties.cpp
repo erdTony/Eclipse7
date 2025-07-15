@@ -2,6 +2,8 @@
 
 #include <QtDebug>
 
+#include "Gallery.h"
+
 DEFINE_DATAPROPS(GalleryProperties, GalleryPropertiesData);
 
 void GalleryProperties::ctor(void) {;}
@@ -13,18 +15,29 @@ void GalleryProperties::calculateFromFrame(const Size frameSz,
 {
     if (itemSz) itemPixelSize(itemSz);
     if (spacingSz) spacingSize(spacingSz);
+    cellPixelSize(itemPixelSize().expanded(16));
     const Size cItemSize = itemPixelSize();
     const Size cSpacingSize = spacingSize();
-    const uint cPixelWidth = frameSz.width() - cSpacingSize.width();
-    const uint cPixelHeight = frameSz.height() - cSpacingSize.height();
-    const uint cItemsAcross = cPixelWidth / (cItemSize.width() + cSpacingSize.width());
-    const uint cItemsDown = cPixelHeight / (cItemSize.height() + cSpacingSize.height());
-    itemsInFrame(Size(cItemsAcross, cItemsDown));
+    unsigned tPixelWidth  = frameSz.width()  - cSpacingSize.width();
+    unsigned tPixelHeight = frameSz.height() - cSpacingSize.height();
+
+    unsigned tItemsAcross = tPixelWidth  / (cItemSize.width()  + cSpacingSize.width());
+    unsigned tItemsDown   = tPixelHeight / (cItemSize.height() + cSpacingSize.height());
+    if (modes() & Gallery::RollingRow) tItemsDown = 1;
+    if (modes() & Gallery::RollingCol) tItemsAcross = 1;
+    itemsInFrame(Size(tItemsAcross, tItemsDown));
+
+    tPixelWidth = itemsInFrame().width() * cellPixelSize().width()
+                  + (itemsInFrame().width() + 1) * spacingSize().width();
+    tPixelHeight = tItemsDown * cellPixelSize().height()
+                  + (tItemsDown + 1) * spacingSize().height();
+    galleryPixelSize(Size(tPixelWidth, tPixelHeight));
+    framePixelSize(Size(tPixelWidth + 8, tPixelHeight + 8));
     qInfo() << Q_FUNC_INFO << frameSz
-            << cItemSize << cSpacingSize
-            << cPixelWidth << cPixelHeight
-            << cItemsAcross << cItemsDown
-            << itemsInFrame();
+            << itemPixelSize() << spacingSize()
+            << tPixelWidth << tPixelHeight
+            << itemsInFrame() << galleryPixelSize()
+            << framePixelSize() << cellPixelSize();
 }
 
 void GalleryProperties::calculateFromItems(const Size items,

@@ -20,10 +20,8 @@ void EFPFramesPage::setup()
     qDebug() << Q_FUNC_INFO << pageStack()->minimumSize();
     setDefaultProperties();
     readSettingsProperties();
-    props().itemsInFrame(Size(2, 1));
     props().calculateFromFrame(pageStack()->minimumSize(),
                                Size(256), Size(8));
-    props().calculateFromItems(props().itemsInFrame());
     qDebug() << props().itemsInFrame() << props().framePixelSize();
     setSize(QSizePolicy::MinimumExpanding, props().framePixelSize());
 
@@ -31,9 +29,10 @@ void EFPFramesPage::setup()
 
     QBoxLayout * pBox = new QHBoxLayout();
     pBox->addWidget(gallery()->widget());
-    QWidget::setMinimumSize(props().framePixelSize().expanded(8));
+    setSize(QSizePolicy::MinimumExpanding,
+            props().framePixelSize());
     QWidget::setLayout(pBox);
-    qDebug() << Q_FUNC_INFO << minimumSize() << "exit";
+    qDebug() << Q_FUNC_INFO << props().framePixelSize() << "exit";
 }
 
 void EFPFramesPage::setDefaultProperties()
@@ -41,7 +40,7 @@ void EFPFramesPage::setDefaultProperties()
     qDebug() << Q_FUNC_INFO;
     props().modes(Gallery::RollingRow | Gallery::AlignTop);
     props().itemPixelSize(Size(256));
-    props().cellPixelSize(props().itemPixelSize() + 16);
+    props().cellPixelSize(props().itemPixelSize().expanded(16));
     props().spacingSize(Size(8));
     props().selectionWidth(4);
     props().frameStyle(QFrame::Box);

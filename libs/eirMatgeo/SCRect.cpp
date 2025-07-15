@@ -66,7 +66,7 @@ SCRect SCRect::intersected(const QRect qrc) const
 
 SCRect SCRect::added(const signed int expand) const
 {
-    return SCRect(size() + expand, center());
+    return SCRect(size().expanded(expand), center());
 }
 
 SCRect SCRect::added(const Point offset) const

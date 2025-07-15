@@ -37,11 +37,11 @@ void Gallery::setup(const GalleryProperties gp)
     frame()->setLineWidth(4);
 
     GalleryGrid * pGrid = new GalleryGrid(this);
-    frame()->setLayout(pGrid->layout());
     GalleryCell * pCell = new GalleryCell(this);
     // TODO different pCell = pCell->blankCell()
     pCell = pCell->blankCell();
     pGrid->setup(props().itemsInFrame(), pCell);
+    frame()->setLayout(pGrid->layout());
 }
 
 void Gallery::set(const Point pt, GalleryCell *pCell)

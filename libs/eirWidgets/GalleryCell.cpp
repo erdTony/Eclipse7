@@ -50,6 +50,7 @@ QPixmap GalleryCell::pixmap(const QImage &orig, const QColor border)
                          + props().selectionWidth() / 2).toQRect());
     }
     tPainter.end();
+    QLabel::setPixmap(result);
     return result;
 }
 

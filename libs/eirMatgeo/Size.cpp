@@ -25,6 +25,11 @@ Size Size::expanded(const Size sz) const
     return Size(width() + sz.width(), height() + sz.height());
 }
 
+Size Size::expanded(const unsigned int u) const
+{
+    return Size(width() + u, height() + u);
+}
+
 Size Size::scaled(const unsigned int u) const
 {
     return Size(width() * u, height() * u);
