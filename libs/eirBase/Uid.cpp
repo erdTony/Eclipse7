@@ -8,6 +8,16 @@
 Uid::Uid(const bool nil) : mNibbles(NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF)) {;}
 Uid::Uid(const Type type) { generate(type); }
 
+QString Uid::toString() const
+{
+    return uuid().toString();
+}
+
+QString Uid::tail() const
+{
+    return toString().right(14);
+}
+
 Uid Uid::generate(const Type type)
 {
     Uid result(false);

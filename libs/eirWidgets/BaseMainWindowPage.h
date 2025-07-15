@@ -4,6 +4,8 @@
 
 #include <QWidget>
 
+class QSizePolicy;
+
 #include <Size.h>
 
 class MainWindowPageStack;
@@ -26,13 +28,14 @@ public: // const
     Size minimumSize() const;
 
 public: // non-const
-    void minimumSize(const Size sz);
     void pageIndex(const Index ix);
+    void setSize(const QSizePolicy::Policy szp,
+                 const Size sz1=Size(), const Size sz2=Size());
 
 public: // pointers
     MainWindowPageStack * pageStack();
 
-private slots:
+private: // non-const
 
 private:
     MainWindowPageStack * mpPageStack=nullptr;
@@ -44,6 +47,6 @@ private:
 inline QString BaseMainWindowPage::name() const { return mName; }
 inline Index BaseMainWindowPage::pageIndex() const { return mPageIndex; }
 inline Size BaseMainWindowPage::minimumSize() const { return mMinimumSize; }
-inline void BaseMainWindowPage::minimumSize(const Size sz) { mMinimumSize = sz; }
-inline void BaseMainWindowPage::pageIndex(const Index ix) { mPageIndex = ix; }
 inline MainWindowPageStack *BaseMainWindowPage::pageStack() { Q_CHECK_PTR(mpPageStack); return mpPageStack; }
+inline void BaseMainWindowPage::pageIndex(const Index ix) { mPageIndex = ix; }
+

@@ -1,5 +1,7 @@
 #include "GalleryProperties.h"
 
+#include <QtDebug>
+
 DEFINE_DATAPROPS(GalleryProperties, GalleryPropertiesData);
 
 void GalleryProperties::ctor(void) {;}
@@ -9,15 +11,20 @@ void GalleryProperties::calculateFromFrame(const Size frameSz,
                                            const Size itemSz,
                                            const Size spacingSz)
 {
-    if (spacingSz) spacingSize(spacingSz);
     if (itemSz) itemPixelSize(itemSz);
-    const Size cSpacingSize = spacingSize();
+    if (spacingSz) spacingSize(spacingSz);
     const Size cItemSize = itemPixelSize();
+    const Size cSpacingSize = spacingSize();
     const uint cPixelWidth = frameSz.width() - cSpacingSize.width();
     const uint cPixelHeight = frameSz.height() - cSpacingSize.height();
     const uint cItemsAcross = cPixelWidth / (cItemSize.width() + cSpacingSize.width());
     const uint cItemsDown = cPixelHeight / (cItemSize.height() + cSpacingSize.height());
     itemsInFrame(Size(cItemsAcross, cItemsDown));
+    qInfo() << Q_FUNC_INFO << frameSz
+            << cItemSize << cSpacingSize
+            << cPixelWidth << cPixelHeight
+            << cItemsAcross << cItemsDown
+            << itemsInFrame();
 }
 
 void GalleryProperties::calculateFromItems(const Size items,
@@ -30,8 +37,11 @@ void GalleryProperties::calculateFromItems(const Size items,
     const Size cSpacingSize = spacingSize();
     const Size cItemSize = itemPixelSize();
     const uint cPixelWidth = cSpacingSize.width() + items.width()
-                            * (cItemSize.width() + cSpacingSize.width());
+                                                        * (cItemSize.width() + cSpacingSize.width());
     const uint cPixelHeight = cSpacingSize.height() + items.height()
-                            * (cItemSize.height() + cSpacingSize.height());
+                                                          * (cItemSize.height() + cSpacingSize.height());
     framePixelSize(Size(cPixelWidth, cPixelHeight));
+    qInfo() << Q_FUNC_INFO << itemsInFrame() << itemPixelSize() << spacingSize()
+            << cPixelWidth << cPixelHeight
+            << framePixelSize();
 }

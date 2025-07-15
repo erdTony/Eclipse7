@@ -53,6 +53,7 @@ public: // our ctors
     Ident(const Uid::Type t, const ID i, const Key &k, const AText &n);
 
 public: // const
+    bool isNull() const;
 
 public: // non-const
     void set(const bool nilUid=true); // else maxUid
@@ -73,3 +74,5 @@ public: // non-const
 private:
     static QWORD smCtorSeq;
 };
+
+extern EIRTYPE_EXPORT QDebug operator << (QDebug debug, const Ident &ident);

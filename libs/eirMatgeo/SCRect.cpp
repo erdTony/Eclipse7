@@ -4,6 +4,7 @@
 
 
 SCRect::SCRect() : mSize(0,0), mCenter(0,0) {;}
+SCRect::SCRect(const int dim, const bool centered) : mSize(dim), mCenter(centered ? size().center() : QPoint(0, 0)) {;}
 SCRect::SCRect(const Size sz, const bool centered) : mSize(sz), mCenter(centered ? sz.center() : QPoint(0, 0)) {;}
 SCRect::SCRect(const Size sz, const Point cpt) : mSize(sz), mCenter(cpt)  {;}
 SCRect::SCRect(const QRect qrc) : mSize(qrc.size()), mCenter(qrc.center())  {;}
@@ -63,9 +64,14 @@ SCRect SCRect::intersected(const QRect qrc) const
     return SCRect(toQRect().intersected(qrc));
 }
 
-SCRect SCRect::added(const Point pt) const
+SCRect SCRect::added(const signed int expand) const
 {
-    return SCRect(size(), center() + pt);
+    return SCRect(size() + expand, center());
+}
+
+SCRect SCRect::added(const Point offset) const
+{
+    return SCRect(size(), center() + offset);
 }
 
 SCRect SCRect::trim(const int i)
@@ -87,6 +93,13 @@ SCRect SCRect::offset(const Point pt)
 {
     mCenter += pt;
     return *this;
+}
+
+void SCRect::aspect(const Rational &ra)
+{
+    Rational szr(width(), height());
+    szr.n((szr.d() * ra.n() / ra.d()));
+    width(szr.n()), height(szr.d());
 }
 
 SCRect operator & (const SCRect scr, const QRect qrc)

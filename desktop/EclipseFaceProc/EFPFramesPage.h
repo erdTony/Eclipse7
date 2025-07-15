@@ -2,6 +2,7 @@
 
 #include <BaseMainWindowPage.h>
 
+#include <GalleryProperties.h>
 class Gallery;
 
 class EFPFramesPage : public BaseMainWindowPage
@@ -17,8 +18,12 @@ public slots:
 signals:
 
 public: // const
+    GalleryProperties props() const;
 
 public: // non-const
+    GalleryProperties & props();
+    void setDefaultProperties();
+    void readSettingsProperties();
 
 public: // pointers
     Gallery * gallery();
@@ -26,6 +31,9 @@ public: // pointers
 
 private:
     Gallery * mpGallery=nullptr;
+    GalleryProperties mGalleryProperties;
 };
 
+inline GalleryProperties EFPFramesPage::props() const { return mGalleryProperties; }
+inline GalleryProperties & EFPFramesPage::props() { return mGalleryProperties; }
 inline Gallery *EFPFramesPage::gallery() { Q_CHECK_PTR(mpGallery); return mpGallery; }

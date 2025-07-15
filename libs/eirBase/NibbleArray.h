@@ -4,6 +4,7 @@
 #include <QByteArray>
 
 #include "Types.h"
+#include "XText.h"
 
 class EIRBASE_EXPORT NibbleArray
 {
@@ -17,6 +18,7 @@ public: // const
     virtual BYTE at(const Index ix) const;
     bool isZero() const;
     bool equals(const NibbleArray &other) const;
+    XText toHex() const;
     virtual bool operator == (const NibbleArray &other) const;
 
 public: // non-const

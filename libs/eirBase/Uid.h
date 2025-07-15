@@ -32,6 +32,10 @@ public: // ctors
 
 public: // const
     bool isNull() const;
+    bool isNil() const;
+    QString toString() const;
+    QString tail() const;
+    operator QString () const;
     QUuid uuid() const;
     OWORD oword() const;
     QWORD hi() const;
@@ -54,7 +58,9 @@ private:
     NibbleArray mNibbles;
 };
 
-inline bool Uid::isNull() const { return mNibbles.isZero(); }
+inline bool Uid::isNull() const { return uuid().isNull(); }
+inline bool Uid::isNil() const { return mNibbles.isZero(); }
+inline Uid::operator QString() const { return toString(); }
 inline QUuid Uid::uuid() const { return QUuid::fromBytes(mNibbles.data()); }
 inline OWORD Uid::oword() const { return *(OWORD *)(mNibbles.data()); }
 inline QWORD Uid::hi() const { return *(QWORD *)(mNibbles.data()); }

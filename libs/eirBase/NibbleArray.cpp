@@ -35,6 +35,11 @@ bool NibbleArray::equals(const NibbleArray &other) const
            && (0 == mBytes.compare(other.mBytes));
 }
 
+XText NibbleArray::toHex() const
+{
+    return mBytes.toHex();
+}
+
 void NibbleArray::set(const Index ix, const BYTE b)
 {
     const bool cOddIndex = ix & 1;

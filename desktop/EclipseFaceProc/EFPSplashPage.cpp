@@ -45,7 +45,8 @@ void EFPSplashPage::setup()
     mpMainGrid->setColumnMinimumWidth(1, 512);
     mpMainGrid->setRowMinimumHeight(0, cRow0Height);
     mpMainGrid->setRowMinimumHeight(1, cRow1Height);
-    minimumSize(Size(1024, cRow0Height + cRow1Height));
+    setSize(QSizePolicy::Minimum,
+            Size(1024, cRow0Height + cRow1Height));
     show();
     qDebug() << Q_FUNC_INFO << minimumSize() << "exit";
 }

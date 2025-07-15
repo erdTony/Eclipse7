@@ -1,5 +1,7 @@
 #include "Size.h"
 
+#include "SCRect.h"
+
 Size::Size(const bool null) : QSize(null ? 0 : -1, null ? 0 : -1) {;}
 Size::Size(const QSize other) : QSize(other) {;}
 Size::Size(const int w, const int h) : QSize(w, h) {;}
@@ -36,8 +38,16 @@ qreal Size::scaleToF(const Size &rhs) const
 
 Size Size::unioned(const Size &rhs) const
 {
-    return Size(qMax(width(),  rhs.width()),
-                qMax(height(), rhs.height()));
+    const SCRect cOurRect(it());
+    const SCRect cRhsRect(rhs);
+    return cOurRect.toQRect().united(cRhsRect).size();
+}
+
+Size Size::intersected(const Size &rhs) const
+{
+    const SCRect cOurRect(it());
+    const SCRect cRhsRect(rhs);
+    return cOurRect.toQRect().intersected(cRhsRect).size();
 }
 
 Size Size::set(const Size other, const Rational aspect)
@@ -63,6 +73,11 @@ Size Size::set(const Size other, const Rational aspect)
 Size Size::unionWith(const Size &rhs)
 {
     return it() = unioned(rhs);
+}
+
+Size Size::intersectedWith(const Size &rhs)
+{
+    return it() = intersected(rhs);
 }
 
 Size Size::operator =(const Size &rhs)

@@ -19,6 +19,11 @@ Ident::Ident(const ID i) : data(new IdentData) { set(i); ctor(); }
 Ident::Ident(const Key &k) : data(new IdentData) { set(k); ctor(); }
 Ident::Ident(const AText &n) : data(new IdentData) { set(n); ctor(); }
 
+bool Ident::isNull() const
+{
+    return uid().isNull();
+}
+
 void Ident::set(const bool nilUid)
 {
     uid(Uid(nilUid));
@@ -96,3 +101,10 @@ void Ident::ctor(void)
 }
 
 void Ident::dtor(void) {;}
+
+QDebug operator << (QDebug debug, const Ident &ident)
+{
+    debug << "{Ident:" << ident.uid().tail() << ident.id()
+          << ident.key().toString() << ident.name() << "Ident}";
+    return debug;
+}

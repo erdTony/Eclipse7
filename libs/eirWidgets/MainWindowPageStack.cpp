@@ -32,6 +32,16 @@ void MainWindowPageStack::select(const Index ix)
     mpStackLayout->setCurrentIndex(ix);;
 }
 
+void MainWindowPageStack::updateSizes(const Size minSize, const Size maxSize)
+{
+    if ( ! minSize.isEmpty())
+        minimumSize() |= minSize;
+    if ( ! maxSize.isEmpty())
+        maximumSize() &= maxSize;
+    qInfo() << Q_FUNC_INFO << minSize << maxSize
+            << minimumSize() << maximumSize();
+}
+
 Index MainWindowPageStack::nameIndex(BaseMainWindowPage *pBMWP) const
 {
     q_check_ptr(pBMWP);
@@ -59,14 +69,14 @@ Index MainWindowPageStack::add(BaseMainWindowPage *pBMWP)
     Index result = -1;
     result = tabs()->addTab(pBMWP, pBMWP->name());
     pBMWP->pageIndex(result);
-    mMinimumSize |= pBMWP->minimumSize();
+    updateSizes(pBMWP->minimumSize(), pBMWP->maximumSize());
     qDebug() << Q_FUNC_INFO << result;
     return result;
 }
 
 bool MainWindowPageStack::remove(BaseMainWindowPage *pBMWP)
 {
-    q_check_ptr(pBMWP);
+    Q_CHECK_PTR(pBMWP);
     return remove(nameIndex(pBMWP));
 }
 

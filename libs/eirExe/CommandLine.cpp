@@ -12,6 +12,6 @@ CommandLine::CommandLine(QObject *parent)
 
 void CommandLine::add(const QCommandLineOption opt)
 {
-    // TODO
+    // TODO CommandLine::add(const QCommandLineOption opt)
     emit added(opt);
 }
