@@ -1,18 +1,20 @@
 #include "NibbleArray.h"
 
-NibbleArray::NibbleArray() {;}
-NibbleArray::NibbleArray(const Count k, const BYTE fill) : QByteArray((k + 1) / 2, (fill << 4) | (fill & 0x0F)) {;}
+NibbleArray::NibbleArray() : mLength(0) {;}
+NibbleArray::NibbleArray(const Count k, const BYTE fill) : mLength(k), mBytes((k + 1) / 2, (fill << 4) | (fill & 0x0F)) {;}
+NibbleArray::NibbleArray(const Count k, const BYTE * p) : mLength(k), mBytes(QByteArray::fromRawData((const char *)p, (k + 1) / 2)) {;}
 
 Count NibbleArray::length() const
 {
-    return QByteArray::length() / 2;
+    Q_ASSERT(Count(mBytes.length()) >= Count(mLength / 2 + mLength % 2));
+    return mLength;
 }
 
 BYTE NibbleArray::at(const Index ix) const
 {
     const bool cOddIndex = ix & 1;
     const Index cByteIndex = ix >> 1;
-    BYTE tByte = QByteArray::at(cByteIndex);
+    BYTE tByte = mBytes.at(cByteIndex);
     if (cOddIndex)
         tByte >>= 4;
     else
@@ -20,19 +22,44 @@ BYTE NibbleArray::at(const Index ix) const
     return tByte;
 }
 
+bool NibbleArray::isZero() const
+{
+    for (Index nix = 0; nix < Index(length()); ++nix)
+        if (at(nix) != 0) return false;
+    return true;
+}
+
 bool NibbleArray::equals(const NibbleArray &other) const
 {
-    return 0 == compare(QByteArray(other));
+    return (length() == other.length())
+           && (0 == mBytes.compare(other.mBytes));
+}
+
+XText NibbleArray::toHex() const
+{
+    return mBytes.toHex();
 }
 
 void NibbleArray::set(const Index ix, const BYTE b)
 {
     const bool cOddIndex = ix & 1;
     const Index cByteIndex = ix >> 1;
-    BYTE tByte = QByteArray::at(cByteIndex);
+    BYTE tByte = mBytes.at(cByteIndex);
     if (cOddIndex)
         tByte = (tByte & 0xF0) | (b & 0x0F);
     else
         tByte = (tByte & 0x0F) | (b << 4);
-    QByteArray::assign(cByteIndex, tByte);
+    mBytes.assign(cByteIndex, tByte);
 }
+
+void NibbleArray::set(const Index ix,
+                      const Count k,
+                      const BYTE *p)
+{
+    const NibbleArray cOverlayNibbles(k, p);
+    const Index cEnd = ix + Index(k);
+    for (Index nix = 0; nix < cEnd; ++nix)
+        set(nix, cOverlayNibbles.at(nix - ix));
+}
+
+

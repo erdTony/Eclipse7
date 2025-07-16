@@ -6,7 +6,7 @@
 
 class EIRBASE_EXPORT Key : public KeySegList
 {
-public:
+public: // ctors
     Key() {;}
     Key(const char * pch) : KeySegList(pch) {;}
     Key(const AText &at) : KeySegList(at) {;}

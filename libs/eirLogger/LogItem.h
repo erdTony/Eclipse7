@@ -22,18 +22,18 @@ typedef Log::Level LogLevel;
 typedef Log::Operation LogOperation;
 
 #define LOGITEM_DATAPROPS(TND) \
-    TND(Milliseconds, TimeStamp, 0) \
-    TND(Uid, ItemUid, Uid()) \
-    TND(LogContext, Context, LogContext()) \
-    TND(AText, Message, AText()) /*TODO UText*/ \
-    TND(UText, Format, UText()) \
-    TND(AText, PrintF, AText()) \
-    TND(QVariantList, Values, QVariantList()) \
-    TND(LogOperation, Operation, LogOperation()) \
-    TND(AText, ExpectedName, AText()) \
-    TND(QVariant, ExpectedValue, QVariant()) \
-    TND(AText, ActualName, AText()) \
-    TND(QVariant, ActualValue, QVariant()) \
+    TND(Milliseconds,   timeStamp,      0) \
+    TND(Uid,            itemUid,        Uid()) \
+    TND(LogContext,     context,        LogContext()) \
+    TND(AText,          message,        AText()) /*TODO UText*/ \
+    TND(UText,          format,         UText()) \
+    TND(AText,          printF,         AText()) \
+    TND(QVariantList,   values,         QVariantList()) \
+    TND(LogOperation,   operation,      LogOperation()) \
+    TND(AText,          expectedName,   AText()) \
+    TND(QVariant,       expectedValue,  QVariant()) \
+    TND(AText,          actualName,     AText()) \
+    TND(QVariant,       actualValue,    QVariant()) \
 
 class LogItemData : public QSharedData
 {

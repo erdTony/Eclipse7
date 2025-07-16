@@ -8,13 +8,17 @@ include(../libs.pri))
 include(../../useBase.pri)
 
 SOURCES += \
-    eirtype.cpp
+    Ident.cpp \
+    IdentMap.cpp \
+    eirType.cpp
 
 HEADERS += \
+    Ident.h \
+    IdentMap.h \
     List.h \
     Queue.h \
-    eirType_global.h \
-    eirtype.h
+    eirType.h \
+    eirType_global.h
 
 # Default rules for deployment.
 unix {

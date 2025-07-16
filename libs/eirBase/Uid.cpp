@@ -1,37 +1,50 @@
 #include "Uid.h"
 
-Uid::Uid(const bool nil) : NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF) {;}
-Uid::Uid(const Class klass) { generate(klass); }
+#include <QtEndian>
+#include <QRandomGenerator>
 
-Uid Uid::generate(const Class klass)
+#include "MillisecondTime.h"
+
+Uid::Uid(const bool nil) : mNibbles(NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF)) {;}
+Uid::Uid(const Type type) { generate(type); }
+
+QString Uid::toString() const
+{
+    return uuid().toString();
+}
+
+QString Uid::tail() const
+{
+    return toString().right(14);
+}
+
+Uid Uid::generate(const Type type)
 {
     Uid result(false);
-    switch (klass)
+    switch (type)
     {
-    case V8MacMsecSeq:   result = generateV8(V8MacMsecSeq);     break;
-    default:                                                    break;
+    case Type7:     result = generate7(type);   break;
+    default:                                    break;
     }
     return result;
 }
 
-Uid Uid::generateV8(const Class klass)
+Uid Uid::generate7(const Type type)
 {
-    Q_UNUSED(klass);
-    // TODO
-    return Uid(true);
+    Q_UNUSED(type);
+    Uid result;
+    Milliseconds tCurrentEms = MillisecondTime::current();
+    QRandomGenerator tRG(tCurrentEms);
+    quint64 tNetworkEms = qToBigEndian<quint64>(tCurrentEms);
+    const BYTE cVersion = 7;
+    const BYTE cVariant = 8;
+    const quint16 cRandom7A = tRG.generate();
+    const quint64 cRandom7B = tRG.generate64();
+    mNibbles.set( 0, 12, ((BYTE *)(&tNetworkEms)) + 8);
+    mNibbles.set(12,  1, &cVersion);
+    mNibbles.set(16,  1, &cVariant);
+    mNibbles.set(13,  3, (BYTE *)&cRandom7A);
+    mNibbles.set(17, 15, (BYTE *)&cRandom7B);
+    return result;
 }
 
-const void *Uid::p(const Index nIx) const
-{
-    return (BYTE *)(NibbleArray::data()) + byteIndex(nIx);
-}
-
-void *Uid::p(const Index nIx)
-{
-    return (BYTE *)(NibbleArray::data()) + byteIndex(nIx);
-}
-
-Index Uid::byteIndex(const Index nibbleIndex)
-{
-    return nibbleIndex / 2;
-}

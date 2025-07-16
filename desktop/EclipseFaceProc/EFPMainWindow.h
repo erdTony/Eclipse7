@@ -2,7 +2,10 @@
 
 #include <MainWindowPageStack.h>
 
-class EFPSplash;
+#include <QEvent>
+
+class EFPFramesPage;
+class EFPSplashPage;
 
 class EFPMainWindow : public MainWindowPageStack
 {
@@ -15,8 +18,24 @@ public:
 public slots:
     void setup();
 
+signals:
+    void keyEsc();
+    void keyF1();
+
+protected:
+    virtual bool event(QEvent * pEvent) override;
+
+protected:
+    void handleEsc();
+    void handleF1();
+
 private:
-    EFPSplash * mpSplash;
+    bool handleKeyEvent(QEvent * pEvent);
+
+
+private:
+    EFPSplashPage * mpSplashPage;
+    EFPFramesPage * mpFramesPage;
 };
 
 

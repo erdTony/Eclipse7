@@ -25,9 +25,16 @@ public: // const
     Point sw(const int d=1) const;
     Point so(const int d=1) const;
     Point se(const int d=1) const;
+    int row() const;
+    int col() const;
+
 
 public: // non-const
     Point set(const Size sz, const Index ix);
+
+public: // pointers
+    Point it() const;
+    Point & it();
 
 };
 
@@ -40,3 +47,7 @@ inline Point Point::ea(const int d) const { return Point(x() + d, y() + 0); }
 inline Point Point::sw(const int d) const { return Point(x() - d, y() + d); }
 inline Point Point::so(const int d) const { return Point(x() + 0, y() + d); }
 inline Point Point::se(const int d) const { return Point(x() + d, y() + d); }
+inline int Point::row() const { return y(); }
+inline int Point::col() const { return x(); }
+inline Point Point::it() const { return *this; }
+inline Point &Point::it() { return *this; }

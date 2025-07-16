@@ -3,27 +3,27 @@
 #include <SCRect.h>
 #include <Size.h>
 
-BaseImage::BaseImage() : mType(Image::$null) {;}
-BaseImage::BaseImage(const Image::Type type, const BaseImage &other)
-    : mType(type), mBaseImage(other.convertedTo(type).baseImage()) {;}
-BaseImage::BaseImage(const Image::Type aType, const QImage &qimage)
-    : mType(aType), mBaseImage(qimage.convertedTo(Image::qformat(type()))) {;}
-BaseImage::BaseImage(const Image::Type aType, const QPixmap &aPixmap)
-    : mType(aType), mBaseImage(aPixmap.toImage().convertedTo(Image::qformat(type()))) {;}
+BaseImage::BaseImage() : mType(ImageObject::$null) {;}
+BaseImage::BaseImage(const ImageObject::Type type, const BaseImage &other)
+    : mType(type), mBaseImage(other.convertedTo(type).qImage()) {;}
+BaseImage::BaseImage(const ImageObject::Type aType, const QImage &qimage)
+    : mType(aType), mBaseImage(qimage.convertedTo(ImageObject::qformat(type()))) {;}
+BaseImage::BaseImage(const ImageObject::Type aType, const QPixmap &aPixmap)
+    : mType(aType), mBaseImage(aPixmap.toImage().convertedTo(ImageObject::qformat(type()))) {;}
 
-QPoint BaseImage::center() const
+Point BaseImage::center() const
 {
-    return baseImage().rect().center();
+    return qImage().rect().center();
 }
 
-QSize BaseImage::size() const
+Size BaseImage::size() const
 {
-    return baseImage().size();
+    return qImage().size();
 }
 
-BaseImage BaseImage::convertedTo(const Image::Type type) const
+BaseImage BaseImage::convertedTo(const ImageObject::Type type) const
 {
-    return BaseImage(type, baseImage());
+    return BaseImage(type, qImage());
 }
 
 BaseImage BaseImage::scaledCrop(const QSize aCropSize,
@@ -34,7 +34,7 @@ BaseImage BaseImage::scaledCrop(const QSize aCropSize,
     const Size cNewSize(aCropSize, cImageSize.aspect());
 
     if (cImageSize == cNewSize) return it();             /*===\*/
-    const qreal cScaleF = cImageSize.scaleF(cNewSize);
+    const qreal cScaleF = cImageSize.scaleToF(cNewSize);
     const unsigned cScale = qBound(minScale, unsigned(cScaleF), maxScale);
     if (cScale <= 1) return it();
 
@@ -45,12 +45,12 @@ BaseImage BaseImage::scaledCrop(const QSize aCropSize,
 void BaseImage::set(const BaseImage &rhs)
 {
     mType = rhs.type();
-    mBaseImage = rhs.baseImage();
+    mBaseImage = rhs.qImage();
 }
 
-void BaseImage::set(const QImage &aQImage)
+void BaseImage::set(const QImage &qi)
 {
-    mBaseImage = aQImage.convertedTo(Image::qformat(type()));
+    mBaseImage = qi.convertedTo(ImageObject::qformat(type()));
 }
 
 void BaseImage::scale(const signed int aRatio)
@@ -60,11 +60,28 @@ void BaseImage::scale(const signed int aRatio)
         tNewSize /= ( - aRatio);
     else if (aRatio > 0)
         tNewSize *= aRatio;
-    baseImage() = baseImage().scaled(tNewSize);
+    qImage() = qImage().scaled(tNewSize);
+}
+
+QPixmap BaseImage::pixmap(const Size sz)
+{
+    QPixmap result;
+    const Size cAdjustedSize = Size(sz, size());
+    if (mSizePixmapMap.contains(cAdjustedSize))
+    {
+        result = mSizePixmapMap.value(cAdjustedSize);
+    }
+    else
+    {
+        result = QPixmap::fromImage(qImage()
+            .scaledToHeight(cAdjustedSize.height()));
+        mSizePixmapMap.insert(cAdjustedSize, result);
+    }
+    return result;
 }
 
 bool BaseImage::isPlanar() const
 {
-    return Image::isPlanar(mType);
+    return ImageObject::isPlanar(mType);
 }
 

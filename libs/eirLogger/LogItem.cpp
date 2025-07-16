@@ -11,24 +11,24 @@ DEFINE_DATAPROPS(LogItem, LogItemData)
 
 void LogItem::ctor(void)
 {
-    setTimeStamp(MillisecondTime::current());
-    setItemUid(Uid(Uid::V8MacMsecSeq));
+    timeStamp(MillisecondTime::current());
+    itemUid(Uid(true)); //Uid::V8MacMsecSeq));
 }
 
 void LogItem::dtor(void) {;}
 
 LogItem::LogItem(const LogContext ctx, const char *msg)
 {
-    setContext(ctx), setMessage(msg);
+    context(ctx), message(msg);
 // TODO    LOG->enqueue(it());
 }
 
 bool LogItem::isNull() const
 {
-    return getItemUid().isNull();
+    return itemUid().isNull();
 }
 
 bool LogItem::isWarn() const
 {
-    return getContext().msgType() >= Log::WarnType;
+    return context().msgType() >= Log::WarnType;
 }

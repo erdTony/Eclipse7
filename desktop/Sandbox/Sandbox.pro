@@ -19,7 +19,6 @@ SOURCES += \
     SandboxData.cpp \
     SandboxEngine.cpp \
     SandboxMainWindow.cpp \
-    SandboxScene.cpp \
     SandboxView.cpp \
     main.cpp \
 
@@ -28,7 +27,6 @@ HEADERS += \
     SandboxData.h \
     SandboxEngine.h \
     SandboxMainWindow.h \
-    SandboxScene.h \
     SandboxView.h \
     version.h
 

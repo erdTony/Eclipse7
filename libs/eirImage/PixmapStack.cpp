@@ -50,7 +50,7 @@ QPixmap PixmapStack::rawAt(const Index ix) const
     return result;
 }
 
-BaseImage PixmapStack::at(const Index ix, const Image::Type aType) const
+BaseImage PixmapStack::at(const Index ix, const ImageObject::Type aType) const
 {
     return BaseImage(aType, at(ix));
 }

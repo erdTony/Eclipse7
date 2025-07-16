@@ -29,6 +29,7 @@ void QtLogFields::set(const QString &trollMessage, const QMessageLogContext &con
 
 void QtLogFields::set(const AText &key, const AText &val)
 {
+#if 0
     if ("Appname" == key)           setAppname(val);
     if ("Category" == key)          setCategory(val);
     if ("FilePath" == key)          setFilePath(val);
@@ -42,5 +43,6 @@ void QtLogFields::set(const AText &key, const AText &val)
     if ("TimeString" == key)        setTimeString(val);
     if ("BackTrace" == key)         setBackTrace(val);
     if ("FunctionName" == key)      setFunctionName(val);
+#endif
 }
 

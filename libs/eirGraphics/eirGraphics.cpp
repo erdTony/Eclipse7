@@ -1,3 +1,3 @@
-#include "eirgraphics.h"
+#include "eirGraphics.h"
 
 eirGraphics::eirGraphics() {}

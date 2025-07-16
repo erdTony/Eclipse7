@@ -1,3 +1,3 @@
-#include "eirtype.h"
+#include "eirType.h"
 
 eirType::eirType() {}

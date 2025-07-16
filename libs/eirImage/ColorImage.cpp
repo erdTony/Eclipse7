@@ -4,8 +4,8 @@
 #include <SCRect.h>
 
 ColorImage::ColorImage() {;}
-ColorImage::ColorImage(const QImage &qimage) : BaseImage(Image::Color, qimage) {;}
-ColorImage::ColorImage(const BaseImage &other) : BaseImage(Image::Color, other) {;}
+ColorImage::ColorImage(const QImage &qimage) : BaseImage(ImageObject::Color, qimage) {;}
+ColorImage::ColorImage(const BaseImage &other) : BaseImage(ImageObject::Color, other) {;}
 
 bool ColorImage::isPlanar() const
 {
@@ -14,15 +14,15 @@ bool ColorImage::isPlanar() const
 
 SCRect ColorImage::rect() const
 {
-    return baseImage().rect();
+    return qImage().rect();
 }
 
 QRgb ColorImage::pixel(const Point pt) const
 {
-    return baseImage().pixel(pt);
+    return qImage().pixel(pt);
 }
 
 void ColorImage::pixel(const Point pt, const QRgb rgb)
 {
-    baseImage().setPixel(pt, rgb);
+    qImage().setPixel(pt, rgb);
 }

@@ -6,7 +6,7 @@
 #include <QGridLayout>
 #include <QIcon>
 #include <QLabel>
-#include <QLCDNumber>
+#include <QProgressBar>
 #include <QStatusBar>
 #include <QStyle>
 #include <QToolBar>
@@ -18,13 +18,13 @@
 
 #include "SandboxApplication.h"
 #include "SandboxEngine.h"
-#include "SandboxScene.h"
 
 SandboxMainWindow::SandboxMainWindow(SandboxApplication *parent)
     : mpApplication(parent)
     , mpActions(new ActionManager(this))
+    , cmBaseSize(Size(512))
 {
-    qInfo() << Q_FUNC_INFO;
+    qInfo() << Q_FUNC_INFO << baseSize();
     setObjectName("SandboxMainWindow:" + app()->applicationName());
 }
 
@@ -32,16 +32,12 @@ SandboxMainWindow::~SandboxMainWindow()
 {
     qInfo() << Q_FUNC_INFO;
     if (mpActions)   mpActions->deleteLater();
-    if (mpScene)   mpScene->deleteLater();
 }
 
 void SandboxMainWindow::initialize()
 {
     qInfo() << Q_FUNC_INFO;
     mpActions = new ActionManager(this);
-
-    mpScene = new SandboxScene(this);
-    scene()->initialize();
     emit initialized();
 }
 
@@ -49,7 +45,6 @@ void SandboxMainWindow::configure()
 {
     qInfo() << Q_FUNC_INFO;
     // TODO QSettings from SandboxData
-    scene()->configure();
     emit configured();
 }
 
@@ -62,17 +57,22 @@ void SandboxMainWindow::setup()
     Q_CHECK_PTR(mpMainToolBar);
     setupActions();
 
+    mpProgressBar = new QProgressBar(this);
+    Q_CHECK_PTR(mpProgressBar);
+    mpProgressBar->setMaximumWidth(200);
+    mpProgressBar->setMaximum(101);
+    mpProgressBar->setMinimum(0);
+
     mpStatusBar = QMainWindow::statusBar();
     Q_CHECK_PTR(mpStatusBar);
     mpStatusBar->setSizeGripEnabled(false);
+    mpStatusBar->addPermanentWidget(mpProgressBar);
+    mpStatusBar->setMinimumHeight(mpProgressBar->height());
 
-    scene()->set(SandboxScene::BackColor, Qt::green);
-    scene()->setup();
-    setMinimumSize(scene()->viewRect().size());
-    setCentralWidget(scene()->widget());
-    update();
-
-    show();
+    mpImageLabel = new QLabel(this);
+    Q_CHECK_PTR(mpImageLabel);
+    mpImageLabel->setMinimumSize(baseSize());
+    setCentralWidget(mpImageLabel);
     emit setuped();
 }
 
@@ -80,18 +80,49 @@ void SandboxMainWindow::setup()
 void SandboxMainWindow::start()
 {
     qInfo() << Q_FUNC_INFO;
-    scene()->start();
+    QImage tSubjectImage(":/Monroe.jpg");
+    set(tSubjectImage);
+    show();
     emit started();
 }
 
-void SandboxMainWindow::pass(const Count swaps)
+void SandboxMainWindow::set(const QImage &qi)
 {
-    const qreal cPixelCount = scene()->viewRect().area();
-    QString msg = QString("%1 Pass: %2 Swap: %3 %4%")
+    qInfo() << Q_FUNC_INFO << qi;
+    Q_CHECK_PTR(mpImageLabel);
+    app()->engine()->subjectImage(qi);
+    mPixmap = QPixmap::fromImage(app()->engine()->subjectImage());
+    mpImageLabel->setPixmap(mPixmap);
+    update();
+    mFrameCount = 1;
+    QTimer::singleShot(1000, app()->engine(), &SandboxEngine::start);
+}
+
+void SandboxMainWindow::showSwapping(const Count swapPass,
+                                      const Count numSwaps,
+                                      const QImage &qi)
+{
+//    qInfo() << Q_FUNC_INFO << swapPass << numSwaps << qi;
+    const unsigned cPixelCount = baseSize().area();
+    const unsigned cPercent = qRound(100.0 * qreal(numSwaps) / cPixelCount);
+    mPixmap = QPixmap::fromImage(qi);
+    mpImageLabel->setPixmap(mPixmap);
+    update();
+    QString msg = QString("%1 Pass: %2 + %3")
                       .arg(QDateTime::currentDateTime().toString("hh:mm:ss.zzz"))
-                      .arg(++mPassCount, 6).arg(swaps, 6)
-                      .arg(qRound(100.0 * qreal(swaps) / cPixelCount), 3);
+                      .arg(mFrameCount, 6)
+                      .arg(swapPass, -6);
     mpStatusBar->showMessage(msg);
+    mpProgressBar->setValue(cPercent);
+}
+
+void SandboxMainWindow::showFlipped(const QImage &qi)
+{
+    qInfo() << Q_FUNC_INFO << qi;
+    mPixmap = QPixmap::fromImage(qi);
+    mpImageLabel->setPixmap(mPixmap);
+    update();
+    ++mFrameCount;
 }
 
 QAction *SandboxMainWindow::action(const Key &key)
@@ -102,8 +133,8 @@ QAction *SandboxMainWindow::action(const Key &key)
 void SandboxMainWindow::setupActions()
 {
     qInfo() << Q_FUNC_INFO;
-    ActionManager::Action actQuit = actions()->add("Main/Quit");
-    toolBar()->addAction(actQuit);
+ //   ActionManager::Action actQuit = actions()->add("Main/Quit");
+//    toolBar()->addAction(actQuit);
 
 }
 
