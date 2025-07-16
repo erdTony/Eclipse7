@@ -4,12 +4,38 @@
 
 #include "Gallery.h"
 
-GalleryCell * GalleryCell::smpBlankCell=nullptr;
 
-GalleryCell::GalleryCell(Gallery *parent) : QLabel{parent->widget()}, mpGallery(parent) {;}
+GalleryCell::GalleryCell(const bool blank, Gallery *parent)
+    : QLabel{parent->widget()}
+    , mpGallery(parent)
+    , mBlank(blank)
+{
+    setObjectName(QString("GalleryCell:%1")
+                      .arg(isBlank() ? "Blank" : "null"));
+}
+
+GalleryCell::GalleryCell(const Ident &id, Gallery *parent)
+    : QLabel{parent->widget()}
+    , mpGallery(parent)
+    , mBlank(false)
+    , mIdent(id)
+{
+    setObjectName(QString("GalleryCell:%1").arg(ident().toString()));
+}
+
+GalleryCell::GalleryCell(const Ident &id, const QImage &orig, Gallery *parent)
+    : QLabel{parent->widget()}
+    , mpGallery(parent)
+    , mBlank(false)
+    , mIdent(id)
+{
+    setObjectName(QString("GalleryCell:%1").arg(ident().toString()));
+    generate(orig);
+}
 
 bool GalleryCell::isNull() const
 {
+    if (isBlank()) return true;
     if (mIdent.isNull()) return true;
     if (mOriginalImage.isNull()) return true;
     return false;
@@ -29,7 +55,7 @@ QImage GalleryCell::scaled()
     return result;
 }
 
-QPixmap GalleryCell::pixmap(const QImage &orig, const QColor border)
+QPixmap GalleryCell::generate(const QImage &orig, const QColor border)
 {
     QPixmap result(props().cellPixelSize());
     QPainter tPainter;
@@ -51,27 +77,16 @@ QPixmap GalleryCell::pixmap(const QImage &orig, const QColor border)
     }
     tPainter.end();
     QLabel::setPixmap(result);
-    return result;
+    return mPixmap = result;
 }
 
-GalleryCell *GalleryCell::blankCell()
+void GalleryCell::setBlank()
 {
-    GalleryCell * result = smpBlankCell;
-    if (smpBlankCell == nullptr)
-    {
-        QImage tImage(gallery()->props().itemPixelSize(),
-                      QImage::Format_ARGB32);
-        tImage.fill(gallery()->props().itemForeground());
-        QPixmap tPixmap = pixmap(tImage);
-        if ( ! tImage.isNull() && ! tPixmap.isNull())
-        {
-            result = new GalleryCell(gallery());
-            result->mOriginalImage = result->mScaledImage = tImage;
-            result->mPixmap = tPixmap;
-            smpBlankCell = result;
-        }
-    }
-    return result;
+    qInfo() << Q_FUNC_INFO;
+    QImage tImage(props().itemPixelSize(), QImage::Format_ARGB32);
+    tImage.fill(props().itemForeground());
+    generate(tImage);
+    mBlank = true;
 }
 
 GalleryProperties GalleryCell::props() const { return gallery()->props(); }

@@ -24,6 +24,22 @@ bool Ident::isNull() const
     return uid().isNull();
 }
 
+QString Ident::toString() const
+{
+    QString result;
+    if ( ! key().isNull())
+        result = key().toString();
+    else if ( ! name().isNull())
+        result = name().simplified().replace(' ', '-');
+    else if (0 != id())
+        result = QString::number(id());
+    else if ( ! uid().isNull())
+        result = uid().tail();
+    else
+        result = "{null}";
+    return result;
+}
+
 void Ident::set(const bool nilUid)
 {
     uid(Uid(nilUid));

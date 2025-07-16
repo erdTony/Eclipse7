@@ -25,7 +25,7 @@ public: // const
     QGridLayout * layout();
 
 public: // non-const
-    void setup(const Size sz, GalleryCell * pCell);
+    void setup(const Size sz);
 
 public: // pointers
     Gallery * gallery() const;

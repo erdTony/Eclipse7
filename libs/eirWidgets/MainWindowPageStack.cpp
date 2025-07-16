@@ -29,7 +29,8 @@ void MainWindowPageStack::setup()
 void MainWindowPageStack::select(const Index ix)
 {
     qInfo() << Q_FUNC_INFO << ix;
-    mpStackLayout->setCurrentIndex(ix);;
+    mpStackLayout->setCurrentIndex(ix);
+    update();
 }
 
 void MainWindowPageStack::updateSizes(const Size minSize, const Size maxSize)
@@ -44,7 +45,7 @@ void MainWindowPageStack::updateSizes(const Size minSize, const Size maxSize)
 
 Index MainWindowPageStack::nameIndex(BaseMainWindowPage *pBMWP) const
 {
-    q_check_ptr(pBMWP);
+    Q_CHECK_PTR(pBMWP);
     return nameIndex(pBMWP->name());
 }
 

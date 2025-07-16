@@ -23,7 +23,7 @@ signals:
     void keyF1();
 
 protected:
-    bool event(QEvent * pEvent) override;
+    virtual bool event(QEvent * pEvent) override;
 
 protected:
     void handleEsc();

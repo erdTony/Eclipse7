@@ -33,7 +33,6 @@ public: // const
     Size operator & (const Size &rhs) const;
     Size operator * (const unsigned u) const;
     Size operator + (const unsigned u) const;
-    operator bool () const;
 
 public: // non-const
     Size set(const bool null=true);
@@ -59,7 +58,6 @@ inline Size Size::operator |(const Size &rhs) const { return unioned(rhs); }
 inline Size Size::operator &(const Size &rhs) const { return intersected(rhs); }
 inline Size Size::operator *(const unsigned int u) const { return scaled(u); }
 inline Size Size::operator +(const unsigned int u) const { return expanded(u); }
-inline Size::operator bool() const { return isValid(); }
 inline Size Size::set(const bool null) { it() = Size(null); return it(); }
 inline Size Size::set(const int dim) { it() = Size(dim); return it(); }
 inline Size Size::set(const int dim, const Rational aspect) { return Size(Size(dim), aspect); }

@@ -41,6 +41,7 @@ void EFPMainWindow::setup()
 
 bool EFPMainWindow::event(QEvent *pEvent)
 {
+    Q_CHECK_PTR(pEvent);
     if (pEvent->type() == QEvent::KeyRelease)
         return handleKeyEvent(pEvent);
     else

@@ -26,9 +26,9 @@ void EFPSplashPage::setup()
     Q_CHECK_PTR(mpIndiLabel); Q_CHECK_PTR(mpEfpLabel);
     QWidget::setLayout(mpMainGrid);
 
-    mpMainGrid->addWidget(mpEircLabel, 0, 0, Qt::AlignCenter);
-    mpMainGrid->addWidget(mpIndiLabel, 0, 1, Qt::AlignCenter);
-    mpMainGrid->addWidget(mpEfpLabel, 1, 0, 1, 2, Qt::AlignCenter);
+    mpMainGrid->addWidget(mpEircLabel, 0, 0, Qt::AlignTop | Qt::AlignRight);
+    mpMainGrid->addWidget(mpIndiLabel, 0, 1, Qt::AlignTop | Qt::AlignLeft);
+    mpMainGrid->addWidget(mpEfpLabel, 1, 0, 1, 2, Qt::AlignTop | Qt::AlignHCenter);
     QImage tEircImage(":/logos/EclipseIRLogo.png");
     QImage tIndiImage(":/logos/INDI200.png");
     QImage tEfpImage(":/logos/EclipseFaceProcessor.png");
@@ -37,7 +37,7 @@ void EFPSplashPage::setup()
 
     mpEircLabel->pixmap(tEircImage.scaledToWidth(512));
     mpIndiLabel->pixmap(tIndiImage.scaledToWidth(512));
-    mpEfpLabel->pixmap(tEfpImage.scaledToWidth(1024));
+    mpEfpLabel->pixmap(tEfpImage.scaledToWidth(512));
     const int cRow0Height = qMax(mpEircLabel->height(),
                                  mpIndiLabel->height());
     const int cRow1Height = mpEfpLabel->height();

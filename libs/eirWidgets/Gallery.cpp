@@ -23,8 +23,7 @@ Gallery::Gallery(QWidget *parent)
 void Gallery::setup(const GalleryProperties gp)
 {
     mProperties = gp;
-    const int cItemCount = props().itemCount();
-    qInfo() << Q_FUNC_INFO << gp.modes() << cItemCount;
+    qInfo() << Q_FUNC_INFO << gp.modes(); // << gp.toDebugStrings();
 
     frame()->setMinimumSize(props().framePixelSize().expanded(16));
 
@@ -37,10 +36,7 @@ void Gallery::setup(const GalleryProperties gp)
     frame()->setLineWidth(4);
 
     GalleryGrid * pGrid = new GalleryGrid(this);
-    GalleryCell * pCell = new GalleryCell(this);
-    // TODO different pCell = pCell->blankCell()
-    pCell = pCell->blankCell();
-    pGrid->setup(props().itemsInFrame(), pCell);
+    pGrid->setup(props().itemsInFrame());
     frame()->setLayout(pGrid->layout());
 }
 

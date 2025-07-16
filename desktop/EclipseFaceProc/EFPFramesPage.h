@@ -22,7 +22,7 @@ public: // const
 
 public: // non-const
     GalleryProperties & props();
-    void setDefaultProperties();
+    void setDefaultProperties(const Size baseGallerySize=Size(128));
     void readSettingsProperties();
 
 public: // pointers

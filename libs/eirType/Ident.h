@@ -54,6 +54,7 @@ public: // our ctors
 
 public: // const
     bool isNull() const;
+    QString toString() const;
 
 public: // non-const
     void set(const bool nilUid=true); // else maxUid

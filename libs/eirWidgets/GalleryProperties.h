@@ -56,6 +56,9 @@ public: // non-const
     void calculateFromItems(const Size items,
                             const Size itemSz=Size(),
                             const Size spacingSz=Size());
+
+public: // debug
+    QStringList toDebugStrings(const QString &qfi=QString()) const;
 };
 
 inline int GalleryProperties::itemCols() const { return itemsInFrame().width(); }

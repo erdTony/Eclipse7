@@ -16,7 +16,6 @@ SOURCES += \
     BaseWidgetApplication.cpp \
     Gallery.cpp \
     GalleryCell.cpp \
-    GalleryFrame.cpp \
     GalleryGrid.cpp \
     GalleryProperties.cpp \
     GalleryUid.cpp \
@@ -30,7 +29,6 @@ HEADERS += \
     BaseWidgetApplication.h \
     Gallery.h \
     GalleryCell.h \
-    GalleryFrame.h \
     GalleryGrid.h \
     GalleryProperties.h \
     GalleryUid.h \

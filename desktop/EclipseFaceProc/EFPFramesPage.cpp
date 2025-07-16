@@ -20,29 +20,27 @@ void EFPFramesPage::setup()
     qDebug() << Q_FUNC_INFO << pageStack()->minimumSize();
     setDefaultProperties();
     readSettingsProperties();
-    props().calculateFromFrame(pageStack()->minimumSize(),
-                               Size(256), Size(8));
+    props().calculateFromFrame(pageStack()->minimumSize());
     qDebug() << props().itemsInFrame() << props().framePixelSize();
     setSize(QSizePolicy::MinimumExpanding, props().framePixelSize());
 
     gallery()->setup(props());
 
-    QBoxLayout * pBox = new QHBoxLayout();
-    pBox->addWidget(gallery()->widget());
-    setSize(QSizePolicy::MinimumExpanding,
-            props().framePixelSize());
+    QBoxLayout * pBox = new QHBoxLayout(); Q_CHECK_PTR(pBox);
     QWidget::setLayout(pBox);
+    pBox->addWidget(gallery()->widget());
     qDebug() << Q_FUNC_INFO << props().framePixelSize() << "exit";
 }
 
-void EFPFramesPage::setDefaultProperties()
+void EFPFramesPage::setDefaultProperties(const Size baseGallerySize)
 {
     qDebug() << Q_FUNC_INFO;
     props().modes(Gallery::RollingRow | Gallery::AlignTop);
-    props().itemPixelSize(Size(256));
-    props().cellPixelSize(props().itemPixelSize().expanded(16));
-    props().spacingSize(Size(8));
-    props().selectionWidth(4);
+    props().itemPixelSize(baseGallerySize);
+    props().cellPixelSize(props().itemPixelSize()
+                              .expanded(baseGallerySize / 16));
+    props().spacingSize(Size(baseGallerySize / 16));
+    props().selectionWidth(baseGallerySize.max() / 32);
     props().frameStyle(QFrame::Box);
     props().frameForeground(QColor(128, 128, 192));
     props().frameBackground(QColor(128, 128, 160));
