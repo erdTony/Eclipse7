@@ -9,13 +9,12 @@
 #include <SCRect.h>
 
 #include "GalleryCell.h"
-#include "GalleryFrame.h"
 #include "GalleryGrid.h"
 
 Gallery::Gallery(QWidget *parent)
     : QObject{parent}
-    , mpFrame(new GalleryFrame(parent))
     , mpGrid(new GalleryGrid(this))
+    , mpGalleryWidget(new QWidget(parent))
 {
     setObjectName("Gallery");
 }
@@ -25,19 +24,8 @@ void Gallery::setup(const GalleryProperties gp)
     mProperties = gp;
     qInfo() << Q_FUNC_INFO << gp.modes(); // << gp.toDebugStrings();
 
-    frame()->setMinimumSize(props().framePixelSize().expanded(16));
-
-    QPalette tPalette;
-    tPalette.setColor(QPalette::Window, props().frameBackground());
-    tPalette.setColor(QPalette::WindowText, props().frameForeground());
-    frame()->setPalette(tPalette);
-    frame()->setAutoFillBackground(true);
-    frame()->setFrameStyle(props().frameStyle());
-    frame()->setLineWidth(4);
-
-    GalleryGrid * pGrid = new GalleryGrid(this);
-    pGrid->setup(props().itemsInFrame());
-    frame()->setLayout(pGrid->layout());
+    grid()->setup(props().galleryItems());
+    widget()->setLayout(grid()->layout());
 }
 
 void Gallery::set(const Point pt, GalleryCell *pCell)

@@ -8,7 +8,7 @@ class EIRBASE_EXPORT KeySeg : public AText
 {
 public:
     KeySeg();
-    KeySeg(const char * pch);
+    KeySeg(const char ca[]);
     KeySeg(const AText &other);
     KeySeg(const QString &s);
 

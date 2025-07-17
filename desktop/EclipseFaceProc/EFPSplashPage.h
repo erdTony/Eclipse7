@@ -2,7 +2,6 @@
 
 #include <BaseMainWindowPage.h>
 
-class QGridLayout;
 
 class Label;
 
@@ -25,7 +24,6 @@ public: // pointers
 
 
 private:
-    QGridLayout * mpMainGrid=nullptr;
     Label * mpEircLabel=nullptr;
     Label * mpIndiLabel=nullptr;
     Label * mpEfpLabel=nullptr;

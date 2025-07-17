@@ -4,6 +4,7 @@
 
 #include <QWidget>
 
+class QGridLayout;
 class QSizePolicy;
 
 #include <Size.h>
@@ -34,11 +35,13 @@ public: // non-const
 
 public: // pointers
     MainWindowPageStack * pageStack();
+    QGridLayout * pageGrid();
 
 private: // non-const
 
 private:
     MainWindowPageStack * mpPageStack=nullptr;
+    QGridLayout * mpPageGrid=nullptr;
     Size mMinimumSize;
     QString mName;
     Index mPageIndex;
@@ -48,5 +51,6 @@ inline QString BaseMainWindowPage::name() const { return mName; }
 inline Index BaseMainWindowPage::pageIndex() const { return mPageIndex; }
 inline Size BaseMainWindowPage::minimumSize() const { return mMinimumSize; }
 inline MainWindowPageStack *BaseMainWindowPage::pageStack() { Q_CHECK_PTR(mpPageStack); return mpPageStack; }
+inline QGridLayout *BaseMainWindowPage::pageGrid() { Q_CHECK_PTR(mpPageGrid); return mpPageGrid; }
 inline void BaseMainWindowPage::pageIndex(const Index ix) { mPageIndex = ix; }
 

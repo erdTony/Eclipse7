@@ -11,6 +11,8 @@ public: // ctors
     explicit Settings(QObject *parent = nullptr);
 
 public slots:
+    void setup();
+    void execute();
 
 signals:
 

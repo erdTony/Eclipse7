@@ -35,7 +35,7 @@ public: // ctors
     Url();
     Url(const QString &url, QUrl::ParsingMode mode=QUrl::TolerantMode);
     Url(const QUrl &other) noexcept;
-
+    Url & operator = (const QString &url);
 
 
 public: // const
@@ -50,9 +50,15 @@ public: // non-const
 public: //
 
 private:
+    Url it() const;
+    Url & it();
+
+private:
     Type mType=$null;
     QUrl mUrl;
     QUrlQuery mQuery;
 };
 
+inline Url Url::it() const { return *this; }
+inline Url &Url::it() { return *this; }
 inline Url::Type Url::type() const { return mType; }

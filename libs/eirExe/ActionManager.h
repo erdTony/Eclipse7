@@ -20,6 +20,8 @@ public: // ctors
 
 public slots:
     void add(const Key &key, const Action action);
+    void setup();
+    void execute();
 
 signals:
     void added(const Key &key, const Action action);

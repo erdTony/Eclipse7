@@ -1,5 +1,5 @@
 #pragma once
-#include "eirstore.h"
+#include "eirStore.h"
 
 
 #include <QObject>

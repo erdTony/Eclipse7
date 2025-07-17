@@ -10,6 +10,16 @@ void ActionManager::add(const Key &key, const Action action)
     emit added(key, action);
 }
 
+void ActionManager::setup()
+{
+
+}
+
+void ActionManager::execute()
+{
+
+}
+
 ActionManager::Action ActionManager::add(const Key &key, const QString &name)
 {
     Action result = new QAction(name.isEmpty() ? key.last().toString() : name);

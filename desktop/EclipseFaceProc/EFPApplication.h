@@ -2,6 +2,8 @@
 
 #include <BaseWidgetApplication.h>
 
+#include <Url.h>
+
 class EFPApplication : public BaseWidgetApplication
 {
     Q_OBJECT
@@ -21,6 +23,5 @@ public: // pointers
 
 
 private:
-
-signals:
+    Url mInputUrl;
 };

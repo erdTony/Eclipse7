@@ -1,4 +1,5 @@
 QT += core
+QT += statemachine
 TEMPLATE = lib
 DEFINES += EIRSTORE_LIBRARY
 CONFIG += c++23
@@ -12,17 +13,25 @@ include(../../useNetwork.pri)
 SOURCES += \
     BaseImageAcqSource.cpp \
     FilesImageAcqSource.cpp \
+    ImageAcq.cpp \
     ImageAcqConfig.cpp \
+    ImageAcqMachine.cpp \
     ImageAcqManager.cpp \
-    eirstore.cpp
+    ImageAcqProperties.cpp \
+    ImageAcqThread.cpp \
+    eirStore.cpp
 
 HEADERS += \
     BaseImageAcqSource.h \
     FilesImageAcqSource.h \
+    ImageAcq.h \
     ImageAcqConfig.h \
+    ImageAcqMachine.h \
     ImageAcqManager.h \
-    eirStore_global.h \
-    eirstore.h
+    ImageAcqProperties.h \
+    ImageAcqThread.h \
+    eirStore.h \
+    eirStore_global.h
 
 # Default rules for deployment.
 unix {

@@ -1,6 +1,7 @@
 #include "BaseMainWindowPage.h"
 
 #include <QSizePolicy>
+#include <QGridLayout>
 
 #include "MainWindowPageStack.h"
 
@@ -8,6 +9,7 @@ BaseMainWindowPage::BaseMainWindowPage(const QString &n,
                             MainWindowPageStack *pMWPS)
     : QWidget(pMWPS)
     , mpPageStack(pMWPS)
+    , mpPageGrid(new QGridLayout())
 {
     setObjectName("SplashPage:" + n);
     Q_CHECK_PTR(pMWPS);

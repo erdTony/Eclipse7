@@ -11,7 +11,6 @@
 
 EFPSplashPage::EFPSplashPage(MainWindowPageStack *pMWPS)
     : BaseMainWindowPage{"EFP", pMWPS}
-    , mpMainGrid(new QGridLayout())
     , mpEircLabel(new Label("EIRC"))
     , mpIndiLabel(new Label("INDI"))
     , mpEfpLabel(new Label("Efp"))
@@ -22,13 +21,13 @@ EFPSplashPage::EFPSplashPage(MainWindowPageStack *pMWPS)
 
 void EFPSplashPage::setup()
 {
-    Q_CHECK_PTR(mpMainGrid); Q_CHECK_PTR(mpEircLabel);
+    Q_CHECK_PTR(mpEircLabel);
     Q_CHECK_PTR(mpIndiLabel); Q_CHECK_PTR(mpEfpLabel);
-    QWidget::setLayout(mpMainGrid);
+    QWidget::setLayout(pageGrid());
 
-    mpMainGrid->addWidget(mpEircLabel, 0, 0, Qt::AlignTop | Qt::AlignRight);
-    mpMainGrid->addWidget(mpIndiLabel, 0, 1, Qt::AlignTop | Qt::AlignLeft);
-    mpMainGrid->addWidget(mpEfpLabel, 1, 0, 1, 2, Qt::AlignTop | Qt::AlignHCenter);
+    pageGrid()->addWidget(mpEircLabel, 0, 0, Qt::AlignTop | Qt::AlignRight);
+    pageGrid()->addWidget(mpIndiLabel, 0, 1, Qt::AlignTop | Qt::AlignLeft);
+    pageGrid()->addWidget(mpEfpLabel, 1, 0, 1, 2, Qt::AlignTop | Qt::AlignHCenter);
     QImage tEircImage(":/logos/EclipseIRLogo.png");
     QImage tIndiImage(":/logos/INDI200.png");
     QImage tEfpImage(":/logos/EclipseFaceProcessor.png");
@@ -41,10 +40,10 @@ void EFPSplashPage::setup()
     const int cRow0Height = qMax(mpEircLabel->height(),
                                  mpIndiLabel->height());
     const int cRow1Height = mpEfpLabel->height();
-    mpMainGrid->setColumnMinimumWidth(0, 512);
-    mpMainGrid->setColumnMinimumWidth(1, 512);
-    mpMainGrid->setRowMinimumHeight(0, cRow0Height);
-    mpMainGrid->setRowMinimumHeight(1, cRow1Height);
+    pageGrid()->setColumnMinimumWidth(0, 512);
+    pageGrid()->setColumnMinimumWidth(1, 512);
+    pageGrid()->setRowMinimumHeight(0, cRow0Height);
+    pageGrid()->setRowMinimumHeight(1, cRow1Height);
     setSize(QSizePolicy::Minimum,
             Size(1024, cRow0Height + cRow1Height));
     show();

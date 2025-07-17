@@ -13,10 +13,10 @@ public: // ctors
     explicit CommandLine(QObject *parent = nullptr);
 
 public slots:
-    void add(const QCommandLineOption opt);
+    void setup();
+    void execute();
 
 signals:
-    void added(const QCommandLineOption opt);
 
 public: // const
 

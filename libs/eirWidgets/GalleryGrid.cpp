@@ -7,7 +7,7 @@
 #include "GalleryCell.h"
 
 GalleryGrid::GalleryGrid(Gallery *parent)
-    : QObject{parent->widget()}
+    : QObject{parent}
     , mpGallery(parent)
 {
     setObjectName("GalleryGrid");
@@ -27,7 +27,7 @@ void GalleryGrid::setup(const Size sz)
             GalleryCell * pCell = new GalleryCell(true, gallery());
             pCell->setBlank();
             mGrid.addWidget(pCell, row, col, Qt::AlignCenter);
-            qDebug() << row << col << pCell->geometry()
-                << pCell->pixmap().size() << mGrid.cellRect(row, col);
+//            qDebug() << row << col << pCell->geometry()
+  //              << pCell->pixmap().size() << mGrid.cellRect(row, col);
         }
 }

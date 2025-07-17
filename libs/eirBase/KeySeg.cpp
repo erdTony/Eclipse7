@@ -2,7 +2,7 @@
 
 
 KeySeg::KeySeg() {;}
-KeySeg::KeySeg(const char *pch) : AText(pch) {;}
+KeySeg::KeySeg(const char ca[]) : AText(ca) {;}
 KeySeg::KeySeg(const AText &other) : AText(other) {;}
 KeySeg::KeySeg(const QString &s) : AText(s) {;}
 

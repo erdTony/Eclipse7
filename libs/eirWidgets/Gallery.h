@@ -53,7 +53,6 @@ public: // non-const
     void set(const Point pt, GalleryCell * pCell);
 
 public: // pointers
-    GalleryFrame * frame();
     GalleryGrid * grid();
     GalleryProperties props() const;
     GalleryProperties & props();
@@ -61,16 +60,15 @@ public: // pointers
 
 private:
     Modes mModes=$nullMode;
-    GalleryFrame * mpFrame=nullptr;
     GalleryGrid * mpGrid=nullptr;
+    QWidget * mpGalleryWidget=nullptr;
     GalleryProperties mProperties;
 };
 
 
 inline void Gallery::modes(const Modes fs) { mModes = fs; }
 inline void Gallery::props(const GalleryProperties ps) { mProperties = ps; }
-inline GalleryFrame *Gallery::frame() { Q_CHECK_PTR(mpFrame); return mpFrame; }
 inline GalleryGrid *Gallery::grid() { Q_CHECK_PTR(mpGrid); return mpGrid; }
 inline GalleryProperties &Gallery::props() { return mProperties; }
 inline GalleryProperties Gallery::props() const { return mProperties; }
-inline QWidget *Gallery::widget() { return (QWidget *)frame(); }
+inline QWidget *Gallery::widget() { Q_CHECK_PTR(mpGalleryWidget); return mpGalleryWidget; }

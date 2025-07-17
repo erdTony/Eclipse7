@@ -20,6 +20,8 @@ public: // ctors
 
 public slots:
     void initialize();
+    void setup();
+    void execute();
     void reseed(const DWORD dw);
     void dequeue();
     void dequeueF();

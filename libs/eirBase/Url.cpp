@@ -7,6 +7,7 @@
 Url::Url() {;}
 Url::Url(const QString &url, QUrl::ParsingMode mode) { set(url, mode); }
 Url::Url(const QUrl &other) noexcept { set(other.toString()); }
+Url &Url::operator =(const QString &url) { set(url); return it(); }
 
 void Url::set(const QString &url, QUrl::ParsingMode mode)
 {
@@ -24,6 +25,7 @@ void Url::setScheme(const CText &scheme)
 
 void Url::type(const CText &scheme)
 {
+    Q_UNUSED(scheme);
     // TODO Url::type(const CText &scheme)
 }
 

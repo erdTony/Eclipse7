@@ -26,10 +26,10 @@ void MainWindowPageStack::setup()
     qDebug() << Q_FUNC_INFO << "exit";
 }
 
-void MainWindowPageStack::select(const Index ix)
+void MainWindowPageStack::select(BaseMainWindowPage *pBMWP)
 {
-    qInfo() << Q_FUNC_INFO << ix;
-    mpStackLayout->setCurrentIndex(ix);
+    qInfo() << Q_FUNC_INFO << pBMWP->name();
+    mpStackLayout->setCurrentWidget(pBMWP);
     update();
 }
 
@@ -68,6 +68,7 @@ Index MainWindowPageStack::add(BaseMainWindowPage *pBMWP)
 {
     Q_CHECK_PTR(pBMWP);
     Index result = -1;
+    stackLayout()->addWidget(pBMWP);
     result = tabs()->addTab(pBMWP, pBMWP->name());
     pBMWP->pageIndex(result);
     updateSizes(pBMWP->minimumSize(), pBMWP->maximumSize());

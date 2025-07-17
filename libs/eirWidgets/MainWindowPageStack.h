@@ -26,7 +26,7 @@ public: // ctors
 
 public slots:
     void setup();
-    void select(const Index ix);
+    void select(BaseMainWindowPage * pBMWP);
     void updateSizes(const Size minSize, const Size maxSize);
 
 signals:

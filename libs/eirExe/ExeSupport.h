@@ -5,8 +5,8 @@
 #include <QList>
 class QCoreApplication;
 
+#include <Types.h>
 #include <VersionInfo.h>
-
 class ActionManager;
 class CommandLine;
 class KeySeg;
@@ -27,6 +27,9 @@ public:
 
 
 public: // const
+    bool contains(const KeySeg &name);
+    QString positional(const KeySeg &name);
+    QString positional(const Index ix);
 
 
 public: // non-const
@@ -35,8 +38,14 @@ public: // non-const
     void addOption(const KeySeg &name);
     void addOption(const KeySegList &names);
     void addOption(const KeySeg &name, const QString &desc);
+    void addPositional(const KeySeg &name, const QString &desc);
     void addOption(const KeySegList &names, const QString &desc);
+    void addShowOptions();
+    void addHelpVerOptions();
 
+    void setup();
+    void execute();
+    void showWidgetApplication();
 
 
 public: // pointers

@@ -51,13 +51,13 @@ bool EFPMainWindow::event(QEvent *pEvent)
 void EFPMainWindow::handleEsc()
 {
     qInfo() << Q_FUNC_INFO;
-    select(mpSplashPage->pageIndex());
+    select(mpSplashPage);
 }
 
 void EFPMainWindow::handleF1()
 {
     qInfo() << Q_FUNC_INFO;
-    select(mpFramesPage->pageIndex());
+    select(mpFramesPage);
 }
 
 bool EFPMainWindow::handleKeyEvent(QEvent *pEvent)

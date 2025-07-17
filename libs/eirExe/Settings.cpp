@@ -9,3 +9,13 @@ Settings::Settings(QObject *parent)
     setObjectName("Settings:" + QCoreApplication::applicationName());
 
 }
+
+void Settings::setup()
+{
+
+}
+
+void Settings::execute()
+{
+
+}

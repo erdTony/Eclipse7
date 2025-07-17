@@ -29,6 +29,16 @@ void Random::initialize()
     emit initialized();
 }
 
+void Random::setup()
+{
+
+}
+
+void Random::execute()
+{
+
+}
+
 void Random::reseed(const DWORD dw)
 {
     clear();
