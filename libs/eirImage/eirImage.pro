@@ -6,6 +6,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include (../libs.pri)
 include(../../useBase.pri)
+include(../../useType.pri)
 include(../../useMatgeo.pri)
 include(../../useColor.pri)
 

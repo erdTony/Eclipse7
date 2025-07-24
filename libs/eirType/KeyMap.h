@@ -1,5 +1,5 @@
 #pragma once
-#include "eirBase.h"
+#include "eirType.h"
 
 
 #include <QVariant>

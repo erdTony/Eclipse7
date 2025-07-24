@@ -4,11 +4,10 @@
 
 #include <QMap>
 #include <QQueue>
-
+#include <QUrl>
 class QTimer;
 
 #include <Types.h>
-#include <Url.h>
 
 #include "LogItem.h"
 #include "LogObject.h"
@@ -36,7 +35,7 @@ public: // const
     Count inputCount();
 
 public: // non-const
-    bool addOutput(const Url &url);
+    bool addOutput(const QUrl &url);
 
 public: // pointers
 
@@ -56,7 +55,7 @@ private:
     QTimer * mpPollTimer=nullptr;
     ItemQueue mInputQueue;
     QMap<Log::MsgType, ItemQueue> mTypeQueueMap;
-    QMap<Url, BaseLogOutput *> mUrlOutputMap;
+    QMap<QUrl, BaseLogOutput *> mUrlOutputMap;
 
 
     // ======= Properties ========

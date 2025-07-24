@@ -3,6 +3,7 @@
 #include <utility>
 
 #include <CText.h>
+#include <CTextList.h>
 
 class LogFuncInfoData : public QSharedData
 {

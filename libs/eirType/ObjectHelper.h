@@ -1,5 +1,5 @@
 #pragma once
-#include "eirBase.h"
+#include "eirType.h"
 
 #include <QObject>
 
@@ -9,10 +9,10 @@
 #include <CText.h>
 #include <KeyMap.h>
 
-class EIRBASE_EXPORT ObjectHelper
+class EIRTYPE_EXPORT ObjectHelper
 {
 public: // types
-    typedef KeyMapT<KeySeg, QMetaProperty> NameMetaPropertyMap;
+    typedef KeyMapT<CText, QMetaProperty> NameMetaPropertyMap;
 
 public: // ctors
     ObjectHelper(QObject *obj);
@@ -27,7 +27,7 @@ public: // const
     int enumValue(const QString &enumName, const QString &key) const;
     QStringList flagKeys(const QString &enumName, int flags,
                          const bool isSet=true) const;
-    bool isValidPropertyName(const KeySeg &name, const bool okDynamic=true) const;
+    bool isValidPropertyName(const CText &name, const bool okDynamic=true) const;
     bool isValidEnumName(const CText &enumName) const;
     bool isValidEnumKey(const CText &enumName, const CText &key) const;
 

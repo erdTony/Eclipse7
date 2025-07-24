@@ -11,14 +11,29 @@ SOURCES += \
     FileInfo.cpp \
     Ident.cpp \
     IdentMap.cpp \
+    Key.cpp \
+    KeySeg.cpp \
+    KeySegList.cpp \
+    MillisecondTime.cpp \
+    NibbleArray.cpp \
+    ObjectHelper.cpp \
+    Uid.cpp \
     eirType.cpp
 
 HEADERS += \
     FileInfo.h \
     Ident.h \
     IdentMap.h \
+    Key.h \
+    KeyMap.h \
+    KeySeg.h \
+    KeySegList.h \
     List.h \
+    MillisecondTime.h \
+    NibbleArray.h \
+    ObjectHelper.h \
     Queue.h \
+    Uid.h \
     eirType.h \
     eirType_global.h
 

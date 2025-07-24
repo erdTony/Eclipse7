@@ -6,13 +6,12 @@
 
 #include <DataProperty.h>
 
+#include <QUuid>
 #include <QVariant>
 #include <QVariantList>
 
 #include <AText.h>
-#include <MillisecondTime.h>
 #include <Types.h>
-#include <Uid.h>
 #include <UText.h>
 
 #include "LogContext.h"
@@ -23,7 +22,7 @@ typedef Log::Operation LogOperation;
 
 #define LOGITEM_DATAPROPS(TND) \
     TND(Milliseconds,   timeStamp,      0) \
-    TND(Uid,            itemUid,        Uid()) \
+    TND(QUuid,          itemUid,        QUuid()) \
     TND(LogContext,     context,        LogContext()) \
     TND(AText,          message,        AText()) /*TODO UText*/ \
     TND(UText,          format,         UText()) \

@@ -1,6 +1,6 @@
 #include "LogItem.h"
 
-#include <Uid.h>
+#include <QDateTime>
 
 #include "Logger.h"
 Q_GLOBAL_STATIC(Logger, LOG);
@@ -11,8 +11,8 @@ DEFINE_DATAPROPS(LogItem, LogItemData)
 
 void LogItem::ctor(void)
 {
-    timeStamp(MillisecondTime::current());
-    itemUid(Uid(true)); //Uid::V8MacMsecSeq));
+    timeStamp(QDateTime::currentDateTime().toMSecsSinceEpoch());
+    itemUid(QUuid()); //Uid::V8MacMsecSeq));
 }
 
 void LogItem::dtor(void) {;}

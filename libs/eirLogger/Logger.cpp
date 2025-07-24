@@ -1,8 +1,7 @@
 #include "Logger.h"
 
 #include <QTimer>
-
-#include <Url.h>
+#include <QUrl>
 
 #include "LogContext.h"
 
@@ -18,7 +17,7 @@ void Logger::enqueue(const LogItem &item)
     mInputQueue.enqueue(item);;
 }
 
-bool Logger::addOutput(const Url &url)
+bool Logger::addOutput(const QUrl &url)
 {
 // TODO    const Url::Type cType = url.type();
 }

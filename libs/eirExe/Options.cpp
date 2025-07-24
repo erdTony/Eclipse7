@@ -2,7 +2,6 @@
 
 #include <QCoreApplication>
 
-#include <KeySeg.h>
 
 Options::Options(QObject *parent)
     : QObject{parent}
@@ -15,12 +14,12 @@ void Options::add(const QCommandLineOption opt)
 {
     foreach (const QString csSeg, opt.names())
     {
-        mKeyOptionMap.insert(KeySeg(csSeg), opt);
+        mKeyOptionMap.insert(CText(csSeg), opt);
         emit added(opt);
     }
 }
 
-void Options::add(const KeySeg &name, const QString &desc)
+void Options::add(const CText &name, const QString &desc)
 {
     mPositionalList.append(Positional(name, desc));
     emit added(name);

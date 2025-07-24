@@ -36,7 +36,6 @@ private:
 
 };
 
-typedef CText::List CTextList;
 inline CText CText::it() const { return *this; }
 inline CText & CText::it() { return *this; }
 inline char CText::hinge() { return smHingeChar; }

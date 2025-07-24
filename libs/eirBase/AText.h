@@ -28,6 +28,7 @@ public: // const
     Pair pair(const char ch) const;
     QString toString() const;
     operator QString() const;
+    QString operator () () const;
 
 public: // non-const
     void set();
@@ -64,7 +65,8 @@ private:
 };
 
 inline QString AText::toString() const { return QString(constData()); }
-inline AText::operator QString() const { return toString(); }
+inline AText::operator QString () const { return toString(); }
+inline QString AText::operator () () const { return toString(); }
 inline void AText::set() { clear(); }
 inline void AText::set(const QByteArray &ba) { set(ba.constData()); }
 inline void AText::set(const QString &s)  { set(s.toLocal8Bit()); }

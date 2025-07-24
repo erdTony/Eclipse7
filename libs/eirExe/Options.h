@@ -6,20 +6,20 @@
 #include <QCommandLineParser>
 #include <QMap>
 
-#include <KeySeg.h>
+#include <CText.h>
 
 class Options : public QObject
 {
     Q_OBJECT
 public: // typedef
-    typedef QPair<KeySeg, QString> Positional;
+    typedef QPair<CText, QString> Positional;
 
 public: // ctors
     explicit Options(QObject *parent = nullptr);
 
 public slots:
     void add(const QCommandLineOption opt);
-    void add(const KeySeg &name, const QString &desc);
+    void add(const CText &name, const QString &desc);
     void addHelp();
     void addVersion();
     void setup();
@@ -27,7 +27,7 @@ public slots:
 
 signals:
     void added(const QCommandLineOption opt);
-    void added(const KeySeg &name);
+    void added(const CText &name);
 
 
 
@@ -44,7 +44,7 @@ public: // pointers
 
 private:
     QCommandLineParser mParser;
-    QMap<KeySeg, QCommandLineOption> mKeyOptionMap;
+    QMap<CText, QCommandLineOption> mKeyOptionMap;
     QList<Positional> mPositionalList;
 
 };

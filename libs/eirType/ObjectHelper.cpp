@@ -5,7 +5,7 @@
 #include <QString>
 #include <QStringList>
 
-#include <KeySeg.h>
+#include <CText.h>
 #include <Types.h>
 
 ObjectHelper::ObjectHelper(QObject *obj) : mpObject(obj) {;}
@@ -108,7 +108,7 @@ QStringList ObjectHelper::flagKeys(const QString &enumName, int flags, const boo
 }
 
 
-bool ObjectHelper::isValidPropertyName(const KeySeg &name, const bool okDynamic) const
+bool ObjectHelper::isValidPropertyName(const CText &name, const bool okDynamic) const
 {
     return mNameMetaPropertyMap.contains(name)
                 && (okDynamic || mNameMetaPropertyMap.value(name).isValid());

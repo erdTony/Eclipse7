@@ -1,5 +1,5 @@
 #pragma once
-#include "eirBase.h"
+#include "eirType.h"
 
 #include "NibbleArray.h"
 
@@ -8,7 +8,7 @@
 #include "Types.h"
 
 
-class EIRBASE_EXPORT Uid
+class EIRTYPE_EXPORT Uid
 {
 
 

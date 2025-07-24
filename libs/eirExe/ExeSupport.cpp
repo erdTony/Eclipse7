@@ -5,7 +5,7 @@
 
 #include "ActionManager.h"
 #include "CommandLine.h"
-#include "KeySegList.h"
+#include "CTextList.h"
 #include "Options.h"
 #include "Random.h"
 #include "Settings.h"
@@ -20,12 +20,12 @@ ExeSupport::ExeSupport(QCoreApplication *app)
 {
 }
 
-bool ExeSupport::contains(const KeySeg &name)
+bool ExeSupport::contains(const CText &name)
 {
     return false; // TODO ExeSupport::contains(name)
 }
 
-QString ExeSupport::positional(const KeySeg &name)
+QString ExeSupport::positional(const CText &name)
 {
 
     return QString(); // TODO ExeSupport::positional(name)
@@ -47,36 +47,36 @@ void ExeSupport::add(const OptionList opts)
     foreach (const QCommandLineOption cOpt, opts) add(cOpt);
 }
 
-void ExeSupport::addOption(const KeySeg &name)
+void ExeSupport::addOption(const CText &name)
 {
-    opts()->add(QCommandLineOption(name));
+    opts()->add(QCommandLineOption(name()));
 }
 
-void ExeSupport::addOption(const KeySegList &names)
+void ExeSupport::addOption(const CTextList &names)
 {
     opts()->add(QCommandLineOption(names.toStringList()));
 }
 
-void ExeSupport::addOption(const KeySeg &name, const QString &desc)
+void ExeSupport::addOption(const CText &name, const QString &desc)
 {
-    opts()->add(QCommandLineOption(name, desc));
+    opts()->add(QCommandLineOption(name(), desc));
 }
 
-void ExeSupport::addPositional(const KeySeg &name, const QString &desc)
+void ExeSupport::addPositional(const CText &name, const QString &desc)
 {
     opts()->add(name, desc);
 }
 
-void ExeSupport::addOption(const KeySegList &names, const QString &desc)
+void ExeSupport::addOption(const CTextList &names, const QString &desc)
 {
     opts()->add(QCommandLineOption(names.toStringList(), desc));
 }
 
 void ExeSupport::addShowOptions()
 {
-    addOption(KeySeg("showmin"), "Show Applicaion Minimized to Tray");
-    addOption(KeySeg("showmax"), "Show Applicaion Maximized to Screen");
-    addOption(KeySeg("shownorm"), "Show Applicaion as Normal Window");
+    addOption(CText("showmin"), "Show Applicaion Minimized to Tray");
+    addOption(CText("showmax"), "Show Applicaion Maximized to Screen");
+    addOption(CText("shownorm"), "Show Applicaion as Normal Window");
 }
 
 void ExeSupport::addHelpVerOptions()

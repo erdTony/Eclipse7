@@ -9,8 +9,8 @@ class QCoreApplication;
 #include <VersionInfo.h>
 class ActionManager;
 class CommandLine;
-class KeySeg;
-class KeySegList;
+class CText;
+class CTextList;
 class Options;
 class Random;
 class Settings;
@@ -27,19 +27,19 @@ public:
 
 
 public: // const
-    bool contains(const KeySeg &name);
-    QString positional(const KeySeg &name);
+    bool contains(const CText &name);
+    QString positional(const CText &name);
     QString positional(const Index ix);
 
 
 public: // non-const
     void add(const ExeSupport::OptionList opts);
     void add(const QCommandLineOption opt);
-    void addOption(const KeySeg &name);
-    void addOption(const KeySegList &names);
-    void addOption(const KeySeg &name, const QString &desc);
-    void addPositional(const KeySeg &name, const QString &desc);
-    void addOption(const KeySegList &names, const QString &desc);
+    void addOption(const CText &name);
+    void addOption(const CTextList &names);
+    void addOption(const CText &name, const QString &desc);
+    void addPositional(const CText &name, const QString &desc);
+    void addOption(const CTextList &names, const QString &desc);
     void addShowOptions();
     void addHelpVerOptions();
 
