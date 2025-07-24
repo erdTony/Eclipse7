@@ -12,9 +12,7 @@ SOURCES += \
     AText.cpp \
     ATextList.cpp \
     CText.cpp \
-    FileInfo.cpp \
-    FuncVarName.cpp \
-    FunctionInfo.cpp \
+    Enumeration.cpp \
     Key.cpp \
     KeySeg.cpp \
     KeySegList.cpp \
@@ -23,7 +21,6 @@ SOURCES += \
     ObjectHelper.cpp \
     UText.cpp \
     Uid.cpp \
-    Url.cpp \
     XText.cpp \
     eirBase.cpp
 
@@ -32,9 +29,8 @@ HEADERS += \
     ATextList.h \
     CText.h \
     DataProperty.h \
-    FileInfo.h \
-    FuncVarName.h \
-    FunctionInfo.h \
+    DualMap.h \
+    Enumeration.h \
     Key.h \
     KeyMap.h \
     KeySeg.h \
@@ -45,7 +41,6 @@ HEADERS += \
     Types.h \
     UText.h \
     Uid.h \
-    Url.h \
     XText.h \
     eirBase.h \
     eirBase_global.h

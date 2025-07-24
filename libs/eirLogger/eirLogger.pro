@@ -12,6 +12,8 @@ SOURCES += \
     BaseLogOutput.cpp \
     LogCategory.cpp \
     LogContext.cpp \
+    LogFileInfo.cpp \
+    LogFuncInfo.cpp \
     LogItem.cpp \
     LogObject.cpp \
     Logger.cpp \
@@ -24,6 +26,8 @@ HEADERS += \
     Log.h \
     LogCategory.h \
     LogContext.h \
+    LogFileInfo.h \
+    LogFuncInfo.h \
     LogItem.h \
     LogMacros.h \
     LogObject.h \

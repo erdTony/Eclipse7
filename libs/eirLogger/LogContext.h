@@ -1,12 +1,12 @@
 #pragma once
 
 #include <AText.h>
-#include <FileInfo.h>
-#include <FunctionInfo.h>
 #include <Types.h>
 
 #include <AText.h>
 
+#include "LogFileInfo.h"
+#include "LogFuncInfo.h"
 #include "LogObject.h"
 
 class LogContext
@@ -22,20 +22,20 @@ public: // const
     Log::Level level() const;
     Log::MsgType msgType() const;
     AText qFuncInfo() const;
-    FileInfo fileInfo() const;
+    LogFileInfo fileInfo() const;
     AText baseFileName() const;
 
 private:
     Log::Level      mLevel;
-    FileInfo        mFileInfo;
+    LogFileInfo     mLogFileInfo;
     Count           mFileLine;
     AText           mQFuncInfo;
-    FunctionInfo    mFunctionInfo;
+    LogFuncInfo     mLogFuncInfo;
 };
 
 inline Log::Level LogContext::level() const { return mLevel; }
 inline Log::MsgType LogContext::msgType() const { return Log::msgType(level()); }
 inline AText LogContext::qFuncInfo() const { return mQFuncInfo; }
-inline FileInfo LogContext::fileInfo() const { return mFileInfo; }
+inline LogFileInfo LogContext::fileInfo() const { return mLogFileInfo; }
 
 

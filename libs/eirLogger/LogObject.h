@@ -37,7 +37,7 @@ public: // types
         Level22,                // 22
         Expect,                 // 23
         Assert,                 // 24
-        Level25,                // 25
+        LogManage,              // 25
         TError,                 // 26
         Error,                  // 27
         Abort,                  // 28
@@ -74,7 +74,7 @@ public: // types
         FlagLevel22             = 1 << Level22,
         FlagExpect              = 1 << Expect,
         FlagAssert              = 1 << Assert,
-        FlagLevel25             = 1 << Level25,
+        FlagLogManage           = 1 << LogManage,
         FlagTError              = 1 << TError,
         FlagError               = 1 << Error,
         FlagAbort               = 1 << Abort,

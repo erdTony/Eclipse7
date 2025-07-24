@@ -8,9 +8,11 @@ include(../libs.pri)
 include(../../useBase.pri)
 
 SOURCES += \
+    Url.cpp \
     eirNetwork.cpp
 
 HEADERS += \
+    Url.h \
     eirNetwork.h \
     eirNetwork_global.h
 

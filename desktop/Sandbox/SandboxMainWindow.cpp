@@ -122,6 +122,7 @@ void SandboxMainWindow::showFlipped(const QImage &qi)
     mPixmap = QPixmap::fromImage(qi);
     mpImageLabel->setPixmap(mPixmap);
     update();
+    qi.save(QString("Frame%1.png").arg(mFrameCount, -3));
     ++mFrameCount;
 }
 

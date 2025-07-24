@@ -8,11 +8,13 @@ include(../libs.pri))
 include(../../useBase.pri)
 
 SOURCES += \
+    FileInfo.cpp \
     Ident.cpp \
     IdentMap.cpp \
     eirType.cpp
 
 HEADERS += \
+    FileInfo.h \
     Ident.h \
     IdentMap.h \
     List.h \

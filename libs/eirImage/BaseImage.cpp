@@ -66,7 +66,7 @@ void BaseImage::scale(const signed int aRatio)
 QPixmap BaseImage::pixmap(const Size sz)
 {
     QPixmap result;
-    const Size cAdjustedSize = Size(sz, size());
+    const Size cAdjustedSize(sz, size().aspect());
     if (mSizePixmapMap.contains(cAdjustedSize))
     {
         result = mSizePixmapMap.value(cAdjustedSize);

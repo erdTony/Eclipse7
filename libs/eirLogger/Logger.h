@@ -48,7 +48,7 @@ private slots:
 private:
     bool addTrollOutput();
     bool addStdioOutput();
-    bool addTextFileOutput(const FileInfo &fi);
+    bool addTextFileOutput(const LogFileInfo &fi);
 
 
 private:

@@ -1,44 +1,40 @@
-# BuildSand.pro - Build IREngine and its libraries
+# BuildDirEnum.pro - Build DirEnum and its libraries
 
 TEMPLATE = subdirs
 
 SUBDIRS +=              \
         eirBase		\
-        eirColor	\
+        eirLogger	\
         eirCore		\
         eirExe          \
-        eirGraphics     \
+        eirNetwork      \
         eirGui		\
-        eirImage	\
+        eirStore        \
         eirMatgeo       \
         eirType         \
-        eirWidgets      \
-        Sandbox         \
+        eirWidgets	\
+        DirEnum         \
 
 eirBase.subdir      = libs/eirBase
-eirColor.subdir     = libs/eirColor
+eirLogger.subdir    = libs/eirLogger
 eirCore.subdir      = libs/eirCore
 eirExe.subdir       = libs/eirExe
-eirGraphics.subdir  = libs/eirGraphics
+eirNetwork.subdir   = libs/eirNetwork
 eirGui.subdir       = libs/eirGui
-eirImage.subdir     = libs/eirImage
+eirStore.subdir     = libs/eirStore
 eirMatgeo.subdir    = libs/eirMatgeo
 eirType.subdir      = libs/eirType
 eirWidgets.subdir   = libs/eirWidgets
-
-Sandbox.subdir      = desktop/Sandbox
+DirEnum.subdir      = desktop/DirEnum
 
 eirBase.depends     =
-eirColor.depends    = eirBase eirMatgeo
+eirLogger.depends   = eirBase
 eirCore.depends     = eirBase
 eirExe.depends      = eirBase eirType eirMatgeo eirCore
-eirGraphics.depends = eirBase
+eirNetwork.depends  = eirBase
 eirGui.depends      = eirBase
-eirImage.depends    = eirBase eirMatgeo eirColor
+eirStore.depends    = eirBase
 eirMatgeo.depends   = eirBase
 eirType.depends     = eirBase
-eirWidgets.depends  = eirBase eirCore eirExe
-Sandbox.depends     = eirBase eirType eirMatgeo eirCore \
-                        eirExe eirWidgets eirColor  eirImage
-
-
+eirWidgets.depends  = eirBase eirMatgeo eirCore eirExe
+Sandbox.depends     = eirBase eirType eirNetwork

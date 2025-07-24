@@ -1,14 +1,15 @@
 #pragma once
-#include "eirBase.h"
+#include "eirNetwork.h"
 
 #include <QObject>
 
 #include <QUrl>
 #include <QUrlQuery>
+class QDir;
 
 #include "CText.h"
 
-class EIRBASE_EXPORT Url
+class EIRNETWORK_EXPORT Url
 {
     Q_GADGET
 public: // types
@@ -41,9 +42,11 @@ public: // ctors
 public: // const
     Type type() const;
     QString string(const bool encoded=false) const;
+    QDir dir() const;
 
 public: // non-const
     void set(const QString &url, QUrl::ParsingMode mode=QUrl::TolerantMode);
+    void set(const QDir &dir);
     void setScheme(const CText &scheme);
     void type(const CText &scheme);
 

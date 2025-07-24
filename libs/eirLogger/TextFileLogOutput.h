@@ -18,7 +18,7 @@ public:
 public slots:
     virtual void start() override;
     virtual void writeLine(const LogItem li) override;
-    void open(const FileInfo &fi);
+    void open(const LogFileInfo &fi);
     void openStdio();
     void close();
 

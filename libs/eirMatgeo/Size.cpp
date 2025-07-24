@@ -20,6 +20,11 @@ Point Size::center() const
     return Point(width() / 2, height() / 2);
 }
 
+bool Size::less(const Size &rhs) const
+{
+    return area() < rhs.area();
+}
+
 Size Size::expanded(const Size sz) const
 {
     return Size(width() + sz.width(), height() + sz.height());

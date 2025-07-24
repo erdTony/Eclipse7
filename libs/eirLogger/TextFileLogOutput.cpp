@@ -6,7 +6,7 @@
 #include <QUrl>
 
 #include <AText.h>
-#include <FileInfo.h>
+#include <LogFileInfo.h>
 
 TextFileLogOutput::TextFileLogOutput(QObject *parent)
     : BaseLogOutput{parent}
@@ -37,7 +37,7 @@ void TextFileLogOutput::writeLine(const LogItem li)
     }
 }
 
-void TextFileLogOutput::open(const FileInfo &fi)
+void TextFileLogOutput::open(const LogFileInfo &fi)
 {
     close();
     mpFile = new QFile(fi.filePath(), this);

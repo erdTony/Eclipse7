@@ -69,7 +69,7 @@ eirWidgets.depends      = eirBase eirType eirMatgeo eirCore eirExe #eirImage
 eirNetwork.depends      = eirBase
 eirStore.depends        = eirBase eirType eirNetwork
 #eirObjdet.depends       = eirBase eirType eirMatgeo eirCore
-EclipseFaceProc.depends = eirBase eirType eirMatgeo eirCore eirWidgets eirExe
+EclipseFaceProc.depends = eirBase eirType eirMatgeo eirCore eirNetwork eirWidgets eirExe
 
 #eirLogger.depends       = eirBase
 #eirGui.depends          = eirBase

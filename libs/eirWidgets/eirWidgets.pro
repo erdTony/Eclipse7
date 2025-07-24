@@ -14,6 +14,7 @@ include (../../useExe.pri)
 SOURCES += \
     BaseMainWindowPage.cpp \
     BaseWidgetApplication.cpp \
+    BinarySpinBox.cpp \
     Gallery.cpp \
     GalleryCell.cpp \
     GalleryGrid.cpp \
@@ -21,12 +22,14 @@ SOURCES += \
     GalleryUid.cpp \
     Label.cpp \
     MainWindowPageStack.cpp \
+    MsecSpinBox.cpp \
     SplashPage.cpp \
     eirWidgets.cpp
 
 HEADERS += \
     BaseMainWindowPage.h \
     BaseWidgetApplication.h \
+    BinarySpinBox.h \
     Gallery.h \
     GalleryCell.h \
     GalleryGrid.h \
@@ -34,6 +37,7 @@ HEADERS += \
     GalleryUid.h \
     Label.h \
     MainWindowPageStack.h \
+    MsecSpinBox.h \
     SplashPage.h \
     eirWidgets.h \
     eirWidgets_global.h
