@@ -12,6 +12,9 @@ include(../../useNetwork.pri)
 
 SOURCES += \
     BaseImageAcqSource.cpp \
+    DirInfo.cpp \
+    FileData.cpp \
+    FileInfo.cpp \
     FilesImageAcqSource.cpp \
     ImageAcq.cpp \
     ImageAcqConfig.cpp \
@@ -23,6 +26,9 @@ SOURCES += \
 
 HEADERS += \
     BaseImageAcqSource.h \
+    DirInfo.h \
+    FileData.h \
+    FileInfo.h \
     FilesImageAcqSource.h \
     ImageAcq.h \
     ImageAcqConfig.h \

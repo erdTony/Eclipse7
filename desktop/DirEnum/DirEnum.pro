@@ -8,6 +8,7 @@ include(../Desktop.pri)
 include(../../useBase.pri)
 include(../../useType.pri)
 include(../../useNetwork.pri)
+include(../../useStore.pri)
 
 SOURCES += \
     DirEnumProperties.cpp \

@@ -8,7 +8,6 @@ include(../libs.pri))
 include(../../useBase.pri)
 
 SOURCES += \
-    FileInfo.cpp \
     Ident.cpp \
     IdentMap.cpp \
     Key.cpp \
@@ -16,12 +15,13 @@ SOURCES += \
     KeySegList.cpp \
     MillisecondTime.cpp \
     NibbleArray.cpp \
+    Null.cpp \
     ObjectHelper.cpp \
+    TriBool.cpp \
     Uid.cpp \
     eirType.cpp
 
 HEADERS += \
-    FileInfo.h \
     Ident.h \
     IdentMap.h \
     Key.h \
@@ -31,8 +31,10 @@ HEADERS += \
     List.h \
     MillisecondTime.h \
     NibbleArray.h \
+    Null.h \
     ObjectHelper.h \
     Queue.h \
+    TriBool.h \
     Uid.h \
     eirType.h \
     eirType_global.h

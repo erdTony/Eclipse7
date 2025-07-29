@@ -9,6 +9,7 @@
 #include <ExeSupport.h>
 #include <Point.h>
 #include <Random.h>
+#include <Rational.h>
 #include <SCRect.h>
 #include <Size.h>
 
@@ -88,16 +89,16 @@ void SandboxEngine::startFrame()
 void SandboxEngine::swapFrame()
 {
 //    qInfo() << Q_FUNC_INFO;
-    if (++mSwapCount < Count(processImage().height()))
-    {
-        const Count cNumSwaps = processSwaps();
-        emit frameSwapped(mSwapCount, cNumSwaps, processImage());
-    }
-    else
-    {
+    const Count cNumSwaps = processSwaps();
+    const Size cImageSize(processImage().size());
+    const Count cImageArea = cImageSize.area();
+    const qreal cSwapsF = qreal(cNumSwaps) / qreal(cImageArea);
+    ++mSwapCount;
+    if ((cSwapsF < 0.17)
+        || (mSwapCount >= Count(processImage().height())))
         emit frameSwapFinished();
-    }
-
+    else
+        emit frameSwapped(mSwapCount, cNumSwaps, processImage());
 }
 
 void SandboxEngine::finishFrame()

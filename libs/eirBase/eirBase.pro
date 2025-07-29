@@ -13,7 +13,9 @@ SOURCES += \
     ATextList.cpp \
     CText.cpp \
     CTextList.cpp \
-    Enumeration.cpp \
+    FSText.cpp \
+    FSTextList.cpp \
+    FileSysInfo.cpp \
     UText.cpp \
     XText.cpp \
     eirBase.cpp
@@ -26,6 +28,9 @@ HEADERS += \
     DataProperty.h \
     DualMap.h \
     Enumeration.h \
+    FSText.h \
+    FSTextList.h \
+    FileSysInfo.h \
     Types.h \
     UText.h \
     XText.h \

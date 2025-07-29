@@ -2,7 +2,7 @@
 include(LIBDIR.pri)
 include(DESTDIR.pri)
 
-INCLUDEPATH *= $$LIBDIR/eirNetwork # ../../libs/eirWidget ../eirWidget
+INCLUDEPATH *= $$LIBDIR/eirNetwork
 windows:LIBS *= -leirNetwork7
 linux:LIBS *= -leirNetwork
 LIBS *= -L$$DESTDIR
