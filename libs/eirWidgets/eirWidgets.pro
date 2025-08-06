@@ -21,6 +21,9 @@ SOURCES += \
     GalleryProperties.cpp \
     GalleryUid.cpp \
     Label.cpp \
+    LabelMap.cpp \
+    LineEdit.cpp \
+    LineEditMap.cpp \
     MainWindowPageStack.cpp \
     MsecSpinBox.cpp \
     SplashPage.cpp \
@@ -36,6 +39,9 @@ HEADERS += \
     GalleryProperties.h \
     GalleryUid.h \
     Label.h \
+    LabelMap.h \
+    LineEdit.h \
+    LineEditMap.h \
     MainWindowPageStack.h \
     MsecSpinBox.h \
     SplashPage.h \

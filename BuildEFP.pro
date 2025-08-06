@@ -10,7 +10,7 @@ SUBDIRS +=              \
 #        eirFacebase     \
 #        eirFacerec      \
 #        eirFaceres      \
-#        eirGraphics     \
+#        3     \
 #        eirGui          \
 #        eirImage        \
 #        eirLogger       \
@@ -69,7 +69,8 @@ eirWidgets.depends      = eirBase eirType eirMatgeo eirCore eirExe #eirImage
 eirNetwork.depends      = eirBase eirType
 eirStore.depends        = eirBase eirType eirNetwork
 #eirObjdet.depends       = eirBase eirType eirMatgeo eirCore
-EclipseFaceProc.depends = eirBase eirType eirMatgeo eirCore eirNetwork eirWidgets eirExe
+EclipseFaceProc.depends = eirBase eirType eirMatgeo eirCore \
+                eirNetwork eirWidgets eirExe
 
 #eirLogger.depends       = eirBase
 #eirGui.depends          = eirBase

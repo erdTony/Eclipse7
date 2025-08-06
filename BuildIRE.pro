@@ -58,7 +58,7 @@ eirWidgets.subdir   = libs/eirWidgets
 IREngine.subdir     = desktop/IREngine
 
 eirBase.depends     =
-eirExe.depends     = eirBase
+eirExe.depends     = eirBase eirType eirMatgeo eirCore
 eirFaceres.depends     = eirBase
 eirGraphics.depends     = eirBase
 eirLogger.depends     = eirBase
@@ -73,15 +73,16 @@ eirType.depends     = eirBase
 eirVideo.depends     = eirBase
 eirCore.depends     = eirBase
 eirGui.depends      = eirBase
-eirWidgets.depends  = eirBase
+eirWidgets.depends  = eirBase eirMatgeo eirCore eirExe
 eirXml.depends      = eirBase
 eirFacebase.depends = eirBase
-eirColor.depends    = eirBase
+eirColor.depends    = eirBase eirMatgeo
 eirFacerec.depends  = eirBase
-eirImage.depends    = eirBase
+eirImage.depends    = eirBase eirType eirMatgeo eirColor
 eirObjdet.depends   = eirBase
 eirQtCV.depends     = eirBase
 eirStore.depends    = eirBase
-IREngine.depends    = eirBase
+IREngine.depends    = eirBase eirType eirMatgeo eirCore \
+eirExe eirWidgets eirColor  eirImage
 
 

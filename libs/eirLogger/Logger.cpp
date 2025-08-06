@@ -3,7 +3,6 @@
 #include <QTimer>
 #include <QUrl>
 
-#include "LogContext.h"
 
 Logger::Logger(QObject *parent)
     : QObject{parent}
@@ -37,8 +36,6 @@ void Logger::handleInputQueue()
 {
     if (mInputQueue.isEmpty())  return;
     const LogItem cItem = mInputQueue.dequeue();
-    const Log::MsgType cItemType = cItem.context().msgType();
-    mTypeQueueMap[cItemType].enqueue(cItem);
 }
 
 void Logger::poll()

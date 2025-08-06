@@ -15,6 +15,7 @@ SOURCES += \
     DirInfo.cpp \
     FileData.cpp \
     FileInfo.cpp \
+    FileSysInfo.cpp \
     FilesImageAcqSource.cpp \
     ImageAcq.cpp \
     ImageAcqConfig.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     DirInfo.h \
     FileData.h \
     FileInfo.h \
+    FileSysInfo.h \
     FilesImageAcqSource.h \
     ImageAcq.h \
     ImageAcqConfig.h \

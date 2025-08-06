@@ -34,9 +34,9 @@ void EFPSplashPage::setup()
     qDebug() << Q_FUNC_INFO << tEircImage.isNull()
              << tIndiImage.isNull() << tEfpImage.isNull();
 
-    mpEircLabel->pixmap(tEircImage.scaledToWidth(512));
-    mpIndiLabel->pixmap(tIndiImage.scaledToWidth(512));
-    mpEfpLabel->pixmap(tEfpImage.scaledToWidth(512));
+    mpEircLabel->set(tEircImage.scaledToWidth(512));
+    mpIndiLabel->set(tIndiImage.scaledToWidth(512));
+    mpEfpLabel->set(tEfpImage.scaledToWidth(512));
     const int cRow0Height = qMax(mpEircLabel->height(),
                                  mpIndiLabel->height());
     const int cRow1Height = mpEfpLabel->height();

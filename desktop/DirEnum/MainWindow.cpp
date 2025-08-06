@@ -9,12 +9,12 @@
 
 #include "EnumWindow.h"
 #include "FileEnumerator.h"
-#include "PropertyEditor.h"
+#include "FileEnumParmWidget.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , mpEnumWindow(new EnumWindow(this))
-    , mpPropertyEditor(new PropertyEditor(this))
+    , mpParmWidget(new FileEnumParmWidget(this))
 {
     QTimer::singleShot(100, this, &MainWindow::setup);
 }
@@ -31,9 +31,9 @@ void MainWindow::setup()
     setCentralWidget(pMainWidget);
 
     mpEnumWindow->setup();
-    mpPropertyEditor->setup();
-    pMainGrid->addWidget(mpEnumWindow, 0, 0);
-    pMainGrid->addWidget(mpPropertyEditor, 0, 1);
+    mpParmWidget->setup();
+    pMainGrid->addWidget(mpParmWidget, 0, 0);
+    pMainGrid->addWidget(mpEnumWindow, 0, 1);
 
 }
 

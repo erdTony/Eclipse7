@@ -16,7 +16,7 @@ public:
 public:
 
 public: // non-const
-    void split(const FSText s, const char hinge=0);
+    void split(const FSText s, const char hinge='.');
 
 private: // pointers
     FSTextList it() const;

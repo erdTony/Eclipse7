@@ -4,8 +4,9 @@
 #include <QFileSystemModel>
 #include <QTimer>
 
-FileEnumerator::FileEnumerator(QObject *parent)
+FileEnumerator::FileEnumerator(const FileEnumeratorParms &fed, QObject *parent)
     : QObject{parent}
+    , mParms(fed)
     , mpModel(new QFileSystemModel(parent))
 {
     setObjectName("FileEnumerator");
@@ -27,13 +28,9 @@ void FileEnumerator::start(const Url &url)
 
 void FileEnumerator::pulse()
 {
-    const Count cFetchUpper = 128;
-    const Count cFetchLower = 32;
-    const Count cFetchChunk = 8;
-
     if (mpModel->canFetchMore(mFetchIndex))
     {
-        Count tFetchCount = cFetchChunk;
+        Count tFetchCount = parms().collectChunk();
         do
         {
             mpModel->fetchMore(mFetchIndex);
@@ -41,6 +38,11 @@ void FileEnumerator::pulse()
         } while (mpModel->canFetchMore(mFetchIndex)
                  && --tFetchCount);
     }
+}
+
+void FileEnumerator::pulseEnumerate()
+{
+
 }
 
 

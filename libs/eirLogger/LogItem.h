@@ -14,7 +14,6 @@
 #include <Types.h>
 #include <UText.h>
 
-#include "LogContext.h"
 #include "LogObject.h"
 
 typedef Log::Level LogLevel;
@@ -23,7 +22,6 @@ typedef Log::Operation LogOperation;
 #define LOGITEM_DATAPROPS(TND) \
     TND(Milliseconds,   timeStamp,      0) \
     TND(QUuid,          itemUid,        QUuid()) \
-    TND(LogContext,     context,        LogContext()) \
     TND(AText,          message,        AText()) /*TODO UText*/ \
     TND(UText,          format,         UText()) \
     TND(AText,          printF,         AText()) \
@@ -51,7 +49,7 @@ class EIRLOGGER_EXPORT LogItem
 public: // data
 
 public: // our ctors
-    LogItem(const LogContext ctx, const char * msg);
+    LogItem(const char * msg);
 
 public: // const
     bool isNull() const;

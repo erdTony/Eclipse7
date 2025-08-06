@@ -9,6 +9,7 @@ class QTimer;
 
 #include <Types.h>
 
+#include "LogFileInfo.h"
 #include "LogItem.h"
 #include "LogObject.h"
 

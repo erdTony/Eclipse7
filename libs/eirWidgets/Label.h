@@ -10,6 +10,7 @@
 #include <QPixmap>
 #include <QWidget>
 
+#include <Types.h>
 
 class EIRWIDGETS_EXPORT Label : public QLabel
 {
@@ -20,13 +21,14 @@ public: // typedef
 public: // ctors
     explicit Label(QWidget *parent = nullptr);
     explicit Label(const QString &text, QWidget *parent = nullptr);
-    explicit Label(const QPixmap &pxm, const QString &text=QString(), QWidget *parent = nullptr);
-    explicit Label(const QImage &img, const QString &text=QString(), QWidget *parent = nullptr);
+    explicit Label(const BYTE digits, QWidget *parent = nullptr);
+    explicit Label(const QPixmap &pxm, QWidget *parent = nullptr, const QString &text=QString());
+    explicit Label(const QImage &img, QWidget *parent = nullptr, const QString &text=QString());
 
 public slots:
-    void text(const QString &s);
-    void pixmap(const QPixmap &pxm);
-    void pixmap(const QImage &img);
+    void set(const QString &s);
+    void set(const QPixmap &pxm);
+    void set(const QImage &img);
 
 signals:
 

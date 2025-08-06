@@ -7,7 +7,7 @@
 #include "DirEnumProperties.h"
 class EnumWindow;
 class FileEnumerator;
-class PropertyEditor;
+class FileEnumParmWidget;
 
 
 class MainWindow : public QMainWindow
@@ -28,7 +28,7 @@ signals:
 
 private:
     EnumWindow * mpEnumWindow=nullptr;
-    PropertyEditor * mpPropertyEditor=nullptr;
+    FileEnumParmWidget * mpParmWidget=nullptr;
     DirEnumProperties mProperties;
     Url mUrl;
     FileEnumerator * mpEnumerator=nullptr;

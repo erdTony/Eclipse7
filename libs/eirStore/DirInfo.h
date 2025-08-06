@@ -1,8 +1,9 @@
 #pragma once
+#include "eirStore.h"
 
 #include <QDir>
 
-class DirInfo : public QDir
+class EIRSTORE_EXPORT DirInfo : public QDir
 {
 public:
     DirInfo();

@@ -13,7 +13,6 @@ CPPFLAGS *= -E -Dm
 SOURCES += \
     BaseLogOutput.cpp \
     LogCategory.cpp \
-    LogContext.cpp \
     LogFileInfo.cpp \
     LogFuncInfo.cpp \
     LogItem.cpp \
@@ -28,7 +27,6 @@ HEADERS += \
     BaseLogOutput.h \
     Log.h \
     LogCategory.h \
-    LogContext.h \
     LogFileInfo.h \
     LogFuncInfo.h \
     LogItem.h \

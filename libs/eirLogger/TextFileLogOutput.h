@@ -6,7 +6,8 @@
 class QFile;
 class QTextStream;
 
-#include "LogContext.h"
+class LogFileInfo;
+
 
 class TextFileLogOutput : public BaseLogOutput
 {
@@ -34,12 +35,10 @@ public: // non-const
 public: // pointer
 
 private:
-    AText contextLine();
 
 private:
     QFile * mpFile=nullptr;
     QTextStream * mpInfoStream=nullptr;
     QTextStream * mpErrorStream=nullptr;
-    LogContext mCurrentContext;
 
 };

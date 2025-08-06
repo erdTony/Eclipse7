@@ -7,23 +7,26 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 include(../Desktop.pri)
 include(../../useBase.pri)
 include(../../useType.pri)
+include(../../useWidgets.pri)
 include(../../useNetwork.pri)
 include(../../useStore.pri)
 
 SOURCES += \
     DirEnumProperties.cpp \
     EnumWindow.cpp \
+    FileEnumParmWidget.cpp \
     FileEnumerator.cpp \
-    PropertyEditor.cpp \
+    FileEnumeratorParms.cpp \
     main.cpp \
     MainWindow.cpp
 
 HEADERS += \
     DirEnumProperties.h \
     EnumWindow.h \
+    FileEnumParmWidget.h \
     FileEnumerator.h \
-    MainWindow.h \
-    PropertyEditor.h
+    FileEnumeratorParms.h \
+    MainWindow.h
 
 FORMS +=
 

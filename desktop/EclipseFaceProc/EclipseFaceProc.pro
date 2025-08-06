@@ -11,7 +11,6 @@ include(../../useCore.pri)
 include(../../useMatgeo.pri)
 include(../../useNetwork.pri)
 include(../../useWidgets.pri)
-include(../../useGraphics.pri)
 include(../../useExe.pri)
 
 SOURCES += \

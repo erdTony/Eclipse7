@@ -4,7 +4,7 @@ TEMPLATE = subdirs
 
 SUBDIRS +=              \
         eirBase		\
-#        eirLogger	\
+        eirLogger	\
         eirCore		\
         eirExe          \
         eirNetwork      \
@@ -16,7 +16,7 @@ SUBDIRS +=              \
         DirEnum         \
 
 eirBase.subdir      = libs/eirBase
-#eirLogger.subdir    = libs/eirLogger
+eirLogger.subdir    = libs/eirLogger
 eirCore.subdir      = libs/eirCore
 eirExe.subdir       = libs/eirExe
 eirNetwork.subdir   = libs/eirNetwork
@@ -28,7 +28,7 @@ eirWidgets.subdir   = libs/eirWidgets
 DirEnum.subdir      = desktop/DirEnum
 
 eirBase.depends     =
-#eirLogger.depends   = eirBase
+eirLogger.depends   = eirBase
 eirCore.depends     = eirBase
 eirExe.depends      = eirBase eirType eirMatgeo eirCore
 eirNetwork.depends  = eirBase eirType

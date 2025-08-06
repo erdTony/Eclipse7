@@ -37,7 +37,7 @@ eirGui.depends      = eirBase
 eirImage.depends    = eirBase eirType eirMatgeo eirColor
 eirMatgeo.depends   = eirBase
 eirType.depends     = eirBase
-eirWidgets.depends  = eirBase eirCore eirExe
+eirWidgets.depends  = eirBase eirMatgeo eirCore eirExe
 Sandbox.depends     = eirBase eirType eirMatgeo eirCore \
                         eirExe eirWidgets eirColor  eirImage
 

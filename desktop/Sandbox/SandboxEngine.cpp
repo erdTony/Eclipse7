@@ -94,7 +94,7 @@ void SandboxEngine::swapFrame()
     const Count cImageArea = cImageSize.area();
     const qreal cSwapsF = qreal(cNumSwaps) / qreal(cImageArea);
     ++mSwapCount;
-    if ((cSwapsF < 0.17)
+    if ((cSwapsF < 0.25)
         || (mSwapCount >= Count(processImage().height())))
         emit frameSwapFinished();
     else
@@ -188,33 +188,22 @@ Count SandboxEngine::processSwaps()
 void SandboxEngine::setupColorTable()
 {
     mColorTable.fill(QColor(Qt::transparent).rgba(), 256);
+    mColorTable[0] = QColor(Qt::transparent).rgba();
     setupColorTableLinear(  1,   3, 240, /* Low */
         QColor(0x10, 0x10, 0x10), QColor(0x30, 0x30, 0x30));
-    setupColorTableLinear(236, 254, 240, /* High */
-        QColor(0xC0, 0xC0, 0xC0), QColor(0xF0, 0xF0, 0xF0));
     setupColorTableLinear(  4,  19, 240, /* Bronze */
         QColor(0x5F, 0x3F, 0x22), QColor(0x7F, 0x5F, 0x42));
-    setupColorTableLinear(236, 251, 240, /* Silver */
-        QColor(0xB0, 0xB0, 0xB0), QColor(0xC0, 0xC0, 0xC0));
+    setupColorTableLinear( 20, 119, 240, /* Sand */
+        QColor( 48,  32,  16), QColor(151, 128,  48));
     setupColorTableLinear(120, 135, 240, /* Gold */
         QColor(0x90, 0x40, 0x00), QColor(0xCF, 0x7F, 0x2F));
-    mColorTable[0] = QColor(Qt::transparent).rgba();
-    mColorTable[255] = QColor(0, 0x40, 0).rgba();
-#if 1
-    setupColorTableLinear( 20, 119, 240, /* Sand */
-        QColor( 48,  48,  16), QColor(151, 151,  48));
     setupColorTableLinear(136, 235, 240, /* Water */
         QColor( 32, 128, 128), QColor(64, 231, 231));
-#else
-    setupColorTableBilinear( 16, 119, 160, /* Sand */
-                            QColor(0x00, 0x20, 0x20),
-                            QColor(0x00, 0x50, 0x50),
-                            QColor(0x50, 0x70, 0x70));
-    setupColorTableBilinear(136, 239, 80, /* Water */
-                            QColor(0xD6, 0xB0, 0x69),
-                            QColor(0xEC, 0xCC, 0xA2),
-                            QColor(0xFF, 0xF0, 0xDB));
-#endif
+    setupColorTableLinear(236, 251, 240, /* Silver */
+        QColor(0xB0, 0xB0, 0xB0), QColor(0xC0, 0xC0, 0xC0));
+    setupColorTableLinear(252, 254, 240, /* High */
+        QColor(0xC0, 0xC0, 0xC0), QColor(0xF0, 0xF0, 0xF0));
+    mColorTable[255] = QColor(0, 0x40, 0).rgba();
 #if 1
     for (Index ix = 0; ix < 255; ix += 8)
         qDebug() << Qt::dec << ix << Qt::hex
