@@ -14,7 +14,6 @@
 
 #include "LogObject.h"
 
-typedef Log::MsgType LogMsgType;
 
 #define QTLOGFIELDS_DATAPROPS(TND) \
     TND(CText, Appname, CText()) \
@@ -33,7 +32,7 @@ typedef Log::MsgType LogMsgType;
 
 class QtLogFieldsData : public QSharedData
 {
-    DECLARE_CHILD_DATAPROPS(QTLOGFIELDS_DATAPROPS)
+    DECLARE_CHILD_DATAPROPS(QTLOGFIELDS_DATAPROPS);
 public:
     QtLogFieldsData(void)
     {

@@ -1,7 +1,8 @@
 #pragma once
+#include "eirLogger.h"
 
 #include <QObject>
-#include "BaseLogOutput.h"
+#include "AbstractLogOutput.h"
 
 class QFile;
 class QTextStream;
@@ -9,12 +10,12 @@ class QTextStream;
 class LogFileInfo;
 
 
-class TextFileLogOutput : public BaseLogOutput
+class EIRLOGGER_EXPORT LogOutText : public AbstractLogOutput
 {
     Q_OBJECT
 public:
-    explicit TextFileLogOutput(QObject *parent = nullptr);
-    explicit TextFileLogOutput(const QUrl &url, QObject *parent = nullptr);
+    explicit LogOutText(const bool openStd=true, QObject *parent = nullptr);
+    explicit LogOutText(const QUrl &url, QObject *parent = nullptr);
 
 public slots:
     virtual void start() override;

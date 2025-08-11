@@ -17,7 +17,6 @@ SOURCES += \
     NibbleArray.cpp \
     Null.cpp \
     ObjectHelper.cpp \
-    TriBool.cpp \
     Uid.cpp \
     eirType.cpp
 
@@ -34,7 +33,6 @@ HEADERS += \
     Null.h \
     ObjectHelper.h \
     Queue.h \
-    TriBool.h \
     Uid.h \
     eirType.h \
     eirType_global.h

@@ -1,6 +1,21 @@
 #include "CTextList.h"
 
-CTextList::CTextList() {}
+CTextList::CTextList() {;}
+CTextList::CTextList(const QList<CText> other) : CText::List(other) {;}
+
+CText CTextList::join(char ch) const
+{
+    if (0 == ch) ch = CText::hinge();
+    CTextList tList = *this;
+    CText result = isEmpty() ? CText() : tList.takeFirst();
+    while ( ! tList.isEmpty())
+    {
+        result += ch;
+        result += tList.takeFirst();
+    }
+    return result;
+}
+
 
 QStringList CTextList::toStringList() const
 {

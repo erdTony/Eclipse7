@@ -11,33 +11,35 @@ include(../../useBase.pri) # ONLY!
 CPPFLAGS *= -E -Dm
 
 SOURCES += \
-    BaseLogOutput.cpp \
-    LogCategory.cpp \
+    AbstractLogOutput.cpp \
+    BaseLogFilter.cpp \
+    BaseLogFilterItem.cpp \
+    LogCondition.cpp \
+    LogEntry.cpp \
     LogFileInfo.cpp \
     LogFuncInfo.cpp \
     LogItem.cpp \
     LogLevel.cpp \
     LogObject.cpp \
-    Logger.cpp \
-    QtLogFields.cpp \
-    TextFileLogOutput.cpp \
-    eirlogger.cpp
+    LogOutText.cpp \
+    eirLogger.cpp
 
 HEADERS += \
-    BaseLogOutput.h \
+    AbstractLogOutput.h \
+    BaseLogFilter.h \
+    BaseLogFilterItem.h \
     Log.h \
-    LogCategory.h \
+    LogCondition.h \
+    LogEntry.h \
     LogFileInfo.h \
     LogFuncInfo.h \
     LogItem.h \
     LogLevel.h \
     LogMacros.h \
     LogObject.h \
-    Logger.h \
-    QtLogFields.h \
-    TextFileLogOutput.h \
-    eirLogger_global.h \
-    eirlogger.h
+    LogOutText.h \
+    eirLogger.h \
+    eirLogger_global.h
 
 # Default rules for deployment.
 unix {

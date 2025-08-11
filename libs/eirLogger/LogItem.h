@@ -1,5 +1,5 @@
 #pragma once
-#include "eirlogger.h"
+#include "eirLogger.h"
 
 
 #include <QSharedData>
@@ -16,9 +16,6 @@
 
 #include "LogObject.h"
 
-typedef Log::Level LogLevel;
-typedef Log::Operation LogOperation;
-
 #define LOGITEM_DATAPROPS(TND) \
     TND(Milliseconds,   timeStamp,      0) \
     TND(QUuid,          itemUid,        QUuid()) \
@@ -26,7 +23,6 @@ typedef Log::Operation LogOperation;
     TND(UText,          format,         UText()) \
     TND(AText,          printF,         AText()) \
     TND(QVariantList,   values,         QVariantList()) \
-    TND(LogOperation,   operation,      LogOperation()) \
     TND(AText,          expectedName,   AText()) \
     TND(QVariant,       expectedValue,  QVariant()) \
     TND(AText,          actualName,     AText()) \
@@ -34,18 +30,18 @@ typedef Log::Operation LogOperation;
 
 class LogItemData : public QSharedData
 {
-    DECLARE_CHILD_DATAPROPS(LOGITEM_DATAPROPS)
+    DECLARE_CHILD_DATAPROPS(LOGITEM_DATAPROPS);
 public:
     LogItemData(void)
     {
-        DEFINE_DATAPROPS_CTORS(LOGITEM_DATAPROPS)
+        DEFINE_DATAPROPS_CTORS(LOGITEM_DATAPROPS);
     }
 };
 
 class EIRLOGGER_EXPORT LogItem
 {
-    DECLARE_PARENT_DATAPROPS(LOGITEM_DATAPROPS)
-    DECLARE_DATAPROPS(LogItem, LogItemData)
+    DECLARE_PARENT_DATAPROPS(LOGITEM_DATAPROPS);
+    DECLARE_DATAPROPS(LogItem, LogItemData);
 public: // data
 
 public: // our ctors

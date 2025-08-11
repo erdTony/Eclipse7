@@ -1,18 +1,18 @@
-#include "BaseLogOutput.h"
+#include "AbstractLogOutput.h"
 
 
-BaseLogOutput::BaseLogOutput(QObject *parent)
+AbstractLogOutput::AbstractLogOutput(QObject *parent)
     : QObject{parent}
 {}
 
-BaseLogOutput::BaseLogOutput(const QUrl &url, QObject *parent)
+AbstractLogOutput::AbstractLogOutput(const QUrl &url, QObject *parent)
     : QObject{parent}
     , mUrl(url)
 {
     setObjectName("BaseLogOutput:" + mUrl.toString());
 }
 
-void BaseLogOutput::start(const QUrl &url)
+void AbstractLogOutput::start(const QUrl &url)
 {
     mUrl = url;
     setObjectName("BaseLogOutput:" + mUrl.toString());

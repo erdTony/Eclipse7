@@ -15,6 +15,7 @@ SOURCES += \
     CTextList.cpp \
     FSText.cpp \
     FSTextList.cpp \
+    TriBool.cpp \
     UText.cpp \
     XText.cpp \
     eirBase.cpp
@@ -29,6 +30,7 @@ HEADERS += \
     Enumeration.h \
     FSText.h \
     FSTextList.h \
+    TriBool.h \
     Types.h \
     UText.h \
     XText.h \

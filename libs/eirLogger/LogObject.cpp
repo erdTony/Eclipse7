@@ -1,22 +1,14 @@
 #include "LogObject.h"
 
+#include <QCoreApplication>
+#include <QDateTime>
 
-ATextList Log::smPatternList = ATextList()
-                               << "Appname=%{appname}"
-                               << "Category=%{category}"
-                               << "sFilePath=%{sFilePath}"
-                               << "sFileLine=%{sFileLine}"
-                               << "sMessage=%{sMessage}"
-                               << "sPid=%{sPid}"
-                               << "sTid=%{sTid}"
-                               << "sThreadAddress=%{sThreadAddress}"
-                               << "sMsgType=%{sMsgType}"
-                               << "sBootMsec=%{sBootMsec}"
-                               << "sTimeString=%{sTimeString}"
-                               << "sBackTrace=%{sBackTrace}"
-    ;
+#include <CTextList.h>
 
-Log::Log(QObject *parent) : QObject{parent}
+#include "AbstractLogOutput.h"
+#include "LogLevel.h"
+
+Log::Log() : QObject{qApp}
 {
     setObjectName("Log");
 }
@@ -26,68 +18,72 @@ void Log::start()
 
 }
 
-void Log::captureTroll()
+void Log::hookQtMsg()
 {
-    qSetMessagePattern(smPatternList.join('\n'));
-    mOldHandler = qInstallMessageHandler(capturedTrollHandler);
+    static CTextList sPatternList
+        = CTextList()
+          << "Appname=%{Appname}"
+          << "Category=%{Category}"
+          << "FilePath=%{FilePath}"
+          << "FileLine=%{FileLine}"
+          << "Message=%{Message}"
+          << "Pid=%{Pid}"
+          << "Tid=%{Tid}"
+          << "ThreadAddress=%{ThreadAddress}"
+          << "MsgType=%{MsgType}"
+          << "BootMsec=%{BootMsec}"
+          << "TimeString=%{TimeString}"
+          << "BackTrace=%{BackTrace}";
+    qSetMessagePattern(sPatternList.join('\n'));
+    mOldHandler = qInstallMessageHandler(logMessageHandler);
 }
 
-void Log::releaseTroll()
+void Log::unhookQtMsg()
 {
     if (mOldHandler) qInstallMessageHandler(mOldHandler);
-    qSetMessagePattern("%{if-category}%{category}: %{endif}%{message}");
+    qSetMessagePattern("%{if-category}%{category}: %{endif}"
+                       "%{message}");
 }
 
-QtMsgType Log::qMsgType(const MsgType mt)
+void Log::add(AbstractLogOutput *out)
 {
-    QtMsgType result = QtWarningMsg;
-    switch (mt)
+    out->setParent(this);
+    mOutputList.append(out);
+}
+
+void Log::enqueue(const LogEntry &entry)
+{
+    if (mEntryQueueLock.tryLockForWrite(100))
     {
-    case $nullMsgType:                          break;
-    case InfoType:      result = QtInfoMsg;     break;
-    case TraceType:     result = QtDebugMsg;    break;
-    case WarnType:      result = QtWarningMsg;  break;
-    case ErrorType:     result = QtCriticalMsg; break;
-    case AbortType:     result = QtFatalMsg;    break;
+        mEntryQueue.enqueue(entry);
+        mEntryQueueLock.unlock();
+        emit enqueued(entry);
     }
-    return result;
-}
-
-Log::MsgType Log::msgType(const Level lvl)
-{
-    Log::MsgType result = $nullMsgType;
-    switch (lvl)
+    else
     {
-    case Detail:    case Info:      result = InfoType;  break;
-    case TDetail:   case TInfo:
-    case FnArg:     case FnExit:    case FnEnter:
-    case TDump:     case Trace:     case TPrefer:
-    case TWarning:  case TError:    result = TraceType; break;
-    case Warning:                   result = WarnType;  break;
-    case Error:
-    case Expect:    case Assert:    result = ErrorType; break;
-    case Abort:     case Memory:
-    case Shutdown:  case Network:   result = AbortType; break;
-    default:                        result = $fallback; break;
+        QString warn = QString("%1 LogEntry queue lock failed: %1")
+            .arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs))
+            .arg(entry.level().name()());
+        emit warning(warn);
     }
-    return result;
 }
 
-Log::MsgType Log::msgType(const AText &at)
+// static
+Log *Log::instance()
 {
-    Log::MsgType result = Log::$nullMsgType;
-         if ("Info"  == at)     result = InfoType;
-    else if ("Trace" == at)     result = TraceType;
-    else if ("Warn"  == at)     result = WarnType;
-    else if ("Error" == at)     result = ErrorType;
-    else if ("Abort" == at)     result = AbortType;
-    else                        result = $fallback;
+    static Log * spLog = nullptr;
+    if (nullptr == spLog)
+        spLog = new Log();
+    Log * result = spLog;
     return result;
 }
 
-void capturedTrollHandler(QtMsgType type,
-                          const QMessageLogContext &context,
-                          const QString &message)
+// global
+void logMessageHandler(QtMsgType type,
+              const QMessageLogContext &context,
+              const QString &message)
 {
     Q_UNUSED(type);
+    Q_UNUSED(context);
+    Q_UNUSED(message);
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include "eirLogger.h"
 
 #include <QObject>
 
@@ -11,11 +12,12 @@ class QTimer;
 
 #include "LogFileInfo.h"
 #include "LogItem.h"
+#include "LogLevel.h"
 #include "LogObject.h"
 
-class BaseLogOutput;
+class AbstractLogOutput;
 
-class Logger : public QObject
+class EIRLOGGER_EXPORT Logger : public QObject
 {
     Q_OBJECT
 public: // types
@@ -55,8 +57,8 @@ private:
     QTimer * mpInputTimer=nullptr;
     QTimer * mpPollTimer=nullptr;
     ItemQueue mInputQueue;
-    QMap<Log::MsgType, ItemQueue> mTypeQueueMap;
-    QMap<QUrl, BaseLogOutput *> mUrlOutputMap;
+    QMap<LogLevel::MsgType, ItemQueue> mTypeQueueMap;
+    QMap<QUrl, AbstractLogOutput *> mUrlOutputMap;
 
 
     // ======= Properties ========

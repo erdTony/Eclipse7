@@ -1,10 +1,13 @@
 #include "MainWindow.h"
 
+#include <QCoreApplication>
+#include <QDateTime>
 #include <QDir>
 #include <QGridLayout>
 #include <QTimer>
 #include <QWidget>
 
+#include <Log.h>
 #include <Url.h>
 
 #include "EnumWindow.h"
@@ -25,6 +28,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::setup()
 {
+    Log::instance()->hookQtMsg();
+    Log::instance()->add(new LogOutText(true));
+    //LOGOUTSTD();
+    //LOGHOOK();
+    UINFOMSG("Starting " + QCoreApplication::applicationName()
+            + QDateTime::currentDateTime().toString(" yyMMMdd hh:mm"));
+
     QGridLayout * pMainGrid = new QGridLayout;
     QWidget * pMainWidget = new QWidget(this);
     pMainWidget->setLayout(pMainGrid);

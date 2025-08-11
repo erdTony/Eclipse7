@@ -20,6 +20,7 @@ public: // const
     MillisecondTime delta(MillisecondTime ems=current()) const;
     QDateTime toDateTime(void) const;
     QString toString(const QString & format=QString()) const;
+    QString timeString(const bool msec=false) const;
     operator Milliseconds(void) const;
 
 public: // non-const

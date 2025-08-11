@@ -1,3 +1,3 @@
-#include "eirlogger.h"
+#include "eirLogger.h"
 
 eirLogger::eirLogger() {}

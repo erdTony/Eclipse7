@@ -3,12 +3,16 @@
 
 #include "CText.h"
 
+#include <QList>
+
 class EIRBASE_EXPORT CTextList : public CText::List
 {
 public:
     CTextList();
+    CTextList(const QList<CText> other);
 
 public: // const
+    CText join(char ch=0) const;
     QStringList toStringList() const;
 
 

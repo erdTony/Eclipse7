@@ -1,5 +1,5 @@
 #pragma once
-#include "eirlogger.h"
+#include "eirLogger.h"
 
 #include <CText.h>
 
@@ -17,21 +17,21 @@ public: // types
         FnExit              = 5,
         FnEnter             = 6,
         TTrivia             = 7,
-        ITrivia             = 8,
+        UTrivia             = 8,
         TDetail             = 9,
-        IDetail             = 10,
+        UDetail             = 10,
         DumpVal             = 11,
         Dump                = 12,
         Trace               = 13,
         TInfo               = 14,
-        IInfo               = 15,
+        UInfo               = 15,
         TPrefer             = 16,
-        IPrefer             = 17,
+        UPrefer             = 17,
         TProgress           = 18,
-        IProgress           = 19,
+        UProgress           = 19,
         $minWarning         = 20,
         TWarning            = 21,
-        IWarning            = 22,
+        UWarning            = 22,
         $minCritical        = 23,
         Error               = 24,
         Expect              = 25,
@@ -51,18 +51,20 @@ public: // types
         FnExitFlag          = 1 << FnExit,
         FnEnterFlag         = 1 << FnEnter,
         TTriviaFlag         = 1 << TTrivia,
-        ITriviaFlag         = 1 << ITrivia,
+        UTriviaFlag         = 1 << UTrivia,
         TDetailFlag         = 1 << TDetail,
-        IDetailFlag         = 1 << IDetail,
+        UDetailFlag         = 1 << UDetail,
         DumpValFlag         = 1 << DumpVal,
         DumpFlag            = 1 << Dump,
         TraceFlag           = 1 << Trace,
         TInfoFlag           = 1 << TInfo,
-        IInfoFlag           = 1 << IInfo,
+        UInfoFlag           = 1 << UInfo,
         TPreferFlag         = 1 << TPrefer,
-        IPreferFlag         = 1 << IPrefer,
+        UPreferFlag         = 1 << UPrefer,
         TProgressFlag       = 1 << TProgress,
-        IProgressFlag       = 1 << IProgress,
+        UProgressFlag       = 1 << UProgress,
+        TWarningFlag        = 1 << TWarning,
+        UWarningFlag        = 1 << UWarning,
         ErrorFlag           = 1 << Error,
         ExpectFlag          = 1 << Expect,
         MemoryFlag          = 1 << Memory,
@@ -70,6 +72,18 @@ public: // types
         ShutdownFlag        = 1 << Shutdown,
         MaximumFlag         = 1 << Maximum
     };
+
+    enum MsgType
+    {
+        $nullMsgType    = 0,
+        InfoType,
+        TraceType,
+        WarnType,
+        ErrorType,
+        AbortType,
+        $fallback       = WarnType
+    };
+
 
 public: // ctors
     LogLevel();
@@ -86,6 +100,9 @@ public: // non-const
 
 public: // static
     static CText name(const Value v);
+    static MsgType msgType(const CText &ct);
+    static MsgType msgType(const LogLevel::Value lvl);
+    static QtMsgType qMsgType(const MsgType mt);
 
 private:
     Value mValue=$nullLevel;

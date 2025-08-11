@@ -111,6 +111,11 @@ QString MillisecondTime::toString(const QString & format) const
                                  : format);
 }
 
+QString MillisecondTime::timeString(const bool msec) const
+{
+    return toString("hh:mm:ss%1").arg(msec ? ".zzz" : "");
+}
+
 QString MillisecondTime::baseString(const QString & format)
 {
     return QDateTime::fromMSecsSinceEpoch(smBaseMST)

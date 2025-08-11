@@ -6,6 +6,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include(../Desktop.pri)
 include(../../useBase.pri)
+include(../../useLogger.pri)
 include(../../useType.pri)
 include(../../useWidgets.pri)
 include(../../useNetwork.pri)

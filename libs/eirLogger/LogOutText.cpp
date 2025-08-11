@@ -1,4 +1,4 @@
-#include "TextFileLogOutput.h"
+#include "LogOutText.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -8,28 +8,31 @@
 #include <AText.h>
 #include <LogFileInfo.h>
 
-TextFileLogOutput::TextFileLogOutput(QObject *parent)
-    : BaseLogOutput{parent}
+LogOutText::LogOutText(const bool openStd, QObject *parent)
+    : AbstractLogOutput{parent}
 {
-    setObjectName("StdioLogOutput:{null}");
+    setObjectName(QString("StdioLogOutput:%1")
+            .arg(openStd ? "StdIO" : "{null}"));
+    if (openStd)
+        openStdio();
 }
 
-TextFileLogOutput::TextFileLogOutput(const QUrl &url, QObject *parent)
-    : BaseLogOutput{url, parent}
+LogOutText::LogOutText(const QUrl &url, QObject *parent)
+    : AbstractLogOutput{url, parent}
 {
     setObjectName("StdioLogOutput:" + mUrl.toString());
 }
 
-void TextFileLogOutput::start()
+void LogOutText::start()
 {
 
 }
 
-void TextFileLogOutput::writeLine(const LogItem li)
+void LogOutText::writeLine(const LogItem li)
 {
 }
 
-void TextFileLogOutput::open(const LogFileInfo &fi)
+void LogOutText::open(const LogFileInfo &fi)
 {
     close();
     mpFile = new QFile(fi.filePath(), this);
@@ -43,7 +46,7 @@ void TextFileLogOutput::open(const LogFileInfo &fi)
     }
 }
 
-void TextFileLogOutput::openStdio()
+void LogOutText::openStdio()
 {
     close();
     mpInfoStream = new QTextStream(stdout);
@@ -52,7 +55,7 @@ void TextFileLogOutput::openStdio()
     Q_CHECK_PTR(mpErrorStream);
 }
 
-void TextFileLogOutput::close()
+void LogOutText::close()
 {
     if (mpFile) mpFile->close();
     if (mpFile) mpFile->deleteLater();
@@ -62,7 +65,7 @@ void TextFileLogOutput::close()
     mpInfoStream = mpErrorStream = nullptr;
 }
 
-void TextFileLogOutput::writeLine(const AText &at, const LogItem &li)
+void LogOutText::writeLine(const AText &at, const LogItem &li)
 {
     if (li.isWarn())
         *mpErrorStream << at + '\n';
