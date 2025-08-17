@@ -4,6 +4,8 @@
 
 #include <QGridLayout>
 
+#include <MatrixT.h>
+#include <Types.h>
 class Point;
 class Size;
 
@@ -23,16 +25,20 @@ signals:
 
 public: // const
     QGridLayout * layout();
+    Count count() const;
+    Size size() const;
 
 public: // non-const
     void setup(const Size sz);
 
 public: // pointers
+    GalleryCell * cell(const Index ix);
     Gallery * gallery() const;
     Gallery * gallery();
 
 
 private:
+    MatrixT<GalleryCell *> mCellMatrix;
     Gallery * mpGallery=nullptr;
     QGridLayout mGrid;
 };
@@ -40,4 +46,6 @@ private:
 
 inline Gallery *GalleryGrid::gallery() { Q_CHECK_PTR(mpGallery); return mpGallery; }
 inline QGridLayout *GalleryGrid::layout() { return &mGrid; }
+inline Count GalleryGrid::count() const { return mCellMatrix.count(); }
+inline Size GalleryGrid::size() const { return mCellMatrix.size(); }
 inline Gallery *GalleryGrid::gallery() const { Q_CHECK_PTR(mpGallery); return mpGallery; }

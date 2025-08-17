@@ -6,6 +6,7 @@
 
 #include <DataProperty.h>
 
+#include <QLoggingCategory>
 #include <QUuid>
 #include <QVariant>
 #include <QVariantList>
@@ -14,19 +15,27 @@
 #include <Types.h>
 #include <UText.h>
 
-#include "LogObject.h"
+#include "LogEntry.h"
+#include "LogLevel.h"
+#include "LogFileInfo.h"
+#include "LogFuncInfo.h"
 
 #define LOGITEM_DATAPROPS(TND) \
-    TND(Milliseconds,   timeStamp,      0) \
-    TND(QUuid,          itemUid,        QUuid()) \
-    TND(AText,          message,        AText()) /*TODO UText*/ \
-    TND(UText,          format,         UText()) \
-    TND(AText,          printF,         AText()) \
-    TND(QVariantList,   values,         QVariantList()) \
-    TND(AText,          expectedName,   AText()) \
-    TND(QVariant,       expectedValue,  QVariant()) \
-    TND(AText,          actualName,     AText()) \
-    TND(QVariant,       actualValue,    QVariant()) \
+    TND(LogLevel,           level,          LogLevel()) \
+    TND(Milliseconds,       timeStamp,      0) \
+    TND(Uid,                logUid,         Uid()) \
+    TND(LogEntry,           logEntry,       LogEntry()) \
+    TND(LogFileInfo,        fileInfo,       LogFileInfo()) \
+    TND(uint,               fileLine,       0) \
+    TND(LogFuncInfo,        funcInfo,       LogFuncInfo()) \
+    TND(UText,              format,         UText()) \
+    TND(AText,              printF,         AText()) \
+    TND(LogCondition,       cond,           LogCondition()) \
+    TND(QVariantList,       values,         QVariantList()) \
+    TND(AText,              expectedName,   AText()) \
+    TND(QVariant,           expectedValue,  QVariant()) \
+    TND(AText,              actualName,     AText()) \
+    TND(QVariant,           actualValue,    QVariant()) \
 
 class LogItemData : public QSharedData
 {
@@ -45,13 +54,16 @@ class EIRLOGGER_EXPORT LogItem
 public: // data
 
 public: // our ctors
-    LogItem(const char * msg);
+//    LogItem(const char * msg);
+    LogItem(const LogEntry &le);
 
 public: // const
     bool isNull() const;
     bool isWarn() const;
+    QString formattedMessage() const;
 
 public: // non-const
+    void set(const LogEntry &le);
     void setUid();
 
 public: // pointer

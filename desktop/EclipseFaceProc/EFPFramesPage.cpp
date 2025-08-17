@@ -1,11 +1,14 @@
 #include "EFPFramesPage.h"
 
+#include <QDir>
+#include <QFileInfoList>
 #include <QFrame>
 #include <QHBoxLayout>
 
 #include <MainWindowPageStack.h>
 #include <Gallery.h>
 #include <GalleryProperties.h>
+#include <Url.h>
 
 EFPFramesPage::EFPFramesPage(MainWindowPageStack *pMWPS)
     : BaseMainWindowPage{"Frames", pMWPS}
@@ -30,6 +33,19 @@ void EFPFramesPage::setup()
     QWidget::setLayout(pBox);
     pBox->addWidget(gallery()->widget());
     qDebug() << Q_FUNC_INFO << props().galleryPixelSize() << "exit";
+}
+
+void EFPFramesPage::start(const Url &url)
+{
+    const QDir cInputDir = url.dir();
+    const QStringList cFileFilters = QStringList() << "*.jpg" << "*.png";
+    const QFileInfoList cFIs = cInputDir.entryInfoList(cFileFilters);
+    foreach (const QFileInfo cFI, cFIs)
+    {
+        QImage tFrame(cFI.filePath());
+        if (tFrame.isNull()) continue;
+        gallery()->add(tFrame);
+    }
 }
 
 void EFPFramesPage::setDefaultProperties(const Size baseGallerySize)

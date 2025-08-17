@@ -1,12 +1,12 @@
 #pragma once
-#include "eirType.h"
+#include "eirBase.h"
 
 #include <QByteArray>
 
 #include "Types.h"
 #include "XText.h"
 
-class EIRTYPE_EXPORT NibbleArray
+class EIRBASE_EXPORT NibbleArray
 {
 public: // ctors
     NibbleArray();

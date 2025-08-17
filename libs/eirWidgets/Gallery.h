@@ -6,6 +6,7 @@
 #include <MatrixT.h>
 #include <Point.h>
 #include <SCRect.h>
+#include <Types.h>
 
 #include "GalleryProperties.h"
 class GalleryCell;
@@ -42,6 +43,7 @@ public: // ctors
 
 public slots:
     void setup(const GalleryProperties gp);
+    void add(const QImage &qi);
 
 signals:
 
@@ -63,6 +65,7 @@ private:
     GalleryGrid * mpGrid=nullptr;
     QWidget * mpGalleryWidget=nullptr;
     GalleryProperties mProperties;
+    Index mCurrentIndex=0;
 };
 
 

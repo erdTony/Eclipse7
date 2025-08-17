@@ -14,7 +14,8 @@ public: // ctors
     MatrixT(const Size sz, const List<T> &fillList) { fill(sz, fillList); }
 
 public: // const
-    Size size() { return mSize; }
+    Size size() const { return mSize; }
+    Count count() const { return size().area(); }
     T get(const Point pt) const { return mTList.at(pt.x(), pt.y()); }
     T get(const int x, const int y) const
     { const Index cix = index(x, y);
@@ -41,7 +42,7 @@ private:
     Index index(const Point pt) const
     { return index(pt.x(), pt.y()); }
     bool isValid(const Index ix) const
-    { return ix >= 0 && ix < area(); }
+    { return ix >= 0 && ix < Index(area()); }
     bool isValid(const int x, const int y) const
     { const Index ix = index(x, y); return isValid(ix); }
     bool isValid(const Point pt) const

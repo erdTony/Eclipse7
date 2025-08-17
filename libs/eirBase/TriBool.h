@@ -15,6 +15,7 @@ public: // const
     bool isTrue() const;
     bool isFalse() const;
     bool isNull() const;
+    operator bool () const;
 
 public: // non-const
     void set(const bool is=true);
@@ -34,4 +35,5 @@ inline bool TriBool::invalid() const { return ! valid(); }
 inline bool TriBool::isTrue() const { return value() && valid(); }
 inline bool TriBool::isFalse() const { return cheap() && valid(); }
 inline bool TriBool::isNull() const { return value() && invalid(); }
+inline TriBool::operator bool() const { return isTrue(); }
 

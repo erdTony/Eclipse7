@@ -17,6 +17,7 @@ public:
 
 public slots:
     void setup();
+    void start();
 
 signals:
     void keyEsc();

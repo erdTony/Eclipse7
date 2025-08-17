@@ -10,6 +10,7 @@ CText CTextList::join(char ch) const
     CText result = isEmpty() ? CText() : tList.takeFirst();
     while ( ! tList.isEmpty())
     {
+        result.removeLast(); // take off NUL from previous string
         result += ch;
         result += tList.takeFirst();
     }

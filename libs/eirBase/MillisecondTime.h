@@ -1,12 +1,12 @@
 #pragma once
-#include "eirType.h"
+#include "eirBase.h"
 
 #include <QtGlobal>
 #include <QDateTime>
 
 #include "Types.h"
 
-class EIRTYPE_EXPORT MillisecondTime
+class EIRBASE_EXPORT MillisecondTime
 {
 public: // ctors
     MillisecondTime(void);

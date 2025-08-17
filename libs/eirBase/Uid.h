@@ -1,5 +1,5 @@
 #pragma once
-#include "eirType.h"
+#include "eirBase.h"
 
 #include "NibbleArray.h"
 
@@ -8,7 +8,7 @@
 #include "Types.h"
 
 
-class EIRTYPE_EXPORT Uid
+class EIRBASE_EXPORT Uid
 {
 
 
@@ -21,8 +21,13 @@ public: // constants
 public: // types
     enum Type
     {
-        $null = 0,
+        $nullType = 0,
         Type7,
+    };
+    enum Class
+    {
+        $nullClass = 0,
+        Log,
     };
 
 public: // ctors

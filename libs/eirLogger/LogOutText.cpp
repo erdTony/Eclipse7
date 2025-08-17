@@ -17,12 +17,6 @@ LogOutText::LogOutText(const bool openStd, QObject *parent)
         openStdio();
 }
 
-LogOutText::LogOutText(const QUrl &url, QObject *parent)
-    : AbstractLogOutput{url, parent}
-{
-    setObjectName("StdioLogOutput:" + mUrl.toString());
-}
-
 void LogOutText::start()
 {
 

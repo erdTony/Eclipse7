@@ -15,7 +15,7 @@ class EIRLOGGER_EXPORT LogOutText : public AbstractLogOutput
     Q_OBJECT
 public:
     explicit LogOutText(const bool openStd=true, QObject *parent = nullptr);
-    explicit LogOutText(const QUrl &url, QObject *parent = nullptr);
+    explicit LogOutText(const LogFileInfo &url, QObject *parent = nullptr);
 
 public slots:
     virtual void start() override;
@@ -38,6 +38,8 @@ public: // pointer
 private:
 
 private:
+    LogFileInfo mFileInfo;
+    QUrl mUrl;
     QFile * mpFile=nullptr;
     QTextStream * mpInfoStream=nullptr;
     QTextStream * mpErrorStream=nullptr;

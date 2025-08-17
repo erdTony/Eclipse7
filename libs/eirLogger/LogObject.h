@@ -10,6 +10,7 @@
 #include <Types.h>
 
 #include "LogEntry.h"
+#include "LogItem.h"
 class AbstractLogOutput;
 
 
@@ -19,21 +20,30 @@ class EIRLOGGER_EXPORT Log : public QObject
     Q_OBJECT
 public: // ctors
     explicit Log();
+    ~Log();
 
 public slots:
     void start();
     void hookQtMsg();
-    void unhookQtMsg();
     void add(AbstractLogOutput * out);
-    void enqueue(const LogEntry &entry);
+    void enqueueEntry(const LogEntry &entry);
+    void enqueueItem();
+    void pulse();
+    void unhookQtMsg();
 
 signals:
-    void enqueued(const LogEntry &entry);
+    void starting();
+    void added(AbstractLogOutput * out);
+    void enqueuedEntry(const LogEntry &entry);
+    void dequeuedEntry(const LogEntry &entry);
+    void enqueuedItem(const LogItem &item);
     void warning(const QString &message);
+    void destructing();
 
 public: // const
 
 public: // non-const
+    LogEntry dequeueEntry();
 
 public: // static
 
@@ -44,6 +54,8 @@ private:
     QtMessageHandler mOldHandler=nullptr;
     QReadWriteLock mEntryQueueLock;
     QQueue<LogEntry> mEntryQueue;
+    QReadWriteLock mItemQueueLock;
+    QQueue<LogItem> mItemQueue;
     QList<AbstractLogOutput *> mOutputList;
 };
 

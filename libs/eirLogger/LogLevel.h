@@ -20,25 +20,27 @@ public: // types
         UTrivia             = 8,
         TDetail             = 9,
         UDetail             = 10,
-        DumpVal             = 11,
-        Dump                = 12,
-        Trace               = 13,
-        TInfo               = 14,
-        UInfo               = 15,
-        TPrefer             = 16,
-        UPrefer             = 17,
-        TProgress           = 18,
-        UProgress           = 19,
-        $minWarning         = 20,
-        TWarning            = 21,
-        UWarning            = 22,
-        $minCritical        = 23,
-        Error               = 24,
-        Expect              = 25,
-        Memory              = 26,
-        Assert              = 27,
-        Shutdown            = 28,
-        Maximum             = 31,
+        DumpHex             = 11,
+        DumpVal             = 12,
+        Dump                = 13,
+        Trace               = 14,
+        TInfo               = 15,
+        UInfo               = 16,
+        TPrefer             = 17,
+        UPrefer             = 18,
+        TProgress           = 19,
+        UProgress           = 20,
+        $minWarning         = 21,
+        TWarning            = 22,
+        UWarning            = 23,
+        $minCritical        = 24,
+        Error               = 25,
+        Expect              = 26,
+        $minFatal           = 27,
+        Memory              = 28,
+        Assert              = 29,
+        Shutdown            = 30,
+        $maxLevel           = 31,
     };
 
     enum Flag
@@ -70,7 +72,7 @@ public: // types
         MemoryFlag          = 1 << Memory,
         AssertFlag          = 1 << Assert,
         ShutdownFlag        = 1 << Shutdown,
-        MaximumFlag         = 1 << Maximum
+        MaximumFlag         = 1 << $maxLevel
     };
 
     enum MsgType
@@ -81,7 +83,7 @@ public: // types
         WarnType,
         ErrorType,
         AbortType,
-        $fallback       = WarnType
+        $fallbackType       = WarnType
     };
 
 
@@ -93,12 +95,17 @@ public: // const
     Value value() const;
     CText name() const;
     Flag flag() const;
+    char chr() const;
+    MsgType msgType() const;
+    bool isValidLevel() const;
 
 public: // non-const
+    void set(const int i);
     void set(const Value v);
 
 
 public: // static
+    static bool isValidLevel(const int i);
     static CText name(const Value v);
     static MsgType msgType(const CText &ct);
     static MsgType msgType(const LogLevel::Value lvl);
@@ -111,4 +118,6 @@ private:
 
 inline LogLevel::Value LogLevel::value() const { return mValue; }
 inline CText LogLevel::name() const { return name(value()); }
+
+inline LogLevel::MsgType LogLevel::msgType() const { return msgType(mValue); }
 inline LogLevel::Flag LogLevel::flag() const { return mFlag; }

@@ -13,11 +13,8 @@ SOURCES += \
     Key.cpp \
     KeySeg.cpp \
     KeySegList.cpp \
-    MillisecondTime.cpp \
-    NibbleArray.cpp \
     Null.cpp \
     ObjectHelper.cpp \
-    Uid.cpp \
     eirType.cpp
 
 HEADERS += \
@@ -28,12 +25,9 @@ HEADERS += \
     KeySeg.h \
     KeySegList.h \
     List.h \
-    MillisecondTime.h \
-    NibbleArray.h \
     Null.h \
     ObjectHelper.h \
     Queue.h \
-    Uid.h \
     eirType.h \
     eirType_global.h
 

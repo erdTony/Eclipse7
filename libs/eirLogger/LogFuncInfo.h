@@ -1,4 +1,5 @@
 #pragma once
+#include "eirLogger.h"
 
 #include <QSharedDataPointer>
 #include <QHash>
@@ -7,7 +8,7 @@
 
 class LogFuncInfoData;
 
-class LogFuncInfo
+class EIRLOGGER_EXPORT LogFuncInfo
 {
 public:
     LogFuncInfo();

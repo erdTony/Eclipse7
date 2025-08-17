@@ -5,6 +5,27 @@
 LogLevel::LogLevel() : mValue($nullLevel), mFlag($nullLevelFlag) {;}
 LogLevel::LogLevel(const Value v) : mValue(v), mFlag(Flag(1 << v)) {;}
 
+char LogLevel::chr() const
+{
+    return isValidLevel() ? "0-=%#@"[msgType()] : '?';
+}
+
+bool LogLevel::isValidLevel() const
+{
+    return isValidLevel((int)mValue)
+           && (mFlag == Flag(1 << mValue));
+}
+
+bool LogLevel::isValidLevel(const int i)
+{
+    return i > $nullLevel && i < $maxLevel;
+}
+
+void LogLevel::set(const int i)
+{
+    if (isValidLevel(i)) set((Value)i);
+}
+
 void LogLevel::set(const Value v)
 {
     mValue = v, mFlag = Flag(1 << v);
@@ -67,17 +88,25 @@ LogLevel::MsgType LogLevel::msgType(const LogLevel::Value lvl)
     MsgType result = $nullMsgType;
     switch (lvl)
     {
-    case UDetail:   case UInfo:      result = InfoType;  break;
+    case UDetail:   case UInfo:
     case TDetail:   case TInfo:
+    case UTrivia:   case TTrivia:       result = InfoType;      break;
     case FnExit:    case FnEnter:
-    case Dump:      case Trace:     case TPrefer:
-    case TWarning:  result = TraceType; break;
-    case UWarning:                   result = WarnType;  break;
-    case Error:
-    case Expect:    case Assert:    result = ErrorType; break;
-    case Memory:
-    case Shutdown:  result = AbortType; break;
-    default:                        result = $fallback; break;
+    case FnReturn:
+    case FnArgVal:  case FnArgName:
+    case Dump:      case Trace:
+    case DumpVal:   case DumpHex:       result = TraceType;     break;
+    case $minWarning:
+    case TPrefer:   case UPrefer:
+    case UWarning:  case TWarning:      result = WarnType;      break;
+    case $minCritical:
+    case Error:     case Expect:        result = ErrorType;     break;
+    case $minFatal:
+    case Memory:    case Assert:
+    case Shutdown:                      result = AbortType;     break;
+    case $nullLevel:
+    case Minimum:   case $maxLevel:
+    default:                            result = $fallbackType; break;
     }
     return result;
 }
@@ -91,7 +120,7 @@ LogLevel::MsgType LogLevel::msgType(const CText &ct)
     else if ("Warn"  == ct)     result = WarnType;
     else if ("Error" == ct)     result = ErrorType;
     else if ("Abort" == ct)     result = AbortType;
-    else                        result = $fallback;
+    else                        result = $fallbackType;
     return result;
 }
 

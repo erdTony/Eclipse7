@@ -14,12 +14,14 @@ SOURCES += \
     AbstractLogOutput.cpp \
     BaseLogFilter.cpp \
     BaseLogFilterItem.cpp \
+    BaseLogFormat.cpp \
     LogCondition.cpp \
     LogEntry.cpp \
     LogFileInfo.cpp \
     LogFuncInfo.cpp \
     LogItem.cpp \
     LogLevel.cpp \
+    LogMessage.cpp \
     LogObject.cpp \
     LogOutText.cpp \
     eirLogger.cpp
@@ -28,6 +30,7 @@ HEADERS += \
     AbstractLogOutput.h \
     BaseLogFilter.h \
     BaseLogFilterItem.h \
+    BaseLogFormat.h \
     Log.h \
     LogCondition.h \
     LogEntry.h \
@@ -36,6 +39,7 @@ HEADERS += \
     LogItem.h \
     LogLevel.h \
     LogMacros.h \
+    LogMessage.h \
     LogObject.h \
     LogOutText.h \
     eirLogger.h \

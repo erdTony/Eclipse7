@@ -4,6 +4,7 @@
 
 #include <GalleryProperties.h>
 class Gallery;
+class Url;
 
 class EFPFramesPage : public BaseMainWindowPage
 {
@@ -14,6 +15,7 @@ public: // ctors
 
 public slots:
     void setup();
+    void start(const Url &url);
 
 signals:
 

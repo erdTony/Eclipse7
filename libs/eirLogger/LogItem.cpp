@@ -2,6 +2,8 @@
 
 #include <QDateTime>
 
+#include <Uid.h>
+
 #include "Logger.h"
 Q_GLOBAL_STATIC(Logger, LOG);
 
@@ -12,23 +14,43 @@ DEFINE_DATAPROPS(LogItem, LogItemData);
 void LogItem::ctor(void)
 {
     timeStamp(QDateTime::currentDateTime().toMSecsSinceEpoch());
-    itemUid(QUuid()); //Uid::V8MacMsecSeq));
 }
 
 void LogItem::dtor(void) {;}
 
-LogItem::LogItem(const char *msg)
+LogItem::LogItem(const LogEntry &le)
 {
-    message(msg);
-    // TODO    LOG->enqueue(it());
+    set(le);
 }
 
 bool LogItem::isNull() const
 {
-    return itemUid().isNull();
+    return logUid().isNull();
 }
 
 bool LogItem::isWarn() const
 {
     return false; // TODO
+}
+
+QString LogItem::formattedMessage() const
+{
+    return QString(); // TODO
+}
+
+void LogItem::set(const LogEntry &le)
+{
+    level(le.level()),
+        timeStamp(le.logMsec()),
+        logUid(le.logUid()),
+        logEntry(le),
+        format(le.text()),
+        cond(le.condition()),
+        values(le.arguments()),
+        expectedName(le.expectedName()),
+        actualName(le.actualName()),
+        expectedValue(le.argument(0)),
+        actualValue(le.argument(1));
+
+
 }

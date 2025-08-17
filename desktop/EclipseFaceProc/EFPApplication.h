@@ -4,6 +4,8 @@
 
 #include <Url.h>
 
+class EFPMainWindow;
+
 class EFPApplication : public BaseWidgetApplication
 {
     Q_OBJECT
@@ -12,6 +14,7 @@ public: // ctors
 
 public slots:
     void setup();
+    void start();
 
 signals:
 

@@ -26,8 +26,14 @@ void GalleryGrid::setup(const Size sz)
         {
             GalleryCell * pCell = new GalleryCell(true, gallery());
             pCell->setBlank();
+            mCellMatrix.set(col, row, pCell);
             mGrid.addWidget(pCell, row, col, Qt::AlignCenter);
 //            qDebug() << row << col << pCell->geometry()
   //              << pCell->pixmap().size() << mGrid.cellRect(row, col);
         }
+}
+
+GalleryCell *GalleryGrid::cell(const Index ix)
+{
+    return mCellMatrix[ix];
 }

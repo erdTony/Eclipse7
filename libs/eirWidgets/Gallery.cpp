@@ -28,6 +28,13 @@ void Gallery::setup(const GalleryProperties gp)
     widget()->setLayout(grid()->layout());
 }
 
+void Gallery::add(const QImage &qi)
+{
+    GalleryCell * pCell = grid()->cell(mCurrentIndex);
+    pCell->generate(qi);
+    mCurrentIndex = ++mCurrentIndex % grid()->count();
+}
+
 void Gallery::set(const Point pt, GalleryCell *pCell)
 {
     qInfo() << Q_FUNC_INFO << pt << pCell->ident();

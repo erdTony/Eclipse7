@@ -35,6 +35,7 @@ void AText::set(const char *pch)
     QByteArray::reserve(strlen(pch));
     if (*pch && isValidFirst(*pch))
         QByteArray::append(*pch);
+    ++pch;
     while (*pch)
     {
         if (isValidChar(*pch))

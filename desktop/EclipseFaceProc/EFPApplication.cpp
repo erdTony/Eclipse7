@@ -26,3 +26,8 @@ void EFPApplication::setup()
         mInputUrl = "files:///../EFPin";
 
 }
+
+void EFPApplication::start()
+{
+
+}

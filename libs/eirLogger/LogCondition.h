@@ -3,6 +3,8 @@
 
 class QVariant;
 
+#include <AText.h>
+
 class EIRLOGGER_EXPORT LogCondition
 {
 public: // types
@@ -15,16 +17,17 @@ public: // types
         NotEqual,
         Less,
         LessEqual,
-        NotLess,
+        NotGreater,
         Greater,
         GreaterEqual,
-        NotGreater,
+        NotLess,
         Positive,
         Zero,
         Negative,
         NonPos,
         NonZero,
         NonNeg,
+        $max
     };
 
 public: // ctors
@@ -35,10 +38,13 @@ public: // const
     bool isUnary() const;
     bool isBinary() const;
     operator int () const;
+    bool isValid(const int i);
     bool evaluate(const QVariant &v);
     bool evaluate(const QVariant &v1, const QVariant &v2);
+    AText text() const;
 
 public: // non-const
+    void set(const int i);
 
 public: // static
     bool isUnary(const Enum e);
