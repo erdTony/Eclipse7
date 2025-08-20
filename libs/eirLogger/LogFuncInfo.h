@@ -10,15 +10,20 @@ class LogFuncInfoData;
 
 class EIRLOGGER_EXPORT LogFuncInfo
 {
-public:
-    LogFuncInfo();
-    LogFuncInfo(const LogFuncInfo &);
-    LogFuncInfo(LogFuncInfo &&);
-    LogFuncInfo &operator=(const LogFuncInfo &);
-    LogFuncInfo &operator=(LogFuncInfo &&);
-    ~LogFuncInfo();
+public: // our ctors
+    LogFuncInfo(const AText &funcName);
 
+public: // const
+    QString qFuncInfo() const;
+
+public: // data
+    LogFuncInfo();
+    LogFuncInfo(const LogFuncInfo &other);
+    LogFuncInfo(LogFuncInfo &&rother);
+    LogFuncInfo &operator=(const LogFuncInfo &rhs);
+    LogFuncInfo &operator=(LogFuncInfo &&rhs);
+    ~LogFuncInfo();
 private:
     QSharedDataPointer<LogFuncInfoData> data;
-    static QHash<AText, LogFuncInfo> smFuncInfoHash;
+//    static QHash<AText, LogFuncInfo> smFuncInfoHash;
 };

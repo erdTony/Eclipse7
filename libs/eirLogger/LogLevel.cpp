@@ -67,6 +67,20 @@ CText LogLevel::name(const Value v)
     return result;
 }
 
+CText LogLevel::name(const QtMsgType qmt)
+{
+    CText result("?????");
+    switch (qmt)
+    {
+    case QtInfoMsg:     result = "Info ";       break;
+    case QtDebugMsg:    result = "Debug";       break;
+    case QtWarningMsg:  result = "Warn ";       break;
+    case QtCriticalMsg: result = "Error";       break;
+    case QtFatalMsg:    result = "Fatal";       break;
+    };
+    return result;
+}
+
 
 QtMsgType LogLevel::qMsgType(const MsgType mt)
 {
@@ -99,7 +113,7 @@ LogLevel::MsgType LogLevel::msgType(const LogLevel::Value lvl)
     case $minWarning:
     case TPrefer:   case UPrefer:
     case UWarning:  case TWarning:      result = WarnType;      break;
-    case $minCritical:
+    case $minError:
     case Error:     case Expect:        result = ErrorType;     break;
     case $minFatal:
     case Memory:    case Assert:

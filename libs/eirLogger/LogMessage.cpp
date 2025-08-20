@@ -5,11 +5,14 @@ LogMessage::LogMessage() {;}
 LogMessage::LogMessage(QtMsgType type,
                        const QMessageLogContext &context,
                        const QString &msg)
+    : mQtMsgType(type)
+    , mFileName(context.file)
+    , mFuncName(context.function)
+    , mFileLine(context.line)
+    , mMessage(msg) {;}
+
+bool LogMessage::isNull() const
 {
-    set(msg);
+    return mFileName.isEmpty();
 }
 
-void LogMessage::set(const QString &msg)
-{
-    LogItem tLI;
-}

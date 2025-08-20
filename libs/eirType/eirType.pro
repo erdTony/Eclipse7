@@ -24,7 +24,6 @@ HEADERS += \
     KeyMap.h \
     KeySeg.h \
     KeySegList.h \
-    List.h \
     Null.h \
     ObjectHelper.h \
     Queue.h \

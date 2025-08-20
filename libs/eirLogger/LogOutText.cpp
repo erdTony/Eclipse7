@@ -9,12 +9,10 @@
 #include <LogFileInfo.h>
 
 LogOutText::LogOutText(const bool openStd, QObject *parent)
-    : AbstractLogOutput{parent}
+    : LogOutput{openStd ? "StdIO" : "{null}", LogFormat::$nullFormat, parent}
 {
-    setObjectName(QString("StdioLogOutput:%1")
-            .arg(openStd ? "StdIO" : "{null}"));
-    if (openStd)
-        openStdio();
+    setObjectName("StdioLogOutput:" + name()());
+    if (openStd) openStdio();
 }
 
 void LogOutText::start()
@@ -22,14 +20,15 @@ void LogOutText::start()
 
 }
 
-void LogOutText::writeLine(const LogItem li)
+void LogOutText::write(const LogItem &li)
 {
+    Q_UNUSED(li); // TODO
 }
 
-void LogOutText::open(const LogFileInfo &fi)
+void LogOutText::open(const LogFileInfo &lfi)
 {
     close();
-    mpFile = new QFile(fi.filePath(), this);
+    mpFile = new QFile(lfi.filePath(), this);
     Q_CHECK_PTR(mpFile);
     if (mpFile->open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -59,10 +58,3 @@ void LogOutText::close()
     mpInfoStream = mpErrorStream = nullptr;
 }
 
-void LogOutText::writeLine(const AText &at, const LogItem &li)
-{
-    if (li.isWarn())
-        *mpErrorStream << at + '\n';
-    else
-        *mpInfoStream << at + '\n';
-}

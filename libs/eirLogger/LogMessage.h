@@ -14,21 +14,27 @@ public: // ctors
                 const QString &msg);
 
 public: // const
+    bool isNull() const;
+    QtMsgType qtMsgType() const;
+    QString fileName() const;
+    int fileLine() const;
+    QString funcName() const;
     QString message() const;
-    LogItem item() const;
 
 public: // non-const
-    void set(const QString &msg);
 
-
-public: // const
+public:
 
 private:
-    QtMsgType mQtMsgType;
-    QMessageLogContext mContext;
+    QtMsgType mQtMsgType=QtMsgType(-1);
+    QString mFileName;
+    QString mFuncName;
+    int mFileLine=-1;
     QString mMessage;
-    LogItem mItem;
 };
 
+inline QtMsgType LogMessage::qtMsgType() const { return mQtMsgType; }
+inline QString LogMessage::fileName() const { return mFileName; }
+inline int LogMessage::fileLine() const { return mFileLine; }
+inline QString LogMessage::funcName() const { return mFuncName; }
 inline QString LogMessage::message() const { return mMessage; }
-    inline LogItem LogMessage::item() const { return mItem; }

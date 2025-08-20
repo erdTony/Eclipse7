@@ -1,5 +1,8 @@
 QT -= gui
 QT *= network
+QT *= statemachine
+QT *= sql
+QT *= xml
 TEMPLATE = lib
 DEFINES += EIRLOGGER_LIBRARY
 CONFIG += c++23
@@ -11,37 +14,39 @@ include(../../useBase.pri) # ONLY!
 CPPFLAGS *= -E -Dm
 
 SOURCES += \
-    AbstractLogOutput.cpp \
     BaseLogFilter.cpp \
     BaseLogFilterItem.cpp \
-    BaseLogFormat.cpp \
     LogCondition.cpp \
     LogEntry.cpp \
     LogFileInfo.cpp \
+    LogFormat.cpp \
     LogFuncInfo.cpp \
     LogItem.cpp \
     LogLevel.cpp \
+    LogMachine.cpp \
     LogMessage.cpp \
     LogObject.cpp \
     LogOutText.cpp \
+    LogOutput.cpp \
     eirLogger.cpp
 
 HEADERS += \
-    AbstractLogOutput.h \
     BaseLogFilter.h \
     BaseLogFilterItem.h \
-    BaseLogFormat.h \
     Log.h \
     LogCondition.h \
     LogEntry.h \
     LogFileInfo.h \
+    LogFormat.h \
     LogFuncInfo.h \
     LogItem.h \
     LogLevel.h \
+    LogMachine.h \
     LogMacros.h \
     LogMessage.h \
     LogObject.h \
     LogOutText.h \
+    LogOutput.h \
     eirLogger.h \
     eirLogger_global.h
 

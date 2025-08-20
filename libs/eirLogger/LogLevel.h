@@ -33,7 +33,7 @@ public: // types
         $minWarning         = 21,
         TWarning            = 22,
         UWarning            = 23,
-        $minCritical        = 24,
+        $minError           = 24,
         Error               = 25,
         Expect              = 26,
         $minFatal           = 27,
@@ -74,6 +74,9 @@ public: // types
         ShutdownFlag        = 1 << Shutdown,
         MaximumFlag         = 1 << $maxLevel
     };
+    Q_DECLARE_FLAGS(Flags, Flag);
+
+
 
     enum MsgType
     {
@@ -93,6 +96,7 @@ public: // ctors
 
 public: // const
     Value value() const;
+    bool isNull() const;
     CText name() const;
     Flag flag() const;
     char chr() const;
@@ -107,6 +111,7 @@ public: // non-const
 public: // static
     static bool isValidLevel(const int i);
     static CText name(const Value v);
+    static CText name(const QtMsgType qmt);
     static MsgType msgType(const CText &ct);
     static MsgType msgType(const LogLevel::Value lvl);
     static QtMsgType qMsgType(const MsgType mt);
@@ -116,8 +121,10 @@ private:
     Flag mFlag=$nullLevelFlag;
 };
 
-inline LogLevel::Value LogLevel::value() const { return mValue; }
-inline CText LogLevel::name() const { return name(value()); }
+Q_DECLARE_OPERATORS_FOR_FLAGS(LogLevel::Flags)
 
+inline LogLevel::Value LogLevel::value() const { return mValue; }
+inline bool LogLevel::isNull() const { return value() > $nullLevel; }
+inline CText LogLevel::name() const { return name(value()); }
 inline LogLevel::MsgType LogLevel::msgType() const { return msgType(mValue); }
 inline LogLevel::Flag LogLevel::flag() const { return mFlag; }

@@ -2,7 +2,7 @@
 #include "eirLogger.h"
 
 #include <QObject>
-#include "AbstractLogOutput.h"
+#include "LogOutput.h"
 
 class QFile;
 class QTextStream;
@@ -10,17 +10,17 @@ class QTextStream;
 class LogFileInfo;
 
 
-class EIRLOGGER_EXPORT LogOutText : public AbstractLogOutput
+class EIRLOGGER_EXPORT LogOutText : public LogOutput
 {
     Q_OBJECT
 public:
     explicit LogOutText(const bool openStd=true, QObject *parent = nullptr);
-    explicit LogOutText(const LogFileInfo &url, QObject *parent = nullptr);
+    explicit LogOutText(const LogFileInfo &lfi, QObject *parent = nullptr);
 
 public slots:
     virtual void start() override;
-    virtual void writeLine(const LogItem li) override;
-    void open(const LogFileInfo &fi);
+    virtual void write(const LogItem &li) override;
+    void open(const LogFileInfo &lfi);
     void openStdio();
     void close();
 
@@ -30,7 +30,7 @@ public: // const
 
 
 public: // non-const
-    void writeLine(const AText &at, const LogItem &li);
+    void write(const AText &at, const LogItem &li);
 
 
 public: // pointer

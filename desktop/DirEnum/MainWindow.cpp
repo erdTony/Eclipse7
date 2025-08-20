@@ -30,8 +30,8 @@ void MainWindow::setup()
 {
     Log::instance()->hookQtMsg();
     Log::instance()->add(new LogOutText(true));
-    LOGHOOK();
-    LOGOUTSTD();
+    //LOGHOOK();
+    //LOGOUTSTD();
     UINFOMSG("Starting " + QCoreApplication::applicationName()
             + QDateTime::currentDateTime().toString(" yyMMMdd hh:mm"));
 

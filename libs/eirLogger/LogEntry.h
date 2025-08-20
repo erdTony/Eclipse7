@@ -39,12 +39,9 @@ public: // ctors
 public: // const
     bool isNull() const;
     LogLevel level() const;
-    Milliseconds logMsec() const;
-    Uid logUid() const;
-    AText text() const;
+    Milliseconds entryMsec() const;
+    AText format() const;
     LogCondition condition() const;
-    CText expectedName() const;
-    CText actualName() const;
     QVariantList arguments() const;
     QVariant argument(const Index ix) const;
     QByteArray xport() const;
@@ -58,12 +55,9 @@ public: // pointers
 
 private:
     LogLevel mLevel;
-    Milliseconds mLogMsec;
-    Uid mLogUid;
-    AText mText;
+    Milliseconds mEntryMsec;
+    AText mFormat;
     LogCondition mCondition;
-    CText mExpectedName;
-    CText mActualName;
     QVariantList mArguments;
 };
 
@@ -71,10 +65,7 @@ private:
 
 
 inline LogLevel LogEntry::level() const { return mLevel; }
-inline Milliseconds LogEntry::logMsec() const { return mLogMsec; }
-inline Uid LogEntry::logUid() const { return mLogUid; }
-inline AText LogEntry::text() const { return mText; }
+inline Milliseconds LogEntry::entryMsec() const { return mEntryMsec; }
+inline AText LogEntry::format() const { return mFormat; }
 inline LogCondition LogEntry::condition() const { return mCondition; }
-inline CText LogEntry::expectedName() const { return mExpectedName; }
-inline CText LogEntry::actualName() const { return mActualName; }
 inline QVariantList LogEntry::arguments() const { return mArguments; }

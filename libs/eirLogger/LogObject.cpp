@@ -6,9 +6,9 @@
 
 #include <CTextList.h>
 
-#include "AbstractLogOutput.h"
+#include "LogOutput.h"
+#include "LogEntry.h"
 #include "LogLevel.h"
-#include "LogObject.h"
 
 Log::Log() : QObject{qApp}
 {
@@ -35,24 +35,53 @@ void Log::hookQtMsg()
 {
     static CTextList sPatternList
         = CTextList()
-          << "Appname=%{appname}"
-          << "Category=%{category}"
-          << "FilePath=%{file}"
-          << "FileLine=%{line}"
+          << "TimeString=%{time DyyyyMMddThhmmsszzz}"
+          << "Function=%{function}"
           << "Message=%{message}"
-          << "Pid=%{pid}"
-          << "Tid=%{threadid}"
-          << "ThreadAddress=%{qthreadptr}"
-          << "MsgType=%{type}"
-          << "BootMsec=%{time boot}"
 #ifndef Q_OS_WINDOWS
           << "BackTrace=%{backtrace}"
 #endif
-          << "TimeString=%{time DyyyyMMddThhmmsszzz}";
+        ;
     const CText cCTx = sPatternList.join('~');
     const QString cPattern(cCTx);
     qSetMessagePattern(cPattern);
     mOldHandler = qInstallMessageHandler(logMessageHandler);
+}
+
+void Log::add(LogOutput *out)
+{
+    if (mOutputListLock.tryLockForWrite(100))
+    {
+        out->setParent(this);
+        mOutputList.append(out);
+        emit addedOutput(out);
+    }
+    else
+    {
+        QString warn = QString("%1 LogMessage output lock failed: %2")
+            .arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs))
+            .arg(out->name()());
+        emit warning(warn);
+
+    }
+}
+
+void Log::enqueueMessage(const LogMessage &message)
+{
+    if (mMessageQueueLock.tryLockForWrite(100))
+    {
+        mMessageQueue.enqueue(message);
+        mMessageQueueLock.unlock();
+        emit enqueuedMessage(message);
+    }
+    else
+    {
+        QString warn = QString("%1 %2 LogMessage queue lock failed: %2")
+            .arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs))
+            .arg(LogLevel::name(message.qtMsgType())())
+            .arg(message.message());
+        emit warning(warn);
+    }
 }
 
 void Log::unhookQtMsg()
@@ -62,72 +91,21 @@ void Log::unhookQtMsg()
                        "%{message}");
 }
 
-LogEntry Log::dequeueEntry()
+LogMessage Log::dequeueMessage()
 {
-    LogEntry result; // null
-    if (mEntryQueueLock.tryLockForWrite(100))
+    LogMessage result; // null
+    if (mMessageQueueLock.tryLockForWrite(100))
     {
-        if (mEntryQueue.count())
-            result = mEntryQueue.dequeue();
-        mEntryQueueLock.unlock();
+        if (mMessageQueue.count())
+            result = mMessageQueue.dequeue();
+        mMessageQueueLock.unlock();
     }
     if ( ! result.isNull())
-    emit dequeuedEntry(result);
+        emit dequeuedMessage(result);
     return result;
 }
 
-void Log::add(AbstractLogOutput *out)
-{
-    out->setParent(this);
-    mOutputList.append(out);
-}
 
-
-void Log::enqueueEntry(const LogEntry &entry)
-{
-    if (mEntryQueueLock.tryLockForWrite(100))
-    {
-        mEntryQueue.enqueue(entry);
-        mEntryQueueLock.unlock();
-        emit enqueuedEntry(entry);
-    }
-    else
-    {
-        QString warn = QString("%1 LogEntry queue lock failed: %1")
-            .arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs))
-            .arg(entry.level().name()());
-        emit warning(warn);
-    }
-}
-
-void Log::enqueueItem()
-{
-    LogEntry tLE = dequeueEntry();
-    if ( ! tLE.isNull())
-    {
-        LogItem tItem(tLE);
-        if (mItemQueueLock.tryLockForWrite(100))
-        {
-            mItemQueue.enqueue(tItem);
-            mItemQueueLock.unlock();
-            emit enqueuedItem(tItem);
-        }
-        else
-        {
-            enqueueEntry(tLE);
-        }
-    }
-    else
-    {
-        if (mEntryQueue.count())
-            QTimer::singleShot(150, this, &Log::pulse);
-    }
-}
-
-void Log::pulse()
-{
-    // TODO Log::pulse()
-}
 
 // static
 Log *Log::instance()
@@ -144,9 +122,8 @@ void logMessageHandler(QtMsgType type,
               const QMessageLogContext &context,
               const QString &message)
 {
-    Q_UNUSED(type);
-    Q_UNUSED(context);
-    LogEntry tLE(message.toLocal8Bit());
+    LogMessage tLM(type, context, message.toLocal8Bit());
+    std::printf("%s", qPrintable(tLM.message()));
 }
 
 

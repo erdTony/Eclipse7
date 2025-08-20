@@ -4,10 +4,9 @@
 #include "LogEntry.h"
 #include "LogMacros.h"
 #include "LogObject.h"
-#include "AbstractLogOutput.h"
+#include "LogOutput.h"
 #include "LogOutText.h"
 
-#define LOG() (Log::instance())
 #define LOGHOOK() LOG()->hookQtMsg();
 #define LOGUNHOOK() LOG()->unhookQtMsg();
 #define LOGOUTSTD() LOG()->add(new LogOutText(true));

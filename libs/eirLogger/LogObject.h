@@ -9,15 +9,23 @@
 
 #include <Types.h>
 
-#include "LogEntry.h"
+#include "LogLevel.h"
+#include "LogMessage.h"
 #include "LogItem.h"
-class AbstractLogOutput;
+class LogOutput;
+class LogEntry;
+class LogMachine;
 
 
+#define LOG() (Log::instance())
 
 class EIRLOGGER_EXPORT Log : public QObject
 {
     Q_OBJECT
+public: // types
+    typedef LogOutput * OutputPtr;
+    typedef QList<OutputPtr> OutputList;
+
 public: // ctors
     explicit Log();
     ~Log();
@@ -25,39 +33,41 @@ public: // ctors
 public slots:
     void start();
     void hookQtMsg();
-    void add(AbstractLogOutput * out);
-    void enqueueEntry(const LogEntry &entry);
-    void enqueueItem();
-    void pulse();
+    void add(LogOutput * out);
+    void enqueueMessage(const LogMessage &message);
     void unhookQtMsg();
 
 signals:
     void starting();
-    void added(AbstractLogOutput * out);
-    void enqueuedEntry(const LogEntry &entry);
-    void dequeuedEntry(const LogEntry &entry);
-    void enqueuedItem(const LogItem &item);
+    void addedOutput(OutputPtr out);
+    void enqueuedMessage(const LogMessage &message);
+    void dequeuedMessage(const LogMessage &message);
     void warning(const QString &message);
     void destructing();
 
 public: // const
+    OutputList outputList() const;
 
 public: // non-const
-    LogEntry dequeueEntry();
+    LogMessage dequeueMessage();
 
 public: // static
 
 public: // pointers
     static Log * instance();
+    LogMachine * machine();
 
 private:
     QtMessageHandler mOldHandler=nullptr;
-    QReadWriteLock mEntryQueueLock;
-    QQueue<LogEntry> mEntryQueue;
-    QReadWriteLock mItemQueueLock;
-    QQueue<LogItem> mItemQueue;
-    QList<AbstractLogOutput *> mOutputList;
+    LogMachine * mpMachine;
+    QReadWriteLock mMessageQueueLock;
+    LogLevel::Flags mMessageMask;
+    QQueue<LogMessage> mMessageQueue;
+    QReadWriteLock mOutputListLock;
+    OutputList mOutputList;
 };
+
+inline LogMachine *Log::machine() { Q_CHECK_PTR(mpMachine); return mpMachine; }
 
 extern EIRLOGGER_EXPORT void logMessageHandler(QtMsgType type,
                  const QMessageLogContext &context,

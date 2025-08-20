@@ -19,16 +19,28 @@ public:
     AText d_QFuncInfo;
 };
 
+LogFuncInfo::LogFuncInfo(const AText &funcName)
+    : data(new LogFuncInfoData)
+{
+    data->d_QFuncInfo = funcName;
+}
+
+QString LogFuncInfo::qFuncInfo() const
+{
+    return (data) ? data->d_QFuncInfo() : QString();
+}
+
 LogFuncInfo::LogFuncInfo()
     : data(new LogFuncInfoData)
 {}
+
 
 LogFuncInfo::LogFuncInfo(const LogFuncInfo &rhs)
     : data{rhs.data}
 {}
 
-LogFuncInfo::LogFuncInfo(LogFuncInfo &&rhs)
-    : data{std::move(rhs.data)}
+LogFuncInfo::LogFuncInfo(LogFuncInfo &&rother)
+    : data{std::move(rother.data)}
 {}
 
 LogFuncInfo &LogFuncInfo::operator=(const LogFuncInfo &rhs)
