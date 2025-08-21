@@ -4,13 +4,19 @@
 #include <QObject>
 #include <QStateMachine>
 
+#include <QPair>
 #include <QQueue>
 class QFinalState;
 class QState;
 class QTimer;
 
+#include <CTextList.h>
+#include <Uid.h>
+
 #include "LogItem.h"
+#include "LogFormat.h"
 #include "LogMessage.h"
+class LogOutput;
 
 class EIRLOGGER_EXPORT LogMachine : public QStateMachine
 {
@@ -26,6 +32,7 @@ public: // types
         Quitting,
         $maxState
     };
+    typedef QPair<Uid, LogOutput *> FormatKey;
 
 public:
     explicit LogMachine(QObject *parent = nullptr);
@@ -35,10 +42,6 @@ public slots:
     void run();
     void enqueueMessage();
     void pulse();
-    void initialize();
-    void process();
-    void format();
-    void distribute();
     void quit();
 
 signals:
@@ -53,6 +56,12 @@ signals:
 public: // const
 
 
+public: // non-const
+    bool initialize();
+    bool process();
+    bool format();
+    bool distribute();
+
 public: // pointers
     QTimer * pulseTimer();
 
@@ -64,9 +73,10 @@ private:
     QFinalState * mpQuittingState=nullptr;
     QTimer * mpPulseTimer=nullptr;
     State mCurrentState=$nullState;
+    LogFormat::Format mFormatMask;
     QQueue<LogMessage> mMessageQueue;
     QQueue<LogItem> mItemQueue;
-    QQueue<LogItem> mFormatedItemQueue;
+    QMap<FormatKey, CTextList> mFormattedItemMap;
     bool mLongPulse=true;
 };
 

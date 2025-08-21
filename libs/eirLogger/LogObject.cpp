@@ -13,7 +13,7 @@
 Log::Log() : QObject{qApp}
 {
     setObjectName("Log");
-    QTimer::singleShot(0, this, &Log::start);
+    start();
 }
 
 Log::~Log()
@@ -27,7 +27,6 @@ void Log::start()
                      this, &Log::hookQtMsg));
     Q_ASSERT(connect(this, &Log::destructing,
                      this, &Log::unhookQtMsg));
-
     emit starting();
 }
 
@@ -35,11 +34,11 @@ void Log::hookQtMsg()
 {
     static CTextList sPatternList
         = CTextList()
-          << "TimeString=%{time DyyyyMMddThhmmsszzz}"
-          << "Function=%{function}"
-          << "Message=%{message}"
-#ifndef Q_OS_WINDOWS
-          << "BackTrace=%{backtrace}"
+          << "%{function}"
+          << "%{time DyyyyMMddThhmmsszzz}"
+          << "%{message}"
+#ifdef Q_OS_LINUX
+          << "%{backtrace}"
 #endif
         ;
     const CText cCTx = sPatternList.join('~');
@@ -62,7 +61,26 @@ void Log::add(LogOutput *out)
             .arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs))
             .arg(out->name()());
         emit warning(warn);
+    }
+}
 
+void Log::remove(OutputPtr out)
+{
+    if (mOutputListLock.tryLockForWrite(100))
+    {
+        const Index ix = mOutputList.indexOf(out);
+        if (ix > 0)
+        {
+            mOutputList.remove(ix);
+            emit removedOutput(out);
+        }
+    }
+    else
+    {
+        QString warn = QString("%1 LogMessage output lock failed removing: %2")
+            .arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs))
+            .arg(out->name()());
+        emit warning(warn);
     }
 }
 
@@ -89,6 +107,17 @@ void Log::unhookQtMsg()
     if (mOldHandler) qInstallMessageHandler(mOldHandler);
     qSetMessagePattern("%{if-category}%{category}: %{endif}"
                        "%{message}");
+}
+
+Log::OutputList Log::outputList()
+{
+    Log::OutputList result;
+    if (mOutputListLock.tryLockForRead(100))
+    {
+        result = mOutputList;
+        mOutputListLock.unlock();
+    }
+    return result;
 }
 
 LogMessage Log::dequeueMessage()

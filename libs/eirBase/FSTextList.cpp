@@ -3,6 +3,7 @@
 #include "ATextList.h"
 
 FSTextList::FSTextList() {;}
+FSTextList::FSTextList(const QByteArrayList &bal) { set(bal); }
 FSTextList::FSTextList(const FSText s, const char hinge) { split(s, hinge); }
 
 FSTextList &FSTextList::operator =(const ATextList &atl)
@@ -12,7 +13,15 @@ FSTextList &FSTextList::operator =(const ATextList &atl)
     return it();
 }
 
-void FSTextList::split(const FSText s, const char hinge)
+void FSTextList::set(const QByteArrayList &bal)
 {
-    it() = ATextList(s.split(hinge));
+    clear();
+    foreach (const QByteArray cBA, bal)
+        append(FSText(cBA));
+}
+
+void FSTextList::split(const FSText s, char hinge)
+{
+    char tHinge = hinge ? hinge : FSText::hinge();
+    it() = ATextList(s.split(tHinge));
 }

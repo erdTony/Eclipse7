@@ -1,5 +1,6 @@
 #include "LogItem.h"
 
+#include <QCoreApplication>
 #include <QDateTime>
 #include <QDomDocument>
 #include <QSqlRecord>
@@ -33,14 +34,36 @@ QString LogItem::displayString() const
         /* %4 */ .arg(fileLine(), 4)
         /* %5 */ .arg(formattedMessage())
         /* %6 */ .arg(level().name()())
-        /* %7 */ .arg(funcInfo().qFuncInfo())
+        /* %7 */ .arg(funcInfo().qFuncInfo()())
         ;
 }
 
 QStringList LogItem::formatStringList() const
 {
     QStringList result;
-    // TODO
+    static LogFuncInfo sCurrentFunction;
+    if (funcInfo() != sCurrentFunction)
+    {
+        sCurrentFunction = funcInfo();
+        result << QString(">Exe: %1 Lib/App: %2 File: %3")
+                      .arg(QCoreApplication::applicationName())
+                      .arg(fileInfo().pathList().last()())
+                      .arg(fileInfo().baseFileName()());
+        result << QString(">%1: Class: %2 Function: %3")
+                      .arg(QDateTime::fromMSecsSinceEpoch(timeStamp())
+                               .toString("hh:mm:ss"))
+                      .arg(sCurrentFunction.className()())
+                      .arg(sCurrentFunction.functionName()());
+        // TODO Argument List
+    }
+    result << QString("%1%2,%3 %4: %5")
+                  /* %1 */ .arg(level().chr())
+                  /* %2 */ .arg(QDateTime::fromMSecsSinceEpoch(timeStamp())
+                                   .toString("ss.zzz"))
+                  /* %3 */ .arg(fileLine(), 4)
+                  /* %4 */ .arg(level().name()())
+                  /* %5 */ .arg(formattedMessage())
+        ;
     return result;
 }
 
@@ -67,9 +90,10 @@ void LogItem::set(const LogMessage &lm)
 
 QString LogItem::formattedMessage() const
 {
-    QString result = format();
+    QString result;
     if (condition() == LogCondition::$null)
     {
+        result = format();
         for (int ix = 1; ix <= 9; ++ix)
         {
             QString tPercent = QString("%%%1").arg(ix);

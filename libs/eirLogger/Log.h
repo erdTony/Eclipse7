@@ -10,6 +10,7 @@
 #define LOGHOOK() LOG()->hookQtMsg();
 #define LOGUNHOOK() LOG()->unhookQtMsg();
 #define LOGOUTSTD() LOG()->add(new LogOutText(true));
+#define LOGOUTDEF() LOG()->add(new LogOutText(false));
 #define LOGOUTURL(url) LOG()->add(new LogOutText(url));
 
 

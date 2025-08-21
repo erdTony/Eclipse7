@@ -17,3 +17,8 @@ FSText LogFileInfo::baseFileName() const
     if (mSet) result = QFileInfo::baseName();
     return result;
 }
+
+FSTextList LogFileInfo::pathList() const
+{
+    return filePath().split('/');
+}

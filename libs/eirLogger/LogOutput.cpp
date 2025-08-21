@@ -2,7 +2,7 @@
 
 
 LogOutput::LogOutput(const CText &name,
-                     const LogFormat::Format fmt,
+                     const LogFormat::Format fmtv,
                      QObject *parent)
-    : QObject{parent}, mName(name), mFormat(fmt) {;}
+    : QObject{parent}, mName(name), mFormat(fmtv) {;}
 

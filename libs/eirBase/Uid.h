@@ -38,6 +38,8 @@ public: // ctors
 public: // const
     bool isNull() const;
     bool isNil() const;
+    bool operator == (const Uid &rhs) const;
+    bool operator < (const Uid &rhs) const;
     QString toString() const;
     QString tail() const;
     operator QString () const;

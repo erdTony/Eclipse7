@@ -5,18 +5,26 @@
 #include <QHash>
 
 #include <AText.h>
+#include <CText.h>
 
 class LogFuncInfoData;
 
 class EIRLOGGER_EXPORT LogFuncInfo
 {
 public: // our ctors
-    LogFuncInfo(const AText &funcName);
+    LogFuncInfo(const AText &qfi);
 
 public: // const
-    QString qFuncInfo() const;
+    CText className() const;
+    CText functionName() const;
+    AText qFuncInfo() const;
+    bool operator == (const LogFuncInfo &rhs) const;
+    bool operator != (const LogFuncInfo &rhs) const;
 
-public: // data
+public: // non-const
+    void set(const AText &qfi);
+
+public: // QSharedDataPointer
     LogFuncInfo();
     LogFuncInfo(const LogFuncInfo &other);
     LogFuncInfo(LogFuncInfo &&rother);
@@ -25,5 +33,4 @@ public: // data
     ~LogFuncInfo();
 private:
     QSharedDataPointer<LogFuncInfoData> data;
-//    static QHash<AText, LogFuncInfo> smFuncInfoHash;
 };

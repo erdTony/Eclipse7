@@ -80,7 +80,6 @@ private:
     QString valueString(const qsizetype ix) const;
 
 private:
-    QList<QVariant> mFormatVariantList;
 };
 
 inline bool LogItem::isWarn() const { return level().value() > LogLevel::$minWarning; }

@@ -5,7 +5,10 @@
 #include <QState>
 #include <QTimer>
 
+#include <CTextList.h>
+
 #include "LogObject.h"
+#include "LogOutput.h"
 
 LogMachine::LogMachine(QObject *parent)
     : QStateMachine{parent}
@@ -55,6 +58,7 @@ void LogMachine::setup()
                      this, &LogMachine::enqueueMessage));
     Q_ASSERT(connect(qApp, &QCoreApplication::aboutToQuit,
                      this, &LogMachine::quit));
+    QTimer::singleShot(100, this, &LogMachine::run);
 }
 
 void LogMachine::run()
@@ -75,32 +79,76 @@ void LogMachine::pulse()
     mLongPulse = true;
     pulseTimer()->stop();
 
+    switch (mCurrentState)
+    {
+    case Initialize:    mLongPulse &= initialize();     break;
+    case Process:       mLongPulse &= process();        break;
+    case Format:        mLongPulse &= format();         break;
+    case Distribute:    mLongPulse &= distribute();     break;
+    case Quitting:                    quit();           break;
+    default:            /* NADA */                      break;
+    };
+
     run();
-}
-
-void LogMachine::initialize()
-{
-
-}
-
-void LogMachine::process()
-{
-
-}
-
-void LogMachine::format()
-{
-
-}
-
-void LogMachine::distribute()
-{
-
 }
 
 void LogMachine::quit()
 {
 
+}
+
+bool LogMachine::initialize()
+{
+    return mMessageQueue.isEmpty();
+}
+
+bool LogMachine::process()
+{
+    Count k = qMin(10, mMessageQueue.count());
+    while (k--)
+    {
+        LogMessage tLM = mMessageQueue.dequeue();
+        LogItem tLI(tLM);
+        mItemQueue.enqueue(tLI);
+    }
+    mCurrentState = Format;
+    return mMessageQueue.isEmpty();
+}
+
+bool LogMachine::format()
+{
+    Count k = qMin(10, mItemQueue.count());
+    while (k--)
+    {
+        LogItem tLI = mItemQueue.dequeue();
+        foreach (LogOutput * pOut, LOG()->outputList())
+        {
+            LogFormat tLF = pOut->format();
+            CTextList tCTxL = tLF.process(tLI);
+            FormatKey tFK;
+            tFK.first = tLI.logUid();
+            tFK.second = pOut;
+            mFormattedItemMap.insert(tFK, tCTxL);
+        }
+    }
+    mCurrentState = Distribute;
+    return mFormattedItemMap.isEmpty();
+}
+
+bool LogMachine::distribute()
+{
+    Count k = qMin(10, mFormattedItemMap.count());
+    while (k--)
+    {
+        FormatKey tKey = mFormattedItemMap.firstKey();
+        CTextList tMsg = mFormattedItemMap.value(tKey);
+        LogOutput * pOut = tKey.second;
+        Q_CHECK_PTR(pOut);
+        mFormattedItemMap.remove(tKey);
+        // TODO const-ness
+    }
+    mCurrentState = Process;
+    return mMessageQueue.isEmpty();
 }
 
 

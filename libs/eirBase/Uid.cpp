@@ -8,6 +8,16 @@
 Uid::Uid(const bool nil) : mNibbles(NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF)) {;}
 Uid::Uid(const Type type) { generate(type); }
 
+bool Uid::operator == (const Uid &rhs) const
+{
+    return oword() == rhs.oword();
+}
+
+bool Uid::operator < (const Uid &rhs) const
+{
+    return oword() < rhs.oword();
+}
+
 QString Uid::toString() const
 {
     return uuid().toString();

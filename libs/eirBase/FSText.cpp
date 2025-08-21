@@ -2,7 +2,7 @@
 
 #include <ctype.h>
 
-char FSText::smHingeChar = '.';
+char FSText::smHingeChar = '/';
 
 FSText::FSText() {;}
 FSText::FSText(const char *pch) : AText(pch) {;}

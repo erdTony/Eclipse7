@@ -33,22 +33,24 @@ public: // ctors
 public slots:
     void start();
     void hookQtMsg();
-    void add(LogOutput * out);
+    void add(OutputPtr out);
+    void remove(OutputPtr out);
     void enqueueMessage(const LogMessage &message);
     void unhookQtMsg();
 
 signals:
     void starting();
     void addedOutput(OutputPtr out);
+    void removedOutput(OutputPtr out);
     void enqueuedMessage(const LogMessage &message);
     void dequeuedMessage(const LogMessage &message);
     void warning(const QString &message);
     void destructing();
 
 public: // const
-    OutputList outputList() const;
 
 public: // non-const
+    OutputList outputList();
     LogMessage dequeueMessage();
 
 public: // static

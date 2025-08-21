@@ -14,12 +14,17 @@ class EIRLOGGER_EXPORT LogOutText : public LogOutput
 {
     Q_OBJECT
 public:
-    explicit LogOutText(const bool openStd=true, QObject *parent = nullptr);
-    explicit LogOutText(const LogFileInfo &lfi, QObject *parent = nullptr);
+    explicit LogOutText(const bool openStd=true,
+                        const bool oneLine=false,
+                        QObject *parent = nullptr);
+    explicit LogOutText(const LogFileInfo &lfi,
+                        const bool oneLine=false,
+                        QObject *parent = nullptr);
 
 public slots:
     virtual void start() override;
     virtual void write(const LogItem &li) override;
+    virtual void write(const CTextList &ctxl) override;
     void open(const LogFileInfo &lfi);
     void openStdio();
     void close();
@@ -34,6 +39,7 @@ public: // non-const
 
 
 public: // pointer
+    QFile * file();
 
 private:
 
@@ -45,3 +51,6 @@ private:
     QTextStream * mpErrorStream=nullptr;
 
 };
+
+inline QFile *LogOutText::file() { Q_CHECK_PTR(mpFile); return mpFile; }
+
