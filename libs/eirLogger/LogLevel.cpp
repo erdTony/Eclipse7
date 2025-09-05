@@ -2,6 +2,8 @@
 
 #include <QString>
 
+LogLevel::Value LogLevel::smFatalLevel=LogLevel::Memory;
+
 LogLevel::LogLevel() : mValue($nullLevel), mFlag($nullLevelFlag) {;}
 LogLevel::LogLevel(const Value v) : mValue(v), mFlag(Flag(1 << v)) {;}
 
@@ -97,6 +99,16 @@ QtMsgType LogLevel::qMsgType(const MsgType mt)
     return result;
 }
 
+LogLevel::FlagMask LogLevel::mask(const CText &ctx)
+{
+    FlagMask result = $nullMask;
+    if (ctx == "UserMask")          result = UserMask;
+    else if (ctx == "FunctionMask") result = FunctionMask;
+    else if (ctx == "TraceMask")    result = TraceMask;
+    else if (ctx == "ErrorMask")    result = ErrorMask;
+    return result;
+}
+
 LogLevel::MsgType LogLevel::msgType(const LogLevel::Value lvl)
 {
     MsgType result = $nullMsgType;
@@ -115,7 +127,6 @@ LogLevel::MsgType LogLevel::msgType(const LogLevel::Value lvl)
     case UWarning:  case TWarning:      result = WarnType;      break;
     case $minError:
     case Error:     case Expect:        result = ErrorType;     break;
-    case $minFatal:
     case Memory:    case Assert:
     case Shutdown:                      result = AbortType;     break;
     case $nullLevel:

@@ -10,7 +10,7 @@ class QTimer;
 
 #include <Types.h>
 
-#include "LogFileInfo.h"
+#include "LogFile.h"
 #include "LogItem.h"
 #include "LogLevel.h"
 #include "LogObject.h"
@@ -50,7 +50,7 @@ private slots:
 private:
     bool addTrollOutput();
     bool addStdioOutput();
-    bool addTextFileOutput(const LogFileInfo &fi);
+    bool addTextFileOutput(const LogFile &lf);
 
 
 private:

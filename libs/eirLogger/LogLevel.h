@@ -36,10 +36,10 @@ public: // types
         $minError           = 24,
         Error               = 25,
         Expect              = 26,
-        $minFatal           = 27,
-        Memory              = 28,
-        Assert              = 29,
-        Shutdown            = 30,
+        Memory              = 27,
+        Assert              = 28,
+        Shutdown            = 29,
+        Maximum             = 30,
         $maxLevel           = 31,
     };
 
@@ -72,11 +72,18 @@ public: // types
         MemoryFlag          = 1 << Memory,
         AssertFlag          = 1 << Assert,
         ShutdownFlag        = 1 << Shutdown,
-        MaximumFlag         = 1 << $maxLevel
+        MaximumFlag         = 1 << Maximum,
     };
     Q_DECLARE_FLAGS(Flags, Flag);
 
-
+    enum FlagMask
+    {
+        $nullMask           = 0,
+        UserMask            = UTriviaFlag | UDetailFlag | UInfoFlag | UPreferFlag | UWarningFlag,
+        FunctionMask        = FnArgValFlag | FnArgNameFlag | FnReturnFlag | FnExitFlag | FnEnterFlag,
+        TraceMask           = TTriviaFlag | TDetailFlag | TInfoFlag | TPreferFlag | TWarningFlag,
+        ErrorMask           = ErrorFlag | ExpectFlag | MemoryFlag | AssertFlag | ShutdownFlag,
+    };
 
     enum MsgType
     {
@@ -102,6 +109,9 @@ public: // const
     char chr() const;
     MsgType msgType() const;
     bool isValidLevel() const;
+    bool isWarn() const;
+    bool isError() const;
+    bool isFatal() const;
 
 public: // non-const
     void set(const int i);
@@ -112,13 +122,17 @@ public: // static
     static bool isValidLevel(const int i);
     static CText name(const Value v);
     static CText name(const QtMsgType qmt);
-    static MsgType msgType(const CText &ct);
+    static MsgType msgType(const CText &ctx);
     static MsgType msgType(const LogLevel::Value lvl);
     static QtMsgType qMsgType(const MsgType mt);
+    static FlagMask mask(const CText &ctx);
+    static void fatalLevel(const Value minFatal);
+    static Value fatalLevel();
 
 private:
     Value mValue=$nullLevel;
     Flag mFlag=$nullLevelFlag;
+    static Value smFatalLevel;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(LogLevel::Flags)
@@ -126,5 +140,10 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(LogLevel::Flags)
 inline LogLevel::Value LogLevel::value() const { return mValue; }
 inline bool LogLevel::isNull() const { return value() > $nullLevel; }
 inline CText LogLevel::name() const { return name(value()); }
+inline void LogLevel::fatalLevel(const Value minFatal) { smFatalLevel = minFatal; }
+inline LogLevel::Value LogLevel::fatalLevel() { return smFatalLevel; }
 inline LogLevel::MsgType LogLevel::msgType() const { return msgType(mValue); }
 inline LogLevel::Flag LogLevel::flag() const { return mFlag; }
+inline bool LogLevel::isWarn() const { return value() > LogLevel::$minWarning; }
+inline bool LogLevel::isError() const { return value() > LogLevel::$minError; }
+inline bool LogLevel::isFatal() const { return value() > LogLevel::fatalLevel(); }

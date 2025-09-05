@@ -15,6 +15,7 @@ public: // ctors
     FourCC(const QString &s);
 
 public: // const
+    operator AText () const;
     operator DWORD () const;
 
 public: // non-const
@@ -26,5 +27,6 @@ public: // ctors
 
 };
 
+inline FourCC::operator AText() const { return Bytes::aText(); }
 inline FourCC::operator DWORD() const { return Bytes::dword(); }
 

@@ -43,8 +43,19 @@ void Url::setScheme(const CText &scheme)
 
 void Url::type(const CText &scheme)
 {
-    Q_UNUSED(scheme);
-    // TODO Url::type(const CText &scheme)
+    Type result=$null;
+    if (false) ;
+    else if ("Troll" == scheme)     result = Troll;
+    else if ("Stdio" == scheme)     result = Stdio;
+    else if ("TextFile" == scheme)  result = TextFile;
+    else if ("Files" == scheme)     result = Files;
+    else if ("Dir" == scheme)       result = Dir;
+    else if ("Http" == scheme)      result = Http;
+    else if ("Https" == scheme)     result = Https;
+    else if ("SqlLite" == scheme)   result = SqlLite;
+    else if ("MySql" == scheme)     result = MySql;
+    else if ("MariaDB" == scheme)   result = MariaDB;
+    mType = result;
 }
 
 

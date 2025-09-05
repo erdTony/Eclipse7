@@ -9,9 +9,11 @@
 
 #include "LogObject.h"
 #include "LogOutput.h"
+#include "LogUrl.h"
 
-LogMachine::LogMachine(QObject *parent)
+LogMachine::LogMachine(Log *parent)
     : QStateMachine{parent}
+    , mpParentLog(parent)
     , mpInitializeState(new QState(this))
     , mpProcessingState(new QState(this))
     , mpFormattingState(new QState(this))
@@ -42,16 +44,6 @@ void LogMachine::setup()
 {
     setInitialState(mpInitializeState);
     mCurrentState = Initialize;
-    mpInitializeState->addTransition(mpProcessingState);
-    mpProcessingState->addTransition(mpProcessingState,
-                                     SIGNAL(processingDone),
-                                     mpFormattingState);
-    mpFormattingState->addTransition(mpFormattingState,
-                                     SIGNAL(formatingDone),
-                                     mpDistributeState);
-    mpDistributeState->addTransition(mpDistributeState,
-                                     SIGNAL(distributingDone),
-                                     mpProcessingState);
     Q_ASSERT(connect(pulseTimer(), &QTimer::timeout,
                      this, &LogMachine::pulse));
     Q_ASSERT(connect(LOG(), &Log::enqueuedMessage,
@@ -94,11 +86,19 @@ void LogMachine::pulse()
 
 void LogMachine::quit()
 {
+    foreach (LogOutput * pOut, LOG()->outputList())
+    {
+        pOut->flush();
+        pOut->close();
+        pOut->deleteLater();
+        LOG()->remove(pOut);
+    }
 
 }
 
 bool LogMachine::initialize()
 {
+    mCurrentState = Process;
     return mMessageQueue.isEmpty();
 }
 
@@ -123,7 +123,7 @@ bool LogMachine::format()
         LogItem tLI = mItemQueue.dequeue();
         foreach (LogOutput * pOut, LOG()->outputList())
         {
-            LogFormat tLF = pOut->format();
+            LogFormat tLF = pOut->url().format();
             CTextList tCTxL = tLF.process(tLI);
             FormatKey tFK;
             tFK.first = tLI.logUid();
@@ -145,7 +145,7 @@ bool LogMachine::distribute()
         LogOutput * pOut = tKey.second;
         Q_CHECK_PTR(pOut);
         mFormattedItemMap.remove(tKey);
-        // TODO const-ness
+        pOut->write(tMsg);
     }
     mCurrentState = Process;
     return mMessageQueue.isEmpty();

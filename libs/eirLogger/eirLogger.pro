@@ -14,11 +14,10 @@ include(../../useBase.pri) # ONLY!
 CPPFLAGS *= -E -Dm
 
 SOURCES += \
-    BaseLogFilter.cpp \
-    BaseLogFilterItem.cpp \
     LogCondition.cpp \
     LogEntry.cpp \
-    LogFileInfo.cpp \
+    LogFile.cpp \
+    LogFilter.cpp \
     LogFormat.cpp \
     LogFuncInfo.cpp \
     LogItem.cpp \
@@ -26,17 +25,16 @@ SOURCES += \
     LogMachine.cpp \
     LogMessage.cpp \
     LogObject.cpp \
-    LogOutText.cpp \
     LogOutput.cpp \
+    LogUrl.cpp \
     eirLogger.cpp
 
 HEADERS += \
-    BaseLogFilter.h \
-    BaseLogFilterItem.h \
     Log.h \
     LogCondition.h \
     LogEntry.h \
-    LogFileInfo.h \
+    LogFile.h \
+    LogFilter.h \
     LogFormat.h \
     LogFuncInfo.h \
     LogItem.h \
@@ -45,8 +43,8 @@ HEADERS += \
     LogMacros.h \
     LogMessage.h \
     LogObject.h \
-    LogOutText.h \
     LogOutput.h \
+    LogUrl.h \
     eirLogger.h \
     eirLogger_global.h
 

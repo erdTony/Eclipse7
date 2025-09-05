@@ -4,7 +4,6 @@
 #include <CTextList.h>
 
 #include "LogItem.h"
-#include "LogItem.h"
 
 LogFormat::LogFormat(const Format fmt) : mFormat(fmt) {;}
 
@@ -20,6 +19,16 @@ CTextList LogFormat::process(const LogItem &li) const
     default:            /* NADA */                          break;
     }
     return result;
+}
+
+void LogFormat::set(const CText &tx)
+{
+    Format result=$nullFormat;
+    if (tx == "TextOneLine")            result = TextOneLine;
+    else if (tx == "TextMultiLine")     result = TextMultiLine;
+    else if (tx == "XmlDocument")       result = XmlDocument;
+    else if (tx == "SqlRecord")         result = SqlRecord;
+    mFormat = result;
 }
 
 CTextList LogFormat::processOneText(const LogItem &li) const

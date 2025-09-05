@@ -16,13 +16,19 @@ public: // ctors
     Bytes(const AText &atx);
     Bytes(const QByteArray &other);
     Bytes(const QVariant &var);
+    Bytes(const OWORD ow);
 
 public: // const
+    BYTE byte() const;
+    UINT uint() const;
+    Count count() const;
+    qsizetype qSizeType() const;
     DWORD dword() const;
     QWORD qword() const;
     OWORD oword() const;
     SEWORD seword() const;
     QByteArray base64() const;
+    AText aText() const;
 
 public: // non-const
     void set(const QVariant &var);

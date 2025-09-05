@@ -16,6 +16,7 @@ class QTimer;
 #include "LogItem.h"
 #include "LogFormat.h"
 #include "LogMessage.h"
+class Log;
 class LogOutput;
 
 class EIRLOGGER_EXPORT LogMachine : public QStateMachine
@@ -35,7 +36,7 @@ public: // types
     typedef QPair<Uid, LogOutput *> FormatKey;
 
 public:
-    explicit LogMachine(QObject *parent = nullptr);
+    explicit LogMachine(Log *parent = nullptr);
 
 public slots:
     void setup();
@@ -66,6 +67,7 @@ public: // pointers
     QTimer * pulseTimer();
 
 private:
+    Log * mpParentLog=nullptr;
     QState * mpInitializeState=nullptr;
     QState * mpProcessingState=nullptr;
     QState * mpFormattingState=nullptr;

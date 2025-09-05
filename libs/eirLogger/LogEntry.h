@@ -6,6 +6,7 @@
 
 #include <AText.h>
 #include <CText.h>
+#include <FourCC.h>
 #include <Types.h>
 #include <Uid.h>
 
@@ -48,12 +49,14 @@ public: // const
 
 
 public: // non-const
+    void clear();
     void mport(const QByteArray &ba);
 
 
 public: // pointers
 
 private:
+    static const FourCC scmLESignature;
     LogLevel mLevel;
     Milliseconds mEntryMsec;
     AText mFormat;

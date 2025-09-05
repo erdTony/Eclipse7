@@ -16,6 +16,7 @@ public:
     CTextList();
     CTextList(const QByteArrayList &bal);
     CTextList(const QStringList &qsl);
+    CTextList(const QString &s);
     CTextList(const ATextList &atxl);
     CTextList(const QList<CText> &other);
 
@@ -27,6 +28,7 @@ public: // const
 public: // non-const
     void set(const QByteArrayList &bal);
     void set(const QStringList &qsl);
+    void set(const QString &s);
     void set(const ATextList &atxl);
 
 public: // pointers

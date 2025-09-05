@@ -10,6 +10,40 @@ Bytes::Bytes(const AText &atx) : QByteArray(atx) {;}
 Bytes::Bytes(const QByteArray &other) : QByteArray(other) {;}
 Bytes::Bytes(const QVariant &var) { set(var); }
 
+Bytes::Bytes(const OWORD ow)
+{
+    fill(0, sizeof(ow) + 1);
+    std::memcpy(data(), &ow, sizeof(ow));
+}
+
+BYTE Bytes::byte() const
+{
+    BYTE result=0;
+    std::memcpy(&result, data(), qMin(qsizetype(sizeof(result)), length()));
+    return result;
+}
+
+UINT Bytes::uint() const
+{
+    UINT result=0;
+    std::memcpy(&result, data(), qMin(qsizetype(sizeof(result)), length()));
+    return result;
+}
+
+Count Bytes::count() const
+{
+    Count result=0;
+    std::memcpy(&result, data(), qMin(qsizetype(sizeof(result)), length()));
+    return result;
+}
+
+qsizetype Bytes::qSizeType() const
+{
+    qsizetype result=0;
+    std::memcpy(&result, data(), qMin(qsizetype(sizeof(result)), length()));
+    return result;
+}
+
 DWORD Bytes::dword() const
 {
     DWORD result=0;
@@ -41,6 +75,11 @@ SEWORD Bytes::seword() const
 QByteArray Bytes::base64() const
 {
     return toBase64();
+}
+
+AText Bytes::aText() const
+{
+    return *this;
 }
 
 void Bytes::set(const QVariant &var)

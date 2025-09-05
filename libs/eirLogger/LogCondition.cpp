@@ -15,23 +15,25 @@ AText LogCondition::text() const
     AText result("???");
     switch (mEnum)
     {
-    case True:          result = "!! ";  break;
-    case False:         result = " ! ";  break;
-    case Equal:         result = "== ";  break;
-    case NotEqual:      result = "!= ";  break;
-    case Less:          result = " < ";  break;
-    case LessEqual:
-    case NotGreater:    result = " <=";  break;
-    case Greater:       result = " > ";  break;
-    case GreaterEqual:
-    case NotLess:       result = " >=";  break;
-    case Positive:      result = " >0";  break;
-    case Zero:          result = "==0";  break;
-    case Negative:      result = " <0";  break;
-    case NonPos:        result = "<=0";  break;
-    case NonZero:       result = "!=0";  break;
-    case NonNeg:        result = ">=0";  break;
+    case True:          result = "!! ";     break;
+    case False:         result = " ! ";     break;
+    case Equal:         result = "== ";     break;
+    case NotEqual:      result = "!= ";     break;
+    case Less:          result = " < ";     break;
+    case LessEqual:     result = " <=";     break;
+    case NotGreater:    result = "!> ";     break;
+    case Greater:       result = " > ";     break;
+    case GreaterEqual:  result = " >=";     break;
+    case NotLess:       result = "!< ";     break;
+    case Positive:      result = " >0";     break;
+    case Zero:          result = "==0";     break;
+    case Negative:      result = " <0";     break;
+    case NonPos:        result = "<=0";     break;
+    case NonZero:       result = "!=0";     break;
+    case NonNeg:        result = ">=0";     break;
+    case $null: case $max:                  break;
     }
+    return result;
 }
 
 void LogCondition::set(const int i)

@@ -3,11 +3,13 @@
 
 #include <QBuffer>
 #include <QDateTime>
-#include <QTextStream>
+#include <QDataStream>
 
 #include <Bytes.h>
 
 #include "Log.h"
+
+const FourCC LogEntry::scmLESignature("LgEn");
 
 LogEntry::LogEntry() : mLevel(LogLevel::$nullLevel) {;}
 LogEntry::LogEntry(const QByteArray &ba) { mport(ba); }
@@ -66,43 +68,81 @@ QByteArray LogEntry::xport() const
     QByteArray result;
     QBuffer tBuffer(&result);
     tBuffer.open(QIODevice::WriteOnly);
-    QTextStream tStream(&tBuffer);
+    BYTE tByte = level().value();
+    DWORD tDword = scmLESignature.dword();
+    int tCond = condition().toInt();
+    Count tCount;
+    tBuffer.write((const char *)&tDword, sizeof(tDword));
+    tBuffer.write((const char *)&tByte, sizeof(tByte));
+    tBuffer.write((const char *)&tCond, sizeof(tCond));
+    tCount = arguments().count();
+    tBuffer.write((const char *)&tCount, sizeof(tCount)); // NumArgs
+    tCount = format().length() + 1;
+    tBuffer.write((const char *)&tCount, sizeof(tCount)); // Format Length
+    tBuffer.write((const char *)format().data(), tCount); // Format itself
 
-    tStream << level().value();
-    tStream << format();
-    tStream << condition();
-    tStream << arguments().count();
     foreach (const QVariant cVar, arguments())
     {
         Bytes tVarBytes(cVar);
-        tStream << cVar.typeId() << tVarBytes.base64();
+        int tTypeId = cVar.typeId();
+        qsizetype tBytesLength = tVarBytes.length();
+        tBuffer.write((const char *)&tBytesLength, sizeof(qsizetype));
+        tBuffer.write((const char *)&tTypeId, sizeof(int));
+        tBuffer.write((const char *)tVarBytes.data(), tBytesLength);
     }
     tBuffer.close();
-    return result;
+    return result.toBase64();
+}
+
+void LogEntry::clear()
+{
+    mLevel.set(LogLevel::$nullLevel);
+    mEntryMsec = 0;
+    mFormat.clear();
+    mCondition = LogCondition::$null;
+    mArguments.clear();
 }
 
 void LogEntry::mport(const QByteArray &ba)
 {
-    QByteArray tBytes(ba);
-    QBuffer tBuffer(&tBytes);
+    QByteArray tBA(QByteArray::fromBase64(ba));
+    QBuffer tBuffer(&tBA);
     tBuffer.open(QIODevice::ReadOnly);
-    QTextStream tStream(&tBuffer);
+    clear();
     \
-    int tLevel; tStream >> tLevel;
-    mLevel.set(tLevel);
-    int tCond; tStream >> tCond;
-    mCondition.set(tCond);
-    Count tArgCount; tStream >> tArgCount;
-    tStream >> tArgCount;
-
-    mArguments.fill(QVariant(), tArgCount);
-    for (Index ix = 0; ix < Index(tArgCount); ++ix)
+    Bytes tBytes = tBuffer.read(sizeof(DWORD));
+    DWORD tSignature = tBytes.dword();
+    if (tSignature != scmLESignature.dword())
     {
-        int tTypeId; tStream >> tTypeId;
-        QByteArray tBase64; tStream >> tBase64;
-        QByteArray tVarBytes = QByteArray::fromBase64(tBase64);
-        QVariant tArgVar(QMetaType(tTypeId), tVarBytes.data());
-        mArguments[ix] = tArgVar;
+        mFormat = tBytes;
+        mLevel.set(LogLevel::TInfo);
     }
+    else
+    {
+        tBytes = tBuffer.read(sizeof(BYTE));
+        mLevel.set(tBytes.byte());
+        tBytes = tBuffer.read(sizeof(UINT));
+        mCondition.set(tBytes.uint());
+        tBytes = tBuffer.read(sizeof(Count));
+        Count tArgCount = tBytes.count();
+        tBytes = tBuffer.read(sizeof(Count));
+        Count tFormatLen = tBytes.count();
+        mFormat = tBuffer.read(tFormatLen);
+
+        if (tArgCount)
+            mArguments.fill(QVariant(), tArgCount);
+        for (Index ix = 0; ix < Index(tArgCount); ++ix)
+        {
+            tBytes = tBuffer.read(sizeof(UINT));
+            UINT tTypeId = tBytes.uint();
+            QMetaType tMType = QMetaType(tTypeId);
+            tBytes = tBuffer.read(sizeof(qsizetype));
+            qsizetype tBytesLength = tBytes.qSizeType();
+            QByteArray tVarBytes = tBuffer.read(tBytesLength);
+            QVariant tArgVar(tMType, tVarBytes.data());
+            mArguments[ix] = tArgVar;
+        }
+    }
+    tBuffer.close();
 }
 

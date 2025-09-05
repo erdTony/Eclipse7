@@ -37,10 +37,11 @@ public: // ctors
 public: // const
     bool isUnary() const;
     bool isBinary() const;
-    operator int () const;
     bool isValid(const int i);
     bool evaluate(const QVariant &v);
     bool evaluate(const QVariant &v1, const QVariant &v2);
+    int toInt() const;
+    operator int () const;
     AText text() const;
 
 public: // non-const
@@ -54,4 +55,5 @@ private:
     Enum mEnum=$null;
 };
 
-inline LogCondition::operator int() const { return int(mEnum); }
+inline int LogCondition::toInt() const { return int(mEnum); }
+inline LogCondition::operator int() const { return toInt(); }

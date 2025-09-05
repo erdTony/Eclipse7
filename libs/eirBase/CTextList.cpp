@@ -9,6 +9,7 @@ CTextList::CTextList() {;}
 
 CTextList::CTextList(const QByteArrayList &bal) { set(bal); }
 CTextList::CTextList(const QStringList &qsl) { set(qsl); }
+CTextList::CTextList(const QString &s) { set(s); }
 CTextList::CTextList(const QList<CText> &other) : CText::List(other) {;}
 
 CText CTextList::join(char ch) const
@@ -46,6 +47,12 @@ void CTextList::set(const QStringList &qsl)
     clear();
     foreach (const QString qs, qsl)
         append(CText(qs));
+}
+
+void CTextList::set(const QString &s)
+{
+    clear();
+    append(s);
 }
 
 void CTextList::set(const ATextList &atxl)

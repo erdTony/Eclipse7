@@ -1,6 +1,7 @@
 #pragma once
 #include "eirLogger.h"
 
+class CText;
 class CTextList;
 
 class LogItem;
@@ -18,12 +19,13 @@ public: // types
     };
 
 public: // ctors
-    LogFormat(const Format fmt);
+    LogFormat(const Format fmt=$nullFormat);
 
 public: // const
     CTextList process(const LogItem &li) const;
 
 public: // non-const
+    void set(const CText &tx);
 
 public: // pointers
 

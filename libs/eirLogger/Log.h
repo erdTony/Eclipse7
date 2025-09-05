@@ -1,17 +1,16 @@
 #pragma once
 /*!file Log.h 'Public' interface to logging */
 
+#define LOG() (Log::instance())
+
 #include "LogEntry.h"
 #include "LogMacros.h"
 #include "LogObject.h"
 #include "LogOutput.h"
-#include "LogOutText.h"
 
-#define LOGHOOK() LOG()->hookQtMsg();
-#define LOGUNHOOK() LOG()->unhookQtMsg();
-#define LOGOUTSTD() LOG()->add(new LogOutText(true));
-#define LOGOUTDEF() LOG()->add(new LogOutText(false));
-#define LOGOUTURL(url) LOG()->add(new LogOutText(url));
+//#define LOGOUTSTD() LOG()->add(new LogOutText(true));
+//#define LOGOUTDEF() LOG()->add(new LogOutText(false));
+#define LOGOUTURL(url) LOG()->add(new LogOutput(url));
 
 
 #define UINFOMSG(msg) { LogEntry le(LogLevel::UInfo, msg); qInfo() <<  le.xport(); }

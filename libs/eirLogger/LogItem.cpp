@@ -15,6 +15,7 @@ void LogItem::ctor(void) {;}
 void LogItem::dtor(void) {;}
 
 LogItem::LogItem(const LogMessage &lm)
+    : data(new LogItemData)
 {
     set(lm);
 }
@@ -30,7 +31,7 @@ QString LogItem::displayString() const
         /* %1 */ .arg(level().chr())
         /* %2 */ .arg(QDateTime::fromMSecsSinceEpoch(timeStamp())
                          .toString("hh:mm:ss.zzz"))
-        /* %3 */ .arg(fileInfo().baseFileName()())
+        /* %3 */ .arg(file().baseFileName()())
         /* %4 */ .arg(fileLine(), 4)
         /* %5 */ .arg(formattedMessage())
         /* %6 */ .arg(level().name()())
@@ -47,8 +48,8 @@ QStringList LogItem::formatStringList() const
         sCurrentFunction = funcInfo();
         result << QString(">Exe: %1 Lib/App: %2 File: %3")
                       .arg(QCoreApplication::applicationName())
-                      .arg(fileInfo().pathList().last()())
-                      .arg(fileInfo().baseFileName()());
+                      .arg(file().pathList().last()())
+                      .arg(file().baseFileName()());
         result << QString(">%1: Class: %2 Function: %3")
                       .arg(QDateTime::fromMSecsSinceEpoch(timeStamp())
                                .toString("hh:mm:ss"))
@@ -80,7 +81,7 @@ void LogItem::set(const LogMessage &lm)
     LogEntry le(lm.message().toLocal8Bit());
     timeStamp(le.entryMsec()),
     logUid(Uid(Uid::Log)),
-    fileInfo(LogFileInfo(lm.fileName())),
+    file(LogFile(lm.fileName())),
     fileLine(lm.fileLine()),
     funcInfo(LogFuncInfo(lm.funcName())),
     format(le.format()),

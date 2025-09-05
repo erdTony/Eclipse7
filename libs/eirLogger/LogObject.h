@@ -15,9 +15,11 @@
 class LogOutput;
 class LogEntry;
 class LogMachine;
+class LogUrl;
 
-
+#ifndef LOG
 #define LOG() (Log::instance())
+#endif
 
 class EIRLOGGER_EXPORT Log : public QObject
 {
@@ -33,7 +35,7 @@ public: // ctors
 public slots:
     void start();
     void hookQtMsg();
-    void add(OutputPtr out);
+    void add(const LogUrl &u);
     void remove(OutputPtr out);
     void enqueueMessage(const LogMessage &message);
     void unhookQtMsg();
@@ -61,7 +63,7 @@ public: // pointers
 
 private:
     QtMessageHandler mOldHandler=nullptr;
-    LogMachine * mpMachine;
+    LogMachine * mpMachine=nullptr;
     QReadWriteLock mMessageQueueLock;
     LogLevel::Flags mMessageMask;
     QQueue<LogMessage> mMessageQueue;

@@ -12,9 +12,11 @@ public: // ctors
     EightCC(const char * pch);
     EightCC(const AText &atx);
     EightCC(const QString &s);
+    EightCC(const QWORD qw);
 
 public: // const
-    operator QWORD () const;
+    operator AText () const;
+    operator OWORD () const;
 
 public: // non-const
 
@@ -25,6 +27,7 @@ public: // ctors
 
 };
 
-inline EightCC::operator QWORD() const { return Bytes::qword(); }
+inline EightCC::operator AText() const { return Bytes::aText(); }
+inline EightCC::operator OWORD() const { return Bytes::oword(); }
 
 

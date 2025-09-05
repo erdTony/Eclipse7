@@ -21,7 +21,7 @@ class QSqlRecord;
 
 #include "LogCondition.h"
 #include "LogLevel.h"
-#include "LogFileInfo.h"
+#include "LogFile.h"
 #include "LogFuncInfo.h"
 class LogMessage;
 
@@ -29,7 +29,7 @@ class LogMessage;
     TND(LogLevel,           level,          LogLevel()) \
     TND(Milliseconds,       timeStamp,      0) \
     TND(Uid,                logUid,         Uid()) \
-    TND(LogFileInfo,        fileInfo,       LogFileInfo()) \
+    TND(LogFile,            file,           LogFile()) \
     TND(uint,               fileLine,       0) \
     TND(LogFuncInfo,        funcInfo,       LogFuncInfo()) \
     TND(UText,              format,         UText()) \
@@ -57,9 +57,6 @@ public: // our ctors
 
 public: // const
     bool isNull() const;
-    bool isWarn() const;
-    bool isError() const;
-    bool isFatal() const;
     QString displayString() const;
     QStringList formatStringList() const;
     QDomDocument formatXmlDocument() const;
@@ -82,8 +79,5 @@ private:
 private:
 };
 
-inline bool LogItem::isWarn() const { return level().value() > LogLevel::$minWarning; }
-inline bool LogItem::isError() const { return level().value() > LogLevel::$minError; }
-inline bool LogItem::isFatal() const { return level().value() > LogLevel::$minFatal; }
 inline const LogItem LogItem::it() const { return *this; }
 inline const LogItem &LogItem::it() { return *this; }

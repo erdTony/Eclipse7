@@ -28,10 +28,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::setup()
 {
-    Log::instance()->hookQtMsg();
-    Log::instance()->add(new LogOutText(true));
-    //LOGHOOK();
-    LOGOUTDEF();
+
+    LOG()->add(LogUrl(LogUrl::LogOut, "LogOut://../log/&-@.log&FilterMask=TraceMask"));
+    LOG()->add(LogUrl(LogUrl::LogOut, "LogOut://../log/&-@.err&FilterMask=ErrorMask"));
     UINFOMSG("Starting " + QCoreApplication::applicationName()
             + QDateTime::currentDateTime().toString(" yyMMMdd hh:mm"));
 

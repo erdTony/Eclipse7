@@ -6,14 +6,16 @@
 
 #include <CTextList.h>
 
+#include "LogMachine.h"
 #include "LogOutput.h"
 #include "LogEntry.h"
 #include "LogLevel.h"
 
-Log::Log() : QObject{qApp}
+Log::Log()
+    : QObject{qApp}
+    , mpMachine(new LogMachine(this))
 {
     setObjectName("Log");
-    start();
 }
 
 Log::~Log()
@@ -23,8 +25,6 @@ Log::~Log()
 
 void Log::start()
 {
-    Q_ASSERT(connect(this, &Log::starting,
-                     this, &Log::hookQtMsg));
     Q_ASSERT(connect(this, &Log::destructing,
                      this, &Log::unhookQtMsg));
     emit starting();
@@ -47,20 +47,22 @@ void Log::hookQtMsg()
     mOldHandler = qInstallMessageHandler(logMessageHandler);
 }
 
-void Log::add(LogOutput *out)
+void Log::add(const LogUrl &u)
 {
     if (mOutputListLock.tryLockForWrite(100))
     {
-        out->setParent(this);
-        mOutputList.append(out);
-        emit addedOutput(out);
+        LogOutput * pOut = new LogOutput(u);
+        mOutputList.append(pOut);
+        mOutputListLock.unlock();
+        emit addedOutput(pOut);
     }
     else
     {
         QString warn = QString("%1 LogMessage output lock failed: %2")
-            .arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs))
-            .arg(out->name()());
+                           .arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs))
+                           .arg(u.toString());
         emit warning(warn);
+        std::fprintf(stderr, "%s", qPrintable(warn));
     }
 }
 
@@ -74,6 +76,7 @@ void Log::remove(OutputPtr out)
             mOutputList.remove(ix);
             emit removedOutput(out);
         }
+        mOutputListLock.unlock();
     }
     else
     {
@@ -117,6 +120,13 @@ Log::OutputList Log::outputList()
         result = mOutputList;
         mOutputListLock.unlock();
     }
+    else
+    {
+        QString warn = QString("%1 LogMessage output list lock failed")
+            .arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs));
+        emit warning(warn);
+        std::fprintf(stderr, "%s", qPrintable(warn));
+    }
     return result;
 }
 
@@ -141,7 +151,12 @@ Log *Log::instance()
 {
     static Log * spLog = nullptr;
     if (nullptr == spLog)
+    {
         spLog = new Log();
+        spLog->hookQtMsg();
+        spLog->machine()->setup();
+        spLog->start();
+    }
     Log * result = spLog;
     return result;
 }
@@ -152,6 +167,7 @@ void logMessageHandler(QtMsgType type,
               const QString &message)
 {
     LogMessage tLM(type, context, message.toLocal8Bit());
+    LOG()->enqueueMessage(tLM);
     std::printf("%s", qPrintable(tLM.message()));
 }
 

@@ -9,7 +9,10 @@ LogMessage::LogMessage(QtMsgType type,
     , mFileName(context.file)
     , mFuncName(context.function)
     , mFileLine(context.line)
-    , mMessage(msg) {;}
+    , mMessage(msg)
+{
+    ;
+}
 
 bool LogMessage::isNull() const
 {
