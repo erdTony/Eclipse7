@@ -3,8 +3,9 @@
 #include <QStackedLayout>
 #include <QWidget>
 
+#include <BaseWidgetApplication.h>
+
 #include "BaseMainWindowPage.h"
-#include "BaseWidgetApplication.h"
 
 MainWindowPageStack::MainWindowPageStack(BaseWidgetApplication *pBWA)
     : QMainWindow{}

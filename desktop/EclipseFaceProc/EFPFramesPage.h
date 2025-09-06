@@ -4,6 +4,7 @@
 
 #include <GalleryProperties.h>
 class Gallery;
+class Label;
 class Url;
 
 class EFPFramesPage : public BaseMainWindowPage
@@ -32,6 +33,8 @@ public: // pointers
 
 
 private:
+    Label * mpFrameLabel=nullptr;
+    Label * mpDetectLabel=nullptr;
     Gallery * mpGallery=nullptr;
     GalleryProperties mGalleryProperties;
 };

@@ -61,8 +61,6 @@ QPixmap GalleryCell::generate(const QImage &orig, const QColor border)
     QPainter tPainter;
     Q_ASSERT(tPainter.begin(&result));
     tPainter.fillRect(SCRect(result.size()).toQRect(),
-                 props().itemBackground());
-    tPainter.fillRect(SCRect(result.size()).toQRect(),
                       props().itemBackground());
     SCRect tSrcRect(Size(orig.size()).min());
     SCRect tDstRect(props().itemPixelSize(),

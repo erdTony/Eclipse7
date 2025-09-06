@@ -2,8 +2,7 @@ QT += core
 QT += gui
 QT += widgets
 CONFIG += c++23
-DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 include(../desktop.pri)
 include(../../useBase.pri)
 include(../../useType.pri)
@@ -35,3 +34,7 @@ DISTFILES +=
 
 RESOURCES += \
     EclipseFaceProc.qrc
+
+win32: LIBS += -L$$PWD/../../../../3rdParty/OpenCV4/x64/mingw/lib/ -llibopencv_objdetect4100.dll
+INCLUDEPATH += $$PWD/../../../../3rdParty/OpenCV4/include/opencv2/objdetect
+DEPENDPATH += $$PWD/../../../../3rdParty/OpenCV4/include/opencv2/objdetect

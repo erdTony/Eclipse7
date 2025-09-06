@@ -13,7 +13,6 @@ include (../../useExe.pri)
 
 SOURCES += \
     BaseMainWindowPage.cpp \
-    BaseWidgetApplication.cpp \
     BinarySpinBox.cpp \
     Gallery.cpp \
     GalleryCell.cpp \
@@ -31,7 +30,6 @@ SOURCES += \
 
 HEADERS += \
     BaseMainWindowPage.h \
-    BaseWidgetApplication.h \
     BinarySpinBox.h \
     Gallery.h \
     GalleryCell.h \

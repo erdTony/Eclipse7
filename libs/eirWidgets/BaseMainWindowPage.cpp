@@ -14,6 +14,7 @@ BaseMainWindowPage::BaseMainWindowPage(const QString &n,
     setObjectName("SplashPage:" + n);
     Q_CHECK_PTR(pMWPS);
     name(n);
+    setLayout(pageGrid());
 }
 
 void BaseMainWindowPage::name(const QString n)

@@ -1,5 +1,6 @@
 QT *= core
 QT *= gui
+QT *= widgets
 TEMPLATE = lib
 DEFINES += EIREXE_LIBRARY
 CONFIG += c++23
@@ -13,8 +14,11 @@ include(../../useCore.pri)
 
 SOURCES += \
     ActionManager.cpp \
+    BaseWidgetApplication.cpp \
     CommandLine.cpp \
     ExeSupport.cpp \
+    MainMenu.cpp \
+    MainToolBar.cpp \
     Options.cpp \
     Random.cpp \
     Settings.cpp \
@@ -22,8 +26,11 @@ SOURCES += \
 
 HEADERS += \
     ActionManager.h \
+    BaseWidgetApplication.h \
     CommandLine.h \
     ExeSupport.h \
+    MainMenu.h \
+    MainToolBar.h \
     Options.h \
     Random.h \
     Settings.h \

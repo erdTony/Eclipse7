@@ -39,6 +39,11 @@ void EFPMainWindow::setup()
     qDebug() << Q_FUNC_INFO << "exit";
 }
 
+void EFPMainWindow::start()
+{
+
+}
+
 bool EFPMainWindow::event(QEvent *pEvent)
 {
     Q_CHECK_PTR(pEvent);

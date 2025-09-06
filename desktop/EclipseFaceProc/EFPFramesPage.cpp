@@ -8,10 +8,13 @@
 #include <MainWindowPageStack.h>
 #include <Gallery.h>
 #include <GalleryProperties.h>
+#include <Label.h>
 #include <Url.h>
 
 EFPFramesPage::EFPFramesPage(MainWindowPageStack *pMWPS)
     : BaseMainWindowPage{"Frames", pMWPS}
+    , mpFrameLabel(new Label(Size(512), Qt::darkGreen))
+    , mpDetectLabel(new Label(Size(512), Qt::darkBlue))
     , mpGallery(new Gallery(this))
 {
     qDebug() << Q_FUNC_INFO;
@@ -25,13 +28,13 @@ void EFPFramesPage::setup()
     readSettingsProperties();
     props().calculateFromFrame(pageStack()->minimumSize());
     qDebug() << props().galleryItems() << props().galleryPixelSize();
-    setSize(QSizePolicy::MinimumExpanding, props().galleryPixelSize());
 
+    pageGrid()->addWidget(mpFrameLabel, 0, 0, 1, 1);
+    pageGrid()->addWidget(mpDetectLabel, 0, 1, 1, 1);
+
+    //setSize(QSizePolicy::MinimumExpanding, props().galleryPixelSize());
     gallery()->setup(props());
-
-    QBoxLayout * pBox = new QHBoxLayout(); Q_CHECK_PTR(pBox);
-    QWidget::setLayout(pBox);
-    pBox->addWidget(gallery()->widget());
+    pageGrid()->addWidget(gallery()->widget(), 1, 0, 1, 2);
     qDebug() << Q_FUNC_INFO << props().galleryPixelSize() << "exit";
 }
 

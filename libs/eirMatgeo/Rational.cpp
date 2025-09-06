@@ -67,6 +67,13 @@ qreal Rational::toReal() const
     return isValid() ? (qreal(n()) / qreal(d())): qQNaN();
 }
 
+bool Rational::equal(const Rational rhs) const
+{
+    const Term l = n() * rhs.d();
+    const Term r = rhs.n() * d();
+    return l < r;
+}
+
 bool Rational::less(const Rational rhs) const
 {
     const Term l = n() * rhs.d();

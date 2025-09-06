@@ -24,8 +24,10 @@ public: // const
     Rational divided(const Term aDen) const;
     Term toInt() const;
     qreal toReal() const;
+    bool equal(const Rational rhs) const;
     bool less(const Rational rhs) const;
     operator qreal () const;
+    bool operator == (const Rational other);
     bool operator < (const Rational other);
 
 public: // non-const
@@ -52,6 +54,7 @@ inline Rational::Term Rational::n() const { return mNumerator; }
 inline Rational::Term Rational::d() const { return mDenominator; }
 inline Rational::Term Rational::invalidTerm() { return smInvalidTerm; }
 inline Rational::operator qreal() const { return toReal(); }
+inline bool Rational::operator ==(const Rational other) { return equal(other); }
 inline bool Rational::operator <(const Rational other) { return less(other); }
 inline void Rational::n(const Term aNum) { mNumerator = aNum; }
 inline void Rational::d(const Term aDen) { mDenominator = aDen; }
