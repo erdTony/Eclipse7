@@ -1,3 +1,3 @@
-#include "eirgui.h"
+#include "eirGui.h"
 
 eirGui::eirGui() {}

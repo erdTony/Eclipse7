@@ -1,5 +1,6 @@
 QT += core
 QT += gui
+QT += widgets
 QT += network
 TEMPLATE = lib
 DEFINES += EIRBASE_LIBRARY
@@ -11,6 +12,7 @@ include(../libs.pri)
 SOURCES += \
     AText.cpp \
     ATextList.cpp \
+    BaseWidgetApplication.cpp \
     Bytes.cpp \
     CText.cpp \
     CTextList.cpp \
@@ -18,6 +20,7 @@ SOURCES += \
     FSText.cpp \
     FSTextList.cpp \
     FourCC.cpp \
+    MainWindowPageStack.cpp \
     MillisecondTime.cpp \
     NibbleArray.cpp \
     TriBool.cpp \
@@ -29,17 +32,18 @@ SOURCES += \
 HEADERS += \
     AText.h \
     ATextList.h \
+    BaseWidgetApplication.h \
     Bytes.h \
     CText.h \
     CTextList.h \
     DataProperty.h \
-    DualMap.h \
     EightCC.h \
     Enumeration.h \
     FSText.h \
     FSTextList.h \
     FourCC.h \
     List.h \
+    MainWindowPageStack.h \
     MillisecondTime.h \
     NibbleArray.h \
     TriBool.h \

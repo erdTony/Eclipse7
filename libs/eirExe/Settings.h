@@ -1,6 +1,12 @@
-#pragma once
+ #pragma once
 
 #include <QObject>
+
+class QSettings;
+
+#include <Value.h>
+class Key;
+class KeyValueMap;
 
 class Settings : public QObject
 {
@@ -17,7 +23,11 @@ public slots:
 signals:
 
 public: // const
-
+    bool contains(const Key &key);
+    Value operator [] (const Key &key);
+    Value value(const Key &key, const Value fallback=Value());
+    KeyValueMap extract();
+    KeyValueMap extract(const Key &group);
 
 public: // non-const
 
@@ -26,6 +36,6 @@ public: // pointers
 
 
 private:
-
+    QSettings * mpSettings=nullptr;
 
 };

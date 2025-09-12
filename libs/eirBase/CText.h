@@ -6,6 +6,8 @@
 
 #include <QList>
 
+/*! class CText Code Text
+ */
 class EIRBASE_EXPORT CText : public AText
 {
 public: // types
@@ -13,6 +15,7 @@ public: // types
 
 public: // ctors
     CText();
+    CText(const char ch);
     CText(const char * pch);
     CText(const QByteArray &ba);
     CText(const QString &s);

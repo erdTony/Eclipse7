@@ -11,14 +11,14 @@ include(../../useBase.pri)
 include(../../useType.pri)
 include(../../useMatgeo.pri)
 include(../../useCore.pri)
+include(../../useGui.pri)
 
 SOURCES += \
     ActionManager.cpp \
-    BaseWidgetApplication.cpp \
     CommandLine.cpp \
     ExeSupport.cpp \
     MainMenu.cpp \
-    MainToolBar.cpp \
+    MenuItem.cpp \
     Options.cpp \
     Random.cpp \
     Settings.cpp \
@@ -26,11 +26,10 @@ SOURCES += \
 
 HEADERS += \
     ActionManager.h \
-    BaseWidgetApplication.h \
     CommandLine.h \
     ExeSupport.h \
     MainMenu.h \
-    MainToolBar.h \
+    MenuItem.h \
     Options.h \
     Random.h \
     Settings.h \
@@ -42,3 +41,6 @@ unix {
     target.path = /usr/lib
 }
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    ../../useGui.pri

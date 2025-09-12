@@ -104,6 +104,19 @@ QDateTime MillisecondTime::toDateTime(void) const
     return QDateTime::fromMSecsSinceEpoch(mEpochMS);
 }
 
+QString MillisecondTime::toSecString(const Milliseconds roll) const
+{
+    QString result("###????");
+    if (mEpochMS == 0)
+        result = "-0-";
+    else if (mEpochMS >= roll)
+        result = QString("%1.%2 sec").arg(mEpochMS / 1000).arg((mEpochMS % 1000) / 100, 1, 10);
+    else
+        result = QString("%1 ms").arg(mEpochMS, 4);
+    return result;
+
+}
+
 QString MillisecondTime::toString(const QString & format) const
 {
     return toDateTime().toString(format.isEmpty()

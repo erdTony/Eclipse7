@@ -23,7 +23,8 @@ HEADERS += \
     EFPApplication.h \
     EFPFramesPage.h \
     EFPMainWindow.h \
-    EFPSplashPage.h
+    EFPSplashPage.h \
+    version.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

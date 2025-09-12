@@ -29,6 +29,12 @@ AText::Pair AText::pair(const char ch) const
     return Pair(tKey, tValue);
 }
 
+void AText::set(const char ch)
+{
+    clear();
+    QByteArray::append(isValidChar(ch) ? ch : '~');
+}
+
 void AText::set(const char *pch)
 {
     clear();

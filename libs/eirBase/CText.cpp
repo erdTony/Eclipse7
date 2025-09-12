@@ -5,6 +5,7 @@
 char CText::smHingeChar = ' ';
 
 CText::CText() {;}
+CText::CText(const char ch) : AText(ch) {;}
 CText::CText(const char *pch) : AText(pch) {;}
 CText::CText(const QByteArray &ba) : AText(ba) {;}
 CText::CText(const QString &s) : AText(s) {;}

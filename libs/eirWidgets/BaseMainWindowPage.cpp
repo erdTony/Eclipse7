@@ -23,7 +23,8 @@ void BaseMainWindowPage::name(const QString n)
     emit nameChanged(mName);
 }
 
-void BaseMainWindowPage::setSize(const QSizePolicy::Policy szp, const Size sz1, const Size sz2)
+void BaseMainWindowPage::setSize(const QSizePolicy::Policy szp,
+                                 const QSize sz1, const QSize sz2)
 {
     if ((int)szp & QSizePolicy::GrowFlag)
     {

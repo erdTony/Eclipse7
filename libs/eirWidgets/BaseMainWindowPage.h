@@ -31,7 +31,7 @@ public: // const
 public: // non-const
     void pageIndex(const Index ix);
     void setSize(const QSizePolicy::Policy szp,
-                 const Size sz1=Size(), const Size sz2=Size());
+                 const QSize sz1=Size(), const QSize sz2=Size());
 
 public: // pointers
     MainWindowPageStack * pageStack();

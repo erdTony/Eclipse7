@@ -12,7 +12,7 @@ class EFPMainWindow : public MainWindowPageStack
     Q_OBJECT
 
 public:
-    EFPMainWindow(BaseWidgetApplication *bwa);
+    EFPMainWindow();
     ~EFPMainWindow();
 
 public slots:

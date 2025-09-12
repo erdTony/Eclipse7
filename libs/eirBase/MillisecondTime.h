@@ -19,6 +19,7 @@ public: // const
     bool isValid(void) const;
     MillisecondTime delta(MillisecondTime ems=current()) const;
     QDateTime toDateTime(void) const;
+    QString toSecString(const Milliseconds roll=1500) const;
     QString toString(const QString & format=QString()) const;
     QString timeString(const bool msec=false) const;
     operator Milliseconds(void) const;

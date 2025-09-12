@@ -9,7 +9,7 @@ include (../../useBase.pri)
 include (../../useType.pri)
 include (../../useMatgeo.pri)
 include (../../useCore.pri)
-include (../../useExe.pri)
+#include (../../useExe.pri)
 
 SOURCES += \
     BaseMainWindowPage.cpp \
@@ -23,7 +23,6 @@ SOURCES += \
     LabelMap.cpp \
     LineEdit.cpp \
     LineEditMap.cpp \
-    MainWindowPageStack.cpp \
     MsecSpinBox.cpp \
     SplashPage.cpp \
     eirWidgets.cpp
@@ -40,7 +39,6 @@ HEADERS += \
     LabelMap.h \
     LineEdit.h \
     LineEditMap.h \
-    MainWindowPageStack.h \
     MsecSpinBox.h \
     SplashPage.h \
     eirWidgets.h \

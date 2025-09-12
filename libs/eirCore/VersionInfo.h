@@ -68,7 +68,7 @@ public: // non-const
     void set(const quint8 maj, const quint16 min, const quint8 rls,
              const quint16 bch, const quint16 bld, const char * bnm,
              const char * app, const char * org,
-             const char * desc);
+             const char * proddesc);
     void company(const QString &co);
     void copyright(const QString &co);
     void legal(const QString &leg);

@@ -23,6 +23,7 @@ public:
 public: // const
     CText join(char ch=0) const;
     QStringList toStringList() const;
+    operator QStringList () const;
 
 
 public: // non-const
@@ -38,5 +39,6 @@ public: // pointers
 };
 
 
+inline CTextList::operator QStringList() const { return toStringList(); }
 inline CTextList CTextList::it() const { return *this; }
 inline CTextList &CTextList::it() { return *this; }

@@ -9,15 +9,15 @@
 #include "EFPSplashPage.h"
 
 
-EFPMainWindow::EFPMainWindow(BaseWidgetApplication *bwa)
-    : MainWindowPageStack(bwa)
+EFPMainWindow::EFPMainWindow()
+    : MainWindowPageStack()
 {
     qDebug() << Q_FUNC_INFO;
     setObjectName("EFPMainWindow:" + QApplication::applicationName());
     QTimer::singleShot(250, this, &EFPMainWindow::setup);
 }
 
-EFPMainWindow::~EFPMainWindow() {}
+EFPMainWindow::~EFPMainWindow() {;}
 
 void EFPMainWindow::setup()
 {

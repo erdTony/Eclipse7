@@ -13,20 +13,27 @@ SOURCES += \
     Key.cpp \
     KeySeg.cpp \
     KeySegList.cpp \
+    KeyValueMap.cpp \
     Null.cpp \
     ObjectHelper.cpp \
+    UidKeyMap.cpp \
+    Value.cpp \
     eirType.cpp
 
 HEADERS += \
+    DualMap.h \
     Ident.h \
     IdentMap.h \
     Key.h \
     KeyMap.h \
     KeySeg.h \
     KeySegList.h \
+    KeyValueMap.h \
     Null.h \
     ObjectHelper.h \
     Queue.h \
+    UidKeyMap.h \
+    Value.h \
     eirType.h \
     eirType_global.h
 

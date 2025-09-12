@@ -2,89 +2,41 @@
 
 #include <QCoreApplication>
 
+#include <CTextList.h>
 
 #include "ActionManager.h"
 #include "CommandLine.h"
-#include "CTextList.h"
 #include "Options.h"
 #include "Random.h"
 #include "Settings.h"
 
-ExeSupport::ExeSupport(QCoreApplication *app)
-    : mpCoreApplication(app)
-    , mpActionManager(new ActionManager(app))
-    , mpCommandLine(new CommandLine(app))
-    , mpOptions(new Options(app))
-    , mpRandom(new Random(app))
-    , mpSettings(new Settings(app))
+ExeSupport::ExeSupport(QCoreApplication *capp)
+    : mpConsoleApplication(capp)
 {
+    initialize(capp);
 }
 
-bool ExeSupport::contains(const CText &name)
+ExeSupport::ExeSupport(QApplication *wapp)
+    : mpWidgetApplication(wapp)
 {
-    return false; // TODO ExeSupport::contains(name)
+    initialize((QObject *)(wapp));
 }
 
-QString ExeSupport::positional(const CText &name)
+void ExeSupport::initialize(QObject * parent)
 {
-
-    return QString(); // TODO ExeSupport::positional(name)
+    mpActionManager = new ActionManager(parent);
+    mpCommandLine = new CommandLine(parent);
+    mpOptions = new Options(parent);
+    mpRandom = new Random(parent);
+    mpSettings = new Settings(parent);
+    Q_CHECK_PTR(mpActionManager);
+    Q_CHECK_PTR(mpCommandLine);
+    Q_CHECK_PTR(mpOptions);
+    Q_CHECK_PTR(mpRandom);
+    Q_CHECK_PTR(mpSettings);
 }
 
-QString ExeSupport::positional(const Index ix)
-{
-
-    return QString(); // TODO ExeSupport::positional(ix)
-}
-
-void ExeSupport::add(const QCommandLineOption opt)
-{
-    opts()->add(opt);
-}
-
-void ExeSupport::add(const OptionList opts)
-{
-    foreach (const QCommandLineOption cOpt, opts) add(cOpt);
-}
-
-void ExeSupport::addOption(const CText &name)
-{
-    opts()->add(QCommandLineOption(name()));
-}
-
-void ExeSupport::addOption(const CTextList &names)
-{
-    opts()->add(QCommandLineOption(names.toStringList()));
-}
-
-void ExeSupport::addOption(const CText &name, const QString &desc)
-{
-    opts()->add(QCommandLineOption(name(), desc));
-}
-
-void ExeSupport::addPositional(const CText &name, const QString &desc)
-{
-    opts()->add(name, desc);
-}
-
-void ExeSupport::addOption(const CTextList &names, const QString &desc)
-{
-    opts()->add(QCommandLineOption(names.toStringList(), desc));
-}
-
-void ExeSupport::addShowOptions()
-{
-    addOption(CText("showmin"), "Show Applicaion Minimized to Tray");
-    addOption(CText("showmax"), "Show Applicaion Maximized to Screen");
-    addOption(CText("shownorm"), "Show Applicaion as Normal Window");
-}
-
-void ExeSupport::addHelpVerOptions()
-{
-    opts()->addHelp();
-    opts()->addVersion();
-}
-
+/*
 void ExeSupport::setup()
 {
     opts()->setup();
@@ -103,3 +55,5 @@ void ExeSupport::execute()
     act()->execute();
 
 }
+*/
+

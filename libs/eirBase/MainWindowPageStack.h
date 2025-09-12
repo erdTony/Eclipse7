@@ -1,13 +1,13 @@
 #pragma once
-#include "eirWidgets.h"
+#include "eirBase.h"
 
 
 #include <QMainWindow>
 
 #include <QList>
+#include <QSize>
 #include <QString>
 
-#include <Size.h>
 #include <Types.h>
 
 class BaseMainWindowPage;
@@ -18,29 +18,30 @@ class QSizePolicy;
 class QTabWidget;
 class QWidget;
 
-class EIRWIDGETS_EXPORT MainWindowPageStack : public QMainWindow
+class EIRBASE_EXPORT MainWindowPageStack : public QMainWindow
 {
     Q_OBJECT
 public: // ctors
-    explicit MainWindowPageStack(BaseWidgetApplication *pBWA);
+    explicit MainWindowPageStack();
 
 public slots:
     void setup();
     void select(BaseMainWindowPage * pBMWP);
-    void updateSizes(const Size minSize, const Size maxSize);
+    void updateSizes(const QSize minSize, const QSize maxSize);
 
 signals:
     void added(const QString n, BaseMainWindowPage * pBMWP);
     void removing(BaseMainWindowPage * pBMWP);
     void removed(const QString n);
+    void activated(const Index ix);
 
 public: // const
     Index nameIndex(BaseMainWindowPage * pBMWP) const;
     Index nameIndex(const QString n) const;
     bool isValidIndex(const Index ix);
-    Size minimumSize() const;
-    Size maximumSize() const;
-    Size clientSize() const;
+    QSize minimumSize() const;
+    QSize maximumSize() const;
+    QSize clientSize() const;
 
 public: // non-const
     Index add(BaseMainWindowPage * pBMWP);
@@ -48,36 +49,33 @@ public: // non-const
     bool remove(const Index ix);
 
 public: // pointers
-    BaseWidgetApplication* app();
     QTabWidget * tabs();
-    QStackedLayout* stackLayout();
+    QStackedLayout* stack();
     QGridLayout* mainGrid();
     QWidget* stackWidget();
-    Size & minimumSize();
-    Size & maximumSize();
+    QSize & minimumSize();
+    QSize & maximumSize();
 
 private slots:
 
 private:
-    BaseWidgetApplication* mpApp=nullptr;
     QStackedLayout* mpStackLayout=nullptr;
     QGridLayout* mpMainGrid=nullptr;
     QTabWidget * mpTabWidget=nullptr;
     QWidget* mpStackWidget=nullptr;
     QList<BaseMainWindowPage *> mPageList;
-    Size mMinimumSize;
-    Size mMaximumSize;
+    QSize mMinimumSize;
+    QSize mMaximumSize;
 };
 
-inline Size MainWindowPageStack::minimumSize() const { return mMinimumSize; }
-inline Size MainWindowPageStack::maximumSize() const { return mMaximumSize; }
-inline Size MainWindowPageStack::clientSize() const { return contentsRect().size(); }
-inline BaseWidgetApplication *MainWindowPageStack::app() { q_check_ptr(mpApp); return mpApp; }
+inline QSize MainWindowPageStack::minimumSize() const { return mMinimumSize; }
+inline QSize MainWindowPageStack::maximumSize() const { return mMaximumSize; }
+inline QSize MainWindowPageStack::clientSize() const { return contentsRect().size(); }
 inline QTabWidget *MainWindowPageStack::tabs() { q_check_ptr(mpTabWidget); return mpTabWidget; }
-inline QStackedLayout *MainWindowPageStack::stackLayout() { q_check_ptr(mpStackLayout); return mpStackLayout; }
+inline QStackedLayout *MainWindowPageStack::stack() { q_check_ptr(mpStackLayout); return mpStackLayout; }
 inline QGridLayout *MainWindowPageStack::mainGrid(){ q_check_ptr(mpMainGrid); return mpMainGrid; }
 inline QWidget *MainWindowPageStack::stackWidget() { q_check_ptr(mpStackWidget); return mpStackWidget; }
-inline Size &MainWindowPageStack::minimumSize() { return mMinimumSize; }
-inline Size &MainWindowPageStack::maximumSize() { return mMaximumSize; }
+inline QSize &MainWindowPageStack::minimumSize() { return mMinimumSize; }
+inline QSize &MainWindowPageStack::maximumSize() { return mMaximumSize; }
 
 

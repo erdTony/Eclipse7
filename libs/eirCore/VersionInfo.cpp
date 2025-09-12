@@ -6,10 +6,10 @@ class VersionInfoData : public QSharedData
 {
 public:
     quint8            d_major;        // 0..99
-    quint16            d_minor;        // 0..999
+    quint16           d_minor;        // 0..999
     quint8            d_release;      // _A..Z,AA..WW,X0..9A..X,0xA?,0xB?,0xC?,0xF?
-    quint16            d_branch;       // 0001..4999 Issue, 5001..5999 Customer
-    quint16            d_build;        // ++at Develop,Current,Release,Main
+    quint16           d_branch;       // 0001..4999 Issue, 5001..5999 Customer
+    quint16           d_build;        // ++at Develop,Current,Release,Main
     QString           d_branchname;
     QString           d_appname;
     QString           d_appdesc;
@@ -18,7 +18,7 @@ public:
     QString           d_company;
     QString           d_copyright;
     QString           d_legal;
-    QVersionNumber  d_qtVersion;
+    QVersionNumber    d_qtVersion;
     VersionInfo::WindowsVersion  d_windowsVersion;
     VersionInfo::LinuxVersion    d_linuxVersion;
 };
@@ -220,14 +220,14 @@ void VersionInfo::set(const VersionInfo &vi)
 }
 
 void VersionInfo::set(const quint8 maj, const quint16 min,
-        const quint8 rls, const quint16 bch, const quint16 bld,
-        const char *bnm, const char *app,
-        const char *org, const char *desc)
+                      const quint8 rls, const quint16 bch, const quint16 bld,
+                      const char *bnm, const char *app,
+                      const char *org, const char *proddesc)
 {
     data->d_major = maj, data->d_minor = min, data->d_release = rls,
         data->d_branch = bch, data->d_build = bld;
     data->d_branchname = QString(bnm), data->d_appname = QString(app),
-        data->d_orgname = QString(org), data->d_appdesc = QString(desc);
+        data->d_orgname = QString(org), data->d_appdesc = QString(proddesc);
     data->d_linuxVersion = LinuxVersion{maj, min, rls};
     setQt();
     setWindows();

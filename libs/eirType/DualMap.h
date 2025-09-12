@@ -14,16 +14,16 @@ public: // types
     typedef QList<B> BList;
     typedef QList<AB> ABList;
 
-public: // ctors
-    DualMap();
+public: // ctor
+    DualMap() {;}
     DualMap(const ABList abs) { set(abs); }
     DualMap(const ABList as, const ABList bs)  { set(as, bs); }
 
 public: // const
     Count count() const;
     bool isEmpty() const;
-    bool contains(const A &a) const;
-    bool contains(const B &b) const;
+    bool contains(const A &a) const { return mABMap.contains(a); }
+    bool contains(const B &b) const { return mBAMap.contains(b); }
     A a(const B &b) const;
     B b(const A &a) const;
     AList aList() const;
@@ -42,9 +42,9 @@ public: // non-const
 private:
     QMap<A, B> mABMap;
     QMap<B, A> mBAMap;
-}
+};
 
 
 
 template<typename A, typename B>
-inline Count DualMap<A, B>::count() const { Q_ASSERT(aList().count() == bList().count()); return aList.count(); }
+inline Count DualMap<A, B>::count() const { Q_ASSERT(mABMap.count() == mBAMap().count()); return mABMap.count(); }
