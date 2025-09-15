@@ -1,50 +1,63 @@
-#include "EFPMainWindow.h"
+#include "EfpMainWindow.h"
 
 #include <QApplication>
 #include <QEvent>
 #include <QKeyEvent>
 #include <QTimer>
 
-#include "EFPFramesPage.h"
-#include "EFPSplashPage.h"
+#include "EfpFramesPage.h"
+#include "EfpSplashPage.h"
 
 
-EFPMainWindow::EFPMainWindow()
+EfpMainWindow::EfpMainWindow()
     : MainWindowPageStack()
+    , mpSplashPage(new EfpSplashPage(this))
+    , mpFramesPage(new EfpFramesPage(this))
 {
     qDebug() << Q_FUNC_INFO;
     setObjectName("EFPMainWindow:" + QApplication::applicationName());
-    QTimer::singleShot(250, this, &EFPMainWindow::setup);
+    QTimer::singleShot(250, this, &EfpMainWindow::setup);
 }
 
-EFPMainWindow::~EFPMainWindow() {;}
+EfpMainWindow::~EfpMainWindow() {;}
 
-void EFPMainWindow::setup()
+void EfpMainWindow::initialize()
+{
+    qDebug() << Q_FUNC_INFO;
+
+    Q_CHECK_PTR(mpSplashPage);
+    Q_CHECK_PTR(mpFramesPage);
+
+    Q_ASSERT(connect(this, &EfpMainWindow::keyEsc,
+                     this, &EfpMainWindow::handleEsc));
+    Q_ASSERT(connect(this, &EfpMainWindow::keyF1,
+                     this, &EfpMainWindow::handleF1));
+
+    emit initialized();
+}
+
+void EfpMainWindow::setup()
 {
     qDebug() << Q_FUNC_INFO;
     MainWindowPageStack::setup();
-    mpSplashPage = new EFPSplashPage(this);
-    Q_CHECK_PTR(mpSplashPage);
+    setWindowTitle("EclipseIR Face Processor");
     mpSplashPage->setup();
     add(mpSplashPage);
-    mpFramesPage = new EFPFramesPage(this);
-    Q_CHECK_PTR(mpFramesPage);
     mpFramesPage->setup();
     add(mpFramesPage);
     show();
-    Q_ASSERT(connect(this, &EFPMainWindow::keyEsc,
-                     this, &EFPMainWindow::handleEsc));
-    Q_ASSERT(connect(this, &EFPMainWindow::keyF1,
-                     this, &EFPMainWindow::handleF1));
     qDebug() << Q_FUNC_INFO << "exit";
+    emit setupd();
 }
 
-void EFPMainWindow::start()
+void EfpMainWindow::start()
 {
+    qDebug() << Q_FUNC_INFO;
 
+    emit started();
 }
 
-bool EFPMainWindow::event(QEvent *pEvent)
+bool EfpMainWindow::event(QEvent *pEvent)
 {
     Q_CHECK_PTR(pEvent);
     if (pEvent->type() == QEvent::KeyRelease)
@@ -53,20 +66,21 @@ bool EFPMainWindow::event(QEvent *pEvent)
         return QWidget::event(pEvent);
 }
 
-void EFPMainWindow::handleEsc()
+void EfpMainWindow::handleEsc()
 {
     qInfo() << Q_FUNC_INFO;
     select(mpSplashPage);
 }
 
-void EFPMainWindow::handleF1()
+void EfpMainWindow::handleF1()
 {
     qInfo() << Q_FUNC_INFO;
     select(mpFramesPage);
 }
 
-bool EFPMainWindow::handleKeyEvent(QEvent *pEvent)
+bool EfpMainWindow::handleKeyEvent(QEvent *pEvent)
 {
+    qDebug() << Q_FUNC_INFO;
     QKeyEvent * pKeyEvent = (QKeyEvent *)pEvent;
     const int cKey = pKeyEvent->key();
     qInfo() << Q_FUNC_INFO << cKey;

@@ -2,40 +2,50 @@
 
 #include <BaseWidgetApplication.h>
 
-#include <ExeSupport.h>
 #include <Url.h>
 
-class EFPMainWindow;
+class EfpMainWindow;
 
-class EFPApplication : public BaseWidgetApplication
+#define APP EfpApplication::app()
+#define AMW EfpApplication::main()
+
+class EfpApplication : public BaseWidgetApplication
 {
     Q_OBJECT
 public: // ctors
-    EFPApplication(int &argc, char **argv);
+    EfpApplication(int &argc, char **argv);
 
 public slots:
+    void initialize();
     void setup();
     void start();
     void resume();
 
 signals:
+    void initialized();
+    void setupd();
+    void started();
+    void resumed();
 
 public: // const
+    Url inputUrl() const;
 
 public: // non-const
     void set(const Url &inputUrl);
 
 public: // pointers
-    EFPMainWindow * mainWindow();
-    ExeSupport & exe();
+    static EfpApplication * app();
+    EfpMainWindow * main();
 
 
 private:
-    EFPMainWindow * mpMainWindow=nullptr;
+    static EfpApplication * mpInstance;
+    EfpMainWindow * mpMainWindow=nullptr;
     ExeSupport mExeSupport;
     Url mInputUrl;
 };
 
-inline void EFPApplication::set(const Url &inputUrl) { mInputUrl = inputUrl; }
-inline EFPMainWindow *EFPApplication::mainWindow() { Q_CHECK_PTR(mpMainWindow); return mpMainWindow; }
-inline ExeSupport &EFPApplication::exe() { return mExeSupport; }
+inline Url EfpApplication::inputUrl() const { return mInputUrl; }
+inline void EfpApplication::set(const Url &inputUrl) { mInputUrl = inputUrl; }
+inline EfpApplication *EfpApplication::app() { Q_CHECK_PTR(mpInstance); return mpInstance; }
+inline EfpMainWindow *EfpApplication::main() { Q_CHECK_PTR(mpMainWindow); return mpMainWindow; }
