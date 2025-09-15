@@ -1,5 +1,5 @@
 #pragma once
-#include "eirBase.h"
+#include "eirExe.h"
 
 
 #include <QMainWindow>
@@ -11,14 +11,13 @@
 #include <Types.h>
 
 class BaseMainWindowPage;
-class BaseWidgetApplication;
 class QGridLayout;
 class QStackedLayout;
 class QSizePolicy;
 class QTabWidget;
 class QWidget;
 
-class EIRBASE_EXPORT MainWindowPageStack : public QMainWindow
+class EIREXE_EXPORT MainWindowPageStack : public QMainWindow
 {
     Q_OBJECT
 public: // ctors
@@ -30,10 +29,13 @@ public slots:
     void updateSizes(const QSize minSize, const QSize maxSize);
 
 signals:
+    void setupd();
     void added(const QString n, BaseMainWindowPage * pBMWP);
+    void selected(const Index ix, const QString name);
+    void selectedPage(BaseMainWindowPage * pBMWP);
+    void activated(BaseMainWindowPage * pBMWP);
     void removing(BaseMainWindowPage * pBMWP);
     void removed(const QString n);
-    void activated(const Index ix);
 
 public: // const
     Index nameIndex(BaseMainWindowPage * pBMWP) const;

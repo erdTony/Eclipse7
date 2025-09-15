@@ -4,22 +4,26 @@
 
 #include <QEvent>
 
-class EFPFramesPage;
-class EFPSplashPage;
+class EfpFramesPage;
+class EfpSplashPage;
 
-class EFPMainWindow : public MainWindowPageStack
+class EfpMainWindow : public MainWindowPageStack
 {
     Q_OBJECT
 
 public:
-    EFPMainWindow();
-    ~EFPMainWindow();
+    EfpMainWindow();
+    ~EfpMainWindow();
 
 public slots:
+    void initialize();
     void setup();
     void start();
 
 signals:
+    void initialized();
+    void setupd();
+    void started();
     void keyEsc();
     void keyF1();
 
@@ -35,8 +39,8 @@ private:
 
 
 private:
-    EFPSplashPage * mpSplashPage;
-    EFPFramesPage * mpFramesPage;
+    EfpSplashPage * mpSplashPage;
+    EfpFramesPage * mpFramesPage;
 };
 
 

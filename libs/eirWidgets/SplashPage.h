@@ -13,7 +13,7 @@ class EIRWIDGETS_EXPORT SplashPage : public BaseMainWindowPage
 {
     Q_OBJECT
 public: // ctors
-    SplashPage(const QString name, MainWindowPageStack * pMWS=nullptr);
+    SplashPage(const QString name);
 
 public slots:
 

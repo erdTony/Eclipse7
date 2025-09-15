@@ -16,6 +16,7 @@ Gallery::Gallery(QWidget *parent)
     , mpGrid(new GalleryGrid(this))
     , mpGalleryWidget(new QWidget(parent))
 {
+    qDebug() << Q_FUNC_INFO;
     setObjectName("Gallery");
 }
 
@@ -30,6 +31,7 @@ void Gallery::setup(const GalleryProperties gp)
 
 void Gallery::add(const QImage &qi)
 {
+    qDebug() << Q_FUNC_INFO;
     GalleryCell * pCell = grid()->cell(mCurrentIndex);
     pCell->generate(qi);
     mCurrentIndex = ++mCurrentIndex % grid()->count();

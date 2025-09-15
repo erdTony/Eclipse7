@@ -1,4 +1,4 @@
-#include "EFPSplashPage.h"
+#include "EfpSplashPage.h"
 
 #include <QHBoxLayout>
 #include <QImage>
@@ -9,8 +9,8 @@
 #include <BaseMainWindowPage.h>
 #include <Label.h>
 
-EFPSplashPage::EFPSplashPage(MainWindowPageStack *pMWPS)
-    : BaseMainWindowPage{"EFP", pMWPS}
+EfpSplashPage::EfpSplashPage(QWidget *parent)
+    : BaseMainWindowPage{"EFP", parent}
     , mpEircLabel(new Label("EIRC"))
     , mpIndiLabel(new Label("INDI"))
     , mpEfpLabel(new Label("Efp"))
@@ -19,7 +19,7 @@ EFPSplashPage::EFPSplashPage(MainWindowPageStack *pMWPS)
     setObjectName("EFPSplashPage");
 }
 
-void EFPSplashPage::setup()
+void EfpSplashPage::setup()
 {
     Q_CHECK_PTR(mpEircLabel);
     Q_CHECK_PTR(mpIndiLabel); Q_CHECK_PTR(mpEfpLabel);
@@ -44,8 +44,13 @@ void EFPSplashPage::setup()
     pageGrid()->setColumnMinimumWidth(1, 512);
     pageGrid()->setRowMinimumHeight(0, cRow0Height);
     pageGrid()->setRowMinimumHeight(1, cRow1Height);
-    setSize(QSizePolicy::Minimum,
-            Size(1024, cRow0Height + cRow1Height));
+    setSizes(QSizePolicy::Minimum,
+             Size(1024, cRow0Height + cRow1Height));
     show();
     qDebug() << Q_FUNC_INFO << minimumSize() << "exit";
+}
+
+void EfpSplashPage::activate()
+{
+
 }

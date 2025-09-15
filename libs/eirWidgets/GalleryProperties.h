@@ -14,10 +14,10 @@
 #define GALLERY_DATAPROPS(TND) \
     TND(unsigned, modes, 0) \
     TND(Size, galleryPixelSize, Size()) \
-    TND(Size, itemPixelSize, Size()) \
-    TND(Size, cellPixelSize, Size()) \
-    TND(Size, spacingSize, Size()) \
-    TND(Count, selectionWidth, 0) \
+    TND(Size, itemPixelSize, Size(128)) \
+    TND(Size, cellPixelSize, Size(136)) \
+    TND(Size, spacingSize, Size(4)) \
+    TND(Count, selectionWidth, 4) \
     TND(Size, galleryItems, Size()) \
     TND(QColor, itemForeground, QColor(64, 64, 192)) \
     TND(QColor, itemBackground, QColor(64, 64, 160)) \

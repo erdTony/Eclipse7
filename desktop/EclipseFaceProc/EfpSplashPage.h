@@ -5,14 +5,15 @@
 
 class Label;
 
-class EFPSplashPage : public BaseMainWindowPage
+class EfpSplashPage : public BaseMainWindowPage
 {
     Q_OBJECT
 public: // ctors
-    explicit EFPSplashPage(MainWindowPageStack *pMWPS);
+    explicit EfpSplashPage(QWidget *parent=nullptr);
 
 public slots:
-    void setup();
+    virtual void setup();
+    virtual void activate();
 
 signals:
 

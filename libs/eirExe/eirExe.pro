@@ -12,12 +12,14 @@ include(../../useType.pri)
 include(../../useMatgeo.pri)
 include(../../useCore.pri)
 include(../../useGui.pri)
+include(../../useWidgets.pri)
 
 SOURCES += \
     ActionManager.cpp \
     CommandLine.cpp \
     ExeSupport.cpp \
     MainMenu.cpp \
+    MainWindowPageStack.cpp \
     MenuItem.cpp \
     Options.cpp \
     Random.cpp \
@@ -29,6 +31,7 @@ HEADERS += \
     CommandLine.h \
     ExeSupport.h \
     MainMenu.h \
+    MainWindowPageStack.h \
     MenuItem.h \
     Options.h \
     Random.h \

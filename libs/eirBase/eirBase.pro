@@ -20,7 +20,6 @@ SOURCES += \
     FSText.cpp \
     FSTextList.cpp \
     FourCC.cpp \
-    MainWindowPageStack.cpp \
     MillisecondTime.cpp \
     NibbleArray.cpp \
     TriBool.cpp \
@@ -43,7 +42,6 @@ HEADERS += \
     FSTextList.h \
     FourCC.h \
     List.h \
-    MainWindowPageStack.h \
     MillisecondTime.h \
     NibbleArray.h \
     TriBool.h \

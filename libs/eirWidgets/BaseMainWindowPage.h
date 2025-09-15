@@ -15,12 +15,14 @@ class EIRWIDGETS_EXPORT BaseMainWindowPage : public QWidget
 {
     Q_OBJECT
 public: // ctors
-    BaseMainWindowPage(const QString &n, MainWindowPageStack *pMWPS);
+    BaseMainWindowPage(const QString &n, QWidget *parent=nullptr);
 
 public slots:
-    void name(const QString n);
+    virtual void setup() = 0;
+    virtual void activate() = 0;
 
 signals:
+    void setupd();
     void nameChanged(const QString &n);
 
 public: // const
@@ -29,12 +31,14 @@ public: // const
     Size minimumSize() const;
 
 public: // non-const
+    void name(const QString n);
     void pageIndex(const Index ix);
-    void setSize(const QSizePolicy::Policy szp,
+    void setSizes(const QSizePolicy::Policy szp,
                  const QSize sz1=Size(), const QSize sz2=Size());
 
 public: // pointers
-    MainWindowPageStack * pageStack();
+    void stack(MainWindowPageStack * pMWPS);
+    MainWindowPageStack * stack();
     QGridLayout * pageGrid();
 
 private: // non-const
@@ -50,7 +54,9 @@ private:
 inline QString BaseMainWindowPage::name() const { return mName; }
 inline Index BaseMainWindowPage::pageIndex() const { return mPageIndex; }
 inline Size BaseMainWindowPage::minimumSize() const { return mMinimumSize; }
-inline MainWindowPageStack *BaseMainWindowPage::pageStack() { Q_CHECK_PTR(mpPageStack); return mpPageStack; }
-inline QGridLayout *BaseMainWindowPage::pageGrid() { Q_CHECK_PTR(mpPageGrid); return mpPageGrid; }
 inline void BaseMainWindowPage::pageIndex(const Index ix) { mPageIndex = ix; }
+inline MainWindowPageStack *BaseMainWindowPage::stack() { Q_CHECK_PTR(mpPageStack); return mpPageStack; }
+inline void BaseMainWindowPage::stack(MainWindowPageStack *pMWPS) { Q_CHECK_PTR(pMWPS); mpPageStack = pMWPS; }
+inline QGridLayout *BaseMainWindowPage::pageGrid() { Q_CHECK_PTR(mpPageGrid); return mpPageGrid; }
+
 

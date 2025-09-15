@@ -13,17 +13,19 @@ include(../../useWidgets.pri)
 include(../../useExe.pri)
 
 SOURCES += \
-    EFPApplication.cpp \
-    EFPFramesPage.cpp \
-    EFPMainWindow.cpp \
-    EFPSplashPage.cpp \
+    EfpApplication.cpp \
+    EfpFramesPage.cpp \
+    EfpImageReader.cpp \
+    EfpMainWindow.cpp \
+    EfpSplashPage.cpp \
     main.cpp
 
 HEADERS += \
-    EFPApplication.h \
-    EFPFramesPage.h \
-    EFPMainWindow.h \
-    EFPSplashPage.h \
+    EfpApplication.h \
+    EfpFramesPage.h \
+    EfpImageReader.h \
+    EfpMainWindow.h \
+    EfpSplashPage.h \
     version.h
 
 # Default rules for deployment.

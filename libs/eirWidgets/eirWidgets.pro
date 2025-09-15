@@ -9,7 +9,6 @@ include (../../useBase.pri)
 include (../../useType.pri)
 include (../../useMatgeo.pri)
 include (../../useCore.pri)
-#include (../../useExe.pri)
 
 SOURCES += \
     BaseMainWindowPage.cpp \

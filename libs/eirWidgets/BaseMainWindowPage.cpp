@@ -3,33 +3,31 @@
 #include <QSizePolicy>
 #include <QGridLayout>
 
-#include "MainWindowPageStack.h"
-
 BaseMainWindowPage::BaseMainWindowPage(const QString &n,
-                            MainWindowPageStack *pMWPS)
-    : QWidget(pMWPS)
-    , mpPageStack(pMWPS)
+                                       QWidget *parent)
+    : QWidget(parent)
     , mpPageGrid(new QGridLayout())
 {
+    qDebug() << Q_FUNC_INFO;
     setObjectName("SplashPage:" + n);
-    Q_CHECK_PTR(pMWPS);
     name(n);
     setLayout(pageGrid());
 }
 
 void BaseMainWindowPage::name(const QString n)
 {
+    qDebug() << Q_FUNC_INFO << n;
     mName = n;
     emit nameChanged(mName);
 }
 
-void BaseMainWindowPage::setSize(const QSizePolicy::Policy szp,
+void BaseMainWindowPage::setSizes(const QSizePolicy::Policy szp,
                                  const QSize sz1, const QSize sz2)
 {
+    qDebug() << Q_FUNC_INFO << szp << sz1 << sz2;
     if ((int)szp & QSizePolicy::GrowFlag)
     {
         setMinimumSize(sz1);
-        pageStack()->updateSizes(sz1, Size());
         Q_UNUSED(sz2);
     }
     // TODO BaseMainWindowPage::setSize() other policies
