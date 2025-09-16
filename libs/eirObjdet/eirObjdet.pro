@@ -52,3 +52,10 @@ unix {
     target.path = /usr/lib
 }
 !isEmpty(target.path): INSTALLS += target
+
+unix|win32: LIBS += -L$$PWD/../../../../3rdParty/OpenCV4/x64/mingw/lib/
+unix|win32: LIBS += -llibopencv_core4100.dll
+unix|win32: LIBS += -llibopencv_objdetect4100.dll
+
+INCLUDEPATH += $$PWD/../../../../3rdParty/OpenCV4/include
+DEPENDPATH += $$PWD/../../../../3rdParty/OpenCV4/include

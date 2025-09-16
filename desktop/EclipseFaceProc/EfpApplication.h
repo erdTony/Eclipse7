@@ -4,6 +4,8 @@
 
 #include <Url.h>
 
+class AppHelper;
+class EfpImageReader;
 class EfpMainWindow;
 
 #define APP EfpApplication::app()
@@ -31,21 +33,26 @@ public: // const
     Url inputUrl() const;
 
 public: // non-const
-    void set(const Url &inputUrl);
+    void inputUrl(const Url &url);
 
 public: // pointers
     static EfpApplication * app();
     EfpMainWindow * main();
+    EfpImageReader * reader();
+    AppHelper * wap();
 
 
 private:
     static EfpApplication * mpInstance;
     EfpMainWindow * mpMainWindow=nullptr;
-    ExeSupport mExeSupport;
+    EfpImageReader * mpImageReader=nullptr;
+    AppHelper * mpAppHelper=nullptr;
     Url mInputUrl;
 };
 
 inline Url EfpApplication::inputUrl() const { return mInputUrl; }
-inline void EfpApplication::set(const Url &inputUrl) { mInputUrl = inputUrl; }
+inline void EfpApplication::inputUrl(const Url &url) { mInputUrl = url; }
 inline EfpApplication *EfpApplication::app() { Q_CHECK_PTR(mpInstance); return mpInstance; }
 inline EfpMainWindow *EfpApplication::main() { Q_CHECK_PTR(mpMainWindow); return mpMainWindow; }
+inline EfpImageReader *EfpApplication::reader() { Q_CHECK_PTR(mpImageReader); return mpImageReader; }
+inline AppHelper *EfpApplication::wap()  { Q_CHECK_PTR(mpAppHelper); return mpAppHelper; }

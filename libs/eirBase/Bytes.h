@@ -26,7 +26,7 @@ public: // const
     DWORD dword() const;
     QWORD qword() const;
     OWORD oword() const;
-    SEWORD seword() const;
+//    SEWORD seword() const;
     QByteArray base64() const;
     AText aText() const;
 

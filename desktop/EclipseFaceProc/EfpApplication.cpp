@@ -2,7 +2,9 @@
 
 #include <QTimer>
 
+#include <AppHelper.h>
 
+#include "EfpImageReader.h"
 #include "EfpMainWindow.h"
 
 EfpApplication * EfpApplication::mpInstance = nullptr;
@@ -10,6 +12,7 @@ EfpApplication * EfpApplication::mpInstance = nullptr;
 
 EfpApplication::EfpApplication(int &argc, char **argv)
     : BaseWidgetApplication{argc, argv}
+    , mpAppHelper(new AppHelper(this))
 {
     qInfo() << Q_FUNC_INFO;
     Q_ASSERT(mpInstance == nullptr);
@@ -22,8 +25,9 @@ void EfpApplication::initialize()
 {
     qInfo() << Q_FUNC_INFO;
     mpMainWindow = new EfpMainWindow;
+    mpImageReader = new EfpImageReader(this);
     Q_CHECK_PTR(mpMainWindow);
-    exe().main(main());
+    Q_CHECK_PTR(mpImageReader);
 
     Q_ASSERT(connect(this, &EfpApplication::initialized,
                      main(), &EfpMainWindow::initialize));

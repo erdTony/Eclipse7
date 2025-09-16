@@ -25,7 +25,7 @@ AText::Pair AText::pair(const char ch) const
     else if (ix >= length() - 1)
         tKey = mid(0), tValue = "";
     else
-        tKey = first(ix -1), tValue = mid(ix + 1);
+        tKey = first(ix - 1), tValue = mid(ix + 1);
     return Pair(tKey, tValue);
 }
 

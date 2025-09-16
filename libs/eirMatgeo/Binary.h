@@ -7,20 +7,20 @@ class EIRMATGEO_EXPORT Binary
 {
 public:
     enum Round { $null = 0, down, closest, up};
-    typedef QPair<SEWORD, QString> ValueMod;
+    typedef QPair<OWORD, QString> ValueMod;
 
 public:
     Binary();
-    Binary(const SEWORD val, const Round r=$null);
+    Binary(const OWORD val, const Round r=$null);
 
 public: // const
     BYTE power() const;
-    SEWORD value() const;
+    OWORD value() const;
 
 public: // non-const
-    void set(const SEWORD val, Round r=$null);
+    void set(const OWORD val, Round r=$null);
     void power(const BYTE pow);
-    void value(SEWORD val);
+    void value(OWORD val);
     Binary predecrement();
     Binary preincrement();
     Binary operator -- ();
@@ -38,11 +38,11 @@ private: // pointers
 private:
     static Round smRound;
     BYTE mPower = 0;
-    SEWORD mValue = 1 << mPower;
+    OWORD mValue = 1 << mPower;
 };
 
 inline BYTE Binary::power() const { return mPower; }
-inline SEWORD Binary::value() const { return mValue; }
+inline OWORD Binary::value() const { return mValue; }
 inline Binary Binary::operator --() { return predecrement(); }
 inline Binary Binary::operator ++() { return preincrement(); }
 inline Binary::Round Binary::round() { return smRound; }

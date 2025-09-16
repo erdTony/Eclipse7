@@ -64,14 +64,14 @@ OWORD Bytes::oword() const
     std::memcpy(&result, data(), qMin(qsizetype(sizeof(result)), length()));
     return result;
 }
-
+/*
 SEWORD Bytes::seword() const
 {
     SEWORD result=0;
     std::memcpy(&result, data(), qMin(qsizetype(sizeof(result)), length()));
     return result;
 }
-
+*/
 QByteArray Bytes::base64() const
 {
     return toBase64();

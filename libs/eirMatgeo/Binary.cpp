@@ -3,13 +3,13 @@
 Binary::Round Binary::smRound = Binary::$null;
 
 Binary::Binary() : mPower(0), mValue(1) {;}
-Binary::Binary(const SEWORD val, const Round r) { set(val, r); }
+Binary::Binary(const OWORD val, const Round r) { set(val, r); }
 
-void Binary::set(const SEWORD val, Round r)
+void Binary::set(const OWORD val, Round r)
 {
     if ($null == r) r = round();
     value(val);
-    SEWORD tDiff = val - mValue;
+    OWORD tDiff = val - mValue;
     switch (($null == r) ? round() : r)
     {
     case $null:
@@ -24,7 +24,7 @@ void Binary::power(const BYTE pow)
     mPower = pow, mValue = 1 << pow;
 }
 
-void Binary::value(SEWORD val)
+void Binary::value(OWORD val)
 {
     mPower = 0;
     do

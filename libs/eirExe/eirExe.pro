@@ -16,8 +16,8 @@ include(../../useWidgets.pri)
 
 SOURCES += \
     ActionManager.cpp \
+    AppHelper.cpp \
     CommandLine.cpp \
-    ExeSupport.cpp \
     MainMenu.cpp \
     MainWindowPageStack.cpp \
     MenuItem.cpp \
@@ -28,8 +28,8 @@ SOURCES += \
 
 HEADERS += \
     ActionManager.h \
+    AppHelper.h \
     CommandLine.h \
-    ExeSupport.h \
     MainMenu.h \
     MainWindowPageStack.h \
     MenuItem.h \
