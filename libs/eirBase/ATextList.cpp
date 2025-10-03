@@ -39,15 +39,15 @@ AText ATextList::join(const char ch) const
     return result;
 }
 
-ATextList::Pair ATextList::split(const char ch) const
+ATextList::PairList ATextList::split(const char ch) const
 {
-    ATextList tLtList, tRtList;
-    foreach (const AText cTextIn, *this)
+    ATextList::PairList result;
+    foreach (const AText cATextIn, it())
     {
-        AText::Pair tPair = cTextIn.pair(ch);
-        tLtList << tPair.first, tRtList << tPair.second;
+        const AText::Pair cPair = cATextIn.pair(ch);
+        result.append(cPair);
     }
-    return Pair(tLtList, tRtList);
+    return result;
 }
 
 

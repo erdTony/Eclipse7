@@ -14,6 +14,7 @@ public: // ctors
     NibbleArray(const Count k, const BYTE * p);
 
 public: // const
+    virtual bool isNull() const;
     virtual Count length() const;
     virtual BYTE at(const Index ix) const;
     bool isZero() const;

@@ -13,7 +13,7 @@ class MenuItem
 {
 public: // ctors
     MenuItem();
-    MenuItem(const ID id, const QString &text, const Key key=Key());
+    MenuItem(const IdNo id, const QString &text, const Key key=Key());
 
 public: // const
 
@@ -22,7 +22,7 @@ public: // non-const
 public: // pointers
 
 private:
-    ID mSortId;
+    IdNo mSortId;
     Key mKey;
     QString mText;
     QString mName;

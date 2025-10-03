@@ -6,7 +6,7 @@ CONFIG += c++23
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include (../libs.pri)
-include (../../OpenCV4.pri)
+#include (../../OpenCV4.pri)
 include (../../useBase.pri)
 include (../../useType.pri)
 include (../../useMatgeo.pri)
@@ -53,9 +53,14 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
-unix|win32: LIBS += -L$$PWD/../../../../3rdParty/OpenCV4/x64/mingw/lib/
-unix|win32: LIBS += -llibopencv_core4100.dll
-unix|win32: LIBS += -llibopencv_objdetect4100.dll
-
-INCLUDEPATH += $$PWD/../../../../3rdParty/OpenCV4/include
-DEPENDPATH += $$PWD/../../../../3rdParty/OpenCV4/include
+#unix|win32: LIBS += -L$$PWD/../../../../3rdParty/OpenCV4/x64/mingw/lib/
+#unix|win32: LIBS += -llibopencv_core4100
+#unix|win32: LIBS += -llibopencv_objdetect4100
+C:\code\repo\OpenCV-4.9.0-MinGW64
+#INCLUDEPATH += $$PWD/../../../../3rdParty/OpenCV4/include
+INCLUDEPATH += $$PWD/../../../OpenCV-4.9.0-MinGW64/include
+#DEPENDPATH += $$PWD/../../../../3rdParty/OpenCV4/include
+#LIBS *= $$PWD/../../../../3rdParty/OpenCV4/x64/mingw/lib/libopencv_core4100.dll.a
+#LIBS *= $$PWD/../../../../3rdParty/OpenCV4/x64/mingw/lib/libopencv_objdetect4100.dll.a
+#LIBS *= $$PWD/../../../OpenCV-4.9.0-MinGW64/x64/mingw/lib/libopencv_core4100.dll.a
+LIBS *= $$PWD/../../../OpenCV-4.9.0-MinGW64/x64/mingw/bin/libopencv_world490.dll

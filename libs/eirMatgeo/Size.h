@@ -1,6 +1,7 @@
 #pragma once
 #include "eirMatgeo.h"
 
+#include <QList>
 #include <QSize>
 
 #include "Point.h"
@@ -8,7 +9,10 @@
 
 class EIRMATGEO_EXPORT Size : public QSize
 {
-public:
+public: // types
+    typedef QList<Size> List;
+
+public: // ctors
     Size(const bool null=true);
     Size(const QSize other);
     Size(const int w, const int h);

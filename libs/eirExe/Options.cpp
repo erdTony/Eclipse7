@@ -28,7 +28,7 @@ void Options::add(const QCommandLineOption opt, const bool addParser)
 
 void Options::addPositional(const CText &name, const QString &desc)
 {
-    mPositionalList.append(Positional(name, desc));
+    mPositionalList.append(Positional(name, QString()));
     parser().addPositionalArgument(name, desc);
     emit addedPositional(name);
 }
@@ -43,6 +43,10 @@ void Options::process()
     {
         optionsDialog();
     }
+    QStringList tParsedList = parser().positionalArguments();
+    Q_ASSERT(tParsedList.count() <= mPositionalList.count());
+    for (Index ix = 0; ix < tParsedList.count(); ++ix)
+        mPositionalList[ix].second = tParsedList.at(ix);
 }
 
 void Options::optionsDialog()
@@ -66,7 +70,9 @@ bool Options::isValidPositionalIndex(const Index ix)
 Index Options::positionalIndex(const CText &name)
 {
     Index result = -1;
-    for (Index ix = 0; ix < mPositionalList.count() && result < 0; ++ix)
+    for (Index ix = 0;
+         ix < mPositionalList.count() && result < 0;
+         ++ix)
         if (name == mPositionalList.at(ix).first)
             result = ix;
     return result;
@@ -79,7 +85,9 @@ bool Options::containsPositional(const CText &name)
 
 QString Options::positional(const Index ix)
 {
-    return isValidPositionalIndex(ix) ? mPositionalList.at(ix).second : QString();
+    return isValidPositionalIndex(ix)
+               ? mPositionalList.at(ix).second
+               : QString();
 }
 
 QString Options::positional(const CText &name)

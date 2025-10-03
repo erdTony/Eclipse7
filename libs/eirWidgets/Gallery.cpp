@@ -39,6 +39,6 @@ void Gallery::add(const QImage &qi)
 
 void Gallery::set(const Point pt, GalleryCell *pCell)
 {
-    qInfo() << Q_FUNC_INFO << pt << pCell->ident();
+    qInfo() << Q_FUNC_INFO << pt << pCell->id();
     // TODO Gallery::set(): grid()->set(pt, pCell);
 }

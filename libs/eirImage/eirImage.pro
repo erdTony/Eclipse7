@@ -12,17 +12,23 @@ include(../../useColor.pri)
 
 SOURCES += \
     BaseImage.cpp \
+    BaseImageCache.cpp \
     BasePixel32.cpp \
     BasePixelBehavior.cpp \
     ColorImage.cpp \
     Grey16Image.cpp \
     GreyImage.cpp \
     Image.cpp \
-    ImageItem.cpp \
+    ImageCacheEntry.cpp \
+    ImageCacheItem.cpp \
+    ImageClass.cpp \
+    ImageEncoding.cpp \
     ImageObject.cpp \
     ImageSet.cpp \
+    ImageType.cpp \
     ImageUid.cpp \
     IndexedImage.cpp \
+    MemoryImageCache.cpp \
     PixmapStack.cpp \
     SupportedFormats.cpp \
     ThumbImage.cpp \
@@ -30,17 +36,23 @@ SOURCES += \
 
 HEADERS += \
     BaseImage.h \
+    BaseImageCache.h \
     BasePixel32.h \
     BasePixelBehavior.h \
     ColorImage.h \
     Grey16Image.h \
     GreyImage.h \
     Image.h \
-    ImageItem.h \
+    ImageCacheEntry.h \
+    ImageCacheItem.h \
+    ImageClass.h \
+    ImageEncoding.h \
     ImageObject.h \
     ImageSet.h \
+    ImageType.h \
     ImageUid.h \
     IndexedImage.h \
+    MemoryImageCache.h \
     PixmapStack.h \
     SupportedFormats.h \
     ThumbImage.h \

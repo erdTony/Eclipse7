@@ -7,7 +7,7 @@
 #include <QByteArray>
 
 #include <FSText.h>
-#include <Ident.h>
+#include <Id.h>
 #include <Url.h>
 
 #include "DirInfo.h"
@@ -15,7 +15,7 @@
 
 
 #define FILEDATA_DATAPROPS(TND) \
-    TND(Ident, ident, Ident()) \
+    TND(Id, id, Id()) \
     TND(Url, sourceUrl, Url()) \
     TND(DirInfo, sourceDir, DirInfo()) \
     TND(FSText, fileName, FSText()) \

@@ -2,7 +2,8 @@
 #include "eirType.h"
 
 
-#include "AText.h"
+#include <AText.h>
+#include <Types.h>
 
 class EIRTYPE_EXPORT KeySeg : public AText
 {
@@ -17,6 +18,7 @@ public: // const
     bool equals(const char * pch) const;
     bool operator == (const KeySeg &other) const;
     bool operator == (const char * pch) const;
+    WORD hash16() const;
 
 public: // non-const
 
@@ -27,6 +29,7 @@ protected: // static
     static bool isValidChar(const char ch);
 
 private:
+    static Seed smHashSeed();
 
 
 };

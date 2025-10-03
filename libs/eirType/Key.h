@@ -4,6 +4,8 @@
 
 #include "KeySegList.h"
 
+#include <Types.h>
+
 class EIRTYPE_EXPORT Key : public KeySegList
 {
 public: // ctors
@@ -13,6 +15,8 @@ public: // ctors
     Key(const KeySegList &other) : KeySegList(other) {;}
     Key(const QString &s) : KeySegList(s) {;}
 
+public: // const
+    QWORD hash64() const;
 
 protected: // static
     static char hinge();

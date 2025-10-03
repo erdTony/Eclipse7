@@ -4,8 +4,8 @@
 #include <SCRect.h>
 
 ColorImage::ColorImage() {;}
-ColorImage::ColorImage(const QImage &qimage) : BaseImage(ImageObject::Color, qimage) {;}
-ColorImage::ColorImage(const BaseImage &other) : BaseImage(ImageObject::Color, other) {;}
+ColorImage::ColorImage(const QImage &qimage) : BaseImage(ImageType::ARGB32, qimage) {;}
+ColorImage::ColorImage(const BaseImage &other) : BaseImage(ImageType::ARGB32, other) {;}
 
 bool ColorImage::isPlanar() const
 {

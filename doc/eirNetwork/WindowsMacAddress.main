@@ -1,0 +1,52 @@
+#include <windows.h>
+#include <iphlpapi.h>
+#include <stdio.h>
+
+#pragma comment(lib, "iphlpapi.lib") // Link with Iphlpapi.lib
+
+int main() {
+    PIP_ADAPTER_INFO pAdapterInfo;
+    ULONG ulOutBufLen = sizeof(IP_ADAPTER_INFO);
+    DWORD dwRetVal = 0;
+
+    pAdapterInfo = (IP_ADAPTER_INFO*)malloc(sizeof(IP_ADAPTER_INFO));
+    if (pAdapterInfo == NULL) {
+        printf("Error allocating memory for IP_ADAPTER_INFO\n");
+        return 1;
+    }
+
+    // Call GetAdaptersInfo to get the required buffer size
+    if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW) {
+        free(pAdapterInfo);
+        pAdapterInfo = (IP_ADAPTER_INFO*)malloc(ulOutBufLen);
+        if (pAdapterInfo == NULL) {
+            printf("Error allocating memory for IP_ADAPTER_INFO\n");
+            return 1;
+        }
+    }
+
+    if ((dwRetVal = GetAdaptersInfo(pAdapterInfo, &ulOutBufLen)) == NO_ERROR) {
+        PIP_ADAPTER_INFO pAdapter = pAdapterInfo;
+        while (pAdapter) {
+            printf("Adapter Name: %s\n", pAdapter->AdapterName);
+            printf("Description: %s\n", pAdapter->Description);
+            printf("MAC Address: ");
+            for (UINT i = 0; i < pAdapter->AddressLength; i++) {
+                if (i == (pAdapter->AddressLength - 1))
+                    printf("%.2X\n", (int)pAdapter->Address[i]);
+                else
+                    printf("%.2X:", (int)pAdapter->Address[i]);
+            }
+            printf("\n");
+            pAdapter = pAdapter->Next;
+        }
+    } else {
+        printf("GetAdaptersInfo failed with error: %d\n", dwRetVal);
+    }
+
+    if (pAdapterInfo) {
+        free(pAdapterInfo);
+    }
+
+    return 0;
+}

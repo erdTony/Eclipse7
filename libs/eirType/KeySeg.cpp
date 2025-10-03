@@ -11,6 +11,11 @@ bool KeySeg::equals(const KeySeg &other) const
     return 0 == compare(other);
 }
 
+WORD KeySeg::hash16() const
+{
+    return 0xFFFF & qHash((QByteArray)(*this), smHashSeed());
+}
+
 bool KeySeg::isValidFirst(const char ch)
 {
     return std::isalpha(ch) || '_' == ch;
@@ -19,4 +24,9 @@ bool KeySeg::isValidFirst(const char ch)
 bool KeySeg::isValidChar(const char ch)
 {
     return std::isalnum(ch) || '_' == ch;
+}
+
+Seed KeySeg::smHashSeed()
+{
+    return 0xE16C186C08032010;
 }

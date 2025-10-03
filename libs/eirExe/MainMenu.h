@@ -31,6 +31,6 @@ public: // pointers
 
 private:
     QMenuBar * mpMenuBar=nullptr;
-    DualMap<ID, Key> mIdKeyDMap;
-    QMap<ID, MenuItem> mIdMenuMap;
+    DualMap<IdNo, Key> mIdKeyDMap;
+    QMap<IdNo, MenuItem> mIdMenuMap;
 };

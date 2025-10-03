@@ -2,16 +2,15 @@
 
 Null::Null() { invalidate(); }
 
-Null::Null(const bool is) : TriBool(is) {;}
-
+Null::Null(const bool is) { set(is); }
 
 bool Null::nullify()
 {
-    set();
+    TriBool::set();
     return null();
 }
 
-bool Null::notNull()
+bool Null::full()
 {
     reset();
     return null();

@@ -99,7 +99,7 @@ void Log::enqueueMessage(const LogMessage &message)
     {
         QString warn = QString("%1 %2 LogMessage queue lock failed: %2")
             .arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs))
-            .arg(LogLevel::name(message.qtMsgType())())
+            .arg(LogLevel::name(message.qMsgType())())
             .arg(message.message());
         emit warning(warn);
     }
@@ -110,6 +110,25 @@ void Log::unhookQtMsg()
     if (mOldHandler) qInstallMessageHandler(mOldHandler);
     qSetMessagePattern("%{if-category}%{category}: %{endif}"
                        "%{message}");
+}
+
+void Log::enqueueEntry(const LogEntry &le)
+{
+    if (mMessageQueueLock.tryLockForWrite(100))
+    {
+        mEntryQueue.enqueue(le);
+        emit enqueueEntry(le);
+        emit entryQueue(mEntryQueue.count());
+    }
+    else
+    {
+        emit queuedEntryLost(le);
+        QString warn = QString("%1 %2 LogEntry queue lock failed: %2")
+        .arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs))
+            .arg(LogLevel::name(le.qMsgType())())
+                           .arg(le.format()());
+        emit warning(warn);
+    }
 }
 
 Log::OutputList Log::outputList()

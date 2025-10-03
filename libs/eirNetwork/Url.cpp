@@ -22,29 +22,48 @@ QDir Url::dir() const
     return QDir(mUrl.path());
 }
 
+bool Url::contains(const AText &queryName) const
+{
+    return mQueryPairMap.contains(queryName);
+}
+
+AText Url::value(const AText &queryName) const
+{
+    return mQueryPairMap.value(queryName);
+}
+
 void Url::set(const QString &url, QUrl::ParsingMode mode)
 {
     mUrl.setUrl(url, mode);
     mQuery.setQuery(mUrl.query());
     mUrl.setQuery("");
     type(mUrl.scheme());
+    mQueryText = mQuery.toString();
+    mQueryList = mQueryText.split('&');
+    mQueryPairs = mQueryList.split('=');
+    foreach (const AText::Pair cPair,  mQueryPairs)
+    {
+        const AText cName = cPair.first;
+        const AText cValue = cPair.second;
+        mQueryPairMap.insert(cName, cValue);
+    }
 }
 
-void Url::set(const QDir &dir)
+void Url::dir(const QDir &dir)
 {
     mUrl.setPath(dir.path());
 }
 
-void Url::setScheme(const CText &scheme)
+void Url::setScheme(const AText &scheme)
 {
     type(scheme);
     mUrl.setScheme(scheme);
 }
 
-void Url::type(const CText &scheme)
+Url::Type Url::type(const AText &scheme)
 {
-    Type result=$null;
-    if (false) ;
+    Url::Type result=$other;
+    if (scheme.isEmpty())           result = $null;
     else if ("Troll" == scheme)     result = Troll;
     else if ("Stdio" == scheme)     result = Stdio;
     else if ("TextFile" == scheme)  result = TextFile;

@@ -13,8 +13,9 @@ public: // const
     bool null() const;
 
 public: // non-const
+//    bool set(const bool is);
     bool nullify();
-    bool notNull();
+    bool full();
 };
 
 inline bool Null::null() const { return TriBool::isTrue(); }

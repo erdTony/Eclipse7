@@ -14,22 +14,22 @@ GalleryCell::GalleryCell(const bool blank, Gallery *parent)
                       .arg(isBlank() ? "Blank" : "null"));
 }
 
-GalleryCell::GalleryCell(const Ident &id, Gallery *parent)
+GalleryCell::GalleryCell(const Id &id, Gallery *parent)
     : QLabel{parent->widget()}
     , mpGallery(parent)
     , mBlank(false)
     , mIdent(id)
 {
-    setObjectName(QString("GalleryCell:%1").arg(ident().toString()));
+    setObjectName(QString("GalleryCell:%1").arg(id.toString()));
 }
 
-GalleryCell::GalleryCell(const Ident &id, const QImage &orig, Gallery *parent)
+GalleryCell::GalleryCell(const Id &id, const QImage &orig, Gallery *parent)
     : QLabel{parent->widget()}
     , mpGallery(parent)
     , mBlank(false)
     , mIdent(id)
 {
-    setObjectName(QString("GalleryCell:%1").arg(ident().toString()));
+    setObjectName(QString("GalleryCell:%1").arg(id.toString()));
     generate(orig);
 }
 
@@ -89,3 +89,9 @@ void GalleryCell::setBlank()
 
 GalleryProperties GalleryCell::props() const { return gallery()->props(); }
 GalleryProperties &GalleryCell::props() { return gallery()->props(); }
+
+Uid GalleryCell::uid() const
+{
+    const Id cIdent = id();
+    return cIdent.uid();
+}

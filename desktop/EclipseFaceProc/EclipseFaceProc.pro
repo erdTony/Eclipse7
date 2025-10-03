@@ -5,11 +5,17 @@ CONFIG += c++23
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 include(../desktop.pri)
 include(../../useBase.pri)
+include(../../useLogger.pri)
 include(../../useType.pri)
-include(../../useCore.pri)
 include(../../useMatgeo.pri)
+include(../../useCore.pri)
 include(../../useNetwork.pri)
+include(../../useColor.pri)
+include(../../useStore.pri)
+include(../../useGui.pri)
+include(../../useImage.pri)
 include(../../useWidgets.pri)
+include(../../useObjdet.pri)
 include(../../useExe.pri)
 
 SOURCES += \

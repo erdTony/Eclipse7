@@ -25,9 +25,11 @@ void EfpApplication::initialize()
 {
     qInfo() << Q_FUNC_INFO;
     mpMainWindow = new EfpMainWindow;
-    mpImageReader = new EfpImageReader(this);
+    mpImageReader = new EfpImageReader(inputUrl(), this);
     Q_CHECK_PTR(mpMainWindow);
     Q_CHECK_PTR(mpImageReader);
+
+    reader()->initialize();
 
     Q_ASSERT(connect(this, &EfpApplication::initialized,
                      main(), &EfpMainWindow::initialize));
@@ -45,6 +47,8 @@ void EfpApplication::setup()
 {
     qInfo() << Q_FUNC_INFO;
 
+    reader()->setup();
+
     emit setupd();
 }
 
@@ -52,6 +56,7 @@ void EfpApplication::start()
 {
     qDebug() << Q_FUNC_INFO;
 
+    // setRootPath(QDir)
     emit started();
 }
 

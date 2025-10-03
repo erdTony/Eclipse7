@@ -32,9 +32,9 @@ public: // const
     QPixmap at(const Index ix) const;
     QPixmap rawAt(const Index ix) const;
     QPixmap operator [] (const Index ix) const { return at(ix); }
-    BaseImage at(const Index ix, const ImageObject::Type aType) const;
+    BaseImage at(const Index ix, const ImageType aType) const;
     QPixmap resolve() const;
-    BaseImage resolve(const ImageObject::Type aType) const;
+    BaseImage resolve(const ImageType aType) const;
 
 public: // non-const
     void set(const Size aImageSize);

@@ -4,13 +4,15 @@
 #include "AText.h"
 
 #include <QByteArrayList>
+#include <QMap>
 #include <QPair>
 #include <QStringList>
 
 class EIRBASE_EXPORT ATextList : public AText::List
 {
 public: // types
-    typedef QPair<ATextList, ATextList>  Pair;
+    typedef QList<AText::Pair>  PairList;
+    typedef QMap<AText, AText>  PairMap;
 
 public: // ctors
     ATextList();
@@ -21,7 +23,7 @@ public: // ctors
 
 public: // const
     AText join(const char ch) const;
-    Pair split(const char ch) const;
+    PairList split(const char ch) const;
 
 public: // non-const
 

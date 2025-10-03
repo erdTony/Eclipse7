@@ -44,6 +44,10 @@ signals:
     void starting();
     void addedOutput(OutputPtr out);
     void removedOutput(OutputPtr out);
+    void enqueuedEntry(const LogEntry &le);
+    void queuedEntryLost(const LogEntry &le);
+    void dequeuedEntry(const LogEntry &le);
+    void entryQueue(const Count count);
     void enqueuedMessage(const LogMessage &message);
     void dequeuedMessage(const LogMessage &message);
     void warning(const QString &message);
@@ -52,6 +56,7 @@ signals:
 public: // const
 
 public: // non-const
+    void enqueueEntry(const LogEntry &le);
     OutputList outputList();
     LogMessage dequeueMessage();
 
@@ -64,6 +69,8 @@ public: // pointers
 private:
     QtMessageHandler mOldHandler=nullptr;
     LogMachine * mpMachine=nullptr;
+    QReadWriteLock mEntryQueueLock;
+    QQueue<LogEntry> mEntryQueue;
     QReadWriteLock mMessageQueueLock;
     LogLevel::Flags mMessageMask;
     QQueue<LogMessage> mMessageQueue;

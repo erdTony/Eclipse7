@@ -5,8 +5,8 @@
 
 #include "MillisecondTime.h"
 
+Uid::Uid() {;}
 Uid::Uid(const bool nil) : mNibbles(NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF)) {;}
-Uid::Uid(const Type type) { generate(type); }
 
 bool Uid::operator == (const Uid &rhs) const
 {
@@ -27,7 +27,7 @@ QString Uid::tail() const
 {
     return toString().right(14);
 }
-
+/*
 Uid Uid::generate(const Type type)
 {
     Uid result(false);
@@ -57,4 +57,6 @@ Uid Uid::generate7(const Type type)
     mNibbles.set(17, 15, (BYTE *)&cRandom7B);
     return result;
 }
+*/
+
 

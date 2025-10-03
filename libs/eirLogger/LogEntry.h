@@ -46,14 +46,17 @@ public: // const
     QVariantList arguments() const;
     QVariant argument(const Index ix) const;
     QByteArray xport() const;
-
+    QtMsgType qMsgType() const;
 
 public: // non-const
     void clear();
-    void mport(const QByteArray &ba);
 
 
 public: // pointers
+
+private: // non-const
+    void mport(const QByteArray &ba);
+
 
 private:
     static const FourCC scmLESignature;

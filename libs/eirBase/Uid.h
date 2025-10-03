@@ -10,29 +10,75 @@
 
 class EIRBASE_EXPORT Uid
 {
-
-
+/*
+ * UUID:    01234567-89AB-CDEF-0123-456789ABCDEF
+ *          00000000 0011 1111 1111 222222222233
+ * Dec Nix: 01234567 8901 2345 6789 012345678901
+ *                   Ver--^    ^--Var
+ */
 public: // constants
     static const Count scmNibbleCount   = 32;
-    static const Index scmLoDWordNIx    = 16;
     static const Index scmVersionNIx    = 12;
-    static const Index scmVariantNIx    = 4444;
+    static const Index scmVariantNIx    = 16;
 
 public: // types
+    enum Variant
+    {
+        VarNcs      = 0,    // 0b0--+
+        VarNcs1,
+        VarNcs2,
+        VarNcs3,
+        VarNcs4,
+        VarNcs5,
+        VarNcs6,
+        VarNcs7,
+        VarDce      = 8,    // 0b10-+
+        VarDce9,
+        VarDce10,
+        VarDce11,
+        VarGuid     = 12,   // 0b110+
+        VarGuid13,
+        $nullVar    = 14,
+        $invalidVar = 15
+    };
+    enum Version            // for VarDce
+    {
+        $nullVer            = 0,
+        VerGTime1SeqNode    = 1,
+        VerSecurity         = 2,
+        VerNsTextMd5        = 3,
+        VerRandom           = 4,
+        VerNsTextSha        = 5,
+        VerGTime6SeqNode    = 6,
+        VerUTimeSeqRandom   = 7,
+        VerCustom           = 8,
+        VerCustom9,
+        VerCustom10,
+        VerCustom11,
+        VerCustom12,
+        VerCustom13,
+        VerCustom14,
+        $$invalidVer        = 15
+    };
+    enum Class              // for VerCustom (8)
+    {
+        $nullClass = 0,
+        ClassA,
+    };
     enum Type
     {
         $nullType = 0,
-        Type7,
-    };
-    enum Class
-    {
-        $nullClass = 0,
         Log,
     };
 
 public: // ctors
-    Uid(const bool nil=true); // nil or max
-    Uid(const Type type);
+    Uid(); // null
+    Uid(const bool nil); // nil or max
+    Uid(const Variant var); // NCS or GUID
+    Uid(const Version ver); // DCE flavor
+    Uid(const Uid &ns, const AText text); // DCEv5
+    Uid(const QByteArray &macOverride); // DCDv6
+
 
 
 public: // const
@@ -65,7 +111,7 @@ private:
     NibbleArray mNibbles;
 };
 
-inline bool Uid::isNull() const { return uuid().isNull(); }
+inline bool Uid::isNull() const { return mNibbles.isNull(); }
 inline bool Uid::isNil() const { return mNibbles.isZero(); }
 inline Uid::operator QString() const { return toString(); }
 inline QUuid Uid::uuid() const { return QUuid::fromBytes(mNibbles.data()); }

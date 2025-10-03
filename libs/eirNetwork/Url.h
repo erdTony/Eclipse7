@@ -7,7 +7,8 @@
 #include <QUrlQuery>
 class QDir;
 
-#include "CText.h"
+#include <AText.h>
+#include <ATextList.h>
 
 class EIRNETWORK_EXPORT Url
 {
@@ -26,8 +27,7 @@ public: // types
         SqlLite,
         MySql,
         MariaDB,
-
-        $error
+        $other
     };
 
     typedef QList<Type> TypeList;
@@ -43,12 +43,15 @@ public: // const
     Type type() const;
     QString string(const bool encoded=false) const;
     QDir dir() const;
+    bool contains(const AText &queryName) const;
+    AText value(const AText &queryName) const;
+    AText operator [] (const AText &queryName) const;
 
 public: // non-const
     void set(const QString &url, QUrl::ParsingMode mode=QUrl::TolerantMode);
-    void set(const QDir &dir);
-    void setScheme(const CText &scheme);
-    void type(const CText &scheme);
+    void dir(const QDir &dir);
+    void setScheme(const AText &scheme);
+    Type type(const AText &scheme);
 
 public: //
 
@@ -60,8 +63,13 @@ private:
     Type mType=$null;
     QUrl mUrl;
     QUrlQuery mQuery;
+    AText mQueryText;
+    ATextList mQueryList;
+    ATextList::PairList mQueryPairs;
+    ATextList::PairMap mQueryPairMap;
 };
 
+inline AText Url::operator [](const AText &queryName) const { return value(queryName); }
 inline Url Url::it() const { return *this; }
 inline Url &Url::it() { return *this; }
 inline Url::Type Url::type() const { return mType; }

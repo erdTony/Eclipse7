@@ -6,7 +6,7 @@
 #include <QImage>
 #include <QPixmap>
 
-#include <Ident.h>
+#include <Id.h>
 #include <SCRect.h>
 class Uid;
 
@@ -18,8 +18,8 @@ class EIRWIDGETS_EXPORT GalleryCell : public QLabel
     Q_OBJECT
 public: // ctors
     GalleryCell(const bool blank=true, Gallery *parent=nullptr);
-    GalleryCell(const Ident &id, Gallery *parent);
-    GalleryCell(const Ident &id, const QImage &orig, Gallery *parent);
+    GalleryCell(const Id &id, Gallery *parent);
+    GalleryCell(const Id &id, const QImage &orig, Gallery *parent);
 
 public slots:
 
@@ -29,7 +29,7 @@ public: // const
     bool isBlank() const;
     bool isNull() const;
     Uid uid() const;
-    Ident ident() const;
+    Id id() const;
     SCRect rect() const;
     QImage original() const;
 
@@ -47,7 +47,7 @@ public: // pointers
 private:
     Gallery * mpGallery=nullptr;
     bool mBlank=false;
-    Ident mIdent;
+    Id mIdent;
     QImage mOriginalImage;
     QImage mScaledImage;
     QPixmap mPixmap;
@@ -55,8 +55,8 @@ private:
 
 inline Gallery *GalleryCell::gallery() { Q_CHECK_PTR(mpGallery); return mpGallery; }
 inline bool GalleryCell::isBlank() const { return mBlank; }
-inline Uid GalleryCell::uid() const { return ident().uid(); }
-inline Ident GalleryCell::ident() const { return mIdent; }
+
+inline Id GalleryCell::id() const { return mIdent; }
 inline SCRect GalleryCell::rect() const { return SCRect(props().cellPixelSize()); }
 inline QImage GalleryCell::original() const { return mOriginalImage; }
 inline Gallery *GalleryCell::gallery() const { Q_CHECK_PTR(mpGallery); return mpGallery; }

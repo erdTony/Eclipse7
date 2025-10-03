@@ -94,6 +94,11 @@ QByteArray LogEntry::xport() const
     return result.toBase64();
 }
 
+QtMsgType LogEntry::qMsgType() const
+{
+    return LogLevel::qMsgType(mLevel.msgType());
+}
+
 void LogEntry::clear()
 {
     mLevel.set(LogLevel::$nullLevel);

@@ -15,7 +15,7 @@ public: // ctors
 
 public: // const
     bool isNull() const;
-    QtMsgType qtMsgType() const;
+    QtMsgType qMsgType() const;
     QString fileName() const;
     int fileLine() const;
     QString funcName() const;
@@ -33,7 +33,7 @@ private:
     QString mMessage;
 };
 
-inline QtMsgType LogMessage::qtMsgType() const { return mQtMsgType; }
+inline QtMsgType LogMessage::qMsgType() const { return mQtMsgType; }
 inline QString LogMessage::fileName() const { return mFileName; }
 inline int LogMessage::fileLine() const { return mFileLine; }
 inline QString LogMessage::funcName() const { return mFuncName; }

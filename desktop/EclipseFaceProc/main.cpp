@@ -29,9 +29,11 @@ int main(int argc, char *argv[])
     OPT->addHelpVerOptions();
     OPT->addPositional("inputUrl", "URL Location of Input Images");
     OPT->process();
-    app.inputUrl(Url(OPT->containsPositional("inputUrl")
-                ? OPT->positional("inputUrl")
-                : QString("files:///../EFPin")));
+    QString tUrlString("files:///../EFPin");
+    if (OPT->containsPositional("inputUrl"))
+        tUrlString = OPT->positional("inputUrl");
+    Url tUrl(tUrlString);
+    app.inputUrl(tUrl);
     return app.exec();
 }
 

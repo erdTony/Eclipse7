@@ -4,6 +4,11 @@ NibbleArray::NibbleArray() : mLength(0) {;}
 NibbleArray::NibbleArray(const Count k, const BYTE fill) : mLength(k), mBytes((k + 1) / 2, (fill << 4) | (fill & 0x0F)) {;}
 NibbleArray::NibbleArray(const Count k, const BYTE * p) : mLength(k), mBytes(QByteArray::fromRawData((const char *)p, (k + 1) / 2)) {;}
 
+bool NibbleArray::isNull() const
+{
+    return mBytes.isNull();
+}
+
 Count NibbleArray::length() const
 {
     Q_ASSERT(Count(mBytes.length()) >= Count(mLength / 2 + mLength % 2));
