@@ -13,11 +13,6 @@ include (../../useCore.pri)
 SOURCES += \
     BaseMainWindowPage.cpp \
     BinarySpinBox.cpp \
-    Gallery.cpp \
-    GalleryCell.cpp \
-    GalleryGrid.cpp \
-    GalleryProperties.cpp \
-    GalleryUid.cpp \
     Label.cpp \
     LabelMap.cpp \
     LineEdit.cpp \
@@ -29,11 +24,6 @@ SOURCES += \
 HEADERS += \
     BaseMainWindowPage.h \
     BinarySpinBox.h \
-    Gallery.h \
-    GalleryCell.h \
-    GalleryGrid.h \
-    GalleryProperties.h \
-    GalleryUid.h \
     Label.h \
     LabelMap.h \
     LineEdit.h \

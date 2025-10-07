@@ -4,7 +4,11 @@
 
 ByteHistogram::ByteHistogram()
 {
-    mBinCounts = CountList(256);
+    mBinCounts = UIntList(256);
+}
+
+ByteHistogram::~ByteHistogram()
+{
 }
 
 Count ByteHistogram::binCount() const
@@ -12,7 +16,7 @@ Count ByteHistogram::binCount() const
     return mBinCounts.count();
 }
 
-Count ByteHistogram::at(const BYTE aSample) const
+unsigned ByteHistogram::at(const BYTE aSample) const
 {
     return mBinCounts[aSample];
 }

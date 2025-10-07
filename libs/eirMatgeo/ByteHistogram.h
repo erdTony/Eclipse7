@@ -11,18 +11,19 @@ class QImage;
 class EIRMATGEO_EXPORT ByteHistogram
 {
 public: // types
-    typedef QList<Count> CountList;
+    typedef QList<unsigned> CountList;
     typedef QList<BYTE> SampleList;
 
 public: // ctors
     ByteHistogram();
+    ~ByteHistogram();
 
 public: // const
     Count binCount() const;
     Count sampleCount() const;
     SampleList sampleList() const;
     CountList countList() const;
-    Count at(const BYTE aSample) const;
+    unsigned at(const BYTE aSample) const;
     CountList ktileList(const BYTE aWidth) const;
     SampleList distribution(const Count aCountPerBin) const;
 //    operator [] (const BYTE aSample) const { return at(aSample); }

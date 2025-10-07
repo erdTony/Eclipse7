@@ -6,7 +6,7 @@
 #include <QSqlRecord>
 
 
-#include "Logger.h"
+//#include "Logger.h"
 #include "LogEntry.h"
 #include "LogMessage.h"
 

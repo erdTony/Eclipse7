@@ -17,7 +17,7 @@
     TND(Size, itemPixelSize, Size(128)) \
     TND(Size, cellPixelSize, Size(136)) \
     TND(Size, spacingSize, Size(4)) \
-    TND(Count, selectionWidth, 4) \
+    TND(int, selectionWidth, 4) \
     TND(Size, galleryItems, Size()) \
     TND(QColor, itemForeground, QColor(64, 64, 192)) \
     TND(QColor, itemBackground, QColor(64, 64, 160)) \

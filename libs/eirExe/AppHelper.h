@@ -8,7 +8,7 @@ class QApplication;
 class QMainWindow;
 class QAction;
 
-#include <Types.h>
+//#include <Types.h>
 #include <VersionInfo.h>
 class Key;
 class Icon;

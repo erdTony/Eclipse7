@@ -1,16 +1,17 @@
 #pragma once
 
-#include <Types.h>
+#include <QList>
 
-#include "List.h"
+#include <Types.h>
 
 template <class T> class Queue
 {
 public: // types
-    typedef List<T> ListT;
+    typedef QList<T> ListT;
 
 public: // ctors
     Queue() {;}
+    ~Queue() {;}
     Queue(const ListT lt) { enqueue(lt); }
 
 

@@ -41,7 +41,6 @@ HEADERS += \
     FSText.h \
     FSTextList.h \
     FourCC.h \
-    List.h \
     MillisecondTime.h \
     NibbleArray.h \
     TriBool.h \

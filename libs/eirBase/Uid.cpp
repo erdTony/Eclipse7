@@ -10,12 +10,20 @@ Uid::Uid(const bool nil) : mNibbles(NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF)
 
 bool Uid::operator == (const Uid &rhs) const
 {
+#ifdef Q_CC_MSVC
+    return hi() == rhs.hi() && lo() == rhs.lo();
+#else
     return oword() == rhs.oword();
+#endif
 }
 
 bool Uid::operator < (const Uid &rhs) const
 {
+#ifdef Q_CC_MSVC
+    return (hi() == rhs.hi()) ? (lo() < rhs.lo()) : (hi() < rhs.hi());
+#else
     return oword() < rhs.oword();
+#endif
 }
 
 QString Uid::toString() const
