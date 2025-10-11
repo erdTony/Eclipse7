@@ -1,8 +1,9 @@
 #pragma once
+#include "eirGraphics.h"
 
 #include <QGraphicsView>
 
-class GraphicsView : public QGraphicsView
+class EIRGRAPHICS_EXPORT GraphicsView : public QGraphicsView
 {
     Q_OBJECT
 public:
