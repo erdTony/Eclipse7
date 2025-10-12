@@ -41,11 +41,11 @@ CText LogLevel::name(const Value v)
     CText result = QString("Unknown %1").arg(v, 10, 2, '0');
     switch (v)
     {
-    case FnArgVal:  result = "FnArgVal";    break;
-    case FnArgName: result = "FnArgName";   break;
+    case FnArg:     result = "FnArg";       break;
     case FnReturn:  result = "FnReturn";    break;
     case FnExit:    result = "FnExit";      break;
     case FnEnter:   result = "FnEnter";     break;
+    case Connect:   result = "Connect";     break;
     case TTrivia:   result = "TTrivia";     break;
     case UTrivia:   result = "UTrivia";     break;
     case TDetail:   result = "TDetail";     break;
@@ -119,7 +119,7 @@ LogLevel::MsgType LogLevel::msgType(const LogLevel::Value lvl)
     case UTrivia:   case TTrivia:       result = InfoType;      break;
     case FnExit:    case FnEnter:
     case FnReturn:
-    case FnArgVal:  case FnArgName:
+    case FnArg:
     case Dump:      case Trace:
     case DumpVal:   case DumpHex:       result = TraceType;     break;
     case $minWarning:

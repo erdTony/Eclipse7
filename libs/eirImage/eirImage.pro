@@ -7,6 +7,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include (../libs.pri)
 include(../../useBase.pri)
+include(../../useLogger.pri)
 include(../../useType.pri)
 include(../../useMatgeo.pri)
 include(../../useColor.pri)
@@ -29,6 +30,7 @@ SOURCES += \
     ImageCacheItem.cpp \
     ImageClass.cpp \
     ImageEncoding.cpp \
+    ImageFileSource.cpp \
     ImageObject.cpp \
     ImageSet.cpp \
     ImageType.cpp \
@@ -57,6 +59,7 @@ HEADERS += \
     ImageCacheItem.h \
     ImageClass.h \
     ImageEncoding.h \
+    ImageFileSource.h \
     ImageObject.h \
     ImageSet.h \
     ImageType.h \

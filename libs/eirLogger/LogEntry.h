@@ -2,6 +2,7 @@
 #include "eirLogger.h"
 
 #include <QByteArray>
+#include <QVariant>
 #include <QVariantList>
 
 #include <AText.h>
@@ -12,7 +13,6 @@
 
 #include "LogCondition.h"
 #include "LogLevel.h"
-//#include "LogObject.h"
 
 class EIRLOGGER_EXPORT LogEntry
 {
@@ -36,6 +36,13 @@ public: // ctors
              const QVariant &expValue,
              const CText &actName=CText(),
              const QVariant &actValue=QVariant());
+    LogEntry(void * psender,
+             const CText &sender,
+             const CText &signal,
+             void * preceiver,
+             const CText &receiver,
+             const CText &slot,
+             const bool conn=true);
 
 public: // const
     bool isNull() const;

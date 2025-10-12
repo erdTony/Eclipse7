@@ -52,6 +52,13 @@ LogEntry::LogEntry(const LogLevel::Value level,
     mArguments.prepend(cond.text());
 }
 
+LogEntry::LogEntry(void *psender, const CText &sender, const CText &signal,
+                   void *preceiver, const CText &receiver, const CText &slot,
+                   const bool conn)
+{
+
+}
+
 bool LogEntry::isNull() const
 {
     return ! mLevel.isValidLevel();
