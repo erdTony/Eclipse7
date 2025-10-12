@@ -29,6 +29,13 @@ AText::Pair AText::pair(const char ch) const
     return Pair(tKey, tValue);
 }
 
+bool AText::isEmpty() const
+{
+    bool result = QByteArray::isEmpty();
+    if ( ! result) result |= QByteArray::at(0) == '\0';
+    return result;
+}
+
 void AText::set(const char ch)
 {
     clear();

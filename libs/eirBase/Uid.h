@@ -3,6 +3,7 @@
 
 #include "NibbleArray.h"
 
+#include <QList>
 #include <QUuid>
 
 #include "Types.h"
@@ -70,6 +71,7 @@ public: // types
         $nullType = 0,
         Log,
     };
+    typedef QList<Uid> List;
 
 public: // ctors
     Uid(); // null

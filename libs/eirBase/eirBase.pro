@@ -25,6 +25,7 @@ SOURCES += \
     TriBool.cpp \
     UText.cpp \
     Uid.cpp \
+    UidList.cpp \
     XText.cpp \
     eirBase.cpp
 
@@ -47,6 +48,7 @@ HEADERS += \
     Types.h \
     UText.h \
     Uid.h \
+    UidList.h \
     XText.h \
     eirBase.h \
     eirBase_global.h

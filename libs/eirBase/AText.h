@@ -25,6 +25,7 @@ public: // ctors
     AText(const QString &s) { set(s); }
 
 public: // const
+    bool isEmpty() const;
     List toList(const char ch=0) const;
     Pair pair(const char ch) const;
     QString toString() const;

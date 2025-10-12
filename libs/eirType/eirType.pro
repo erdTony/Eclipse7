@@ -9,7 +9,7 @@ include(../../useBase.pri)
 
 SOURCES += \
     Id.cpp \
-    IdentMap.cpp \
+    IdMap.cpp \
     Key.cpp \
     KeySeg.cpp \
     KeySegList.cpp \
@@ -23,7 +23,7 @@ SOURCES += \
 HEADERS += \
     DualMap.h \
     Id.h \
-    IdentMap.h \
+    IdMap.h \
     Key.h \
     KeyMap.h \
     KeySeg.h \
