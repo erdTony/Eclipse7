@@ -10,6 +10,7 @@ SUBDIRS +=              \
 #        eirFacebase     \
 #        eirFacerec      \
 #        eirFaceres      \
+        eirGraphics     \
         eirGui          \
         eirImage        \
         eirLogger       \
@@ -33,6 +34,7 @@ eirBase.subdir          = libs/eirBase
 eirColor.subdir         = libs/eirColor
 eirCore.subdir          = libs/eirCore
 eirExe.subdir           = libs/eirExe
+eirGraphics.subdir      = libs/eirGraphics
 eirGui.subdir           = libs/eirGui
 eirImage.subdir         = libs/eirImage
 eirLogger.subdir        = libs/eirLogger
@@ -66,7 +68,8 @@ eirColor.depends        = eirBase eirMatgeo
 ##eirObjdet.depends       = eirBase eirMatgeo
 eirStore.depends        = eirBase eirType eirNetwork
 eirGui.depends          = eirBase eirType eirMatgeo eirCore
-eirImage.depends        = eirBase eirType eirMatgeo eirColor
+eirGraphics.depends     = eirBase eirType eirMatgeo eirCore
+eirImage.depends        = eirBase eirType eirMatgeo eirColor eirGraphics
 eirWidgets.depends      = eirBase eirType eirMatgeo eirCore
 eirObjdet.depends       = eirBase eirType eirMatgeo eirCore
 eirExe.depends          = eirBase eirType eirMatgeo eirCore eirWidgets

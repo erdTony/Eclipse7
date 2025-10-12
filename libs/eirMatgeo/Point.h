@@ -10,12 +10,14 @@ class Size;
 class EIRMATGEO_EXPORT Point : public QPoint
 {
 public: // ctors
-    Point();
+    Point(const bool zero=false);
     Point(const QPoint &other);
     Point(const int x, const int y);
     Point(const Size sz, const Index ix);
 
 public: // const
+    virtual bool isNull() const;
+    bool isZero() const;
     Point up(const int d=1) const;
     Point nw(const int d=1) const;
     Point no(const int d=1) const;
@@ -30,12 +32,17 @@ public: // const
 
 
 public: // non-const
+    Point set(const Point pt);
+    Point set(const int x, const int y);
     Point set(const Size sz, const Index ix);
+    void nullify();
 
 public: // pointers
     Point it() const;
     Point & it();
 
+public: // static
+    static Point nullPoint();
 };
 
 inline Point Point::up(const int d) const { return Point(x() + 0, y() + d); }

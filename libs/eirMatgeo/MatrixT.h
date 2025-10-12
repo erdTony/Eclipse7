@@ -1,6 +1,7 @@
 #pragma once
 
-#include <List.h>
+#include <QList>
+
 #include <Types.h>
 
 #include "Point.h"
@@ -11,7 +12,7 @@ template <typename T> class MatrixT
 public: // ctors
     MatrixT() {;}
     MatrixT(const Size sz, const T &fillT=T()) { fill(sz, fillT); }
-    MatrixT(const Size sz, const List<T> &fillList) { fill(sz, fillList); }
+    MatrixT(const Size sz, const QList<T> &fillList) { fill(sz, fillList); }
 
 public: // const
     Size size() const { return mSize; }
@@ -29,7 +30,7 @@ public: // non-const
         if (isValid(cix)) mTList[cix] = t; }
     void fill(const Size sz, const T &t)
     { mSize = sz; mTList.fill(t, mSize.area()); }
-    void fill(const Size sz, List<T> &fillList);
+    void fill(const Size sz, QList<T> &fillList);
     T & ref(const Index ix) { return mTList[ix]; }
     T & ref(const Point pt) { return mTList[index(pt)]; }
     T & operator [] (const Index ix) { return ref(ix); }
@@ -50,11 +51,11 @@ private:
 
 private:
     Size mSize;
-    List<T> mTList;
+    QList<T> mTList;
 };
 
 template<typename T>
-inline void MatrixT<T>::fill(const Size sz, List<T> &fillList)
+inline void MatrixT<T>::fill(const Size sz, QList<T> &fillList)
 {
     for (Index ix = 0; ix < Index(qMin(sz.area(), fillList.count())); ++ix)
     {

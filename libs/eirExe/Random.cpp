@@ -14,6 +14,10 @@ Random::Random(QObject *parent)
     mpPulseTimer->setObjectName("Random:PulseTimer");
 }
 
+Random::~Random()
+{
+}
+
 void Random::initialize()
 {
     Q_CHECK_PTR(mpPulseTimer);
@@ -119,7 +123,7 @@ UINT Random::direct()
     return result;
 }
 
-UIntList Random::direct(const Count k)
+Random::UList Random::direct(const Count k)
 {
     UIntList result;
     while (result.count() < k)
@@ -142,7 +146,7 @@ FloatList Random::directF(const Count k)
     return result;
 }
 
-UIntList Random::randomIota(const Count iotaCount)
+Random::UList Random::randomIota(const Count iotaCount)
 {
     UIntList result = Iota(iotaCount);
     randomize(result);
@@ -195,3 +199,8 @@ void Random::refillF()
     mFloatQueue.enqueue(tList);
     emit refilledF(mFloatQueue.count());
 }
+
+Count Random::count() const { return mUIntQueue.count(); }
+
+Count Random::countF() const { return mFloatQueue.count(); }
+

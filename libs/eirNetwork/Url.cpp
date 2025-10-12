@@ -74,7 +74,7 @@ Url::Type Url::type(const AText &scheme)
     else if ("SqlLite" == scheme)   result = SqlLite;
     else if ("MySql" == scheme)     result = MySql;
     else if ("MariaDB" == scheme)   result = MariaDB;
-    mType = result;
+    return mType = result;
 }
 
 

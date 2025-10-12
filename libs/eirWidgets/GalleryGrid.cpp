@@ -19,7 +19,7 @@ GalleryGrid::GalleryGrid(Gallery *parent)
 
 void GalleryGrid::setup(const Size sz)
 {
-    qInfo() << Q_FUNC_INFO << sz;
+//    qInfo() << Q_FUNC_INFO << sz;
     Q_ASSERT(sz < QApplication::screens().at(0)->availableSize());
     const Size cCellSize = gallery()->props().cellPixelSize();
     for (Index row = 0; row < sz.height(); ++row)

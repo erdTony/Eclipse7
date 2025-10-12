@@ -10,11 +10,13 @@ Bytes::Bytes(const AText &atx) : QByteArray(atx) {;}
 Bytes::Bytes(const QByteArray &other) : QByteArray(other) {;}
 Bytes::Bytes(const QVariant &var) { set(var); }
 
+#ifndef Q_CC_MSVC
 Bytes::Bytes(const OWORD ow)
 {
     fill(0, sizeof(ow) + 1);
     std::memcpy(data(), &ow, sizeof(ow));
 }
+#endif
 
 BYTE Bytes::byte() const
 {
@@ -58,6 +60,7 @@ QWORD Bytes::qword() const
     return result;
 }
 
+#ifndef Q_CC_MSVC
 OWORD Bytes::oword() const
 {
     OWORD result=0;
@@ -72,6 +75,8 @@ SEWORD Bytes::seword() const
     return result;
 }
 */
+#endif
+
 QByteArray Bytes::base64() const
 {
     return toBase64();

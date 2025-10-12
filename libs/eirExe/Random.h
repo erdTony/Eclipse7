@@ -14,9 +14,11 @@ class EIREXE_EXPORT Random : public QObject
 {
     Q_OBJECT
 public: // types
+    typedef QList<unsigned> UList;
 
 public: // ctors
     explicit Random(QObject *parent = nullptr);
+    ~Random();
 
 public slots:
     void initialize();
@@ -43,12 +45,12 @@ public: // const
     FLOAT takeF();
     FloatList takeF(const Count k);
     UINT direct();
-    UIntList direct(const Count k);
+    UList direct(const Count k);
     FLOAT directF();
     FloatList directF(const Count k);
 
 public: // non-const
-    UIntList randomIota(const Count iotaCount);
+    UList randomIota(const Count iotaCount);
     void randomize(UIntList &pList);
 
 private: // const
@@ -85,5 +87,5 @@ private:
 };
 
 
-inline Count Random::count() const { return mUIntQueue.count(); }
-inline Count Random::countF() const { return mFloatQueue.count(); }
+
+

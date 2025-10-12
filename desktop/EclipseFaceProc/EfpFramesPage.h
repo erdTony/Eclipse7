@@ -2,7 +2,7 @@
 
 #include <BaseMainWindowPage.h>
 
-#include <GalleryProperties.h>
+//#include <GalleryProperties.h>
 class Gallery;
 class Label;
 class Url;
@@ -22,14 +22,14 @@ public slots:
 signals:
 
 public: // const
-    GalleryProperties props() const;
+//    GalleryProperties props() const;
 
 public: // non-const
     void setDefaultProperties(const Size baseGallerySize=Size(128));
     void readSettingsProperties();
 
 public: // pointers
-    GalleryProperties & props();
+//    GalleryProperties & props();
     Gallery * gallery();
 
 
@@ -37,9 +37,9 @@ private:
     Label * mpFrameLabel=nullptr;
     Label * mpDetectLabel=nullptr;
     Gallery * mpGallery=nullptr;
-    GalleryProperties mGalleryProperties;
+//    GalleryProperties mGalleryProperties;
 };
 
-inline GalleryProperties EfpFramesPage::props() const { return mGalleryProperties; }
-inline GalleryProperties & EfpFramesPage::props() { return mGalleryProperties; }
+//inline GalleryProperties EfpFramesPage::props() const { return mGalleryProperties; }
+//inline GalleryProperties & EfpFramesPage::props() { return mGalleryProperties; }
 inline Gallery *EfpFramesPage::gallery() { Q_CHECK_PTR(mpGallery); return mpGallery; }

@@ -1,5 +1,6 @@
 #include "GalleryCell.h"
 
+//#include <QtDebug>
 #include <QPainter>
 
 #include "Gallery.h"
@@ -87,11 +88,15 @@ void GalleryCell::setBlank()
     mBlank = true;
 }
 
-GalleryProperties GalleryCell::props() const { return gallery()->props(); }
-GalleryProperties &GalleryCell::props() { return gallery()->props(); }
+
+
 
 Uid GalleryCell::uid() const
 {
     const Id cIdent = id();
     return cIdent.uid();
 }
+
+GalleryProperties GalleryCell::props() const { return gallery()->props(); }
+
+GalleryProperties &GalleryCell::props() { return gallery()->props(); }

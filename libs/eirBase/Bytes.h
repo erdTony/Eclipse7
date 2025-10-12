@@ -16,7 +16,9 @@ public: // ctors
     Bytes(const AText &atx);
     Bytes(const QByteArray &other);
     Bytes(const QVariant &var);
+#ifndef Q_CC_MSVC
     Bytes(const OWORD ow);
+#endif
 
 public: // const
     BYTE byte() const;
@@ -25,8 +27,10 @@ public: // const
     qsizetype qSizeType() const;
     DWORD dword() const;
     QWORD qword() const;
+#ifndef Q_CC_MSVC
     OWORD oword() const;
 //    SEWORD seword() const;
+#endif
     QByteArray base64() const;
     AText aText() const;
 

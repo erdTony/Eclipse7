@@ -54,13 +54,13 @@ private:
 };
 
 inline Gallery *GalleryCell::gallery() { Q_CHECK_PTR(mpGallery); return mpGallery; }
-inline bool GalleryCell::isBlank() const { return mBlank; }
 
+
+inline bool GalleryCell::isBlank() const { return mBlank; }
 inline Id GalleryCell::id() const { return mIdent; }
 inline SCRect GalleryCell::rect() const { return SCRect(props().cellPixelSize()); }
 inline QImage GalleryCell::original() const { return mOriginalImage; }
 inline Gallery *GalleryCell::gallery() const { Q_CHECK_PTR(mpGallery); return mpGallery; }
-
 
 
 
