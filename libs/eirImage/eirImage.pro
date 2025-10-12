@@ -1,4 +1,5 @@
-QT += gui
+QT += gui \
+    widgets
 TEMPLATE = lib
 DEFINES += EIRIMAGE_LIBRARY
 CONFIG += c++23
@@ -9,6 +10,7 @@ include(../../useBase.pri)
 include(../../useType.pri)
 include(../../useMatgeo.pri)
 include(../../useColor.pri)
+include(../../useGraphics.pri)
 
 SOURCES += \
     BaseImage.cpp \
@@ -16,6 +18,10 @@ SOURCES += \
     BasePixel32.cpp \
     BasePixelBehavior.cpp \
     ColorImage.cpp \
+    Gallery.cpp \
+    GalleryPixmap.cpp \
+    GalleryScene.cpp \
+    GalleryView.cpp \
     Grey16Image.cpp \
     GreyImage.cpp \
     Image.cpp \
@@ -40,6 +46,10 @@ HEADERS += \
     BasePixel32.h \
     BasePixelBehavior.h \
     ColorImage.h \
+    Gallery.h \
+    GalleryPixmap.h \
+    GalleryScene.h \
+    GalleryView.h \
     Grey16Image.h \
     GreyImage.h \
     Image.h \

@@ -25,6 +25,7 @@ SOURCES += \
     TriBool.cpp \
     UText.cpp \
     Uid.cpp \
+    UidList.cpp \
     XText.cpp \
     eirBase.cpp
 
@@ -41,13 +42,13 @@ HEADERS += \
     FSText.h \
     FSTextList.h \
     FourCC.h \
-    List.h \
     MillisecondTime.h \
     NibbleArray.h \
     TriBool.h \
     Types.h \
     UText.h \
     Uid.h \
+    UidList.h \
     XText.h \
     eirBase.h \
     eirBase_global.h

@@ -5,6 +5,7 @@
 
 #include "Types.h"
 
+#ifndef Q_CC_MSVC
 class EIRBASE_EXPORT EightCC : public Bytes
 {
 public: // ctors
@@ -29,5 +30,5 @@ public: // ctors
 
 inline EightCC::operator AText() const { return Bytes::aText(); }
 inline EightCC::operator OWORD() const { return Bytes::oword(); }
-
+#endif
 

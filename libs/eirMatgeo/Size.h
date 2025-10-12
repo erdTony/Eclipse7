@@ -25,8 +25,11 @@ public: // const
     int min() const;
     int max() const;
     unsigned area() const;
+    bool isValidIndex(const int index) const;
     Rational aspect() const;
     Point center() const;
+    int index(const Point pt) const;
+    Point position(const int index) const;
     bool less(const Size &rhs) const;
     Size expanded(const Size sz) const;
     Size expanded(const unsigned u) const;

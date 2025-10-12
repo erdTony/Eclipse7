@@ -6,8 +6,7 @@
 #include <QHBoxLayout>
 
 #include <MainWindowPageStack.h>
-#include <Gallery.h>
-#include <GalleryProperties.h>
+//#include <Gallery.h>
 #include <Label.h>
 #include <Url.h>
 
@@ -15,7 +14,7 @@ EfpFramesPage::EfpFramesPage(QWidget *parent)
     : BaseMainWindowPage{"Frames", parent}
     , mpFrameLabel(new Label(Size(512), Qt::darkGreen))
     , mpDetectLabel(new Label(Size(512), Qt::darkBlue))
-    , mpGallery(new Gallery(this))
+//    , mpGallery(new Gallery(this))
 {
     qDebug() << Q_FUNC_INFO;
     setObjectName("EFPFramesPage");
@@ -26,6 +25,7 @@ void EfpFramesPage::setup()
     qDebug() << Q_FUNC_INFO;
     setDefaultProperties();
     readSettingsProperties();
+    /*
     props().calculateFromItems(Size(8, 1));
     qDebug() << props().galleryItems() << props().galleryPixelSize();
 
@@ -41,6 +41,7 @@ void EfpFramesPage::setup()
     gallery()->setup(props());
     pageGrid()->addWidget(gallery()->widget(), 1, 0, 1, 2);
     qDebug() << Q_FUNC_INFO << props().galleryPixelSize() << "exit";
+    */
 }
 
 void EfpFramesPage::activate()
@@ -59,13 +60,14 @@ void EfpFramesPage::start(const Url &url)
         QImage tFrame(cFI.filePath());
         if (tFrame.isNull()) continue;
         mpFrameLabel->set(mpFrameLabel->size(), tFrame);
-        gallery()->add(tFrame);
+//        gallery()->add(tFrame);
     }
 }
 
 void EfpFramesPage::setDefaultProperties(const Size baseGallerySize)
 {
     qDebug() << Q_FUNC_INFO;
+    /*
     props().modes(Gallery::RollingRow | Gallery::AlignTop);
     props().itemPixelSize(baseGallerySize);
     props().cellPixelSize(props().itemPixelSize()
@@ -74,6 +76,7 @@ void EfpFramesPage::setDefaultProperties(const Size baseGallerySize)
     props().selectionWidth(baseGallerySize.max() / 32);
     props().itemForeground(QColor(64, 64, 192));
     props().itemBackground(QColor(64, 64, 160));
+    */
 }
 
 void EfpFramesPage::readSettingsProperties()

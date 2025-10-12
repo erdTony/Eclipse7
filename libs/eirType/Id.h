@@ -11,13 +11,16 @@
 #include <Key.h>
 #include <Types.h>
 #include <Uid.h>
+#include <UidList.h>
 
 #define IDENT_DATAPROPS(TND) \
     TND(Uid, uid, 0) \
     TND(IdNo, idno, 0) \
     TND(Key, key, Key()) \
     TND(AText, name, AText()) \
-    TND(QVariant, description, QVariant()) \
+    TND(QVariant, var, QVariant()) \
+    TND(Uid, parentuid, Uid()) \
+    TND(UidList, childuids, UidList()) \
     TND(Milliseconds, ctorEms, 0) \
     TND(QWORD, ctorSeq, 0) \
 

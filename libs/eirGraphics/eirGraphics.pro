@@ -8,13 +8,15 @@ include(../libs.pri)
 include(../../useBase.pri)
 include(../../useType.pri)
 include(../../useMatgeo.pri)
-include(../../useImage.pri)
-
 
 SOURCES += \
+    GraphicsScene.cpp \
+    GraphicsView.cpp \
     eirGraphics.cpp
 
 HEADERS += \
+    GraphicsScene.h \
+    GraphicsView.h \
     eirGraphics.h \
     eirGraphics_global.h
 

@@ -15,9 +15,30 @@ unsigned int Size::area() const
     return isValid() ? (width() * height()) : 0;
 }
 
+bool Size::isValidIndex(const int index) const
+{
+    return (index >= 0 && index <= int(area()));
+}
+
 Point Size::center() const
 {
     return Point(width() / 2, height() / 2);
+}
+
+int Size::index(const Point pt) const
+{
+    return isValid() ? ((pt.y() * width()) + pt.x()) : -1;
+}
+
+Point Size::position(const int index) const
+{
+    Point result;
+    if (isValid() && isValidIndex(index))
+    {
+        result.setX(index % width());
+        result.setY(index / width());
+    }
+    return result;
 }
 
 bool Size::less(const Size &rhs) const

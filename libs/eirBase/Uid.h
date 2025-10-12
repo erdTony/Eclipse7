@@ -3,6 +3,7 @@
 
 #include "NibbleArray.h"
 
+#include <QList>
 #include <QUuid>
 
 #include "Types.h"
@@ -70,6 +71,7 @@ public: // types
         $nullType = 0,
         Log,
     };
+    typedef QList<Uid> List;
 
 public: // ctors
     Uid(); // null
@@ -90,7 +92,9 @@ public: // const
     QString tail() const;
     operator QString () const;
     QUuid uuid() const;
+#ifndef Q_CC_MSVC
     OWORD oword() const;
+#endif
     QWORD hi() const;
     QWORD lo() const;
 
@@ -115,7 +119,9 @@ inline bool Uid::isNull() const { return mNibbles.isNull(); }
 inline bool Uid::isNil() const { return mNibbles.isZero(); }
 inline Uid::operator QString() const { return toString(); }
 inline QUuid Uid::uuid() const { return QUuid::fromBytes(mNibbles.data()); }
+#ifndef Q_CC_MSVC
 inline OWORD Uid::oword() const { return *(OWORD *)(mNibbles.data()); }
+#endif
 inline QWORD Uid::hi() const { return *(QWORD *)(mNibbles.data()); }
 inline QWORD Uid::lo() const { return *((QWORD *)(mNibbles.data()) + 1); }
 inline Uid Uid::it() const { return *this; }

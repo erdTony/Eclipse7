@@ -1,5 +1,6 @@
 #include "Gallery.h"
 
+//#include <QtDebug>
 #include <QBrush>
 #include <QColor>
 #include <QPalette>
@@ -16,14 +17,14 @@ Gallery::Gallery(QWidget *parent)
     , mpGrid(new GalleryGrid(this))
     , mpGalleryWidget(new QWidget(parent))
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     setObjectName("Gallery");
 }
 
 void Gallery::setup(const GalleryProperties gp)
 {
     mProperties = gp;
-    qInfo() << Q_FUNC_INFO << gp.modes(); // << gp.toDebugStrings();
+    //qInfo() << Q_FUNC_INFO; // << gp.modes(); // << gp.toDebugStrings();
 
     grid()->setup(props().galleryItems());
     widget()->setLayout(grid()->layout());
@@ -31,7 +32,7 @@ void Gallery::setup(const GalleryProperties gp)
 
 void Gallery::add(const QImage &qi)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     GalleryCell * pCell = grid()->cell(mCurrentIndex);
     pCell->generate(qi);
     mCurrentIndex = ++mCurrentIndex % grid()->count();
@@ -39,6 +40,6 @@ void Gallery::add(const QImage &qi)
 
 void Gallery::set(const Point pt, GalleryCell *pCell)
 {
-    qInfo() << Q_FUNC_INFO << pt << pCell->id();
+    // qInfo() << Q_FUNC_INFO; // << pt << pCell->id();
     // TODO Gallery::set(): grid()->set(pt, pCell);
 }
