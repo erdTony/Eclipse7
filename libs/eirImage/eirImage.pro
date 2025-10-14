@@ -19,6 +19,7 @@ SOURCES += \
     BasePixel32.cpp \
     BasePixelBehavior.cpp \
     ColorImage.cpp \
+    FrameImage.cpp \
     Gallery.cpp \
     GalleryPixmap.cpp \
     GalleryScene.cpp \
@@ -48,6 +49,7 @@ HEADERS += \
     BasePixel32.h \
     BasePixelBehavior.h \
     ColorImage.h \
+    FrameImage.h \
     Gallery.h \
     GalleryPixmap.h \
     GalleryScene.h \
