@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:rpt="http://openoffice.org/2005/report" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:css3t="http://www.w3.org/TR/css3-text/" xmlns:officeooo="http://openoffice.org/2009/office" office:version="1.4" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2025-10-15T12:41:07.210284200</meta:creation-date><dc:date>2025-10-21T16:29:11.699101600</dc:date><meta:editing-duration>PT32M51S</meta:editing-duration><meta:editing-cycles>4</meta:editing-cycles><meta:generator>LibreOffice/25.8.2.2$Windows_X86_64 LibreOffice_project/d401f2107ccab8f924a8e2df40f573aab7605b6f</meta:generator><meta:print-date>2025-10-15T13:19:04.519282400</meta:print-date><meta:printed-by>PDF files</meta:printed-by><meta:document-statistic meta:table-count="1" meta:image-count="2" meta:object-count="0" meta:page-count="7" meta:paragraph-count="50" meta:word-count="1929" meta:character-count="11721" meta:non-whitespace-character-count="9848"/></office:meta>
+ <office:meta><meta:creation-date>2025-10-15T12:41:07.210284200</meta:creation-date><dc:date>2025-10-21T17:07:31.823562100</dc:date><meta:editing-duration>PT51M</meta:editing-duration><meta:editing-cycles>6</meta:editing-cycles><meta:generator>LibreOffice/25.8.2.2$Windows_X86_64 LibreOffice_project/d401f2107ccab8f924a8e2df40f573aab7605b6f</meta:generator><meta:print-date>2025-10-15T13:19:04.519282400</meta:print-date><meta:printed-by>PDF files</meta:printed-by><meta:document-statistic meta:table-count="1" meta:image-count="2" meta:object-count="0" meta:page-count="9" meta:paragraph-count="82" meta:word-count="3288" meta:character-count="19836" meta:non-whitespace-character-count="16631"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">51319</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">50091</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">22585</config:config-item>
    <config:config-item config:name="ViewAreaHeight" config:type="long">12176</config:config-item>
@@ -16,9 +16,9 @@
      <config:config-item config:name="ViewLeft" config:type="long">2501</config:config-item>
      <config:config-item config:name="ViewTop" config:type="long">60163</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">51319</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">50091</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">22583</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">63493</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">62265</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">3</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -84,7 +84,7 @@
    <config:config-item config:name="IgnoreTabsAndBlanksForLineCalculation" config:type="boolean">false</config:config-item>
    <config:config-item config:name="IgnoreHiddenCharsForLineCalculation" config:type="boolean">true</config:config-item>
    <config:config-item config:name="TabAtLeftIndentForParagraphsInList" config:type="boolean">false</config:config-item>
-   <config:config-item config:name="Rsid" config:type="int">1932476</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">2064958</config:config-item>
    <config:config-item config:name="RsidRoot" config:type="int">1682345</config:config-item>
    <config:config-item config:name="LoadReadonly" config:type="boolean">false</config:config-item>
    <config:config-item config:name="ClipAsCharacterAnchoredWriterFlyFrames" config:type="boolean">false</config:config-item>
@@ -179,7 +179,7 @@
  <office:styles>
   <style:default-style style:family="graphic">
    <style:graphic-properties svg:stroke-color="#3465a4" draw:fill-color="#729fcf" fo:wrap-option="no-wrap" draw:shadow-offset-x="0.1181in" draw:shadow-offset-y="0.1181in" draw:start-line-spacing-horizontal="0.1114in" draw:start-line-spacing-vertical="0.1114in" draw:end-line-spacing-horizontal="0.1114in" draw:end-line-spacing-vertical="0.1114in" style:writing-mode="lr-tb" style:flow-with-text="false"/>
-   <style:paragraph-properties style:text-autospace="ideograph-alpha" style:line-break="strict" loext:tab-stop-distance="0in" style:font-independent-line-spacing="false">
+   <style:paragraph-properties style:text-autospace="ideograph-alpha" style:line-break="strict" loext:tab-stop-distance="0in" style:writing-mode="lr-tb" style:font-independent-line-spacing="false">
     <style:tab-stops/>
    </style:paragraph-properties>
    <style:text-properties style:use-window-font-color="true" loext:opacity="0%" style:font-name="Liberation Serif" fo:font-size="12pt" fo:language="en" fo:country="US" style:letter-kerning="true" style:font-name-asian="NSimSun1" style:font-size-asian="10.5pt" style:language-asian="zh" style:country-asian="CN" style:font-name-complex="Arial2" style:font-size-complex="12pt" style:language-complex="hi" style:country-complex="IN"/>
@@ -246,6 +246,7 @@
    <style:text-properties style:font-name="Liberation Serif1" fo:font-family="&apos;Liberation Serif&apos;" style:font-style-name="Bold" style:font-family-generic="roman" style:font-pitch="variable" fo:font-size="14pt" fo:font-weight="bold" style:font-size-asian="16pt" style:font-weight-asian="bold" style:font-size-complex="16pt" style:font-weight-complex="bold"/>
   </style:style>
   <style:style style:name="Figure" style:family="paragraph" style:parent-style-name="Caption" style:class="extra"/>
+  <style:style style:name="Frame_20_contents" style:display-name="Frame contents" style:family="paragraph" style:parent-style-name="Standard" style:class="extra"/>
   <style:style style:name="Numbering_20_Symbols" style:display-name="Numbering Symbols" style:family="text"/>
   <style:style style:name="Example" style:family="text">
    <style:text-properties style:font-name="Liberation Mono" fo:font-family="&apos;Liberation Mono&apos;" style:font-family-generic="modern" style:font-pitch="fixed" style:font-name-asian="NSimSun" style:font-family-asian="NSimSun" style:font-family-generic-asian="modern" style:font-pitch-asian="fixed" style:font-name-complex="Liberation Mono" style:font-family-complex="&apos;Liberation Mono&apos;" style:font-family-generic-complex="modern" style:font-pitch-complex="fixed"/>
@@ -254,10 +255,10 @@
    <style:text-properties style:font-name="OpenSymbol" fo:font-family="OpenSymbol" style:font-charset="x-symbol" style:font-name-asian="OpenSymbol" style:font-family-asian="OpenSymbol" style:font-charset-asian="x-symbol" style:font-name-complex="OpenSymbol" style:font-family-complex="OpenSymbol" style:font-charset-complex="x-symbol"/>
   </style:style>
   <style:style style:name="Graphics" style:family="graphic">
-   <style:graphic-properties text:anchor-type="paragraph" svg:x="0in" svg:y="0in" style:wrap="dynamic" style:number-wrapped-paragraphs="no-limit" style:wrap-contour="false" style:vertical-pos="top" style:vertical-rel="paragraph" style:horizontal-pos="center" style:horizontal-rel="paragraph" draw:fill="none"/>
+   <style:graphic-properties text:anchor-type="paragraph" svg:x="0in" svg:y="0in" style:wrap="dynamic" style:number-wrapped-paragraphs="no-limit" style:wrap-contour="false" style:vertical-pos="top" style:vertical-rel="paragraph" style:horizontal-pos="center" style:horizontal-rel="paragraph" fo:background-color="transparent" draw:fill="none"/>
   </style:style>
   <style:style style:name="Frame" style:family="graphic">
-   <style:graphic-properties text:anchor-type="paragraph" svg:x="0in" svg:y="0in" fo:margin-left="0.0791in" fo:margin-right="0.0791in" fo:margin-top="0.0791in" fo:margin-bottom="0.0791in" style:wrap="parallel" style:number-wrapped-paragraphs="no-limit" style:wrap-contour="false" style:vertical-pos="top" style:vertical-rel="paragraph-content" style:horizontal-pos="center" style:horizontal-rel="paragraph-content" draw:fill="none" fo:padding="0.0591in" fo:border="0.06pt solid #000000"/>
+   <style:graphic-properties text:anchor-type="paragraph" svg:x="0in" svg:y="0in" fo:margin-left="0.0791in" fo:margin-right="0.0791in" fo:margin-top="0.0791in" fo:margin-bottom="0.0791in" style:wrap="parallel" style:number-wrapped-paragraphs="no-limit" style:wrap-contour="false" style:vertical-pos="top" style:vertical-rel="paragraph-content" style:horizontal-pos="center" style:horizontal-rel="paragraph-content" fo:background-color="transparent" draw:fill="none" fo:padding="0.0591in" fo:border="0.06pt solid #000000"/>
   </style:style>
   <text:outline-style style:name="Outline">
    <text:outline-level-style text:level="1" loext:num-list-format="%1%" style:num-format="">
@@ -435,6 +436,36 @@
   <style:style style:name="P22" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="001b9b6a" officeooo:paragraph-rsid="001b9b6a"/>
   </style:style>
+  <style:style style:name="P23" style:family="paragraph" style:parent-style-name="Heading_20_2">
+   <style:text-properties officeooo:rsid="001e0690" officeooo:paragraph-rsid="001e0690"/>
+  </style:style>
+  <style:style style:name="P24" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties style:font-name="Arial1" style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color" officeooo:rsid="0011c082" officeooo:paragraph-rsid="0011c082"/>
+  </style:style>
+  <style:style style:name="P25" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties style:font-name="Arial1" officeooo:rsid="0011c082" officeooo:paragraph-rsid="0011c082"/>
+  </style:style>
+  <style:style style:name="P26" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties style:font-name="Arial1" officeooo:rsid="0011c082" officeooo:paragraph-rsid="001e0690"/>
+  </style:style>
+  <style:style style:name="P27" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties style:font-name="Arial1" officeooo:rsid="001e0690" officeooo:paragraph-rsid="001e0690"/>
+  </style:style>
+  <style:style style:name="P28" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties style:font-name="Arial1" officeooo:paragraph-rsid="001f823e"/>
+  </style:style>
+  <style:style style:name="P29" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties style:font-name="Arial1" fo:font-style="italic" officeooo:paragraph-rsid="001f823e" style:font-style-asian="italic" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="P30" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties style:font-name="Arial1" fo:font-style="italic" officeooo:rsid="0013703e" officeooo:paragraph-rsid="0013703e" style:font-style-asian="italic" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="P31" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties style:font-name="Arial1" fo:font-style="italic" officeooo:rsid="00151421" officeooo:paragraph-rsid="00151421" style:font-style-asian="italic" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="P32" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties style:font-name="Arial1" fo:font-style="italic" officeooo:paragraph-rsid="001b9b6a" style:font-style-asian="italic" style:font-style-complex="italic"/>
+  </style:style>
   <style:style style:name="T1" style:family="text">
    <style:text-properties style:font-name="Arial1" officeooo:rsid="0019aba9"/>
   </style:style>
@@ -479,6 +510,18 @@
   </style:style>
   <style:style style:name="T15" style:family="text">
    <style:text-properties style:use-window-font-color="true" loext:opacity="0%" style:font-name="Arial1" officeooo:rsid="001c760a" style:font-name-asian="Webdings" style:font-name-complex="Webdings"/>
+  </style:style>
+  <style:style style:name="T16" style:family="text">
+   <style:text-properties officeooo:rsid="001f823e"/>
+  </style:style>
+  <style:style style:name="T17" style:family="text">
+   <style:text-properties officeooo:rsid="001e0690"/>
+  </style:style>
+  <style:style style:name="T18" style:family="text">
+   <style:text-properties officeooo:rsid="0011c082"/>
+  </style:style>
+  <style:style style:name="T19" style:family="text">
+   <style:text-properties officeooo:rsid="0013703e"/>
   </style:style>
   <style:style style:name="fr1" style:family="graphic" style:parent-style-name="Frame">
    <style:graphic-properties fo:margin-left="0in" fo:margin-right="0in" fo:margin-top="0in" fo:margin-bottom="0in" style:run-through="foreground" style:wrap="none" style:vertical-pos="top" style:vertical-rel="paragraph" style:horizontal-pos="center" style:horizontal-rel="paragraph" fo:padding="0in" fo:border="none"/>
@@ -639,7 +682,7 @@
        <text:p text:style-name="P3">ECLIPSE CONFIDENTIAL</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table1.A1" office:value-type="string">
-       <text:p text:style-name="P4">Page <text:page-number text:select-page="current">7</text:page-number><text:s/>of <text:page-count>7</text:page-count></text:p>
+       <text:p text:style-name="P4">Page <text:page-number text:select-page="current">4</text:page-number><text:s/>of <text:page-count>9</text:page-count></text:p>
       </table:table-cell>
      </table:table-row>
     </table:table>
@@ -727,7 +770,7 @@
    <text:h text:style-name="P14" text:outline-level="2">Facial Feature Location</text:h>
    <text:p text:style-name="Text_20_body">The Legacy Engine locates the left and right eyes in the Northwest and Northeast quadrants of the detected potential face. The “best” eye is used, rather than just the largest <text:span text:style-name="T6"></text:span><text:span text:style-name="T7">Key </text:span><text:span text:style-name="T5">. </text:span><text:span text:style-name="T15">If a good quality eye detection cannot be found, the face is discarded for recognition purposes. Future versions of the engine can also locate the mouth and nose and create a “T” with the eyes centered on bridge of the nose plus the nose tip and center of the mouth.</text:span></text:p>
    <text:h text:style-name="P14" text:outline-level="2">Face Image Normalization</text:h>
-   <text:p text:style-name="P18">The feature (eye) locations are used to rotate and scale the face into normalized positions. If the normalized face image does not represent a real face, as determined by the <text:span text:style-name="Example">MinConsistency </text:span><text:span text:style-name="Example"><text:span text:style-name="T6"></text:span></text:span><text:span text:style-name="Example"><text:span text:style-name="T7">Key </text:span></text:span>parameter, that face is also discarded for facial recognition purposes.</text:p>
+   <text:p text:style-name="P18">The feature (eye) locations are used to rotate and scale the face <text:span text:style-name="T16">so that the eyes match the average face used in the vector generation step below. Note that the center of the eye socket is used, not necessarily the pupil if the subject&apos;s gaze is not straight ahead.</text:span> If the normalized face image does not represent a real face, as determined by the <text:span text:style-name="Example">MinConsistency </text:span><text:span text:style-name="Example"><text:span text:style-name="T6"></text:span></text:span><text:span text:style-name="Example"><text:span text:style-name="T7">Key </text:span></text:span>parameter, that face is also discarded for facial recognition purposes.</text:p>
    <text:h text:style-name="P14" text:outline-level="2"><text:soft-page-break/>Face Vector Generation</text:h>
    <text:p text:style-name="P19"/>
    <text:h text:style-name="Heading_20_2" text:outline-level="2">Casual Matching</text:h>
@@ -806,7 +849,7 @@
           9zmfeiwLVOK/5sW/QEXuK6Kl+x+ttvTTfSJisgAAAABJRU5ErkJggg==
          </office:binary-data>
         </draw:image>
-       </draw:frame>Figure <text:sequence text:ref-name="refFigure1" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">1</text:sequence>: Haar Features</text:p>
+       </draw:frame>Figure <text:sequence text:ref-name="refFigure0" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">1</text:sequence>: Haar Features</text:p>
      </draw:text-box>
     </draw:frame><text:soft-page-break/></text:p>
    <text:p text:style-name="P21"><draw:frame draw:style-name="fr1" draw:name="Frame1" text:anchor-type="char" svg:width="3.4791in" draw:z-index="0">
@@ -899,11 +942,50 @@
           VIQAboslIbV6aOTtIWRkBOHNaDqRKd2iOYFmuEkB/g8ddN7OmJaWWQAAAABJRU5ErkJggg==
          </office:binary-data>
         </draw:image>
-       </draw:frame>Figure <text:sequence text:ref-name="refFigure0" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">2</text:sequence>: Haar Face</text:p>
+       </draw:frame>Figure <text:sequence text:ref-name="refFigure1" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">2</text:sequence>: Haar Face</text:p>
      </draw:text-box>
     </draw:frame></text:p>
    <text:h text:style-name="P22" text:outline-level="2">Tutorial</text:h>
    <text:p text:style-name="P21">We will learn how the Haar cascade object detection works. We will see the basics of face detection and eye detection using the Haar Feature-based Cascade Classifiers We will use the cv::CascadeClassifier class to detect objects in a video stream. Particularly, we will use the functions: cv::CascadeClassifier::load to load a .xml classifier file. It can be either a Haar or a LBP classifier cv::CascadeClassifier::detectMultiScale to perform the detection. Theory Object Detection using Haar feature-based cascade classifiers is an effective object detection method proposed by Paul Viola and Michael Jones in their paper, &quot;Rapid Object Detection using a Boosted Cascade of Simple Features&quot; in 2001. It is a machine learning based approach where a cascade function is trained from a lot of positive and negative images. It is then used to detect objects in other images. Here we will work with face detection. Initially, the algorithm needs a lot of positive images (images of faces) and negative images (images without faces) to train the classifier. Then we need to extract features from it. For this, Haar <text:soft-page-break/>features shown in the below image are used. They are just like our convolutional kernel. Each feature is a single value obtained by subtracting sum of pixels under the white rectangle from sum of pixels under the black rectangle. Now, all possible sizes and locations of each kernel are used to calculate lots of features. (Just imagine how much computation it needs? Even a 24x24 window results over 160000 features). For each feature calculation, we need to find the sum of the pixels under white and black rectangles. To solve this, they introduced the integral image. However large your image, it reduces the calculations for a given pixel to an operation involving just four pixels. Nice, isn&apos;t it? It makes things super-fast. But among all these features we calculated, most of them are irrelevant. For example, consider the image below. The top row shows two good features. The first feature selected seems to focus on the property that the region of the eyes is often darker than the region of the nose and cheeks. The second feature selected relies on the property that the eyes are Intital Revision in Progress 10/15/25 EIRC Technology Overview ECLIPSE CONFIDENTIAL Page 5 of 8 darker than the bridge of the nose. But the same windows applied to cheeks or any other place is irrelevant. So how do we select the best features out of 160000+ features? It is achieved by Adaboost. For this, we apply each and every feature on all the training images. For each feature, it finds the best threshold which will classify the faces to positive and negative. Obviously, there will be errors or misclassifications. We select the features with minimum error rate, which means they are the features that most accurately classify the face and non-face images. (The process is not as simple as this. Each image is given an equal weight in the beginning. After each classification, weights of misclassified images are increased. Then the same process is done. New error rates are calculated. Also new weights. The process is continued until the required accuracy or error rate is achieved or the required number of features are found). The final classifier is a weighted sum of these weak classifiers. It is called weak because it alone can&apos;t classify the image, but together with others forms a strong classifier. The paper says even 200 features provide detection with 95% accuracy. Their final setup had around 6000 features. (Imagine a reduction from 160000+ features to 6000 features. That is a big gain). So now you take an image. Take each 24x24 window. Apply 6000 features to it. Check if it is face or not. Wow.. Isn&apos;t it a little inefficient and time consuming? Yes, it is. The authors have a good solution for that. In an image, most of the image is non-face region. So it is a better idea to have a simple method to check if a window is not a face region. If it is not, discard it in a single shot, and don&apos;t process it again. Instead, focus on regions where there can be a face. This way, we spend more time checking possible face regions. For this they introduced the concept of Cascade of Classifiers. Instead of applying all 6000 features on a window, the features are grouped into different stages of classifiers and applied one-by-one. (Normally the first few stages will contain very many fewer features). If a window fails the first stage, discard it. We don&apos;t consider the remaining features on it. If it passes, apply the second stage of features and continue the process. The window which passes all stages is a face region. How is that plan! The authors&apos; detector had 6000+ <text:soft-page-break/>features with 38 stages with 1, 10, 25, 25 and 50 features in the first five stages. (The two features in the above image are actually obtained as the best two features from Adaboost). According to the authors, on average 10 features out of 6000+ are evaluated per sub-window. <text:s/>Haar-cascade Detection in OpenCV C++ OpenCV provides a training method (see Cascade Classifier Training) or pretrained models, that can be read using the cv::CascadeClassifier::load method. The pretrained models are located in the data folder in the OpenCV installation or can be found here. First, a cv::CascadeClassifier is created and the necessary XML file is loaded using the cv::CascadeClassifier::load method. Afterwards, the detection is done using the cv::CascadeClassifier::detectMultiScale method, which returns boundary rectangles for the detected faces or eyes. </text:p>
+   <text:h text:style-name="P23" text:outline-level="2">EigenFace</text:h>
+   <text:p text:style-name="P24"><text:span text:style-name="T17">I</text:span>ntroduction</text:p>
+   <text:p text:style-name="P25"><text:span text:style-name="T17">The Eclipse Face Processing Engine uses </text:span>MIT&apos;s Eigen face as its core element for creating templates of a face image. We have added significant intellectual property around that seed to <text:span text:style-name="T17">implement a</text:span> superior implementation. This document will give an overview of Eigen face itself and then detail our intellectual property and the way that it is applied to in the <text:span text:style-name="T17">Engine.</text:span></text:p>
+   <text:p text:style-name="P25"/>
+   <text:p text:style-name="P24">Eigen<text:span text:style-name="T17">F</text:span>ace</text:p>
+   <text:p text:style-name="P26">Eigen<text:span text:style-name="T17">F</text:span>ace was developed at the Massachusetts Institute of Technology <text:span text:style-name="T17">M</text:span>edia Lab in the late 80s and early 90s by professors <text:span text:style-name="T17">Pentland</text:span> and Turk. It was originally used by the AC Nielsen Co. to automatically determine which of a handful of family members was watching a <text:span text:style-name="T17">television set</text:span> equipped with Nielsen&apos;s content monitoring box. </text:p>
+   <text:p text:style-name="P26"/>
+   <text:p text:style-name="P27">It was attempted to be used to identify duplicate drivers licenses in the state of Ohio. It failed miserably because it was trained only on MIT students, twenty-something, white males. And Ohio’s drivers license facebase contained females and minorities. </text:p>
+   <text:p text:style-name="P26"/>
+   <text:p text:style-name="P26"><text:span text:style-name="T17">It’s most successful use was by Biometrica Solutions of Las Vegas in around 175 casinos world-wide. Biometrica was a subsidiary of Viisage which was purchased by L1 Identity Solutions when it went public. When L1 was absorbed by X24 in Germany, they had to discontinue EigenFace in favor of X24’s technology. Biometrica lost most of its facial recognition customers because the new algorithm could not perform in their environment.</text:span></text:p>
+   <text:p text:style-name="P26"/>
+   <text:p text:style-name="P28"><text:span text:style-name="T18">All of the in the fac</text:span><text:span text:style-name="T17">ial recognition</text:span><text:span text:style-name="T18"> code is </text:span><text:span text:style-name="T17">written and </text:span><text:span text:style-name="T18"><text:s/>owned by </text:span><text:span text:style-name="T17">and is the </text:span><text:span text:style-name="T18">intellectual-property </text:span><text:span text:style-name="T17">of EclipseIR. </text:span><text:span text:style-name="T18">The Eigen face layers used in </text:span><text:span text:style-name="T17">the EFP</text:span><text:span text:style-name="T18"> </text:span><text:span text:style-name="T17">Engine a</text:span><text:span text:style-name="T18">re released into the public domain by </text:span><text:span text:style-name="T17">Tohoku</text:span><text:span text:style-name="T18"> University </text:span><text:span text:style-name="T17">(Japan’s MIT) developed under a US/</text:span><text:span text:style-name="T16">DARPA</text:span><text:span text:style-name="T17">-Japan </text:span><text:span text:style-name="T16">grant using training faces from around the world. </text:span></text:p>
+   <text:p text:style-name="P28"/>
+   <text:p text:style-name="P29"><text:span text:style-name="T18">The subject face is then subtracted from the mean face at the analog grayscale level. From there and eigenvector is calculated whereby a certain positive and negative coefficient is assigned to each layer in the Aiken face Becker. The subject face scratch that an </text:span><text:soft-page-break/><text:span text:style-name="T18">approximation of the subject face can then be reconstructed by applying each coefficient in the eigenvector to that layer data and adding the result to the average face. </text:span><text:span text:style-name="T19">The reconstructed face matching the reconstructed face is the key element to the performance of the Aiken face algorithm.</text:span></text:p>
+   <text:p text:style-name="P30">Image of the face and eyes and a marked frame show the normalized image and may be a difference image from the mean image a vector and the reconstructed image</text:p>
+   <text:p text:style-name="P30">truncate the vector files to 256 for purposes of not disclosing how many vectors were actually using</text:p>
+   <text:p text:style-name="P30">this vector and other factors for the same subject face are then combined into a template that represents this image of the subject face. This template can be enrolled in a database to search for this subject in the future or can be used to search the database of already enrolled images. This vector is very small, less than 2 kB, which can be used to represent the thousands of pixels in the subject&apos;s face image. Searching those vectors is very fast even on an inexpensive computer we can at least process 50,000 faces scratch faces vectors in a fifth or quarter of a second.</text:p>
+   <text:p text:style-name="P30">Eclipse IR does not claim any intellectual property around Huygens face itself except that our custom Aiken face layers will become virtual intellectual property.</text:p>
+   <text:p text:style-name="P30">Confidence and tears</text:p>
+   <text:p text:style-name="P30">when comparing two factors typically be colluding in distance between vectors is <text:line-break/>CALCULATED&gt;<text:line-break/>This distance can then be used to sort the enrolled vectors versus the subject vector were the least distance represents the closest match to the subject image. The distance concept is very difficult for end-users laypersons to understand. So, eclipse IR developed a range of confidences based upon the distance where a higher confidence up to 99.9% is better than 95% and much better than 50%. As with all similar numbers and eclipse IR the confidence values range from 1 to 999. We&apos;ll put a formula here</text:p>
+   <text:p text:style-name="P30">recently eclipse IR also added the concept of research results here. The initial implementation has tears calculated by fixed thresholds of confidence set by the user and we currently support five tiers. Best one person up above the strong threshold. Strong a small number of persons above the strong threshold. Possible: were a large number of persons are above the strong threshold plus results between the possible threshold and the strong threshold. Week: results that generated above the specified minimum confidence but do not reach the possible threshold. And finally no result: scratch result match: results that did not meet the minimum confidence parameter.</text:p>
+   <text:p text:style-name="P30">The default values for casual match formal search verify and authenticate are listed in a table. See below for description of these modes.</text:p>
+   <text:p text:style-name="P30">Search modes</text:p>
+   <text:p text:style-name="P30">currently in the face supports for modes of face sorting</text:p>
+   <text:p text:style-name="P30">casual match, formal search, verify, authenticate</text:p>
+   <text:p text:style-name="P30">in the future we may add verify list authenticate list and familial similarity.</text:p>
+   <text:p text:style-name="P30">Casual match can be enabled on every face found in every frame against the enrolled database of up to 50,000 people. This is not expected to provide perfect results but can alert an operator to look more carefully at what the cameras watching.</text:p>
+   <text:p text:style-name="P30">Search is where an operator collects 3 to 5 in images of a person of interest and performs a search against the entire enrolled database.</text:p>
+   <text:p text:style-name="P30"><text:soft-page-break/>Verifying is where the subject identity is thought to be known through a token of some kind such as an ID card drivers license etc. And that token is known to the enrollment database. The opera greater collects 3 to 5 images of that life person and initiates a verification within the face and a match confidence and tear is returned from a very fast verification of those vectors.</text:p>
+   <text:p text:style-name="P30">Authentication is similar to verification except that the subjects dear ID is provided to in the face and then has images are captured of the subject and verified until the person has been positively identified negatively identified or a verification is not possible when exceeding the maximum number of images for trying. Typical defaults for the authentication process is a minimum of two images a maximum of 10 images a failing confidence of less than 60% and iPods positive confidence selected by the user in the 85 to 95% range. They can specify this confidence based upon the value of what they&apos;re protecting</text:p>
+   <text:p text:style-name="P30">person mode</text:p>
+   <text:p text:style-name="P30">the principle piece of intellectual property and eclipse IR&apos;s in the face is the concept of person mode. Other Eigen face implementations may know that multiple enrollments are of the same person but they do not take advantage of that information to improve the search results by face similarity. This allows in the face to be head and shoulders above any competitors in this arena.</text:p>
+   <text:p text:style-name="P30">Note: put a sentence back in the original Eigen face paragraph that says we selected Eigen face because it is a very fast process for both vector generation and searching templates are generated in a handful of milliseconds and searched in less than a fifth of a second</text:p>
+   <text:p text:style-name="P30">enrollment</text:p>
+   <text:p text:style-name="P30">when a person and his subject faces are enrolled to the indie base of person records face templates and normalize space images. They are specified by an ID which is unique string for that person such as a drivers license, and the enrolling application can also supply a description for that person that is meaningful to the enrolling application. Andy face supplies a unique numeric face key and person key for each entry. All subject faces enrolled for that person are associated with the person key which allows verification on and authentication as well as improve the results of casual match and especially formal search.</text:p>
+   <text:p text:style-name="P30">Combining search results</text:p>
+   <text:p text:style-name="P31">informal search the ability to combine search faces and combine those results against the enrolled faces of the same person tremendously improves the confidence in search results. But, the challenge is to not allow a person with a huge number of enrolled faces face templates to overwhelm better results of a person with only few enrolled faces.</text:p>
+   <text:p text:style-name="P32"/>
+   <text:p text:style-name="P21"/>
   </office:text>
  </office:body>
 </office:document>
