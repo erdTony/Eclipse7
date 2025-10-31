@@ -6,6 +6,6 @@ INCLUDEPATH *= $$LIBDIR/eirMatgeo
 windows:LIBS *= -leirMatgeo7
 linux:LIBS *= -leirMatgeo
 LIBS *= -L$$DESTDIR
-message(--------/src/useMatgeo.pri LIBS=$$LIBS DESTDIR==$$DESTDIR INCLUDEPATH==$$INCLUDEPATH )
+#message(--------/src/useMatgeo.pri LIBS=$$LIBS DESTDIR==$$DESTDIR INCLUDEPATH==$$INCLUDEPATH )
 
 

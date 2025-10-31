@@ -1,4 +1,4 @@
-# BuildIRE.pro - Build IREngine and its libraries
+# BuildEFP.pro - Build Eclipse Face Processor and its libraries
 
 TEMPLATE = subdirs
 

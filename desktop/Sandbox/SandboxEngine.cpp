@@ -130,7 +130,8 @@ Count SandboxEngine::processSwaps()
     {   // downward from second row
         tAboveRow = tBelowRow;
         tBelowRow = QByteArray((const char *)tImage.constScanLine(tRow), cWidth);
-        const UIntList cRandomCols = app()->exe()->rand()->take(cWidth, cWidth);
+//        const UIntList cRandomCols = app()->exe()->rand()->take(cWidth, cWidth);
+        const UIntList cRandomCols = rand()->take(cWidth, cWidth);
         for (int tColIx = 1; tColIx < cWidth - 1; ++tColIx)
         {
             int tCol = qBound(1U, cRandomCols[tColIx], UINT(cWidth-2));

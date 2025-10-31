@@ -6,6 +6,6 @@ INCLUDEPATH *= $$LIBDIR/eirBase
 windows:LIBS *= -leirBase7
 linux:LIBS *= -leirBase
 LIBS *= -L$$DESTDIR
-message(--------/src/useBase.pri LIBS=$$LIBS DESTDIR==$$DESTDIR INCLUDEPATH==$$INCLUDEPATH )
+#message(--------/src/useBase.pri LIBS=$$LIBS DESTDIR==$$DESTDIR INCLUDEPATH==$$INCLUDEPATH )
 
 

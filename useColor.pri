@@ -6,6 +6,6 @@ INCLUDEPATH *= $$LIBDIR/eirColor
 windows:LIBS *= -leirColor7
 linux:LIBS *= -leirColor
 LIBS *= -L$$DESTDIR
-message(--------/src/useColor.pri LIBS=$$LIBS DESTDIR==$$DESTDIR INCLUDEPATH==$$INCLUDEPATH )
+#message(--------/src/useColor.pri LIBS=$$LIBS DESTDIR==$$DESTDIR INCLUDEPATH==$$INCLUDEPATH )
 
 

@@ -8,6 +8,7 @@ class QTimer;
 
 #include <Rgba32Table.h>
 #include <Types.h>
+class Random;
 
 class SandboxApplication;
 //#include "SandboxApplication.h"
@@ -48,6 +49,7 @@ public: // non-const
 
 public: // pointers
     SandboxApplication * app();
+    Random * rand();
     QObject * object();
 
 private slots:
@@ -74,6 +76,7 @@ private:
 private:
     SandboxApplication * mpApplication=nullptr;
     QTimer * mpSwapTimer=nullptr;
+    Random * mpRandom=nullptr;
     QImage mSubjectImage;
     QImage mProcessImage;
     Count mSwapCount;
@@ -84,4 +87,6 @@ inline QImage SandboxEngine::subjectImage() const { return mSubjectImage; }
 inline QImage SandboxEngine::processImage() const { return mProcessImage; }
 inline void SandboxEngine::processImage(const QImage &qi) { mProcessImage = qi; }
 inline SandboxApplication *SandboxEngine::app() { Q_ASSERT(mpApplication); return mpApplication; }
+
+inline Random *SandboxEngine::rand() { Q_CHECK_PTR(mpRandom); return mpRandom; }
 inline QObject *SandboxEngine::object() { return parent(); }

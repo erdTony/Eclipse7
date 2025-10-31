@@ -88,10 +88,12 @@ void SandboxApplication::actQuit(const bool checked)
 
 CommandLine *SandboxApplication::commandLine()
 {
-    return exe()->cli();
+    Q_ASSERT(!"no exe()");
+    return nullptr; // exe()->cli();
 }
 
 Settings *SandboxApplication::settings()
 {
-    return exe()->stgs();
+    Q_ASSERT(!"no exe()");
+    return nullptr; // exe()->stgs();
 }
