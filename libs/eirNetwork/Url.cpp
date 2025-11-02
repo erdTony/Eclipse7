@@ -10,6 +10,16 @@ Url::Url(const QString &url, QUrl::ParsingMode mode) { set(url, mode); }
 Url::Url(const QUrl &other) noexcept { set(other.toString()); }
 Url &Url::operator =(const QString &url) { set(url); return it(); }
 
+bool Url::isNull() const
+{
+    return mUrl.isEmpty() || $null == type();
+}
+
+bool Url::isValid() const
+{
+    return mUrl.isValid() && $null != type();
+}
+
 QString Url::string(const bool encoded) const
 {
     QUrl tUrl = mUrl;
@@ -30,6 +40,12 @@ bool Url::contains(const AText &queryName) const
 AText Url::value(const AText &queryName) const
 {
     return mQueryPairMap.value(queryName);
+}
+
+void Url::clear()
+{
+    mType = $null, mUrl.clear(), mQuery.clear(), mQueryText.clear(),
+        mQueryList.clear(), mQueryPairs.clear(), mQueryPairMap.clear();
 }
 
 void Url::set(const QString &url, QUrl::ParsingMode mode)

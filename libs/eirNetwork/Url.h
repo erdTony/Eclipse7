@@ -27,6 +27,7 @@ public: // types
         SqlLite,
         MySql,
         MariaDB,
+        PGSQL,
         $other
     };
 
@@ -40,6 +41,8 @@ public: // ctors
 
 
 public: // const
+    bool isNull() const;
+    bool isValid() const;
     Type type() const;
     QString string(const bool encoded=false) const;
     QDir dir() const;
@@ -48,6 +51,7 @@ public: // const
     AText operator [] (const AText &queryName) const;
 
 public: // non-const
+    void clear();
     void set(const QString &url, QUrl::ParsingMode mode=QUrl::TolerantMode);
     void dir(const QDir &dir);
     void setScheme(const AText &scheme);

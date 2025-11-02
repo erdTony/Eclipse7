@@ -12,6 +12,7 @@ include(../../useNetwork.pri)
 
 SOURCES += \
     BaseImageAcqSource.cpp \
+    BlobStore.cpp \
     DirInfo.cpp \
     FileData.cpp \
     FileInfo.cpp \
@@ -23,10 +24,12 @@ SOURCES += \
     ImageAcqManager.cpp \
     ImageAcqProperties.cpp \
     ImageAcqThread.cpp \
+    StoreUrl.cpp \
     eirStore.cpp
 
 HEADERS += \
     BaseImageAcqSource.h \
+    BlobStore.h \
     DirInfo.h \
     FileData.h \
     FileInfo.h \
@@ -38,6 +41,7 @@ HEADERS += \
     ImageAcqManager.h \
     ImageAcqProperties.h \
     ImageAcqThread.h \
+    StoreUrl.h \
     eirStore.h \
     eirStore_global.h
 

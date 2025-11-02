@@ -13,7 +13,7 @@
 class EIRIMAGE_EXPORT BaseImage
 {
 public: // ctors
-    BaseImage();
+    BaseImage(); // TODO
     BaseImage(const ImageType type, const BaseImage &other);
     BaseImage(const ImageType::Value type, const QImage &qimage);
     BaseImage(const ImageType::Value type, const QPixmap &aPixmap);

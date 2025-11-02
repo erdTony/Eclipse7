@@ -7,11 +7,11 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 include (../libs.pri)
 
 SOURCES += \
-    eirfacebase.cpp
+    eirFacebase.cpp
 
 HEADERS += \
     eirFacebase_global.h \
-    eirfacebase.h
+    eirFacebase.h
 
 # Default rules for deployment.
 unix {
