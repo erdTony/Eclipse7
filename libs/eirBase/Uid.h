@@ -100,6 +100,7 @@ public: // const
 
 public: // non-const
     Uid generate(const Type type);
+    void nullify();
 
 public: // pointers
     Uid it() const;
@@ -124,5 +125,6 @@ inline OWORD Uid::oword() const { return *(OWORD *)(mNibbles.data()); }
 #endif
 inline QWORD Uid::hi() const { return *(QWORD *)(mNibbles.data()); }
 inline QWORD Uid::lo() const { return *((QWORD *)(mNibbles.data()) + 1); }
+inline void Uid::nullify() { mNibbles.clear(); }
 inline Uid Uid::it() const { return *this; }
 inline Uid &Uid::it() { return *this; }

@@ -25,8 +25,6 @@ public: // types
         Http,
         Https,
         SqlLite,
-        MySql,
-        MariaDB,
         PGSQL,
         $other
     };

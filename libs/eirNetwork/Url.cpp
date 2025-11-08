@@ -88,8 +88,6 @@ Url::Type Url::type(const AText &scheme)
     else if ("Http" == scheme)      result = Http;
     else if ("Https" == scheme)     result = Https;
     else if ("SqlLite" == scheme)   result = SqlLite;
-    else if ("MySql" == scheme)     result = MySql;
-    else if ("MariaDB" == scheme)   result = MariaDB;
     return mType = result;
 }
 

@@ -23,6 +23,7 @@ public: // const
     virtual bool operator == (const NibbleArray &other) const;
 
 public: // non-const
+    void clear();
     void set(const Index ix, const BYTE b);
     void set(const Index ix, const Count k, const BYTE *p);
 
@@ -38,6 +39,7 @@ private:
 };
 
 inline bool NibbleArray::operator ==(const NibbleArray &other) const { return equals(other); }
+inline void NibbleArray::clear() { mLength = 0, mBytes.clear(); }
 inline const void *NibbleArray::data() const { return mBytes.data(); }
 inline void *NibbleArray::data()  { return mBytes.data(); }
 

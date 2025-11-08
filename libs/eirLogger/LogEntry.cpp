@@ -79,6 +79,7 @@ QByteArray LogEntry::xport() const
     DWORD tDword = scmLESignature.dword();
     int tCond = condition().toInt();
     Count tCount;
+    const AText cFormat = format();
     tBuffer.write((const char *)&tDword, sizeof(tDword));
     tBuffer.write((const char *)&tByte, sizeof(tByte));
     tBuffer.write((const char *)&tCond, sizeof(tCond));
@@ -86,7 +87,7 @@ QByteArray LogEntry::xport() const
     tBuffer.write((const char *)&tCount, sizeof(tCount)); // NumArgs
     tCount = format().length() + 1;
     tBuffer.write((const char *)&tCount, sizeof(tCount)); // Format Length
-    tBuffer.write((const char *)format().data(), tCount); // Format itself
+    tBuffer.write((const char *)cFormat.data(), tCount); // Format itself
 
     foreach (const QVariant cVar, arguments())
     {

@@ -2,14 +2,14 @@
 
 #include <QObject>
 
-#include "StoreUrl.h"
+#include <Url.h>
 
 class BlobStore : public QObject
 {
     Q_OBJECT
 public: // ctors
     explicit BlobStore(QObject *parent = nullptr);
-    explicit BlobStore(const QString &url, QObject *parent=nullptr);
+    explicit BlobStore(const QString &storeUrl, QObject *parent=nullptr);
 
 
 public slots:
@@ -19,13 +19,21 @@ signals:
 public: // const
 
 public: // non-const
-    bool set(const QString &url);
-    bool set(const StoreUrl &url);
+    bool set(const QString &storeUrl);
+    bool set(const Url &storeUrl);
     bool open();
+
+
 
 public: // pointers
 
 private:
-    StoreUrl mUrl;
+    bool openFiles();
+    bool openSqlLite();
+    bool openPgSql();
+
+
+private:
+    Url mUrl;
 
 };

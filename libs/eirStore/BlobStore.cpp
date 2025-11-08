@@ -6,24 +6,24 @@ BlobStore::BlobStore(QObject *parent)
     setObjectName("BlobStore");
 }
 
-BlobStore::BlobStore(const QString &url, QObject *parent)
+BlobStore::BlobStore(const QString &storeUrl, QObject *parent)
     : QObject{parent}
 {
-    set(url);
+    set(storeUrl);
 }
 
-bool BlobStore::set(const QString &url)
+bool BlobStore::set(const QString &storeUrl)
 {
-    return set(StoreUrl(url));
+    return set(Url(storeUrl));
 }
 
-bool BlobStore::set(const StoreUrl &url)
+bool BlobStore::set(const Url &storeUrl)
 {
-    bool result = url.isValid();
+    bool result = storeUrl.isValid();
     mUrl.clear();
     if (result)
     {
-        mUrl = url;
+        mUrl = storeUrl;
         setObjectName("BlobStore:" + mUrl.string());
     }
     return result;
@@ -31,7 +31,36 @@ bool BlobStore::set(const StoreUrl &url)
 
 bool BlobStore::open()
 {
-    bool result = true;
+    bool result = mUrl.isValid();
+    if (result)
+    {
+        switch (mUrl.type())
+        {
+        case Url::Files:    result &= openFiles();      break;
+        case Url::SqlLite:  result &= openSqlLite();    break;
+        case Url::PGSQL:    result &= openPgSql();      break;
+        default:            result = false;             break;
+        }
+    }
+    return result;
+}
+
+bool BlobStore::openFiles()
+{
+    bool result = false;
+    return result;
+}
+
+bool BlobStore::openSqlLite()
+{
+    bool result = false;
+
+    return result;
+}
+
+bool BlobStore::openPgSql()
+{
+    bool result = false;
 
     return result;
 }
