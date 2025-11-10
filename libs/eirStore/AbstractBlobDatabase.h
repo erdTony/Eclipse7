@@ -1,21 +1,23 @@
 #pragma once
 
+#include "BlobItem.h"
 #include <QObject>
 
 #include <Url.h>
 class Uid;
 
-class BaseBlobDatabase : public QObject
+class AbstractBlobDatabase : public QObject
 {
     Q_OBJECT
 public: // ctors
-    explicit BaseBlobDatabase(const Url storeUrl,
+    explicit AbstractBlobDatabase(const Url &storeUrl,
                               QObject *parent = nullptr);
 
 public slots:
     virtual bool open() = 0;
     virtual bool contains(const Uid &uid) = 0;
-    virtual QByteArray read(const Uid &uid) = 0;
+    virtual BlobItem read(const Uid &uid) = 0;
+    virtual bool write(const Uid &uid, const BlobItem &item) = 0;
 
 signals:
 
@@ -27,7 +29,7 @@ public: // non-const
 
 
 
-private:
+protected:
     Url mUrl;
 
 };

@@ -11,8 +11,11 @@ include(../../useType.pri)
 include(../../useNetwork.pri)
 
 SOURCES += \
-    BaseBlobDatabase.cpp \
+    AbstractBlobDatabase.cpp \
     BaseImageAcqSource.cpp \
+    BlobFileDatabase.cpp \
+    BlobSqlLiteDatabase.cpp \
+    BlobPgSqlDatabase.cpp \
     BlobItem.cpp \
     BlobStore.cpp \
     DirInfo.cpp \
@@ -29,8 +32,11 @@ SOURCES += \
     eirStore.cpp
 
 HEADERS += \
-    BaseBlobDatabase.h \
+    AbstractBlobDatabase.h \
     BaseImageAcqSource.h \
+    BlobFileDatabase.h \
+    BlobSqlLiteDatabase.h \
+    BlobPgSqlDatabase.h \
     BlobItem.h \
     BlobStore.h \
     DirInfo.h \

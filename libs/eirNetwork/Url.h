@@ -25,7 +25,7 @@ public: // types
         Http,
         Https,
         SqlLite,
-        PGSQL,
+        PgSql,
         $other
     };
 

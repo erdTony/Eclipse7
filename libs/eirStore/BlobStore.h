@@ -4,6 +4,8 @@
 
 #include <Url.h>
 
+class AbstractBlobDatabase;
+
 class BlobStore : public QObject
 {
     Q_OBJECT
@@ -35,5 +37,5 @@ private:
 
 private:
     Url mUrl;
-
+    AbstractBlobDatabase * mpDatabase=nullptr;
 };

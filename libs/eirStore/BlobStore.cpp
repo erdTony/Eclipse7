@@ -1,5 +1,9 @@
 #include "BlobStore.h"
 
+#include "BlobFileDatabase.h"
+#include "BlobPgSqlDatabase.h"
+#include "BlobSqlLiteDatabase.h"
+
 BlobStore::BlobStore(QObject *parent)
     : QObject{parent}
 {
@@ -38,7 +42,7 @@ bool BlobStore::open()
         {
         case Url::Files:    result &= openFiles();      break;
         case Url::SqlLite:  result &= openSqlLite();    break;
-        case Url::PGSQL:    result &= openPgSql();      break;
+        case Url::PgSql:    result &= openPgSql();      break;
         default:            result = false;             break;
         }
     }
@@ -48,6 +52,7 @@ bool BlobStore::open()
 bool BlobStore::openFiles()
 {
     bool result = false;
+    AbstractBlobDatabase * pDB = new BlobFileDatabase(mUrl, this);
     return result;
 }
 
