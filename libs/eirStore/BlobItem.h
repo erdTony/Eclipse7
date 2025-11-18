@@ -1,4 +1,5 @@
 #pragma once
+#include "eirStore.h"
 
 #include <QByteArray>
 
@@ -7,7 +8,7 @@
 #include <KeyMap.h>
 #include <Uid.h>
 
-class BlobItem
+class EIRSTORE_EXPORT BlobItem
 {
 public:
     BlobItem(const bool nullUid=true);

@@ -1,12 +1,13 @@
 #pragma once
+#include "eirStore.h"
 
-#include "AbstractBlobDatabase.h"
+#include "AbstractBlobBase.h"
 
-class BlobSqlLiteDatabase : public AbstractBlobDatabase
+class EIRSTORE_EXPORT BlobBaseSqlLite : public AbstractBlobBase
 {
     Q_OBJECT
 public:
-    explicit BlobSqlLiteDatabase(const Url &storeUrl, QObject *parent = nullptr);
+    explicit BlobBaseSqlLite(const Url &storeUrl, QObject *parent = nullptr);
 
     // AbstractBlobDatabase interface
 public slots:

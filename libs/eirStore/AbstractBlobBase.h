@@ -1,4 +1,5 @@
 #pragma once
+#include "eirStore.h"
 
 #include "BlobItem.h"
 #include <QObject>
@@ -6,11 +7,11 @@
 #include <Url.h>
 class Uid;
 
-class AbstractBlobDatabase : public QObject
+class EIRSTORE_EXPORT AbstractBlobBase : public QObject
 {
     Q_OBJECT
 public: // ctors
-    explicit AbstractBlobDatabase(const Url &storeUrl,
+    explicit AbstractBlobBase(const Url &storeUrl,
                               QObject *parent = nullptr);
 
 public slots:

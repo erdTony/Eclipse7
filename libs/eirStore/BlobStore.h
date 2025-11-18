@@ -1,12 +1,13 @@
 #pragma once
+#include "eirStore.h"
 
 #include <QObject>
 
 #include <Url.h>
 
-class AbstractBlobDatabase;
+class AbstractBlobBase;
 
-class BlobStore : public QObject
+class EIRSTORE_EXPORT BlobStore : public QObject
 {
     Q_OBJECT
 public: // ctors
@@ -37,5 +38,5 @@ private:
 
 private:
     Url mUrl;
-    AbstractBlobDatabase * mpDatabase=nullptr;
+    AbstractBlobBase * mpDatabase=nullptr;
 };
