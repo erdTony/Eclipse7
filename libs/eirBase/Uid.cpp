@@ -7,6 +7,7 @@
 
 Uid::Uid() {;}
 Uid::Uid(const bool nil) : mNibbles(NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF)) {;}
+Uid::Uid(const Version ver) { generate(ver); }
 
 bool Uid::operator == (const Uid &rhs) const
 {
@@ -34,6 +35,19 @@ QString Uid::toString() const
 QString Uid::tail() const
 {
     return toString().right(14);
+}
+
+void Uid::set(const Version ver)
+{
+    mNibbles.set(scmVersionNIx, ver);
+}
+
+Uid Uid::generate(const Version ver)
+{
+    Uid result(true);
+    // TODO fill nibbles random
+    result,set(ver);
+    return result;
 }
 /*
 Uid Uid::generate(const Type type)

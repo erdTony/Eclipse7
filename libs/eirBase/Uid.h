@@ -99,6 +99,8 @@ public: // const
     QWORD lo() const;
 
 public: // non-const
+    void set(const Version ver);
+    Uid generate(const Version ver);
     Uid generate(const Type type);
     void nullify();
 
