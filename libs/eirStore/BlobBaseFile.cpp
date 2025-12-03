@@ -3,7 +3,7 @@
 BlobBaseFile::BlobBaseFile(const Url storeUrl,QObject *parent)
     : AbstractBlobBase{storeUrl, parent}
 {
-    setObjectName("BlobFileDatabase:" + mUrl.string());
+    setObjectName("BlobFileDatabase:" + mUrl.toString());
 
 }
 

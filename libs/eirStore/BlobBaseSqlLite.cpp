@@ -5,7 +5,7 @@
 BlobBaseSqlLite::BlobBaseSqlLite(const Url &storeUrl, QObject *parent)
     : AbstractBlobBase{storeUrl, parent}
 {
-    setObjectName("BlobSqlLiteDatabase:" + mUrl.string());
+    setObjectName("BlobSqlLiteDatabase:" + mUrl.toString());
 
 }
 

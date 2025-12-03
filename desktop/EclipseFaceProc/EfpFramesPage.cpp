@@ -52,7 +52,7 @@ void EfpFramesPage::activate()
 void EfpFramesPage::start(const Url &url)
 {
     qDebug() << Q_FUNC_INFO;
-    const QDir cInputDir = url.dir();
+    const QDir cInputDir = url.pathDir();
     const QStringList cFileFilters = QStringList() << "*.jpg" << "*.png";
     const QFileInfoList cFIs = cInputDir.entryInfoList(cFileFilters);
     foreach (const QFileInfo cFI, cFIs)

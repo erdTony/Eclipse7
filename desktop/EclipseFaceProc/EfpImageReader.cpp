@@ -7,7 +7,7 @@
 EfpImageReader::EfpImageReader(const Url &url, QObject *parent)
     : QObject{parent}
 {
-    setObjectName("EfpImageReader:" + url.string());
+    setObjectName("EfpImageReader:" + url.toString());
     inputUrl(url);
 }
 
@@ -75,6 +75,6 @@ void EfpImageReader::inputUrl(const Url &url)
     // TODO set suffix list from url
     // TODO set dir depth from url
     // TODO set dir sort from url
-    inputDir(url.dir());
+    inputDir(url.pathDir());
 
 }

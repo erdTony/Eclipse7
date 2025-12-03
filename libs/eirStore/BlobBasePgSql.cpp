@@ -5,7 +5,7 @@
 BlobBasePgSql::BlobBasePgSql(const Url &storeUrl, QObject *parent)
     : AbstractBlobBase{storeUrl, parent}
 {
-    setObjectName("BlobPgSqlDatabase:" + mUrl.string());
+    setObjectName("BlobPgSqlDatabase:" + mUrl.toString());
 
 }
 

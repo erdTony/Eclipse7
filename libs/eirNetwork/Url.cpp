@@ -21,14 +21,43 @@ bool Url::isValid() const
     return mUrl.isValid() && $null != type() && $other != type();
 }
 
-QString Url::string(const bool encoded) const
+bool Url::isLocalFile() const
+{
+//    return mUrl.isLocalFile() || TextFile == type();
+    bool result = false;
+    if (mUrl.isLocalFile())
+    {
+        const QString cFileString =  mUrl.toLocalFile();
+        QFileInfo tFI(cFileString);
+        result = tFI.isFile() && tFI.exists();
+    }
+    return result;
+}
+
+bool Url::isLocalDir() const
+{
+    bool result = false;
+    if (mUrl.isLocalFile())
+    {
+        const QString cFileString =  mUrl.toLocalFile();
+        QFileInfo tFI(cFileString);
+        if (tFI.isDir())
+        {
+            QDir tDir(cFileString);
+            result = tDir.isReadable();
+        }
+    }
+    return result;
+}
+
+QString Url::toString(const bool encoded) const
 {
     QUrl tUrl = mUrl;
     tUrl.setQuery(mQuery);
     return encoded ? tUrl.toEncoded() : tUrl.toString();
 }
 
-QDir Url::dir() const
+QDir Url::pathDir() const
 {
     return QDir(mUrl.path());
 }
@@ -49,13 +78,13 @@ void Url::clear()
         mQueryList.clear(), mQueryPairs.clear(), mQueryPairMap.clear();
 }
 
-void Url::set(const QString &url, QUrl::ParsingMode mode)
+void Url::set(const QString &s, QUrl::ParsingMode mode)
 {
     clear();
-    mUrl.setUrl(url, mode);
+    mUrl.setUrl(s, mode);
     mQuery.setQuery(mUrl.query());
     mUrl.setQuery("");
-    type(mUrl.scheme());
+
     mQueryText = mQuery.toString();
     if ( ! mQueryText.isEmpty())
     {
@@ -68,6 +97,16 @@ void Url::set(const QString &url, QUrl::ParsingMode mode)
             mQueryPairMap.insert(cName, cValue);
         }
     }
+
+    mString = s;
+    mScheme = mUrl.scheme();
+    type(scheme());
+    mUsername = mUrl.userName();
+    mPassword = mUrl.password();
+    mHost = mUrl.host();
+    mPort = mUrl.port();
+    mPath = mUrl.path();
+    mPathList = mPath.split(QDir::separator().cell());
 }
 
 void Url::dir(const QDir &dir)
@@ -84,16 +123,16 @@ void Url::setScheme(const AText &scheme)
 Url::Type Url::type(const AText &scheme)
 {
     Url::Type result=$other;
-    const AText cAtx = scheme.toLower();
+    const QString cString = scheme.toLower();
     if (scheme.isEmpty())           result = $null;
-    else if ("troll" == scheme)     result = Troll;
-    else if ("stdio" == scheme)     result = Stdio;
-    else if ("textFile" == scheme)  result = TextFile;
-    else if ("files" == scheme)     result = Files;
-    else if ("dir" == scheme)       result = Dir;
-    else if ("http" == scheme)      result = Http;
-    else if ("https" == scheme)     result = Https;
-    else if ("qqlLite" == scheme)   result = SqlLite;
+    else if ("troll" == cString)       result = Troll;
+    else if ("stdio" == cString)       result = Stdio;
+    else if ("textfile" == cString)    result = TextFile;
+    else if ("files" == cString)       result = Files;
+    else if ("dir" == cString)         result = Dir;
+    else if ("http" == cString)        result = Http;
+    else if ("https" == cString)       result = Https;
+    else if ("qqlite" == cString)      result = SQLite;
     return mType = result;
 }
 

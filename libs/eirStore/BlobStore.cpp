@@ -30,7 +30,7 @@ bool BlobStore::set(const Url &storeUrl)
     if (result)
     {
         mUrl = storeUrl;
-        setObjectName("BlobStore:" + mUrl.string());
+        setObjectName("BlobStore:" + mUrl.toString());
     }
     return result;
 }
@@ -43,7 +43,7 @@ bool BlobStore::connect()
         switch (mUrl.type())
         {
         case Url::Files:    result &= connectFiles();      break;
-        case Url::SqlLite:  result &= connectSqlLite();    break;
+        case Url::SQLite:  result &= connectSqlLite();    break;
         case Url::PgSql:    result &= connectPgSql();      break;
         default:            result = false;             break;
         }
