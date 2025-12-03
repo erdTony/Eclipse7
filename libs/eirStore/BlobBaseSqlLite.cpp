@@ -9,6 +9,14 @@ BlobBaseSqlLite::BlobBaseSqlLite(const Url &storeUrl, QObject *parent)
 
 }
 
+bool BlobBaseSqlLite::create(const bool force)
+{
+    bool result = false;
+
+    return result;
+
+}
+
 
 bool BlobBaseSqlLite::open()
 {

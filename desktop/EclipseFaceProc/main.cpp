@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     OPT->addPositional("inputUrl", "URL Location of Input Images");
     OPT->process();
     QString tUrlString("files:///../EFPin");
-    if (OPT->containsPositional("inputUrl"))
+    if ( ! OPT->isPositionalNull("inputUrl"))
         tUrlString = OPT->positional("inputUrl");
     Url tUrl(tUrlString);
     app.inputUrl(tUrl);

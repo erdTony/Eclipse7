@@ -3,6 +3,7 @@
 #include <QTimer>
 
 #include <AppHelper.h>
+#include <BlobStore.h>
 
 #include "EfpImageReader.h"
 #include "EfpMainWindow.h"
@@ -26,10 +27,18 @@ void EfpApplication::initialize()
     qInfo() << Q_FUNC_INFO;
     mpMainWindow = new EfpMainWindow;
     mpImageReader = new EfpImageReader(inputUrl(), this);
+    mpBlobStore = new BlobStore(this);
     Q_CHECK_PTR(mpMainWindow);
     Q_CHECK_PTR(mpImageReader);
+    Q_CHECK_PTR(mpBlobStore);
+
+    mInputUrl = Url("dir://../EFPin/base");
+    mBlobUrl = Url("files://../temp/BlobBase");
 
     reader()->initialize();
+    Q_ASSERT(mpBlobStore->set(mBlobUrl));
+    Q_ASSERT(mpBlobStore->connect());
+    Q_ASSERT(mpBlobStore->create(true));
 
     Q_ASSERT(connect(this, &EfpApplication::initialized,
                      main(), &EfpMainWindow::initialize));

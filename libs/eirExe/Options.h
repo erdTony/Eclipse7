@@ -47,6 +47,8 @@ public: // const
     bool isValidPositionalIndex(const Index ix);
     Index positionalIndex(const CText &name);
     bool containsPositional(const CText &name);
+    bool isPositionalNull(const Index ix);
+    bool isPositionalNull(const CText &name);
     QString positional(const Index ix);
     QString positional(const CText &name);
     bool isError() const;

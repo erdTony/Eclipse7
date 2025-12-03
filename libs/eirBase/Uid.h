@@ -37,12 +37,12 @@ public: // types
         VarDce9,
         VarDce10,
         VarDce11,
-        VarGuid     = 12,   // 0b110+
+        VarGuid     = 12,   // 0b110+ (Microsoft)
         VarGuid13,
         $nullVar    = 14,
         $invalidVar = 15
     };
-    enum Version            // for VarDce
+    enum Version            // for VarDce 
     {
         $nullVer            = 0,
         VerGTime1SeqNode    = 1,
@@ -59,7 +59,7 @@ public: // types
         VerCustom12,
         VerCustom13,
         VerCustom14,
-        $$invalidVer        = 15
+        $invalidVer        = 15
     };
     enum Class              // for VerCustom (8)
     {
@@ -77,7 +77,7 @@ public: // ctors
     Uid(); // null
     Uid(const bool nil); // nil or max
     Uid(const Variant var); // NCS or GUID
-    Uid(const Version ver); // DCE flavor
+    Uid(const Version ver) {;} // DCE flavor
     Uid(const Uid &ns, const AText text); // DCEv5
     Uid(const QByteArray &macOverride); // DCDv6
 

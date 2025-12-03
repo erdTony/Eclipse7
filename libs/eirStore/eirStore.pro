@@ -8,6 +8,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 include(../libs.pri)
 include(../../useBase.pri)
 include(../../useType.pri)
+include(../../useLogger.pri)
 include(../../useNetwork.pri)
 
 SOURCES += \
@@ -18,6 +19,7 @@ SOURCES += \
     BlobBaseSqlLite.cpp \
     BlobItem.cpp \
     BlobStore.cpp \
+    BlobStoreUrl.cpp \
     DirInfo.cpp \
     FileData.cpp \
     FileInfo.cpp \
@@ -39,6 +41,7 @@ HEADERS += \
     BlobBaseSqlLite.h \
     BlobItem.h \
     BlobStore.h \
+    BlobStoreUrl.h \
     DirInfo.h \
     FileData.h \
     FileInfo.h \

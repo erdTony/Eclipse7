@@ -9,6 +9,14 @@ BlobBasePgSql::BlobBasePgSql(const Url &storeUrl, QObject *parent)
 
 }
 
+bool BlobBasePgSql::create(const bool force)
+{
+    bool result = false;
+
+    return result;
+
+}
+
 
 bool BlobBasePgSql::open()
 {

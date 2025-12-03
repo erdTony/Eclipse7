@@ -21,6 +21,7 @@ SOURCES += \
     FSTextList.cpp \
     FourCC.cpp \
     MillisecondTime.cpp \
+    NanosecondTime.cpp \
     NibbleArray.cpp \
     TriBool.cpp \
     UText.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     FSTextList.h \
     FourCC.h \
     MillisecondTime.h \
+    NanosecondTime.h \
     NibbleArray.h \
     TriBool.h \
     Types.h \

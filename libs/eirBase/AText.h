@@ -31,6 +31,8 @@ public: // const
     QString toString() const;
     operator QString() const;
     QString operator () () const;
+    bool equals(const AText &rhs);
+    bool operator == (const AText &rhs);
 
 public: // non-const
     void set(const char ch);
@@ -69,6 +71,7 @@ private:
 inline QString AText::toString() const { return QString(constData()); }
 inline AText::operator QString () const { return toString(); }
 inline QString AText::operator () () const { return toString(); }
+inline bool AText::operator ==(const AText &rhs) { return equals(rhs); }
 inline void AText::set(const QByteArray &ba) { set(ba.constData()); }
 inline void AText::set(const QString &s)  { set(s.toLocal8Bit()); }
 inline AText AText::operator +=(const AText &more) { return append(more); }

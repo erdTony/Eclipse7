@@ -1,5 +1,7 @@
 #include "BlobStore.h"
 
+#include <Log.h>
+
 #include "BlobBaseFile.h"
 #include "BlobBasePgSql.h"
 #include "BlobBaseSqlLite.h"
@@ -33,39 +35,61 @@ bool BlobStore::set(const Url &storeUrl)
     return result;
 }
 
-bool BlobStore::open()
+bool BlobStore::connect()
 {
     bool result = mUrl.isValid();
     if (result)
     {
         switch (mUrl.type())
         {
-        case Url::Files:    result &= openFiles();      break;
-        case Url::SqlLite:  result &= openSqlLite();    break;
-        case Url::PgSql:    result &= openPgSql();      break;
+        case Url::Files:    result &= connectFiles();      break;
+        case Url::SqlLite:  result &= connectSqlLite();    break;
+        case Url::PgSql:    result &= connectPgSql();      break;
         default:            result = false;             break;
         }
     }
     return result;
 }
 
-bool BlobStore::openFiles()
+bool BlobStore::create(const bool force)
+{
+    return false;
+}
+
+bool BlobStore::connectFiles()
 {
     bool result = false;
-    AbstractBlobBase * pDB = new BlobBaseFile(mUrl, this);
+    AbstractBlobBase * pBB = new BlobBaseFile(mUrl, this);
+    if (pBB)
+    {
+        mpBlobBase = pBB;
+        result = true;
+    }
     return result;
 }
 
-bool BlobStore::openSqlLite()
+bool BlobStore::connectSqlLite()
 {
     bool result = false;
+    AbstractBlobBase * pBB = new BlobBaseSqlLite(mUrl, this);
+    if (pBB)
+    {
+        mpBlobBase = pBB;
+        result = true;
+    }
 
     return result;
 }
 
-bool BlobStore::openPgSql()
+bool BlobStore::connectPgSql()
 {
     bool result = false;
+    AbstractBlobBase * pBB = new BlobBasePgSql(mUrl, this);
+    if (pBB)
+    {
+        mpBlobBase = pBB;
+        result = true;
+    }
 
     return result;
 }

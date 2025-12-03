@@ -10,6 +10,7 @@ public:
 
     // AbstractBlobDatabase interface
 public slots:
+    virtual bool create(const bool force=false) override;
     virtual bool open() override;
     virtual bool contains(const Uid &uid) override;
     virtual BlobItem read(const Uid &uid) override;

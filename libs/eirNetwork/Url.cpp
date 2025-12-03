@@ -8,6 +8,7 @@
 Url::Url() {;}
 Url::Url(const QString &url, QUrl::ParsingMode mode) { set(url, mode); }
 Url::Url(const QUrl &other) noexcept { set(other.toString()); }
+
 Url &Url::operator =(const QString &url) { set(url); return it(); }
 
 bool Url::isNull() const
@@ -17,7 +18,7 @@ bool Url::isNull() const
 
 bool Url::isValid() const
 {
-    return mUrl.isValid() && $null != type();
+    return mUrl.isValid() && $null != type() && $other != type();
 }
 
 QString Url::string(const bool encoded) const
@@ -50,18 +51,22 @@ void Url::clear()
 
 void Url::set(const QString &url, QUrl::ParsingMode mode)
 {
+    clear();
     mUrl.setUrl(url, mode);
     mQuery.setQuery(mUrl.query());
     mUrl.setQuery("");
     type(mUrl.scheme());
     mQueryText = mQuery.toString();
-    mQueryList = mQueryText.split('&');
-    mQueryPairs = mQueryList.split('=');
-    foreach (const AText::Pair cPair,  mQueryPairs)
+    if ( ! mQueryText.isEmpty())
     {
-        const AText cName = cPair.first;
-        const AText cValue = cPair.second;
-        mQueryPairMap.insert(cName, cValue);
+        mQueryList = mQueryText.split('&');
+        mQueryPairs = mQueryList.split('=');
+        foreach (const AText::Pair cPair,  mQueryPairs)
+        {
+            const AText cName = cPair.first;
+            const AText cValue = cPair.second;
+            mQueryPairMap.insert(cName, cValue);
+        }
     }
 }
 
@@ -79,15 +84,16 @@ void Url::setScheme(const AText &scheme)
 Url::Type Url::type(const AText &scheme)
 {
     Url::Type result=$other;
+    const AText cAtx = scheme.toLower();
     if (scheme.isEmpty())           result = $null;
-    else if ("Troll" == scheme)     result = Troll;
-    else if ("Stdio" == scheme)     result = Stdio;
-    else if ("TextFile" == scheme)  result = TextFile;
-    else if ("Files" == scheme)     result = Files;
-    else if ("Dir" == scheme)       result = Dir;
-    else if ("Http" == scheme)      result = Http;
-    else if ("Https" == scheme)     result = Https;
-    else if ("SqlLite" == scheme)   result = SqlLite;
+    else if ("troll" == scheme)     result = Troll;
+    else if ("stdio" == scheme)     result = Stdio;
+    else if ("textFile" == scheme)  result = TextFile;
+    else if ("files" == scheme)     result = Files;
+    else if ("dir" == scheme)       result = Dir;
+    else if ("http" == scheme)      result = Http;
+    else if ("https" == scheme)     result = Https;
+    else if ("qqlLite" == scheme)   result = SqlLite;
     return mType = result;
 }
 

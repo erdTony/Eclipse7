@@ -83,6 +83,16 @@ bool Options::containsPositional(const CText &name)
     return positionalIndex(name) >= 0;
 }
 
+bool Options::isPositionalNull(const Index ix)
+{
+    return positional(ix).isEmpty();
+}
+
+bool Options::isPositionalNull(const CText &name)
+{
+    return positional(name).isEmpty();
+}
+
 QString Options::positional(const Index ix)
 {
     return isValidPositionalIndex(ix)

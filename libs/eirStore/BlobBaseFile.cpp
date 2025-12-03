@@ -7,6 +7,14 @@ BlobBaseFile::BlobBaseFile(const Url storeUrl,QObject *parent)
 
 }
 
+bool BlobBaseFile::create(const bool force)
+{
+    bool result = false;
+
+    return result;
+
+}
+
 bool BlobBaseFile::open()
 {
     bool result = false;

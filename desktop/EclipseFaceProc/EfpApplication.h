@@ -3,6 +3,7 @@
 #include <BaseWidgetApplication.h>
 
 #include <Url.h>
+class BlobStore;
 
 class AppHelper;
 class EfpImageReader;
@@ -48,6 +49,8 @@ private:
     EfpImageReader * mpImageReader=nullptr;
     AppHelper * mpAppHelper=nullptr;
     Url mInputUrl;
+    Url mBlobUrl;
+    BlobStore * mpBlobStore=nullptr;
 };
 
 inline Url EfpApplication::inputUrl() const { return mInputUrl; }

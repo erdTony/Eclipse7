@@ -25,12 +25,12 @@ void EfpFramesPage::setup()
     qDebug() << Q_FUNC_INFO;
     setDefaultProperties();
     readSettingsProperties();
+    pageGrid()->addWidget(mpFrameLabel, 0, 0, 1, 1);
+    pageGrid()->addWidget(mpDetectLabel, 0, 1, 1, 1);
     /*
     props().calculateFromItems(Size(8, 1));
     qDebug() << props().galleryItems() << props().galleryPixelSize();
 
-    pageGrid()->addWidget(mpFrameLabel, 0, 0, 1, 1);
-    pageGrid()->addWidget(mpDetectLabel, 0, 1, 1, 1);
 
     int tWidth = mpFrameLabel->width() + mpDetectLabel->width();
     tWidth = qMax(tWidth, props().galleryPixelSize().width());

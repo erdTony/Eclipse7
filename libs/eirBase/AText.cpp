@@ -36,6 +36,13 @@ bool AText::isEmpty() const
     return result;
 }
 
+bool AText::equals(const AText &rhs)
+{
+    QByteArray lhsBA = QByteArray(it());
+    QByteArray rhsBA = QByteArray(rhs);
+    return lhsBA == rhsBA;
+}
+
 void AText::set(const char ch)
 {
     clear();

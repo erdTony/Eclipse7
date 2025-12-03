@@ -15,6 +15,7 @@ public: // ctors
                               QObject *parent = nullptr);
 
 public slots:
+    virtual bool create(const bool force=false) = 0;
     virtual bool open() = 0;
     virtual bool contains(const Uid &uid) = 0;
     virtual BlobItem read(const Uid &uid) = 0;
