@@ -8,6 +8,7 @@ include(../libs.pri)
 include(../../useBase.pri)
 
 SOURCES += \
+    Enumeration.cpp \
     Id.cpp \
     IdMap.cpp \
     Key.cpp \
@@ -22,6 +23,9 @@ SOURCES += \
 
 HEADERS += \
     DualMap.h \
+    Enumeration.h \
+    EnumerationArray.h \
+    EnumerationMask.h \
     Id.h \
     IdMap.h \
     Key.h \
@@ -29,6 +33,7 @@ HEADERS += \
     KeySeg.h \
     KeySegList.h \
     KeyValueMap.h \
+    Named.h \
     Null.h \
     ObjectHelper.h \
     Queue.h \

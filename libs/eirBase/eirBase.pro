@@ -39,7 +39,6 @@ HEADERS += \
     CTextList.h \
     DataProperty.h \
     EightCC.h \
-    Enumeration.h \
     FSText.h \
     FSTextList.h \
     FourCC.h \
