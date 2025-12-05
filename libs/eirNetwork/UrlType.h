@@ -4,8 +4,8 @@
 #include "Enumeration.h"
 
 #define URLTYPE_ENUM(NV) \
-NV(Null, = 0)  \
-    NV(Minimum,)   \
+    NV($null, = 0)  \
+    NV($other,)   \
 
 class EIRNETWORK_EXPORT UrlType : public Enumeration
 {

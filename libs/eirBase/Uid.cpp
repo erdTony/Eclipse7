@@ -37,17 +37,45 @@ QString Uid::tail() const
     return toString().right(14);
 }
 
+void Uid::hi(const QWORD qw)
+{
+    QWORD * pQW = (QWORD *)mNibbles.data();
+    memcpy(pQW, &qw, sizeof(qw));
+}
+
+void Uid::lo(const QWORD qw)
+{
+    QWORD * pQW = (QWORD *)mNibbles.data(scmNibbleCount / 2);
+    memcpy(pQW, &qw, sizeof(qw));
+}
+
 void Uid::set(const Version ver)
 {
     mNibbles.set(scmVersionNIx, ver);
+}
+
+Uid Uid::generate(const bool nil)
+{
+    Uid result;
+    if (nil)
+        result.mNibbles.fill(0, scmNibbleCount);
+    else
+        result.randomize();
+    return result;
 }
 
 Uid Uid::generate(const Version ver)
 {
     Uid result(true);
     // TODO fill nibbles random
-    result,set(ver);
+    result.set(ver);
     return result;
+}
+
+void Uid::randomize()
+{
+    lo(QRandomGenerator::global()->generate64());
+    hi(QRandomGenerator::global()->generate64());
 }
 /*
 Uid Uid::generate(const Type type)

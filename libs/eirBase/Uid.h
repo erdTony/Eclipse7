@@ -75,9 +75,9 @@ public: // types
 
 public: // ctors
     Uid(); // null
-    Uid(const bool nil); // nil or max
+    Uid(const bool nil); // nil or random
     Uid(const Variant var); // NCS or GUID
-    Uid(const Version ver) {;} // DCE flavor
+    Uid(const Version ver); // DCE flavor
     Uid(const Uid &ns, const AText text); // DCEv5
     Uid(const QByteArray &macOverride); // DCDv6
 
@@ -99,10 +99,14 @@ public: // const
     QWORD lo() const;
 
 public: // non-const
+    void hi(const QWORD qw);
+    void lo(const QWORD qw);
     void set(const Version ver);
+    Uid generate(const bool nil);
     Uid generate(const Version ver);
     Uid generate(const Type type);
     void nullify();
+    void randomize();
 
 public: // pointers
     Uid it() const;

@@ -24,11 +24,13 @@ public: // const
 
 public: // non-const
     void clear();
-    void set(const Index ix, const BYTE b);
-    void set(const Index ix, const Count k, const BYTE *p);
+    void set(const Index nix, const BYTE b);
+    void set(const Index startNix, const Count k, const BYTE *p);
+    void fill(const BYTE n, const Count k);
 
 public: // pointer
     virtual const void * data() const;
+    virtual void * data(const Index nix);
     virtual void * data();
 
 public: // static

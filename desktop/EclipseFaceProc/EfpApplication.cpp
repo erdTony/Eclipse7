@@ -36,9 +36,9 @@ void EfpApplication::initialize()
     mBlobUrl = Url("files://../temp/BlobBase");
 
     reader()->initialize();
-    Q_ASSERT(mpBlobStore->set(mBlobUrl));
-    Q_ASSERT(mpBlobStore->connect());
-    Q_ASSERT(mpBlobStore->create(true));
+//    Q_ASSERT(mpBlobStore->set(mBlobUrl));
+  //  Q_ASSERT(mpBlobStore->connect());
+    //Q_ASSERT(mpBlobStore->create(true));
 
     Q_ASSERT(connect(this, &EfpApplication::initialized,
                      main(), &EfpMainWindow::initialize));
