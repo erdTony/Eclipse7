@@ -1,9 +1,9 @@
 #pragma once
-#include "eirType.h"
+#include "eirCore.h"
 
 #include "TriBool.h"
 
-class EIRTYPE_EXPORT Null : private TriBool
+class EIRCORE_EXPORT Null : private TriBool
 {
 public:
     Null();

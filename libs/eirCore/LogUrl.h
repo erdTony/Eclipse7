@@ -1,5 +1,5 @@
 #pragma once
-#include "eirLogger.h"
+#include "eirCore.h"
 
 #include <QUrl>
 #include <QUrlQuery>
@@ -10,7 +10,7 @@
 #include "LogFilter.h"
 #include "LogFormat.h"
 
-class EIRLOGGER_EXPORT LogUrl
+class EIRCORE_EXPORT LogUrl
 {
 public: // types
     enum Scheme

@@ -1,12 +1,12 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include "Bytes.h"
 
 #include "Types.h"
 
 #ifndef Q_CC_MSVC
-class EIRBASE_EXPORT EightCC : public Bytes
+class EIRCORE_EXPORT EightCC : public Bytes
 {
 public: // ctors
     EightCC();

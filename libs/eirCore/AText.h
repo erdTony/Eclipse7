@@ -1,5 +1,5 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 
 #include <QtLogging>
@@ -7,7 +7,7 @@
 #include <QList>
 #include <QString>
 
-class EIRBASE_EXPORT AText : public QByteArray
+class EIRCORE_EXPORT AText : public QByteArray
 {
 public: // types
     typedef QList<AText> List;

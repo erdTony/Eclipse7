@@ -1,12 +1,12 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include "AText.h"
 
 #include <QList>
 
 
-class EIRBASE_EXPORT FSText : public AText
+class EIRCORE_EXPORT FSText : public AText
 {
 public: // types
     typedef QList<FSText> List;

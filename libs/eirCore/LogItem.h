@@ -1,5 +1,5 @@
 #pragma once
-#include "eirLogger.h"
+#include "eirCore.h"
 
 
 #include <QSharedData>
@@ -46,7 +46,7 @@ public:
     }
 };
 
-class EIRLOGGER_EXPORT LogItem
+class EIRCORE_EXPORT LogItem
 {
     DECLARE_PARENT_DATAPROPS(LOGITEM_DATAPROPS);
     DECLARE_DATAPROPS(LogItem, LogItemData);

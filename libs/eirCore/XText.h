@@ -1,9 +1,9 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include "AText.h"
 
-class EIRBASE_EXPORT XText : public AText
+class EIRCORE_EXPORT XText : public AText
 {
 public:
     XText();

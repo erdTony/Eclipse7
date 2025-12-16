@@ -1,5 +1,5 @@
 #pragma once
-#include "eirType.h"
+#include "eirCore.h"
 
 #include <QMap>
 #include "Key.h"
@@ -7,7 +7,7 @@
 
 
 
-class EIRTYPE_EXPORT KeyValueMap : public QMap<Key, Value>
+class EIRCORE_EXPORT KeyValueMap : public QMap<Key, Value>
 {
 public:
     KeyValueMap();

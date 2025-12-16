@@ -5,7 +5,7 @@
 
 #ifndef ENUMERATION_H
 #define ENUMERATION_H
-#include "eirType.h"
+#include "eirCore.h"
 
 #include <QList>
 #include <QString>
@@ -53,7 +53,7 @@ DEFINE_ENUMERATION(EnumClass, ENUMCLASS_ENUM);
 @endcode
 
 */
-class EIRTYPE_EXPORT Enumeration
+class EIRCORE_EXPORT Enumeration
 {
 public:
     Enumeration(void);

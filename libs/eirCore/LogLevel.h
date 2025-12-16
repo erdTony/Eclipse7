@@ -1,10 +1,10 @@
 #pragma once
-#include "eirLogger.h"
+#include "eirCore.h"
 
 #include <CText.h>
 
 
-class EIRLOGGER_EXPORT LogLevel
+class EIRCORE_EXPORT LogLevel
 {
 public: // types
     enum Value : quint8

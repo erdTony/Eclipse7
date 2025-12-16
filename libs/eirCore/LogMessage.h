@@ -1,11 +1,11 @@
 #pragma once
-#include "eirLogger.h"
+#include "eirCore.h"
 
 #include <QtDebug>
 
 #include "LogItem.h"
 
-class EIRLOGGER_EXPORT LogMessage
+class EIRCORE_EXPORT LogMessage
 {
 public: // ctors
     LogMessage();

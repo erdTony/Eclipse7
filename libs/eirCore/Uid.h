@@ -1,5 +1,5 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include "NibbleArray.h"
 
@@ -9,7 +9,7 @@
 #include "Types.h"
 
 
-class EIRBASE_EXPORT Uid
+class EIRCORE_EXPORT Uid
 {
 /*
  * UUID:    01234567-89AB-CDEF-0123-456789ABCDEF

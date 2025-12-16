@@ -1,5 +1,5 @@
 #pragma once
-#include "eirType.h"
+#include "eirCore.h"
 
 #include "KeySeg.h"
 #include <QList>
@@ -8,7 +8,7 @@
 #include <QStringList>
 
 
-class EIRTYPE_EXPORT  KeySegList : public QList<KeySeg>
+class EIRCORE_EXPORT  KeySegList : public QList<KeySeg>
 {
 public:
     KeySegList() { set(); }

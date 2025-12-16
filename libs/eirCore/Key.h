@@ -1,12 +1,12 @@
 #pragma once
-#include "eirType.h"
+#include "eirCore.h"
 
 
 #include "KeySegList.h"
 
 #include <Types.h>
 
-class EIRTYPE_EXPORT Key : public KeySegList
+class EIRCORE_EXPORT Key : public KeySegList
 {
 public: // ctors
     Key() {;}

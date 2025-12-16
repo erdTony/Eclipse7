@@ -1,5 +1,5 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include "AText.h"
 
@@ -8,7 +8,7 @@
 #include <QPair>
 #include <QStringList>
 
-class EIRBASE_EXPORT ATextList : public AText::List
+class EIRCORE_EXPORT ATextList : public AText::List
 {
 public: // types
     typedef QList<AText::Pair>  PairList;

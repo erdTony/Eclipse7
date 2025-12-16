@@ -1,5 +1,5 @@
 #pragma once
-#include "eirType.h"
+#include "eirCore.h"
 
 
 #include <DataProperty.h>
@@ -34,7 +34,7 @@ public:
     }
 };
 
-class EIRTYPE_EXPORT Id
+class EIRCORE_EXPORT Id
 {
     DECLARE_PARENT_DATAPROPS(IDENT_DATAPROPS);
     DECLARE_DATAPROPS(Id, IdentData);
@@ -65,4 +65,4 @@ private:
     static QWORD smCtorSeq;
 };
 
-extern EIRTYPE_EXPORT QDebug operator << (QDebug debug, const Id &ident);
+extern EIRCORE_EXPORT QDebug operator << (QDebug debug, const Id &ident);

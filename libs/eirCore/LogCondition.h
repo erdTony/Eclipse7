@@ -1,11 +1,11 @@
 #pragma once
-#include "eirLogger.h"
+#include "eirCore.h"
 
 class QVariant;
 
 #include <AText.h>
 
-class EIRLOGGER_EXPORT LogCondition
+class EIRCORE_EXPORT LogCondition
 {
 public: // types
     enum Enum

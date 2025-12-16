@@ -1,5 +1,5 @@
 #pragma once
-#include "eirLogger.h"
+#include "eirCore.h"
 
 #include <QObject>
 
@@ -13,7 +13,7 @@ class CTextList;
 #include "LogUrl.h"
 class LogItem;
 
-class EIRLOGGER_EXPORT BaseLogOutput : public QObject
+class EIRCORE_EXPORT BaseLogOutput : public QObject
 {
     Q_OBJECT
 protected:

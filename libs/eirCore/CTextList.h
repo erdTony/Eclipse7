@@ -1,5 +1,5 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include "CText.h"
 #include <QList>
@@ -10,7 +10,7 @@
 #include "ATextList.h"
 
 
-class EIRBASE_EXPORT CTextList : public CText::List
+class EIRCORE_EXPORT CTextList : public CText::List
 {
 public:
     CTextList();

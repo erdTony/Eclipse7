@@ -27,7 +27,6 @@ SOURCES += \
     ObjectHelper.cpp \
     UidKeyMap.cpp \
     Value.cpp \
-    eirType.cpp \
     BaseLogOutput.cpp \
     LogCondition.cpp \
     LogEntry.cpp \
@@ -41,7 +40,6 @@ SOURCES += \
     LogMessage.cpp \
     LogObject.cpp \
     LogUrl.cpp \
-    eirLogger.cpp \
     AText.cpp \
     ATextList.cpp \
     BaseWidgetApplication.cpp \
@@ -59,8 +57,7 @@ SOURCES += \
     UText.cpp \
     Uid.cpp \
     UidList.cpp \
-    XText.cpp \
-    eirBase.cpp
+    XText.cpp
 
 HEADERS += \
     FileInfo.h \
@@ -85,8 +82,6 @@ HEADERS += \
     Queue.h \
     UidKeyMap.h \
     Value.h \
-    eirType.h \
-    eirType_global.h \
     BaseLogOutput.h \
     Log.h \
     LogCondition.h \
@@ -102,8 +97,6 @@ HEADERS += \
     LogMessage.h \
     LogObject.h \
     LogUrl.h \
-    eirLogger.h \
-    eirLogger_global.h \
     AText.h \
     ATextList.h \
     BaseWidgetApplication.h \
@@ -123,9 +116,7 @@ HEADERS += \
     UText.h \
     Uid.h \
     UidList.h \
-    XText.h \
-    eirBase.h \
-    eirBase_global.h
+    XText.h
 
 # Default rules for deployment.
 unix {

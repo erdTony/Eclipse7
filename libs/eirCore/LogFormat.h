@@ -1,12 +1,12 @@
 #pragma once
-#include "eirLogger.h"
+#include "eirCore.h"
 
 class CText;
 class CTextList;
 
 class LogItem;
 
-class EIRLOGGER_EXPORT LogFormat
+class EIRCORE_EXPORT LogFormat
 {
 public: // types
     enum Format

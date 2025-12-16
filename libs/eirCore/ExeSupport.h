@@ -1,5 +1,5 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include <QCommandLineOption>
 #include <QList>
@@ -21,7 +21,7 @@ class Options;
 class Random;
 class Settings;
 
-class EIRBASE_EXPORT ExeSupport
+class EIRCORE_EXPORT ExeSupport
 {
 public: // types
 

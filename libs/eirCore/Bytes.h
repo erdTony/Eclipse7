@@ -1,5 +1,5 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include <QByteArray>
 #include <QVariant>
@@ -7,7 +7,7 @@
 #include "AText.h"
 #include "Types.h"
 
-class EIRBASE_EXPORT Bytes : public QByteArray
+class EIRCORE_EXPORT Bytes : public QByteArray
 {
 public: // ctors
     Bytes();

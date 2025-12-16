@@ -1,5 +1,5 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 
 #include "AText.h"
@@ -8,7 +8,7 @@
 
 /*! class CText Code Text
  */
-class EIRBASE_EXPORT CText : public AText
+class EIRCORE_EXPORT CText : public AText
 {
 public: // types
     typedef QList<CText> List;

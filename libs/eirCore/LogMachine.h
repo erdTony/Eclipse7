@@ -1,5 +1,5 @@
 #pragma once
-#include "eirLogger.h"
+#include "eirCore.h"
 
 #include <QObject>
 #include <QStateMachine>
@@ -19,7 +19,7 @@ class QTimer;
 class Log;
 class BaseLogOutput;
 
-class EIRLOGGER_EXPORT LogMachine : public QStateMachine
+class EIRCORE_EXPORT LogMachine : public QStateMachine
 {
     Q_OBJECT
 public: // types

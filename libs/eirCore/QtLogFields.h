@@ -40,7 +40,7 @@ public:
     }
 };
 
-class EIRLOGGER_EXPORT QtLogFields
+class EIRCORE_EXPORT QtLogFields
 {
     DECLARE_PARENT_DATAPROPS(QTLOGFIELDS_DATAPROPS)
     DECLARE_DATAPROPS(QtLogFields, QtLogFieldsData)

@@ -1,5 +1,5 @@
 #pragma once
-#include "eirType.h"
+#include "eirCore.h"
 
 #include <Uid.h>
 
@@ -7,7 +7,7 @@
 #include "Key.h"
 
 
-class EIRTYPE_EXPORT UidKeyMap
+class EIRCORE_EXPORT UidKeyMap
 {
 public:
     UidKeyMap();

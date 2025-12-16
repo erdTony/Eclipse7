@@ -1,5 +1,5 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include <QList>
 #include "FSText.h"
@@ -8,7 +8,7 @@
 
 #include "ATextList.h"
 
-class EIRBASE_EXPORT FSTextList : public FSText::List
+class EIRCORE_EXPORT FSTextList : public FSText::List
 {
 public:
     FSTextList();

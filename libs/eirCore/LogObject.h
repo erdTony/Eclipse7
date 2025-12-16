@@ -1,5 +1,5 @@
 #pragma once
-#include "eirLogger.h"
+#include "eirCore.h"
 
 #include <QObject>
 #include <QtLogging>
@@ -21,7 +21,7 @@ class LogUrl;
 #define LOG() (Log::instance())
 #endif
 
-class EIRLOGGER_EXPORT Log : public QObject
+class EIRCORE_EXPORT Log : public QObject
 {
     Q_OBJECT
 public: // types
@@ -80,6 +80,6 @@ private:
 
 inline LogMachine *Log::machine() { Q_CHECK_PTR(mpMachine); return mpMachine; }
 
-extern EIRLOGGER_EXPORT void logMessageHandler(QtMsgType type,
+extern EIRCORE_EXPORT void logMessageHandler(QtMsgType type,
                  const QMessageLogContext &context,
                  const QString &message);

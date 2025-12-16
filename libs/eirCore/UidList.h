@@ -1,9 +1,9 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include "Uid.h"
 
-class EIRBASE_EXPORT UidList : public Uid::List
+class EIRCORE_EXPORT UidList : public Uid::List
 {
 public:
     UidList();

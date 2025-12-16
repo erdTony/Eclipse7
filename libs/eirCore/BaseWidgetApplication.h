@@ -1,11 +1,11 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include <QApplication>
 
 class QWidget;
 
-class EIRBASE_EXPORT BaseWidgetApplication : public QApplication
+class EIRCORE_EXPORT BaseWidgetApplication : public QApplication
 {
     Q_OBJECT
 public: // ctors

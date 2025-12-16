@@ -1,7 +1,7 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
-class EIRBASE_EXPORT TriBool
+class EIRCORE_EXPORT TriBool
 {
 public: // ctors
     TriBool();

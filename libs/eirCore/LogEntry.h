@@ -1,5 +1,5 @@
 #pragma once
-#include "eirLogger.h"
+#include "eirCore.h"
 
 #include <QByteArray>
 #include <QVariant>
@@ -14,7 +14,7 @@
 #include "LogCondition.h"
 #include "LogLevel.h"
 
-class EIRLOGGER_EXPORT LogEntry
+class EIRCORE_EXPORT LogEntry
 {
 public: // ctors
     LogEntry();
@@ -74,7 +74,7 @@ private:
     QVariantList mArguments;
 };
 
-//extern EIRLOGGER_EXPORT QDebug operator << (QDebug dbg, const LogEntry &le);
+//extern EIRCORE_EXPORT QDebug operator << (QDebug dbg, const LogEntry &le);
 
 
 inline LogLevel LogEntry::level() const { return mLevel; }

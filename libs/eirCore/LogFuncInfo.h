@@ -1,5 +1,5 @@
 #pragma once
-#include "eirLogger.h"
+#include "eirCore.h"
 
 #include <QSharedDataPointer>
 #include <QHash>
@@ -9,7 +9,7 @@
 
 class LogFuncInfoData;
 
-class EIRLOGGER_EXPORT LogFuncInfo
+class EIRCORE_EXPORT LogFuncInfo
 {
 public: // our ctors
     LogFuncInfo(const AText &qfi);

@@ -1,5 +1,5 @@
 #pragma once
-#include "eirType.h"
+#include "eirCore.h"
 
 #include <QObject>
 
@@ -9,7 +9,7 @@
 #include <CText.h>
 #include <KeyMap.h>
 
-class EIRTYPE_EXPORT ObjectHelper
+class EIRCORE_EXPORT ObjectHelper
 {
 public: // types
     typedef KeyMapT<CText, QMetaProperty> NameMetaPropertyMap;

@@ -1,9 +1,9 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include <QString>
 
-class EIRBASE_EXPORT UText : public QString
+class EIRCORE_EXPORT UText : public QString
 {
 public: //ctors
     UText();

@@ -1,12 +1,12 @@
 #pragma once
-#include "eirBase.h"
+#include "eirCore.h"
 
 #include "Bytes.h"
 
 
 #include "Types.h"
 
-class EIRBASE_EXPORT FourCC : public Bytes
+class EIRCORE_EXPORT FourCC : public Bytes
 {
 public: // ctors
     FourCC();

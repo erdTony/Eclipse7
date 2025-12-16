@@ -1,5 +1,5 @@
 #pragma once
-#include "eirLogger.h"
+#include "eirCore.h"
 
 
 #include <QDir>
@@ -12,7 +12,7 @@ class QFile;
 #include <TriBool.h>
 class CTextList;
 
-class EIRLOGGER_EXPORT LogFile
+class EIRCORE_EXPORT LogFile
 {
 public:
     LogFile();
