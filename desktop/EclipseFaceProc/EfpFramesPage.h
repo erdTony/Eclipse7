@@ -1,11 +1,14 @@
 #pragma once
 
+#include "FileInfo.h"
 #include <BaseMainWindowPage.h>
 
 //#include <GalleryProperties.h>
 class Gallery;
 class Label;
 class Url;
+
+class EfpImageReader;
 
 class EfpFramesPage : public BaseMainWindowPage
 {
@@ -18,6 +21,7 @@ public slots:
     virtual void setup();
     virtual void activate();
     void start(const Url &url);
+    void hasCaptured(const FileInfo &fi, const QImage qi);
 
 signals:
 
@@ -30,10 +34,12 @@ public: // non-const
 
 public: // pointers
 //    GalleryProperties & props();
+    EfpImageReader * reader();
     Gallery * gallery();
 
 
 private:
+    EfpImageReader * mpImageReader=nullptr;
     Label * mpFrameLabel=nullptr;
     Label * mpDetectLabel=nullptr;
     Gallery * mpGallery=nullptr;
@@ -42,4 +48,5 @@ private:
 
 //inline GalleryProperties EfpFramesPage::props() const { return mGalleryProperties; }
 //inline GalleryProperties & EfpFramesPage::props() { return mGalleryProperties; }
+inline EfpImageReader *EfpFramesPage::reader() { Q_CHECK_PTR(mpImageReader); return mpImageReader; }
 inline Gallery *EfpFramesPage::gallery() { Q_CHECK_PTR(mpGallery); return mpGallery; }

@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QTimer>
 
+#include "EfpApplication.h"
 #include "EfpFramesPage.h"
 #include "EfpSplashPage.h"
 
@@ -53,7 +54,7 @@ void EfpMainWindow::setup()
 void EfpMainWindow::start()
 {
     qDebug() << Q_FUNC_INFO;
-
+    frames()->start(APP->inputUrl());
     emit started();
 }
 

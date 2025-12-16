@@ -5,7 +5,8 @@
 
 #include <QMap>
 class QAction;
-class QMenu;
+class QMainWindow;
+class QMenuBar;
 class QToolBar;
 
 #include <Key.h>
@@ -17,13 +18,20 @@ class EIREXE_EXPORT ActionManager : public QObject
 public: // types
     typedef QAction * Action;
     typedef QMap<Key, Action> ActionMap;
+    enum Flag
+    {
+        $null = 0,
+        AddMainMenuBar     = 0x00000001,
+        AddMainToolbar  = 0x00000002,
+    };
+    Q_DECLARE_FLAGS(Flags, Flag);
 
 public: // ctors
-    explicit ActionManager(QObject *parent = nullptr);
+    explicit ActionManager(QMainWindow *parent = nullptr);
 
 public slots:
     void add(const Key &key, const Action action);
-    void setup();
+    void setup(const ActionManager::Flags f);
     void execute();
 
 signals:
@@ -48,9 +56,9 @@ public: // non-const
 
 public: // pointers
     Action action(const Key &key);
-    QMenu *  menu();
+    QMenuBar *  menuBar();
     QToolBar *  toolBar();
-    void menu(QMenu * pMenu);
+    void menu(QMenuBar * menuBar);
     void toolBar(QToolBar * pBar);
 
 private: // non-const
@@ -58,18 +66,19 @@ private: // non-const
     void addToolBar(const QString &menuText, const Icon &icon, Action result);
 
 private:
-    ActionMap mActionMap;
-    QMenu * mpMainMenu=nullptr;
+    QMainWindow * mpMainWindow=nullptr;
+    QMenuBar * mpMainMenuBar=nullptr;
     QToolBar * mpMainToolBar=nullptr;
+    ActionMap mActionMap;
 
 };
 
 
-inline bool ActionManager::hasMenu() const { return nullptr != mpMainMenu; }
+inline bool ActionManager::hasMenu() const { return nullptr != mpMainMenuBar; }
 inline bool ActionManager::hasToolBar() const  { return nullptr != mpMainToolBar; }
-inline QMenu *ActionManager::menu() { Q_CHECK_PTR(mpMainMenu); return mpMainMenu; }
+inline QMenuBar *ActionManager::menuBar() { Q_CHECK_PTR(mpMainMenuBar); return mpMainMenuBar; }
 inline QToolBar *ActionManager::toolBar() { Q_CHECK_PTR(mpMainToolBar); return mpMainToolBar; }
-inline void ActionManager::menu(QMenu *pMenu) { Q_CHECK_PTR(pMenu); mpMainMenu = pMenu; }
+inline void ActionManager::menu(QMenuBar *menuBar) { Q_CHECK_PTR(menuBar); mpMainMenuBar = menuBar; }
 inline void ActionManager::toolBar(QToolBar *pBar) { Q_CHECK_PTR(pBar); mpMainToolBar = pBar; }
 
 

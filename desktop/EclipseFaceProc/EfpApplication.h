@@ -2,6 +2,9 @@
 
 #include <BaseWidgetApplication.h>
 
+class QAction;
+
+#include <ActionManager.h>
 #include <Url.h>
 class BlobStore;
 
@@ -22,12 +25,13 @@ public slots:
     void initialize();
     void setup();
     void start();
-    void resume();
+    void onPauseResume(const bool checked);
 
 signals:
     void initialized();
     void setupd();
     void started();
+    void paused();
     void resumed();
 
 public: // const
@@ -39,15 +43,16 @@ public: // non-const
 public: // pointers
     static EfpApplication * app();
     EfpMainWindow * main();
-    EfpImageReader * reader();
     AppHelper * wap();
 
 
 private:
     static EfpApplication * mpInstance;
     EfpMainWindow * mpMainWindow=nullptr;
-    EfpImageReader * mpImageReader=nullptr;
-    AppHelper * mpAppHelper=nullptr;
+//    AppHelper * mpAppHelper=nullptr;
+    ActionManager * mpActions=nullptr;
+    QAction * mpPauseAction=nullptr;
+    QAction * mpResumeAction=nullptr;
     Url mInputUrl;
     Url mBlobUrl;
     BlobStore * mpBlobStore=nullptr;
@@ -57,5 +62,4 @@ inline Url EfpApplication::inputUrl() const { return mInputUrl; }
 inline void EfpApplication::inputUrl(const Url &url) { mInputUrl = url; }
 inline EfpApplication *EfpApplication::app() { Q_CHECK_PTR(mpInstance); return mpInstance; }
 inline EfpMainWindow *EfpApplication::main() { Q_CHECK_PTR(mpMainWindow); return mpMainWindow; }
-inline EfpImageReader *EfpApplication::reader() { Q_CHECK_PTR(mpImageReader); return mpImageReader; }
-inline AppHelper *EfpApplication::wap()  { Q_CHECK_PTR(mpAppHelper); return mpAppHelper; }
+//inline AppHelper *EfpApplication::wap()  { Q_CHECK_PTR(mpAppHelper); return mpAppHelper; }

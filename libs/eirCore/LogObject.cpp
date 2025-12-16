@@ -7,7 +7,7 @@
 #include <CTextList.h>
 
 #include "LogMachine.h"
-#include "LogOutput.h"
+#include "BaseLogOutput.h"
 #include "LogEntry.h"
 #include "LogLevel.h"
 
@@ -51,10 +51,10 @@ void Log::add(const LogUrl &u)
 {
     if (mOutputListLock.tryLockForWrite(100))
     {
-        LogOutput * pOut = new LogOutput(u);
-        mOutputList.append(pOut);
+//        BaseLogOutput * pOut = new BaseLogOutput(u);
+  //      mOutputList.append(pOut);
         mOutputListLock.unlock();
-        emit addedOutput(pOut);
+    //    emit addedOutput(pOut);
     }
     else
     {

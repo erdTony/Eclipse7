@@ -10,6 +10,9 @@
 #include <QList>
 #include <QString>
 
+#include <CText.h>
+#include <CTextList.h>
+
 #include "Named.h"
 
 /*! @class Enumeration
@@ -61,13 +64,13 @@ public:
     bool isValid(void) const;
     bool isNull(void) const;
     bool isEmpty(void) const;
-    QString nameOf(const int value) const;
-    int valueOf(const QString & name) const;
-    QString name(void) const;
+    CText nameOf(const int value) const;
+    int valueOf(const CText & name) const;
+    CText name(void) const;
     int value(void) const;
     bool is(const int value) const;
     void set(const int value);
-    void set(const QString & value);
+    void set(const CText & value);
     void setInvalid(void);
     bool operator == (const Enumeration & other) const;
     bool operator < (const Enumeration & other) const;
@@ -81,7 +84,7 @@ public:
     Enumeration operator -- (int);  // postfix e--
     QList<int> values(void) const;
     QList<Enumeration> all(void);
-    QStringList nameFlags(int f);
+    CTextList nameFlags(int f);
 
 public: // pseudo-static functions
     bool isValid(const QString & name);
@@ -95,9 +98,9 @@ protected:
     static void insert(const int value, const QString & name);
 
 protected:
-    int value_i;
-    QString name_s;
-    Named<int> * name_map;
+    int mValue;
+    CText mName;
+    Named<int> * mNameMap;
 }; // Enumeration
 
 #define ENUMERATION_VALUE(NAME, VALUE) \
@@ -113,7 +116,7 @@ protected:
     public: \
         enum type { DEF(ENUMERATION_VALUE) }; \
         CLASS(enum initializer i) : Enumeration(i) \
-        { name_map = &maps; INSERT_ENUMERATION(DEF); } \
+        { mNameMap = &maps; INSERT_ENUMERATION(DEF); } \
         CLASS(void) : Enumeration() {} \
         CLASS(const int value) : Enumeration(&maps, value) {} \
         CLASS(const QString & name) : Enumeration(&maps, name) {} \

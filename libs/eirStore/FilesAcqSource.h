@@ -5,11 +5,11 @@
 #include <QObject>
 #include "BaseImageAcqSource.h"
 
-class EIRSTORE_EXPORT FilesImageAcqSource : public BaseImageAcqSource
+class EIRSTORE_EXPORT FilesAcqSource : public BaseImageAcqSource
 {
     Q_OBJECT
 public: // ctors
-    explicit FilesImageAcqSource(QObject *parent = nullptr);
+    explicit FilesAcqSource(QObject *parent = nullptr);
 
 public slots:
 

@@ -8,25 +8,37 @@
 #include <MainWindowPageStack.h>
 //#include <Gallery.h>
 #include <Label.h>
+#include <Log.h>
 #include <Url.h>
+
+#include "EfpApplication.h"
+#include "EfpImageReader.h"
 
 EfpFramesPage::EfpFramesPage(QWidget *parent)
     : BaseMainWindowPage{"Frames", parent}
+    , mpImageReader(new EfpImageReader(this))
     , mpFrameLabel(new Label(Size(512), Qt::darkGreen))
     , mpDetectLabel(new Label(Size(512), Qt::darkBlue))
 //    , mpGallery(new Gallery(this))
 {
-    qDebug() << Q_FUNC_INFO;
+    FNENTER();
     setObjectName("EFPFramesPage");
 }
 
 void EfpFramesPage::setup()
 {
-    qDebug() << Q_FUNC_INFO;
+    FNSLOT();
     setDefaultProperties();
     readSettingsProperties();
     pageGrid()->addWidget(mpFrameLabel, 0, 0, 1, 1);
     pageGrid()->addWidget(mpDetectLabel, 0, 1, 1, 1);
+    reader()->initialize();
+    reader()->setup();
+    reader()->pause();
+    connect(APP, &EfpApplication::paused, reader(), &EfpImageReader::pause);
+    connect(APP, &EfpApplication::resumed, reader(), &EfpImageReader::resume);
+    connect(reader(), &EfpImageReader::captured,
+            this, &EfpFramesPage::hasCaptured);
     /*
     props().calculateFromItems(Size(8, 1));
     qDebug() << props().galleryItems() << props().galleryPixelSize();
@@ -46,27 +58,42 @@ void EfpFramesPage::setup()
 
 void EfpFramesPage::activate()
 {
-    qDebug() << Q_FUNC_INFO;
+    FNSLOT();
 }
 
 void EfpFramesPage::start(const Url &url)
 {
-    qDebug() << Q_FUNC_INFO;
+    FNSLOT();
+    qInfo() << Q_FUNC_INFO << url.toString();
     const QDir cInputDir = url.pathDir();
     const QStringList cFileFilters = QStringList() << "*.jpg" << "*.png";
     const QFileInfoList cFIs = cInputDir.entryInfoList(cFileFilters);
+    reader()->start(url);
+    /*
     foreach (const QFileInfo cFI, cFIs)
     {
         QImage tFrame(cFI.filePath());
         if (tFrame.isNull()) continue;
         mpFrameLabel->set(mpFrameLabel->size(), tFrame);
-//        gallery()->add(tFrame);
+        gallery()->add(tFrame);
     }
+    */
+}
+
+void EfpFramesPage::hasCaptured(const FileInfo &fi, const QImage qi)
+{
+    FNSLOT();
+    UNUSED(fi); // TODO StatusBar
+    // TODO FaceDetect heat map
+    QImage tGreyImage = qi.convertedTo(QImage::Format_Grayscale8);
+    mpFrameLabel->set(qi);
+    mpDetectLabel->set(tGreyImage);
 }
 
 void EfpFramesPage::setDefaultProperties(const Size baseGallerySize)
 {
-    qDebug() << Q_FUNC_INFO;
+    FNENTER();
+    UNUSED(baseGallerySize);
     /*
     props().modes(Gallery::RollingRow | Gallery::AlignTop);
     props().itemPixelSize(baseGallerySize);
@@ -81,7 +108,7 @@ void EfpFramesPage::setDefaultProperties(const Size baseGallerySize)
 
 void EfpFramesPage::readSettingsProperties()
 {
-    qDebug() << Q_FUNC_INFO;
+    FNENTER();
     // TODO EFPFramesPage::readSettingsProperties()
 }
 

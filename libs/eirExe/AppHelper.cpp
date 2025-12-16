@@ -28,7 +28,7 @@ AppHelper::AppHelper(QApplication *wapp)
 
 void AppHelper::initialize()
 {
-    mpActionManager = new ActionManager(this);
+    mpActionManager = new ActionManager;
     mpCommandLine = new CommandLine(this);
     mpOptions = new Options(this);
     mpRandom = new Random(this);

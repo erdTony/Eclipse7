@@ -30,7 +30,7 @@ public: // types
         UPrefer             = 18,
         TProgress           = 19,
         UProgress           = 20,
-        $minWarning         = 21,
+        Unused              = 21,
         TWarning            = 22,
         UWarning            = 23,
         $minError           = 24,
@@ -144,6 +144,6 @@ inline void LogLevel::fatalLevel(const Value minFatal) { smFatalLevel = minFatal
 inline LogLevel::Value LogLevel::fatalLevel() { return smFatalLevel; }
 inline LogLevel::MsgType LogLevel::msgType() const { return msgType(mValue); }
 inline LogLevel::Flag LogLevel::flag() const { return mFlag; }
-inline bool LogLevel::isWarn() const { return value() > LogLevel::$minWarning; }
+inline bool LogLevel::isWarn() const { return value() > LogLevel::TWarning; }
 inline bool LogLevel::isError() const { return value() > LogLevel::$minError; }
 inline bool LogLevel::isFatal() const { return value() > LogLevel::fatalLevel(); }

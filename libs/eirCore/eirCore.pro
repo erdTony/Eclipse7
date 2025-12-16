@@ -1,25 +1,131 @@
-QT -= gui
+QT += core
+QT += gui
+QT += sql
+QT += statemachine
+QT += xml
+QT += widgets
 TEMPLATE = lib
 DEFINES += EIRCORE_LIBRARY
 CONFIG += c++23
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include (../libs.pri)
-include (../../useBase.pri)
-include (../../useType.pri)
 
 SOURCES += \
     FileInfo.cpp \
     FileInfoList.cpp \
     VersionInfo.cpp \
-    eirCore.cpp
+    eirCore.cpp \
+    Enumeration.cpp \
+    Id.cpp \
+    IdMap.cpp \
+    Key.cpp \
+    KeySeg.cpp \
+    KeySegList.cpp \
+    KeyValueMap.cpp \
+    Null.cpp \
+    ObjectHelper.cpp \
+    UidKeyMap.cpp \
+    Value.cpp \
+    eirType.cpp \
+    BaseLogOutput.cpp \
+    LogCondition.cpp \
+    LogEntry.cpp \
+    LogFile.cpp \
+    LogFilter.cpp \
+    LogFormat.cpp \
+    LogFuncInfo.cpp \
+    LogItem.cpp \
+    LogLevel.cpp \
+    LogMachine.cpp \
+    LogMessage.cpp \
+    LogObject.cpp \
+    LogUrl.cpp \
+    eirLogger.cpp \
+    AText.cpp \
+    ATextList.cpp \
+    BaseWidgetApplication.cpp \
+    Bytes.cpp \
+    CText.cpp \
+    CTextList.cpp \
+    EightCC.cpp \
+    FSText.cpp \
+    FSTextList.cpp \
+    FourCC.cpp \
+    MillisecondTime.cpp \
+    NanosecondTime.cpp \
+    NibbleArray.cpp \
+    TriBool.cpp \
+    UText.cpp \
+    Uid.cpp \
+    UidList.cpp \
+    XText.cpp \
+    eirBase.cpp
 
 HEADERS += \
     FileInfo.h \
     FileInfoList.h \
     VersionInfo.h \
     eirCore_global.h \
-    eirCore.h
+    eirCore.h \
+    DualMap.h \
+    Enumeration.h \
+    EnumerationArray.h \
+    EnumerationMask.h \
+    Id.h \
+    IdMap.h \
+    Key.h \
+    KeyMap.h \
+    KeySeg.h \
+    KeySegList.h \
+    KeyValueMap.h \
+    Named.h \
+    Null.h \
+    ObjectHelper.h \
+    Queue.h \
+    UidKeyMap.h \
+    Value.h \
+    eirType.h \
+    eirType_global.h \
+    BaseLogOutput.h \
+    Log.h \
+    LogCondition.h \
+    LogEntry.h \
+    LogFile.h \
+    LogFilter.h \
+    LogFormat.h \
+    LogFuncInfo.h \
+    LogItem.h \
+    LogLevel.h \
+    LogMachine.h \
+    LogMacros.h \
+    LogMessage.h \
+    LogObject.h \
+    LogUrl.h \
+    eirLogger.h \
+    eirLogger_global.h \
+    AText.h \
+    ATextList.h \
+    BaseWidgetApplication.h \
+    Bytes.h \
+    CText.h \
+    CTextList.h \
+    DataProperty.h \
+    EightCC.h \
+    FSText.h \
+    FSTextList.h \
+    FourCC.h \
+    MillisecondTime.h \
+    NanosecondTime.h \
+    NibbleArray.h \
+    TriBool.h \
+    Types.h \
+    UText.h \
+    Uid.h \
+    UidList.h \
+    XText.h \
+    eirBase.h \
+    eirBase_global.h
 
 # Default rules for deployment.
 unix {

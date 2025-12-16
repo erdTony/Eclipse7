@@ -1,24 +1,17 @@
-QT -= gui
+QT += core
+QT += gui
+QT += widgets
+QT += network
 TEMPLATE = lib
-DEFINES += EIRNETWORK_LIBRARY
+DEFINES += EIRBASE_LIBRARY
 CONFIG += c++23
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include(../libs.pri)
-include(../../useCore.pri)
 
 SOURCES += \
-    AdapterInfo.cpp \
-    Url.cpp \
-    UrlType.cpp \
-    eirNetwork.cpp
 
 HEADERS += \
-    AdapterInfo.h \
-    Url.h \
-    UrlType.h \
-    eirNetwork.h \
-    eirNetwork_global.h
 
 # Default rules for deployment.
 unix {

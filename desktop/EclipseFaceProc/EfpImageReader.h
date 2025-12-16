@@ -3,7 +3,9 @@
 #include <QObject>
 
 #include <QDir>
+#include <QImage>
 class QFileSystemModel;
+class QTimer;
 
 #include <FileInfo.h>
 #include <FileInfoList.h>
@@ -14,14 +16,15 @@ class EfpImageReader : public QObject
 {
     Q_OBJECT
 public:
-    explicit EfpImageReader(const Url &url, QObject *parent=nullptr);
+    explicit EfpImageReader(QObject *parent=nullptr);
 
 public slots:
     void initialize();
     void setup();
-    void start();
+    void start(const Url &url);
     void pause();
     void resume();
+    void capture();
 
 signals:
     void initialized();
@@ -29,13 +32,15 @@ signals:
     void started();
     void paused();
     void resumed();
+    void captured(const FileInfo &fi, const QImage qi);
+    void finished();
 
 public: // const
     QDir inputDir() const;
     Url inputUrl() const;
 
 public: // non-const
-    void inputDir(const QDir &dir);
+    bool queryInputDir(const Url &url);
     void inputUrl(const Url &url);
 
 public: // pointers
@@ -46,7 +51,10 @@ private slots:
 private:
     Url mInputUrl;
     QDir mInputDir;
-    Milliseconds mSampleMsec=100;
+    Milliseconds mSampleMsec=1000;
+    QTimer * mpCaptureTimer;
+    bool mPaused=false;
+    bool mLoop=true;
     bool mUseModel=false;
     Count mDirDepth = 1;
     QFileSystemModel * mpFSModel=nullptr;

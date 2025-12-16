@@ -6,12 +6,7 @@
 #include <QStringList>
 
 /*! Enumeration Construct an empty, invalid item */
-Enumeration::Enumeration(void)
-    : value_i(0)
-    , name_s("[null]")
-    , name_map(0)
-{
-}
+Enumeration::Enumeration(void) : mValue(0), mName("[null]"), mNameMap(0) {;}
 
 /*! Construct an item from a valid integer
 
@@ -19,147 +14,131 @@ Enumeration::Enumeration(void)
     @note   if the specified value is not valid, an invalid item is constructed
 
 */
-Enumeration::Enumeration(Named<int> * p,
-                         const int value)
-    : value_i(value)
-    , name_map(p)
-{
-}
+Enumeration::Enumeration(Named<int> * p, const int value) : mValue(value), mNameMap(p) {;}
 
-Enumeration::Enumeration(Named<int> * p,
-                         const QString & name)
-    : value_i(0)
-    , name_map(p)
-{
-    set(name);
-}
+Enumeration::Enumeration(Named<int> * p, const QString & name) : mValue(0), mNameMap(p) { set(name); }
 
-Enumeration::Enumeration(const Enumeration & other)
-    : value_i(other.value_i)
-    , name_s(other.name_s)
-    , name_map(other.name_map)
-{
-}
+Enumeration::Enumeration(const Enumeration & other) : mValue(other.mValue) , mName(other.mName), mNameMap(other.mNameMap) {;}
 
 Enumeration & Enumeration::operator = (const Enumeration & other)
 {
-    value_i = other.value_i, name_s = other.name_s, name_map = other.name_map;
+    mValue = other.mValue, mName = other.mName, mNameMap = other.mNameMap;
     return *this;
 }
 
 bool Enumeration::isEmpty(void) const
 {
-    return name_map ? name_map->isEmpty() : true;
+    return mNameMap ? mNameMap->isEmpty() : true;
 }
 
 Enumeration Enumeration::first(void) const
 {
-    return isEmpty() ? Enumeration() : Enumeration(name_map, name_map->first(1));
+    return isEmpty() ? Enumeration() : Enumeration(mNameMap, mNameMap->first(1));
 }
 
 Enumeration Enumeration::last(void) const
 {
-    return isEmpty() ? Enumeration() : Enumeration(name_map, name_map->last(1));
+    return isEmpty() ? Enumeration() : Enumeration(mNameMap, mNameMap->last(1));
 }
 
-QString Enumeration::nameOf(const int value) const
+CText Enumeration::nameOf(const int value) const
 {
-    QString result = name_map ? name_map->value(value) : QString();
+    QString result = mNameMap ? mNameMap->value(value) : QString();
     return result;
 }
 
-int Enumeration::valueOf(const QString & name) const
+int Enumeration::valueOf(const CText & name) const
 {
-    int result = name_map ? name_map->value(name) : 0;
+    int result = mNameMap ? mNameMap->value(name) : 0;
     return result;
 }
 
 Enumeration & Enumeration::operator ++(void) // prefix ++e
 {
-    if (name_map)
-        set(name_map->next(value_i));
+    if (mNameMap)
+        set(mNameMap->next(mValue));
     return *this;
 }
 
 Enumeration Enumeration::operator ++(int)  // postfix e++
 {
     Enumeration before(*this);
-    if (name_map)
-        set(name_map->next(value_i));
+    if (mNameMap)
+        set(mNameMap->next(mValue));
     return before;
 }
 
 Enumeration & Enumeration::operator --(void) // prefix --e
 {
-    if (name_map)
-        set(name_map->previous(value_i));
+    if (mNameMap)
+        set(mNameMap->previous(mValue));
     return *this;
 }
 
 Enumeration Enumeration::operator --(int)  // postfix e--
 {
     Enumeration before(*this);
-    if (name_map)
-        set(name_map->previous(value_i));
+    if (mNameMap)
+        set(mNameMap->previous(mValue));
     return before;
 }
 
 void Enumeration::set(const int value)
 {
-    if (name_map && name_map->contains(value))
+    if (mNameMap && mNameMap->contains(value))
     {
-        value_i = value;
-        name_s = name_map->value(value_i);
+        mValue = value;
+        mName = mNameMap->value(mValue);
     }
     else
-        name_map = 0;
+        mNameMap = 0;
 
-    if ( ! name_map)
+    if ( ! mNameMap)
     {
-        value_i = 0;
-        name_s.clear();
+        mValue = 0;
+        mName.clear();
     }
 }
 
-void Enumeration::set(const QString & name)
+void Enumeration::set(const CText &name)
 {
-    if (name_map && name_map->contains(name))
+    if (mNameMap && mNameMap->contains(name))
     {
-        value_i = name_map->value(name);
-        name_s = name_map->value(value_i);
+        mValue = mNameMap->value(name);
+        mName = mNameMap->value(mValue);
     }
     else
-        name_map = 0;
+        mNameMap = 0;
 
-    if ( ! name_map)
+    if ( ! mNameMap)
     {
-        value_i = 0;
-        name_s.clear();
+        mValue = 0;
+        mName.clear();
     }
 }
 
 void Enumeration::setInvalid(void)
 {
-    value_i = 0, name_s.clear(), name_map = 0;
+    mValue = 0, mName.clear(), mNameMap = 0;
 }
 
 bool Enumeration::isValid(void) const
 {
-    bool result = name_map
-            && (name_map->contains(value_i)
-                || 0 == value_i);
+    bool result = mNameMap
+            && (mNameMap->contains(mValue)
+                || 0 == mValue);
     return result;
 }
 
 bool Enumeration::isNull(void) const
 {
-    bool result = ! name_map;
+    bool result = ! mNameMap;
     return result;
 }
 
 bool Enumeration::is(const int value) const
 {
-    bool result = isValid() && value_i == value;
+    bool result = isValid() && mValue == value;
     return result;
 }
 
@@ -167,7 +146,7 @@ bool Enumeration::operator == (const Enumeration & other) const
 {
     bool result = isValid()
             && other.isValid()
-            && value_i == other.value_i;
+            && mValue == other.mValue;
     return result;
 }
 
@@ -175,7 +154,7 @@ bool Enumeration::operator < (const Enumeration & other) const
 {
     bool result = isValid()
             && other.isValid()
-            && value_i < other.value_i;
+            && mValue < other.mValue;
     return result;
 }
 
@@ -186,52 +165,52 @@ Enumeration::operator int (void) const
 
 int Enumeration::value(void) const
 {
-    return value_i;
+    return mValue;
 }
 
-QString Enumeration::name(void) const
+CText Enumeration::name(void) const
 {
-    return name_s;
+    return mName;
 }
 
 QList<Enumeration> Enumeration::all(void)
 {
     QList<Enumeration> result;
     foreach (int i, values())
-        result.append(Enumeration(name_map, i));
+        result.append(Enumeration(mNameMap, i));
     return result;
 }
 
 QList<int> Enumeration::values(void) const
 {
-    QList<int> result = name_map ? name_map->keys() : QList<int>();
+    QList<int> result = mNameMap ? mNameMap->keys() : QList<int>();
     return result;
 }
 
-QStringList Enumeration::nameFlags(int f)
+CTextList Enumeration::nameFlags(int f)
 {
     QStringList nameList;
-    if (name_map)
+    if (mNameMap)
     {
-        QList<int> intList = name_map->keys();
+        QList<int> intList = mNameMap->keys();
         foreach (int i, intList)
             if (i && i == (i & f))
-                nameList << name_map->name(i);
+                nameList << mNameMap->name(i);
     }
     return nameList;
 }
 
 bool Enumeration::isValid(const QString & name)
 {
-    return (name_map && name_map->contains(name));
+    return (mNameMap && mNameMap->contains(name));
 }
 
 int Enumeration::value(const QString & name)
 {
     int result = -1;
-    if (name_map)
-        if (name_map->contains(name))
-            result = name_map->value(name);
+    if (mNameMap)
+        if (mNameMap->contains(name))
+            result = mNameMap->value(name);
     return result;
 }
 

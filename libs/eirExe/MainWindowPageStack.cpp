@@ -26,10 +26,11 @@ void MainWindowPageStack::setup()
     qDebug() << Q_FUNC_INFO << "exit";
 }
 
-void MainWindowPageStack::select(BaseMainWindowPage *pBMWP)
+void MainWindowPageStack::select(BaseMainWindowPage *pPage)
 {
-    qInfo() << Q_FUNC_INFO << pBMWP->name();
-    stack()->setCurrentWidget(pBMWP);
+    qInfo() << Q_FUNC_INFO << pPage->name();
+    stack()->setCurrentWidget(pPage);
+    emit selectedPage(pPage);
 }
 
 void MainWindowPageStack::updateSizes(const QSize minSize, const QSize maxSize)

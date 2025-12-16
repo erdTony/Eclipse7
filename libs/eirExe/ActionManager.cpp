@@ -1,10 +1,14 @@
 #include "ActionManager.h"
 
 #include <QAction>
+#include <QMainWindow>
+#include <QMenuBar>
+#include <QToolBar>
+#include <QToolButton>
 
 #include <Icon.h>
 
-ActionManager::ActionManager(QObject *parent) : QObject{parent} {;}
+ActionManager::ActionManager(QMainWindow *parent) : QObject{(QObject*)parent}, mpMainWindow(parent) {;}
 
 void ActionManager::add(const Key &key, const Action action)
 {
@@ -12,9 +16,12 @@ void ActionManager::add(const Key &key, const Action action)
     emit added(key, action);
 }
 
-void ActionManager::setup()
+void ActionManager::setup(const ActionManager::Flags f)
 {
-
+    if (f.testFlag(AddMainMenuBar))
+        mpMainMenuBar = mpMainWindow->menuBar();
+    if (f.testFlag(AddMainToolbar))
+        mpMainToolBar = mpMainWindow->addToolBar("Main");
 }
 
 void ActionManager::execute()
@@ -61,6 +68,9 @@ ActionManager::Action ActionManager::add(const QString &name, Key key)
     if (key.isEmpty()) key.set(name);
     Action result = new QAction(name);
     mActionMap.insert(key, result);
+    if (hasToolBar())
+        mpMainToolBar->addAction(result);
+    // TODO add main menubar, handle which menu
     emit added(key, result);
     return result;
 }

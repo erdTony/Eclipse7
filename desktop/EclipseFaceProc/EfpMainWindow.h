@@ -26,6 +26,12 @@ signals:
     void started();
     void keyEsc();
     void keyF1();
+    void selected(BaseMainWindowPage * pPage);
+
+public: // pointers
+    EfpSplashPage * splash();
+    EfpFramesPage * frames();
+
 
 protected:
     virtual bool event(QEvent * pEvent) override;
@@ -42,5 +48,8 @@ private:
     EfpSplashPage * mpSplashPage;
     EfpFramesPage * mpFramesPage;
 };
+
+inline EfpSplashPage *EfpMainWindow::splash() { Q_CHECK_PTR(mpSplashPage); return mpSplashPage; }
+inline EfpFramesPage *EfpMainWindow::frames() { Q_CHECK_PTR(mpFramesPage); return mpFramesPage; }
 
 

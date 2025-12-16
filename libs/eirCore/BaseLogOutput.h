@@ -8,19 +8,21 @@
 #include <CText.h>
 class CTextList;
 
-#include "LogFormat.h"
-#include "LogItem.h"
+//#include "LogFormat.h"
+//#include "LogItem.h"
 #include "LogUrl.h"
+class LogItem;
 
-class EIRLOGGER_EXPORT LogOutput : public QObject
+class EIRLOGGER_EXPORT BaseLogOutput : public QObject
 {
     Q_OBJECT
 protected:
-    explicit LogOutput(QObject *parent = nullptr);
+    explicit BaseLogOutput(QObject *parent = nullptr);
 public:
-    LogOutput(const CText &url, QObject *parent = nullptr);
+    BaseLogOutput(const CText &url, QObject *parent = nullptr);
 
 public slots:
+    virtual void start() = 0;
     virtual void start(const CText &url);
     virtual void write(const LogItem &li);
     virtual void write(const CTextList &ctxl);
@@ -43,7 +45,7 @@ protected:
     LogUrl mUrl;
 };
 
-inline CText LogOutput::name() const { return mName; }
-inline LogUrl LogOutput::url() const { return mUrl; }
+inline CText BaseLogOutput::name() const { return mName; }
+inline LogUrl BaseLogOutput::url() const { return mUrl; }
 
 

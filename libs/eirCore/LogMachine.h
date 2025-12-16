@@ -17,7 +17,7 @@ class QTimer;
 #include "LogFormat.h"
 #include "LogMessage.h"
 class Log;
-class LogOutput;
+class BaseLogOutput;
 
 class EIRLOGGER_EXPORT LogMachine : public QStateMachine
 {
@@ -33,7 +33,7 @@ public: // types
         Quitting,
         $maxState
     };
-    typedef QPair<Uid, LogOutput *> FormatKey;
+    typedef QPair<Uid, BaseLogOutput *> FormatKey;
 
 public:
     explicit LogMachine(Log *parent = nullptr);

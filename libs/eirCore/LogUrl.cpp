@@ -6,6 +6,7 @@
 #include <FSText.h>
 
 LogUrl::LogUrl() : mScheme($null) {;}
+LogUrl::LogUrl(const CText &ctx) { set(ctx); }
 LogUrl::LogUrl(const Scheme s, const QString &u) { set(s, u); }
 
 QString LogUrl::toString() const
@@ -15,13 +16,18 @@ QString LogUrl::toString() const
     return tUrl.toString();
 }
 
+void LogUrl::set(const CText &ctx)
+{
+    Q_UNUSED(ctx); // TODO Split Scheme and string
+}
+
 void LogUrl::set(const Scheme s, QString u)
 {
     if (u.isEmpty()) u = QString("../log/&-@.log");
     mScheme = s;
     switch (mScheme)
     {
-    case LogOut:    setLogOut(u);       break;
+//    case LogOut:    setLogOut(u);       break;
     default:        /* nada */          break;
     }
 }
@@ -39,9 +45,9 @@ void LogUrl::setLogOut(const QString &u)
 void LogUrl::setFileInfo()
 {
     FSText tPath = mUrl.path().toLocal8Bit().toLower();
-    if (tPath == "stdout")
+    if (tPath.equals("stdout"))
         mLogFile.set(stdout);
-    else if (tPath == "stderr")
+    else if (tPath.equals("stderr"))
         mLogFile.set(stderr);
     else
     {

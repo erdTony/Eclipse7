@@ -23,15 +23,15 @@ int main(int argc, char *argv[])
                           EIRVER_PRODDESC);
     EfpApplication app(argc, argv);
     cVI.updateApp(&app);
-    OPT->set(cVI);
-    OPT->addOrgAppOptions();
-    OPT->addShowOptions();
-    OPT->addHelpVerOptions();
-    OPT->addPositional("inputUrl", "URL Location of Input Images");
-    OPT->process();
-    QString tUrlString("files://../EFPin");
-    if ( ! OPT->isPositionalNull("inputUrl"))
-        tUrlString = OPT->positional("inputUrl");
+//    OPT->set(cVI);
+  //  OPT->addOrgAppOptions();
+    //OPT->addShowOptions();
+//    OPT->addHelpVerOptions();
+  //  OPT->addPositional("inputUrl", "URL Location of Input Images");
+    //OPT->process();
+    QString tUrlString("files:///../EFPin");
+//    if ( ! OPT->isPositionalNull("inputUrl"))
+  //      tUrlString = OPT->positional("inputUrl");
     Url tUrl(tUrlString);
     app.inputUrl(tUrl);
     return app.exec();

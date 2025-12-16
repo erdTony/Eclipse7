@@ -8,7 +8,7 @@
 #include <CTextList.h>
 
 #include "LogObject.h"
-#include "LogOutput.h"
+#include "BaseLogOutput.h"
 #include "LogUrl.h"
 
 LogMachine::LogMachine(Log *parent)
@@ -86,7 +86,7 @@ void LogMachine::pulse()
 
 void LogMachine::quit()
 {
-    foreach (LogOutput * pOut, LOG()->outputList())
+    foreach (BaseLogOutput * pOut, LOG()->outputList())
     {
         pOut->flush();
         pOut->close();
@@ -121,7 +121,7 @@ bool LogMachine::format()
     while (k--)
     {
         LogItem tLI = mItemQueue.dequeue();
-        foreach (LogOutput * pOut, LOG()->outputList())
+        foreach (BaseLogOutput * pOut, LOG()->outputList())
         {
             LogFormat tLF = pOut->url().format();
             CTextList tCTxL = tLF.process(tLI);
@@ -142,7 +142,7 @@ bool LogMachine::distribute()
     {
         FormatKey tKey = mFormattedItemMap.firstKey();
         CTextList tMsg = mFormattedItemMap.value(tKey);
-        LogOutput * pOut = tKey.second;
+        BaseLogOutput * pOut = tKey.second;
         Q_CHECK_PTR(pOut);
         mFormattedItemMap.remove(tKey);
         pOut->write(tMsg);

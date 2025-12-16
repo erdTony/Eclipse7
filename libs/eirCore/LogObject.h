@@ -12,7 +12,7 @@
 #include "LogLevel.h"
 #include "LogMessage.h"
 #include "LogItem.h"
-class LogOutput;
+class BaseLogOutput;
 class LogEntry;
 class LogMachine;
 class LogUrl;
@@ -25,7 +25,7 @@ class EIRLOGGER_EXPORT Log : public QObject
 {
     Q_OBJECT
 public: // types
-    typedef LogOutput * OutputPtr;
+    typedef BaseLogOutput * OutputPtr;
     typedef QList<OutputPtr> OutputList;
 
 public: // ctors

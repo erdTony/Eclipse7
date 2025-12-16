@@ -42,9 +42,9 @@ bool BlobStore::connect()
     {
         switch (mUrl.type())
         {
-        case Url::Files:    result &= connectFiles();      break;
-        case Url::SQLite:  result &= connectSqlLite();    break;
-        case Url::PgSql:    result &= connectPgSql();      break;
+        case UrlType::Files:    result &= connectFiles();      break;
+        case UrlType::SQLite:   result &= connectSqlLite();    break;
+        case UrlType::PgSQL:    result &= connectPgSql();      break;
         default:            result = false;             break;
         }
     }

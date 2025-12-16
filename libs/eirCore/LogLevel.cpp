@@ -122,7 +122,6 @@ LogLevel::MsgType LogLevel::msgType(const LogLevel::Value lvl)
     case FnArg:
     case Dump:      case Trace:
     case DumpVal:   case DumpHex:       result = TraceType;     break;
-    case $minWarning:
     case TPrefer:   case UPrefer:
     case UWarning:  case TWarning:      result = WarnType;      break;
     case $minError:

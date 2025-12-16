@@ -23,7 +23,7 @@ signals:
 
 public: // const
     Url url() const;
-    Url::Type type() const;
+    UrlType type() const;
 
 public: // non-const
     bool set(const QString &storeUrl);
@@ -49,4 +49,4 @@ private:
 };
 
 inline Url BlobStore::url() const { return mUrl; }
-inline Url::Type BlobStore::type() const { return url().type(); }
+inline UrlType BlobStore::type() const { return url().type(); }

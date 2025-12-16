@@ -13,12 +13,12 @@ Url &Url::operator =(const QString &url) { set(url); return it(); }
 
 bool Url::isNull() const
 {
-    return mUrl.isEmpty() || $null == type();
+    return mUrl.isEmpty() || UrlType::$null == type();
 }
 
 bool Url::isValid() const
 {
-    return mUrl.isValid() && $null != type() && $other != type();
+    return mUrl.isValid() && UrlType::$null != type() && UrlType::$other != type();
 }
 
 bool Url::isLocalFile() const
@@ -62,6 +62,19 @@ QDir Url::pathDir() const
     return QDir(mUrl.path());
 }
 
+QDir Url::localDir() const
+{
+    QDir result;
+    if (isLocalFile())
+    {
+        const QString cFileString =  mUrl.toLocalFile();
+        QFileInfo tFI(cFileString);
+        if (tFI.isDir())
+            result = QDir(cFileString);
+    }
+    return result;
+}
+
 bool Url::contains(const AText &queryName) const
 {
     return mQueryPairMap.contains(queryName);
@@ -74,7 +87,7 @@ AText Url::value(const AText &queryName) const
 
 void Url::clear()
 {
-    mType = $null, mUrl.clear(), mQuery.clear(), mQueryText.clear(),
+    mType = UrlType::$null, mUrl.clear(), mQuery.clear(), mQueryText.clear(),
         mQueryList.clear(), mQueryPairs.clear(), mQueryPairMap.clear();
 }
 
@@ -120,21 +133,13 @@ void Url::setScheme(const AText &scheme)
     mUrl.setScheme(scheme);
 }
 
-Url::Type Url::type(const AText &scheme)
+UrlType Url::type(const AText &scheme)
 {
-    Url::Type result=$other;
-    const QString cString = scheme.toLower();
-    if (scheme.isEmpty())           result = $null;
-    else if ("troll" == cString)       result = Troll;
-    else if ("stdio" == cString)       result = Stdio;
-    else if ("textfile" == cString)    result = TextFile;
-    else if ("files" == cString)       result = Files;
-    else if ("dir" == cString)         result = Dir;
-    else if ("http" == cString)        result = Http;
-    else if ("https" == cString)       result = Https;
-    else if ("qqlite" == cString)      result = SQLite;
+    UrlType result;
+    result.set(scheme);
     return mType = result;
 }
+
 
 
 

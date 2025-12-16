@@ -16,11 +16,14 @@ public: // types
     enum Scheme
     {
         $null = 0,
-        LogOut,
+        Troll,
+        TxtFile1,
+        TxtFile2,
     };
 
 public: // ctors
     LogUrl();
+    LogUrl(const CText &ctx);
     LogUrl(const Scheme s, const QString &u);
 
 public: // const
@@ -31,6 +34,7 @@ public: // const
     operator CText () const;
 
 public: // non-const
+    void set(const CText &ctx);
     void set(const Scheme s, QString u);
     LogFile & file();
 

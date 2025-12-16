@@ -12,26 +12,12 @@
 #include <ATextList.h>
 #include <Types.h>
 
+#include "UrlType.h"
+
 class EIRNETWORK_EXPORT Url
 {
     Q_GADGET
 public: // types
-    enum Type
-    {
-        $null = 0,
-        Troll,
-        Stdio,
-        TextFile,
-        Files,
-        Dir,
-        Http,
-        Https,
-        SQLite,
-        PgSql,
-        $other
-    };
-
-    typedef QList<Type> TypeList;
 
 public: // ctors
     Url();
@@ -47,7 +33,7 @@ public: // const
     bool isLocalDir() const;
     AText string() const;
     AText scheme() const;
-    Type type() const;
+    UrlType type() const;
     AText username() const;
     AText password() const;
     AText userinfo() const;
@@ -70,7 +56,8 @@ public: // non-const
     void set(const QString &s, QUrl::ParsingMode mode=QUrl::TolerantMode);
     void dir(const QDir &dir);
     void setScheme(const AText &scheme);
-    Type type(const AText &scheme);
+    UrlType type(const AText &scheme);
+
 
 public: //
 
@@ -79,7 +66,7 @@ private:
     Url & it();
 
 private:
-    Type mType=$null;
+    UrlType mType=UrlType::$null;
     QUrl mUrl;
     QUrlQuery mQuery;
     AText mQueryText;
@@ -103,4 +90,4 @@ inline AText Url::scheme() const { return mScheme; }
 inline AText Url::operator [](const AText &queryName) const { return value(queryName); }
 inline Url Url::it() const { return *this; }
 inline Url &Url::it() { return *this; }
-inline Url::Type Url::type() const { return mType; }
+inline UrlType Url::type() const { return mType; }

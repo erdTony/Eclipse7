@@ -25,14 +25,14 @@ public: // ctors
 
 public slots:
     void setup();
-    void select(BaseMainWindowPage * pBMWP);
+    void select(BaseMainWindowPage * pPage);
     void updateSizes(const QSize minSize, const QSize maxSize);
 
 signals:
     void setupd();
     void added(const QString n, BaseMainWindowPage * pBMWP);
     void selected(const Index ix, const QString name);
-    void selectedPage(BaseMainWindowPage * pBMWP);
+    void selectedPage(BaseMainWindowPage * pPage);
     void activated(BaseMainWindowPage * pBMWP);
     void removing(BaseMainWindowPage * pBMWP);
     void removed(const QString n);

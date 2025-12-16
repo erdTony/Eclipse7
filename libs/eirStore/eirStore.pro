@@ -6,9 +6,7 @@ CONFIG += c++23
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include(../libs.pri)
-include(../../useBase.pri)
-include(../../useType.pri)
-include(../../useLogger.pri)
+include(../../useCore.pri)
 include(../../useNetwork.pri)
 
 SOURCES += \
@@ -24,7 +22,7 @@ SOURCES += \
     FileData.cpp \
     FileInfo.cpp \
     FileSysInfo.cpp \
-    FilesImageAcqSource.cpp \
+    FilesAcqSource.cpp \
     ImageAcq.cpp \
     ImageAcqConfig.cpp \
     ImageAcqMachine.cpp \
@@ -46,7 +44,7 @@ HEADERS += \
     FileData.h \
     FileInfo.h \
     FileSysInfo.h \
-    FilesImageAcqSource.h \
+    FilesAcqSource.h \
     ImageAcq.h \
     ImageAcqConfig.h \
     ImageAcqMachine.h \
