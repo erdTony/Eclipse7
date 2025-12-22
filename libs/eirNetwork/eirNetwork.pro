@@ -9,14 +9,10 @@ include(../../useCore.pri)
 
 SOURCES += \
     AdapterInfo.cpp \
-    Url.cpp \
-    UrlType.cpp \
     eirNetwork.cpp
 
 HEADERS += \
     AdapterInfo.h \
-    Url.h \
-    UrlType.h \
     eirNetwork.h \
     eirNetwork_global.h
 

@@ -6,14 +6,16 @@
 #include <QList>
 #include <QUuid>
 
+#include "Key.h"
 #include "Types.h"
-
+class KeySeg;
 
 class EIRCORE_EXPORT Uid
 {
 /*
  * UUID:    01234567-89AB-CDEF-0123-456789ABCDEF
  *          00000000 0011 1111 1111 222222222233
+ * Hex Nix: 01234567 89AB CDEF 0123 456789ABCDEF
  * Dec Nix: 01234567 8901 2345 6789 012345678901
  *                   Ver--^    ^--Var
  */
@@ -23,6 +25,21 @@ public: // constants
     static const Index scmVariantNIx    = 16;
 
 public: // types
+    enum Segment
+    {
+        $nullSegment = 0,
+        SegmentNix0007      = 0x00000708,
+        SegmentNix0811      = 0x00081104,
+        SegmentNix1215      = 0x00121504,
+        SegmentNix1619      = 0x00161904,
+        SegmentNix2031      = 0x0020310C,
+        SegmentA            = SegmentNix0007,
+        SegmentB            = SegmentNix0811,
+        SegmentC            = SegmentNix1215,
+        SegmentD            = SegmentNix1619,
+        SegmentE            = SegmentNix2031,
+    };
+
     enum Variant
     {
         VarNcs      = 0,    // 0b0--+
@@ -81,14 +98,17 @@ public: // ctors
     Uid(const Uid &ns, const AText text); // DCEv5
     Uid(const QByteArray &macOverride); // DCDv6
 
-
-
 public: // const
     bool isNull() const;
     bool isNil() const;
+    bool equals(const Uid &rhs) const;
+    bool less(const Uid &rhs) const;
     bool operator == (const Uid &rhs) const;
     bool operator < (const Uid &rhs) const;
     QString toString() const;
+    Key toKey() const;
+    Key toKey(const KeySeg &prefix) const;
+
     QString tail() const;
     operator QString () const;
     QUuid uuid() const;
@@ -114,6 +134,12 @@ public: // pointers
 
 public: // static
     static Index byteIndex(const Index nibbleIndex);
+    static Index nixBegin(const Segment uidseg);
+    static Index nixEnd(const Segment uidseg);
+    static Count nixCount(const Segment uidseg);
+
+private: // const
+    XText xtext(const Segment uidseg) const;
 
 private: // non-const
     Uid generate7(const Type type);
@@ -124,6 +150,9 @@ private:
 
 inline bool Uid::isNull() const { return mNibbles.isNull(); }
 inline bool Uid::isNil() const { return mNibbles.isZero(); }
+inline bool Uid::operator ==(const Uid &rhs) const { return equals(rhs); }
+inline bool Uid::operator <(const Uid &rhs) const { return less(rhs); }
+inline Key Uid::toKey() const { return toKey("URL"); }
 inline Uid::operator QString() const { return toString(); }
 inline QUuid Uid::uuid() const { return QUuid::fromBytes(mNibbles.data()); }
 #ifndef Q_CC_MSVC

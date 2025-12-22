@@ -38,7 +38,7 @@ typedef Count           Seq;
 typedef QWORD           IdNo;
 
 typedef QList<Index>     IndexList;
-typedef QList<signed>    SIntList;
+typedef QList<signed>    IntList;
 typedef QList<unsigned>  UIntList;
 typedef QList<QWORD>     QWordList;
 typedef QList<double>    FloatList;

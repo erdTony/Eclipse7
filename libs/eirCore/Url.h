@@ -1,5 +1,5 @@
 #pragma once
-#include "eirNetwork.h"
+#include "eirCore.h"
 
 #include <QObject>
 
@@ -14,7 +14,7 @@
 
 #include "UrlType.h"
 
-class EIRNETWORK_EXPORT Url
+class EIRCORE_EXPORT Url
 {
     Q_GADGET
 public: // types

@@ -1,5 +1,5 @@
 #pragma once
-#include "eirNetwork.h"
+#include "eirCore.h"
 
 #include "Enumeration.h"
 
@@ -10,7 +10,7 @@
     NV(PgSQL,)  \
     NV($other,)   \
 
-class EIRNETWORK_EXPORT UrlType : public Enumeration
+class EIRCORE_EXPORT UrlType : public Enumeration
 {
     DECLARE_ENUMERATION(UrlType, URLTYPE_ENUM)
 };

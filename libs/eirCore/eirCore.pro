@@ -14,6 +14,12 @@ include (../libs.pri)
 SOURCES += \
     FileInfo.cpp \
     FileInfoList.cpp \
+    FunctionInfo.cpp \
+    FunctionInfoArgument.cpp \
+    FunctionInfoEnum.cpp \
+    LogContext.cpp \
+    Url.cpp \
+    UrlType.cpp \
     VersionInfo.cpp \
     eirCore.cpp \
     Enumeration.cpp \
@@ -62,6 +68,12 @@ SOURCES += \
 HEADERS += \
     FileInfo.h \
     FileInfoList.h \
+    FunctionInfo.h \
+    FunctionInfoArgument.h \
+    FunctionInfoEnum.h \
+    LogContext.h \
+    Url.h \
+    UrlType.h \
     VersionInfo.h \
     eirCore_global.h \
     eirCore.h \

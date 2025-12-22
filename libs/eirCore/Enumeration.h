@@ -10,10 +10,10 @@
 #include <QList>
 #include <QString>
 
-#include <CText.h>
-#include <CTextList.h>
-
+#include "CText.h"
+#include "CTextList.h"
 #include "Named.h"
+#include "Types.h"
 
 /*! @class Enumeration
  *  @brief Base class for named enumerations.
@@ -34,7 +34,7 @@ The following goals were used in the design of this facility.
 @section Usage Usage
 @subsection hFileUsage Derived class' h file
 @code
-#include <eirBase/Enumeration.h>
+#include <eirCore/Enumeration.h>
 #define ENUMCLASS_ENUM(NV) \
     NV(Null, = 0)  \
     NV(Minimum,)   \
@@ -63,7 +63,7 @@ public:
     Enumeration & operator = (const Enumeration & other);
     bool isValid(void) const;
     bool isNull(void) const;
-    bool isEmpty(void) const;
+//    bool isEmpty(void) const;
     CText nameOf(const int value) const;
     int valueOf(const CText & name) const;
     CText name(void) const;
@@ -78,19 +78,19 @@ public:
     int operator() (void) const;
     Enumeration first(void) const;
     Enumeration last(void) const;
-    Enumeration & operator ++ (void); // prefix ++e
-    Enumeration operator ++ (int);  // postfix e++
-    Enumeration & operator -- (void); // prefix --e
-    Enumeration operator -- (int);  // postfix e--
-    QList<int> values(void) const;
+//    Enumeration & operator ++ (void); // prefix ++e
+  //  Enumeration operator ++ (int);  // postfix e++
+//    Enumeration & operator -- (void); // prefix --e
+  //  Enumeration operator -- (int);  // postfix e--
+    IntList values(void) const;
     QList<Enumeration> all(void);
     CTextList nameFlags(int f);
 
 public: // pseudo-static functions
     bool isValid(const QString & name);
     int value(const QString & name);
-    QList<Enumeration> parse(const QString & string);
-    int parseFlags(const QString & string);
+//    QList<Enumeration> parse(const QString & string);
+  //  int parseFlags(const QString & string);
 
 protected:
     enum initializer { initialize };
@@ -100,7 +100,7 @@ protected:
 protected:
     int mValue;
     CText mName;
-    Named<int> * mNameMap;
+    Named<int> * mpNamedMap;
 }; // Enumeration
 
 #define ENUMERATION_VALUE(NAME, VALUE) \
@@ -116,7 +116,7 @@ protected:
     public: \
         enum type { DEF(ENUMERATION_VALUE) }; \
         CLASS(enum initializer i) : Enumeration(i) \
-        { mNameMap = &maps; INSERT_ENUMERATION(DEF); } \
+        { mpNamedMap = &maps; INSERT_ENUMERATION(DEF); } \
         CLASS(void) : Enumeration() {} \
         CLASS(const int value) : Enumeration(&maps, value) {} \
         CLASS(const QString & name) : Enumeration(&maps, name) {} \

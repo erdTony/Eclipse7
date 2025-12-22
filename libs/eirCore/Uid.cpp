@@ -3,13 +3,14 @@
 #include <QtEndian>
 #include <QRandomGenerator>
 
+#include "KeySeg.h"
 #include "MillisecondTime.h"
 
 Uid::Uid() {;}
 Uid::Uid(const bool nil) : mNibbles(NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF)) {;}
 Uid::Uid(const Version ver) { generate(ver); }
 
-bool Uid::operator == (const Uid &rhs) const
+bool Uid::equals(const Uid &rhs) const
 {
 #ifdef Q_CC_MSVC
     return hi() == rhs.hi() && lo() == rhs.lo();
@@ -18,7 +19,7 @@ bool Uid::operator == (const Uid &rhs) const
 #endif
 }
 
-bool Uid::operator < (const Uid &rhs) const
+bool Uid::less(const Uid &rhs) const
 {
 #ifdef Q_CC_MSVC
     return (hi() == rhs.hi()) ? (lo() < rhs.lo()) : (hi() < rhs.hi());
@@ -30,6 +31,11 @@ bool Uid::operator < (const Uid &rhs) const
 QString Uid::toString() const
 {
     return uuid().toString();
+}
+
+Key Uid::toKey(const KeySeg &prefix) const
+{
+
 }
 
 QString Uid::tail() const
@@ -77,6 +83,28 @@ void Uid::randomize()
     lo(QRandomGenerator::global()->generate64());
     hi(QRandomGenerator::global()->generate64());
 }
+
+Index Uid::nixBegin(const Segment uidseg)
+{
+    return (uidseg & 0x00FF0000) >> 16;
+}
+
+Index Uid::nixEnd(const Segment uidseg)
+{
+    return (uidseg & 0x0000FF00) >> 8;
+}
+
+Count Uid::nixCount(const Segment uidseg)
+{
+    return uidseg & 0x000000FF;
+}
+
+XText Uid::xtext(const Segment uidseg) const
+{
+    NibbleArray tNA = mNibbles.segment(nixBegin(uidseg), nixCount(uidseg));
+    return tNA.toHex();
+}
+
 /*
 Uid Uid::generate(const Type type)
 {

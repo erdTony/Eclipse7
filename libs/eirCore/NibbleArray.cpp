@@ -15,16 +15,38 @@ Count NibbleArray::length() const
     return mLength;
 }
 
-BYTE NibbleArray::at(const Index ix) const
+Count NibbleArray::byteLength() const
 {
-    const bool cOddIndex = ix & 1;
-    const Index cByteIndex = ix >> 1;
+    return (mLength + 1) >> 1;
+}
+
+BYTE NibbleArray::at(const Index nix) const
+{
+    if (notValidNix(nix)) return 0xFF;
+    const bool cOddIndex = nix & 1;
+    const Index cByteIndex = byteIndex(nix);
     BYTE tByte = mBytes.at(cByteIndex);
     if (cOddIndex)
         tByte >>= 4;
     else
         tByte &= 0x0F;
     return tByte;
+}
+
+bool NibbleArray::isValidNix(const Index nix) const
+{
+    return nix >= 0 && nix < Index(length());
+}
+
+NibbleArray NibbleArray::segment(const Index nix, const Count k) const
+{
+    NibbleArray result;
+    Index tNix = nix;
+    Index tEnd = nix + (Index)k;
+    while (isValidNix(tNix) && tNix < tEnd)
+        result.append(at(tNix++));
+    // TODO efficiently
+    return result;
 }
 
 bool NibbleArray::isZero() const
@@ -42,13 +64,23 @@ bool NibbleArray::equals(const NibbleArray &other) const
 
 XText NibbleArray::toHex() const
 {
-    return mBytes.toHex();
+    return mBytes.toHex().first(length());
+}
+
+void NibbleArray::append(const BYTE b)
+{
+    set(length(), b);
 }
 
 void NibbleArray::set(const Index nix, const BYTE b)
 {
     const bool cOddIndex = nix & 1;
     const Index cByteIndex = nix >> 1;
+    if (cByteIndex < mBytes.length())
+    {
+        const Count cAppendCount = cByteIndex - mBytes.length();
+        mBytes.append(cAppendCount, 0);
+    }
     BYTE tByte = mBytes.at(cByteIndex);
     if (cOddIndex)
         tByte = (tByte & 0xF0) | (b & 0x0F);
@@ -79,6 +111,11 @@ void *NibbleArray::data(const Index nix)
 {
     const Index cByteIndex = nix >> 1;
     return mBytes.data() + cByteIndex;
+}
+
+Index NibbleArray::byteIndex(const Index nix)
+{
+    return nix >> 1;
 }
 
 

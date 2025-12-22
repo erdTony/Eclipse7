@@ -3,18 +3,18 @@
 #include <MillisecondTime.h>
 
 
-DEFINE_DATAPROPS(Id, IdentData);
+DEFINE_DATAPROPS(Id, IdData);
 
 QWORD Id::smCtorSeq = 0;
 
-Id::Id(const bool nilUid) : data(new IdentData) { uid(nilUid); ctor(); }
-Id::Id(const Uid &u)  : data(new IdentData) { uid(u); ctor(); }
-Id::Id(const Uid &u, const IdNo i)  : data(new IdentData) { set(u, i); ctor(); }
-Id::Id(const Uid &u, const Key &k) : data(new IdentData) { set(u, k); ctor(); }
-Id::Id(const Uid &u, const AText &n) : data(new IdentData) { set(u, n); ctor(); }
-Id::Id(const IdNo i) : data(new IdentData) { idno(i); ctor(); }
-Id::Id(const Key &k) : data(new IdentData) { key(k); ctor(); }
-Id::Id(const AText &n) : data(new IdentData) { name(n); ctor(); }
+Id::Id(const bool nilUid) : data(new IdData) { uid(nilUid); ctor(); }
+Id::Id(const Uid &u)  : data(new IdData) { uid(u); ctor(); }
+Id::Id(const Uid &u, const IdNo i)  : data(new IdData) { set(u, i); ctor(); }
+Id::Id(const Uid &u, const Key &k) : data(new IdData) { set(u, k); ctor(); }
+Id::Id(const Uid &u, const AText &n) : data(new IdData) { set(u, n); ctor(); }
+Id::Id(const IdNo i) : data(new IdData) { idno(i); ctor(); }
+Id::Id(const Key &k) : data(new IdData) { key(k); ctor(); }
+Id::Id(const AText &n) : data(new IdData) { name(n); ctor(); }
 
 bool Id::isNull() const
 {

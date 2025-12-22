@@ -24,11 +24,11 @@
     TND(Milliseconds, ctorEms, 0) \
     TND(QWORD, ctorSeq, 0) \
 
-class IdentData : public QSharedData
+class IdData : public QSharedData
 {
     DECLARE_CHILD_DATAPROPS(IDENT_DATAPROPS);
 public:
-    IdentData(void)
+    IdData(void)
     {
         DEFINE_DATAPROPS_CTORS(IDENT_DATAPROPS);
     }
@@ -37,7 +37,7 @@ public:
 class EIRCORE_EXPORT Id
 {
     DECLARE_PARENT_DATAPROPS(IDENT_DATAPROPS);
-    DECLARE_DATAPROPS(Id, IdentData);
+    DECLARE_DATAPROPS(Id, IdData);
 
 public: // our ctors
     Id(const bool nilUid); // else maxUid
