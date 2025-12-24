@@ -63,7 +63,7 @@ public:
     Enumeration & operator = (const Enumeration & other);
     bool isValid(void) const;
     bool isNull(void) const;
-//    bool isEmpty(void) const;
+    bool isEmpty(void) const;
     CText nameOf(const int value) const;
     int valueOf(const CText & name) const;
     CText name(void) const;
@@ -78,10 +78,10 @@ public:
     int operator() (void) const;
     Enumeration first(void) const;
     Enumeration last(void) const;
-//    Enumeration & operator ++ (void); // prefix ++e
-  //  Enumeration operator ++ (int);  // postfix e++
-//    Enumeration & operator -- (void); // prefix --e
-  //  Enumeration operator -- (int);  // postfix e--
+    Enumeration & operator ++ (void); // prefix ++e
+    Enumeration operator ++ (int);  // postfix e++
+    Enumeration & operator -- (void); // prefix --e
+    Enumeration operator -- (int);  // postfix e--
     IntList values(void) const;
     QList<Enumeration> all(void);
     CTextList nameFlags(int f);
@@ -89,8 +89,8 @@ public:
 public: // pseudo-static functions
     bool isValid(const QString & name);
     int value(const QString & name);
-//    QList<Enumeration> parse(const QString & string);
-  //  int parseFlags(const QString & string);
+    QList<Enumeration> parse(const QString & string);
+    int parseFlags(const QString & string);
 
 protected:
     enum initializer { initialize };

@@ -24,7 +24,7 @@ public:
     CText name(const T & t) const { return mNameTDMap.a(t); }
     T value(const CText &name) const { return mNameTDMap.b(name); }
     void insert(const T & t, const CText &name) { mNameTDMap.insert(name.toLower(), t); }
-    //T first(const T & t1) const { (void)t1; return isEmpty() ? T() : mNameTDMap.constBegin().key(); }
+    T first(const T & t1) const { (void)t1; return isEmpty() ? T() : mNameTDMap.constBegin().key(); }
     CTextList names(void) const { return mNameTDMap.aList(); }
     TList values() const { return mNameTDMap.bList(); }
     void remove(const T & t) { mNameTDMap.remove(t); }
@@ -37,38 +37,3 @@ public:
 private:
     DualMap<CText,T> mNameTDMap;
 };
-
-/*
-    T last(const T & t1) const
-    {
-        T result(invalid());
-        (void)t1;
-        if ( ! mNameTDMap.isEmpty())
-        {
-            typename QMap<T,CText>::const_iterator it = mNameTDMap.constEnd();
-            --it;
-            result = it.key();
-        }
-        return result;
-    }
-    T next(const T & t) const
-    {
-        T result(invalid());
-        typename QMap<T,CText>::const_iterator it = mNameTDMap.find(t);
-        if (mNameTDMap.end() != it)
-            ++it;
-        if (mNameTDMap.end() != it)
-            result = it.key();
-        return result;
-    }
-    T previous(const T & t) const
-    {
-        T result(invalid());
-        typename QMap<T,CText>::const_iterator it = mNameTDMap.find(t);
-        if (mNameTDMap.begin() != it)
-            --it;
-        if (mNameTDMap.begin() != it)
-            result = it.key();
-        return result;
-    }
-*/

@@ -25,11 +25,11 @@ Enumeration & Enumeration::operator = (const Enumeration & other)
     mValue = other.mValue, mName = other.mName, mpNamedMap = other.mpNamedMap;
     return *this;
 }
-#if 0
+#if 1
 bool Enumeration::isEmpty(void) const
 {
     Q_CHECK_PTR(mpNamedMap);
-    return ((Named<int>)*mpNamedMap).isEmpty();
+    return mpNamedMap->isEmpty();
 }
 #endif
 Enumeration Enumeration::first(void) const
