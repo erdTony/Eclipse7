@@ -4,6 +4,7 @@
 
 #include <QLabel>
 
+#include <QColor>
 #include <QFrame>
 #include <QImage>
 #include <QLabel>
@@ -40,6 +41,7 @@ signals:
 public: // const
 
 public: // non-const
+    void setBack(const QColor &c);
 
 
 public: // pointers
@@ -51,8 +53,10 @@ private: // non-const
     void set(const Size labelSize, const Size origSize);
 
 private:
+    QColor mBackColor = QColor(Qt::darkGray);
 };
 
+inline void Label::setBack(const QColor &c) { mBackColor = c; }
 inline QFrame *Label::frame() const { return (QFrame *)(this); }
 inline Label::WidgetPtr Label::widget() const { return (QWidget *)(this); }
 inline Label::operator WidgetPtr() const { return widget(); }

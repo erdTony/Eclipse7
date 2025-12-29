@@ -21,7 +21,7 @@ public:
 public slots:
     void initialize();
     void setup();
-    void start(const Url &url);
+    void start(const QDir &dir);
     void pause();
     void resume();
     void capture();
@@ -37,11 +37,9 @@ signals:
 
 public: // const
     QDir inputDir() const;
-    Url inputUrl() const;
 
 public: // non-const
-    bool queryInputDir(const Url &url);
-    void inputUrl(const Url &url);
+    bool queryInputDir(const QDir &dir);
 
 public: // pointers
 
@@ -49,12 +47,11 @@ private slots:
 
 
 private:
-    Url mInputUrl;
     QDir mInputDir;
     Milliseconds mSampleMsec=1000;
     QTimer * mpCaptureTimer;
     bool mPaused=false;
-    bool mLoop=true;
+    bool mLoop=false;
     bool mUseModel=false;
     Count mDirDepth = 1;
     QFileSystemModel * mpFSModel=nullptr;
@@ -62,4 +59,3 @@ private:
 };
 
 inline QDir EfpImageReader::inputDir() const { return mInputDir; }
-inline Url EfpImageReader::inputUrl() const { return mInputUrl; }

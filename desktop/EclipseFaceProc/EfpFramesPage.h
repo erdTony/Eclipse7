@@ -1,8 +1,10 @@
 #pragma once
 
-#include "FileInfo.h"
 #include <BaseMainWindowPage.h>
 
+#include <QDir>
+
+#include "FileInfo.h"
 //#include <GalleryProperties.h>
 class Gallery;
 class Label;
@@ -20,7 +22,7 @@ public: // ctors
 public slots:
     virtual void setup();
     virtual void activate();
-    void start(const Url &url);
+    void start(const QDir &dir);
     void hasCaptured(const FileInfo &fi, const QImage qi);
 
 signals:

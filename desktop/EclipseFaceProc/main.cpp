@@ -11,7 +11,7 @@
 #include "../../version.h"
 #include "version.h"
 
-#include "EfpMainWindow.h"
+//#include "EfpMainWindow.h"
 
 #define OPT app.wap()->opts()
 
@@ -27,13 +27,7 @@ int main(int argc, char *argv[])
   //  OPT->addOrgAppOptions();
     //OPT->addShowOptions();
 //    OPT->addHelpVerOptions();
-  //  OPT->addPositional("inputUrl", "URL Location of Input Images");
     //OPT->process();
-    QString tUrlString("files:///../EFPin");
-//    if ( ! OPT->isPositionalNull("inputUrl"))
-  //      tUrlString = OPT->positional("inputUrl");
-    Url tUrl(tUrlString);
-    app.inputUrl(tUrl);
     return app.exec();
 }
 

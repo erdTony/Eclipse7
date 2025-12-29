@@ -32,11 +32,18 @@ void EfpApplication::initialize()
     Q_CHECK_PTR(mpMainWindow);
     mpActions = new ActionManager(mpMainWindow);
     Q_CHECK_PTR(mpActions);
-    mpBlobStore = new BlobStore(this);
-    Q_CHECK_PTR(mpBlobStore);
+//    mpBlobStore = new BlobStore(this);
+  //  Q_CHECK_PTR(mpBlobStore);
 
 //    mInputUrl = Url("dir://../EFPin/base");
-    mBlobUrl = Url("files://../temp/BlobBase");
+//    mBlobUrl = Url("files://../temp/BlobBase");
+
+    QStringList tArgs = arguments();
+    (void)tArgs.takeFirst(); // exe path
+    if (tArgs.isEmpty())
+        inputDir(QDir("../EFPin"));
+    else
+        inputDir(tArgs.takeFirst());
 
     mpActions->setup(ActionManager::AddMainToolbar);
     QActionGroup * pGroup = new QActionGroup(this);

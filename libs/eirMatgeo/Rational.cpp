@@ -71,14 +71,20 @@ bool Rational::equal(const Rational rhs) const
 {
     const Term l = n() * rhs.d();
     const Term r = rhs.n() * d();
-    return l < r;
+    return l == r;
 }
 
 bool Rational::less(const Rational rhs) const
 {
+#if 1
+    const qreal cLtAspect = toReal();
+    const qreal cRtAspect = rhs.toReal();
+    return qFuzzyCompare(cLtAspect, cRtAspect) ? 1.0 : (cLtAspect / cRtAspect);
+#else
     const Term l = n() * rhs.d();
     const Term r = rhs.n() * d();
     return l < r;
+#endif
 }
 
 void Rational::set(const Term aNum, const Term aDen)

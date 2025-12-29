@@ -23,6 +23,7 @@ EfpFramesPage::EfpFramesPage(QWidget *parent)
 {
     FNENTER();
     setObjectName("EFPFramesPage");
+    reader()->initialize();
 }
 
 void EfpFramesPage::setup()
@@ -32,9 +33,8 @@ void EfpFramesPage::setup()
     readSettingsProperties();
     pageGrid()->addWidget(mpFrameLabel, 0, 0, 1, 1);
     pageGrid()->addWidget(mpDetectLabel, 0, 1, 1, 1);
-    reader()->initialize();
-    reader()->setup();
     reader()->pause();
+    reader()->setup();
     connect(APP, &EfpApplication::paused, reader(), &EfpImageReader::pause);
     connect(APP, &EfpApplication::resumed, reader(), &EfpImageReader::resume);
     connect(reader(), &EfpImageReader::captured,
@@ -61,23 +61,11 @@ void EfpFramesPage::activate()
     FNSLOT();
 }
 
-void EfpFramesPage::start(const Url &url)
+void EfpFramesPage::start(const QDir &dir)
 {
     FNSLOT();
-    qInfo() << Q_FUNC_INFO << url.toString();
-    const QDir cInputDir = url.pathDir();
-    const QStringList cFileFilters = QStringList() << "*.jpg" << "*.png";
-    const QFileInfoList cFIs = cInputDir.entryInfoList(cFileFilters);
-    reader()->start(url);
-    /*
-    foreach (const QFileInfo cFI, cFIs)
-    {
-        QImage tFrame(cFI.filePath());
-        if (tFrame.isNull()) continue;
-        mpFrameLabel->set(mpFrameLabel->size(), tFrame);
-        gallery()->add(tFrame);
-    }
-    */
+    qInfo() << Q_FUNC_INFO << dir.path();
+    reader()->start(dir);
 }
 
 void EfpFramesPage::hasCaptured(const FileInfo &fi, const QImage qi)
@@ -86,8 +74,8 @@ void EfpFramesPage::hasCaptured(const FileInfo &fi, const QImage qi)
     UNUSED(fi); // TODO StatusBar
     // TODO FaceDetect heat map
     QImage tGreyImage = qi.convertedTo(QImage::Format_Grayscale8);
-    mpFrameLabel->set(qi);
-    mpDetectLabel->set(tGreyImage);
+    mpDetectLabel->set(mpFrameLabel->size(), qi);
+    mpFrameLabel->set(mpDetectLabel->size(), tGreyImage);
 }
 
 void EfpFramesPage::setDefaultProperties(const Size baseGallerySize)

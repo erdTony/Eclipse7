@@ -46,6 +46,15 @@ bool Size::less(const Size &rhs) const
     return area() < rhs.area();
 }
 
+bool Size::isEqualAspect(const Size &rhs) const
+{
+    const Rational cLtAspectR = aspect();
+    const Rational cRtAspectR = rhs.aspect();
+    const qreal cLtAspectF = cLtAspectR.toReal();
+    const qreal cRtAspectF = cRtAspectR.toReal();
+    return qFuzzyCompare(cLtAspectF, cRtAspectF);
+}
+
 Size Size::expanded(const Size sz) const
 {
     return Size(width() + sz.width(), height() + sz.height());
@@ -59,6 +68,11 @@ Size Size::expanded(const unsigned int u) const
 Size Size::scaled(const unsigned int u) const
 {
     return Size(width() * u, height() * u);
+}
+
+Size Size::scaled(const qreal f) const
+{
+    return Size(width() * f, height() * f);
 }
 
 qreal Size::scaleToF(const Size &rhs) const
@@ -83,21 +97,21 @@ Size Size::intersected(const Size &rhs) const
 
 Size Size::set(const Size other, const Rational aspect)
 {
-    if (other.aspect() == aspect)
+    if (isEqualAspect(other))
     {
-        return other;
+        return set(other);
     }
     else if (other.aspect() < aspect)
     {
         const int w = other.width();
-        const int h = w * aspect;
-        return Size(w, h);
+        const int h = w / aspect;
+        return set(w, h);
     }
     else
     {
-        const int h = other.width();
+        const int h = other.height();
         const int w = h * aspect;
-        return Size(w, h);
+        return set(w, h);
     }
 }
 

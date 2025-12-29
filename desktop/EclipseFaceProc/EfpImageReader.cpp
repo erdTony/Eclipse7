@@ -10,6 +10,7 @@ EfpImageReader::EfpImageReader(QObject *parent)
     , mpCaptureTimer(new QTimer(this))
 {
     FNENTER();
+    qInfo() << Q_FUNC_INFO;
     Q_CHECK_PTR(mpCaptureTimer);
     setObjectName("EfpImageReader");
 }
@@ -17,23 +18,18 @@ EfpImageReader::EfpImageReader(QObject *parent)
 void EfpImageReader::initialize()
 {
     FNSLOT();
+    qInfo() << Q_FUNC_INFO;
     Q_CHECK_PTR(mpCaptureTimer);
     connect(mpCaptureTimer, &QTimer::timeout,
             this, &EfpImageReader::capture);
-    if (queryInputDir(inputUrl()))
-    {
-        if (mUseModel)
-        {
-            mpFSModel = new QFileSystemModel(this);
-            INFOMSG("Initializing File System Model");
-        }
-        emit initialized();
-    }
+    mSampleMsec = 1000;
+    mDirDepth = 1;
 }
 
 void EfpImageReader::setup()
 {
     FNSLOT();
+    qInfo() << Q_FUNC_INFO;
     if (inputDir().isReadable() && ! mUseModel)
     {
         // TODO Show Something
@@ -42,12 +38,11 @@ void EfpImageReader::setup()
     emit setupd();
 }
 
-void EfpImageReader::start(const Url &url)
+void EfpImageReader::start(const QDir &dir)
 {
     FNSLOT();
-    qInfo() << Q_FUNC_INFO << url.toString();
-    inputUrl(url);
-    queryInputDir(url);
+    qInfo() << Q_FUNC_INFO << dir.path();
+    queryInputDir(dir);
     Q_CHECK_PTR(mpCaptureTimer);
     mpCaptureTimer->start(mSampleMsec);
     emit started();
@@ -56,6 +51,8 @@ void EfpImageReader::start(const Url &url)
 void EfpImageReader::pause()
 {
     FNSLOT();
+    qInfo() << Q_FUNC_INFO;
+    Q_CHECK_PTR(mpCaptureTimer);
     mpCaptureTimer->stop();
     mPaused = true;
     emit paused();
@@ -65,6 +62,7 @@ void EfpImageReader::resume()
 {
     FNSLOT();
     qInfo() << Q_FUNC_INFO;
+    Q_CHECK_PTR(mpCaptureTimer);
     mpCaptureTimer->start();
     mPaused = false;
     emit resumed();
@@ -73,7 +71,8 @@ void EfpImageReader::resume()
 void EfpImageReader::capture()
 {
     FNSLOT();
-    qInfo() << Q_FUNC_INFO;
+    qInfo() << Q_FUNC_INFO << mFileInfoList.count() << mPaused;
+    if (mPaused) return;
     if (mFileInfoList.isEmpty())
     {
         qInfo() << Q_FUNC_INFO << "finished";
@@ -88,7 +87,7 @@ void EfpImageReader::capture()
         QImage tImage = QImage(tFI.filePath());
         if ( ! tImage.isNull())
         {
-            qInfo() << Q_FUNC_INFO << "captured";
+            qInfo() << Q_FUNC_INFO << "captured" << tFI.baseName();
             INFOMSG("emit captured(): " + tFI.filePath());
             emit captured(tFI, tImage);
         }
@@ -97,49 +96,31 @@ void EfpImageReader::capture()
         mFileInfoList.append(tFI);
 }
 
-bool EfpImageReader::queryInputDir(const Url &url)
+bool EfpImageReader::queryInputDir(const QDir &dir)
 {
     bool result = false;
     mInputDir = QDir();
-    qInfo() << Q_FUNC_INFO << url.toString() << url.isLocalDir();
-    if (url.isLocalDir())
+    qInfo() << Q_FUNC_INFO << dir.path();
+    QDir tInputDir = dir;
+    qInfo() << Q_FUNC_INFO << tInputDir.path();
+    if (tInputDir.isReadable())
     {
-        QDir tInputDir = url.localDir();
-        qInfo() << Q_FUNC_INFO << tInputDir.path();
-        if (tInputDir.isReadable())
+        QStringList tNameFilters;
+        tNameFilters << "*.jpg" << "*.png" << "*.bmp";
+        QDir::Filters tEntryFilters = QDir::Files;
+        // TODO handle mDirDepth: if (mDirDepth != 1) tEntryFilters |= QDir::Dirs;
+        QDir::SortFlags tSortFlags = QDir::NoSort;
+        tInputDir.setNameFilters(tNameFilters);
+        tInputDir.setFilter(tEntryFilters);
+        tInputDir.setSorting(tSortFlags);
+        qInfo() << Q_FUNC_INFO << tNameFilters << tEntryFilters << tSortFlags;
+        mFileInfoList = tInputDir.entryInfoList(tNameFilters, tEntryFilters, tSortFlags);
+        qInfo() << Q_FUNC_INFO << mFileInfoList.count();
+        if ( ! mFileInfoList.isEmpty())
         {
-            QStringList tNameFilters;
-            tNameFilters << "*.jpg" << "*.png" << "*.bmp";
-            QDir::Filters tEntryFilters = QDir::Files;
-            // TODO handle mDirDepth: if (mDirDepth != 1) tEntryFilters |= QDir::Dirs;
-            QDir::SortFlags tSortFlags = QDir::NoSort;
-            tInputDir.setNameFilters(tNameFilters);
-            tInputDir.setFilter(tEntryFilters);
-            tInputDir.setSorting(tSortFlags);
-            qInfo() << Q_FUNC_INFO << tNameFilters << tEntryFilters << tSortFlags;
-            mFileInfoList = tInputDir.entryInfoList(tNameFilters, tEntryFilters, tSortFlags);
-            qInfo() << Q_FUNC_INFO << mFileInfoList.count();
-            if ( ! mFileInfoList.isEmpty())
-            {
-                mInputDir = tInputDir;
-                result = true;
-            }
+            mInputDir = tInputDir;
+            result = true;
         }
     }
     return result;
-}
-
-void EfpImageReader::inputUrl(const Url &url)
-{
-
-    mInputUrl = url;
-    mUseModel = ! url.contains("Direct");
-    mSampleMsec = 1000;
-    mDirDepth = 1;
-    // TODO set mSampleTime from url
-    // TODO set suffix list from url
-    // TODO set dir depth from url
-    // TODO set dir sort from url
-    // inputDir(url.pathDir());
-
 }

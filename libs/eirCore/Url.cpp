@@ -1,5 +1,6 @@
 #include "Url.h"
 
+#include <QtDebug>
 #include <QDir>
 #include <QMetaProperty>
 
@@ -23,31 +24,40 @@ bool Url::isValid() const
 
 bool Url::isLocalFile() const
 {
-//    return mUrl.isLocalFile() || TextFile == type();
+    qInfo() << Q_FUNC_INFO << mUrl.toString() << mUrl.isLocalFile() << mUrl.toLocalFile();
     bool result = false;
-    if (mUrl.isLocalFile())
+    QUrl tQUrl(mUrl);
+    if (type().isFile()) tQUrl.setScheme("file");
+    if (tQUrl.isLocalFile())
     {
-        const QString cFileString =  mUrl.toLocalFile();
+        const QString cFileString =  tQUrl.toLocalFile();
         QFileInfo tFI(cFileString);
-        result = tFI.isFile() && tFI.exists();
+        result |= tFI.isFile() && tFI.exists();
     }
+    qInfo() << result << tQUrl << tQUrl.isLocalFile() << tQUrl.toLocalFile();
     return result;
 }
 
 bool Url::isLocalDir() const
 {
     bool result = false;
-    if (mUrl.isLocalFile())
+    qInfo() << Q_FUNC_INFO << mUrl.toString() << mUrl.isLocalFile() << mUrl.toLocalFile();
+    if (isLocalFile())
     {
-        const QString cFileString =  mUrl.toLocalFile();
+        const QString cFileString =  localFlleInfo().path();
         QFileInfo tFI(cFileString);
         if (tFI.isDir())
         {
             QDir tDir(cFileString);
-            result = tDir.isReadable();
+            result |= tDir.isReadable();
         }
     }
     return result;
+}
+
+AText Url::authority() const
+{
+    return username() + ":" + password();
 }
 
 QString Url::toString(const bool encoded) const
@@ -85,6 +95,11 @@ AText Url::value(const AText &queryName) const
     return mQueryPairMap.value(queryName);
 }
 
+ATextList Url::queryMapList()
+{
+    return ATextList::toList(mQueryPairMap);
+}
+
 void Url::clear()
 {
     mType = UrlType::$null, mUrl.clear(), mQuery.clear(), mQueryText.clear(),
@@ -93,6 +108,7 @@ void Url::clear()
 
 void Url::set(const QString &s, QUrl::ParsingMode mode)
 {
+    qInfo() << Q_FUNC_INFO << s << mode;
     clear();
     mUrl.setUrl(s, mode);
     mQuery.setQuery(mUrl.query());
@@ -114,12 +130,20 @@ void Url::set(const QString &s, QUrl::ParsingMode mode)
     mString = s;
     mScheme = mUrl.scheme();
     type(scheme());
+    if (type().isFile())
+    {
+        mUrl.setScheme(mScheme = "file");
+        mLocalFileInfo = QFileInfo(mUrl.toLocalFile());
+    }
     mUsername = mUrl.userName();
     mPassword = mUrl.password();
     mHost = mUrl.host();
     mPort = mUrl.port();
     mPath = mUrl.path();
     mPathList = mPath.split(QDir::separator().cell());
+    qInfo() << Q_FUNC_INFO << string() << scheme() << type().name() << authority();
+    qInfo() << path() << pathCount() << pathDir();
+    qInfo() << localFlleInfo() << localDir() << queryMapList();
 }
 
 void Url::dir(const QDir &dir)

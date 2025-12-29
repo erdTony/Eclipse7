@@ -45,11 +45,12 @@ public: // const
     Count pathCount() const;
     QString toString(const bool encoded=false) const;
     QDir pathDir() const;
-    QFileInfo localFlle() const;
+    QFileInfo localFlleInfo() const;
     QDir localDir() const;
     bool contains(const AText &queryName) const;
     AText value(const AText &queryName) const;
     AText operator [] (const AText &queryName) const;
+    ATextList queryMapList();
 
 public: // non-const
     void clear();
@@ -72,8 +73,8 @@ private:
     AText mQueryText;
     ATextList mQueryList;
     ATextList::PairList mQueryPairs;
-    ATextList::PairMap mQueryPairMap;
-    QFileInfo mLocalFile;
+    ATextList::PairMMap mQueryPairMap;
+    QFileInfo mLocalFileInfo;
     QDir mLocalDir;
 
     AText mString;
@@ -86,8 +87,16 @@ private:
     ATextList mPathList;
 };
 
+inline AText Url::string() const { return mString; }
 inline AText Url::scheme() const { return mScheme; }
 inline AText Url::operator [](const AText &queryName) const { return value(queryName); }
 inline Url Url::it() const { return *this; }
 inline Url &Url::it() { return *this; }
 inline UrlType Url::type() const { return mType; }
+inline AText Url::username() const  { return mUsername; }
+inline AText Url::password() const  { return mPassword; }
+inline AText Url::path() const  { return mPath; }
+inline Count Url::pathCount() const  { return mPathList.count(); }
+inline QFileInfo Url::localFlleInfo() const  { return mLocalFileInfo; }
+
+

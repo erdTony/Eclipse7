@@ -54,7 +54,7 @@ void EfpMainWindow::setup()
 void EfpMainWindow::start()
 {
     qDebug() << Q_FUNC_INFO;
-    frames()->start(APP->inputUrl());
+    frames()->start(APP->inputDir());
     emit started();
 }
 

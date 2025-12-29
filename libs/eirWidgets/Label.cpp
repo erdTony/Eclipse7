@@ -38,13 +38,16 @@ void Label::set(const Size sz, const QColor &clr)
 void Label::set(const Size sz, const QImage &img)
 {
     const Size cOrigSize = img.size();
-    const Size cScaledSize(sz, cOrigSize.aspect());
-    const SCRect cCenteredRect(cScaledSize);
+    const Size cAspectSize(sz, cOrigSize.aspect());
+    const SCRect cCenteredRect(cAspectSize);
+    const QRect cPaintRect(cCenteredRect.toQRect());
+    const qreal cScaleF = cAspectSize.scaleToF(size());
+    resize(sz);
     QPixmap tPixmap(sz);
     QPainter tPainter;
     tPainter.begin(&tPixmap);
-    tPainter.fillRect(SCRect(sz).toQRect(), Qt::transparent);
-    tPainter.drawImage(cCenteredRect.toQRect(), img);
+    tPainter.fillRect(SCRect(sz).toQRect(), mBackColor);
+    tPainter.drawImage(cPaintRect, img.scaled(cAspectSize * cScaleF));
     tPainter.end();
     set(tPixmap);
 }
