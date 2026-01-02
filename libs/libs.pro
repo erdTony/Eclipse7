@@ -3,7 +3,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    eirBase \
     eirColor \
     eirCore \
     eirExe \
@@ -13,8 +12,6 @@ SUBDIRS += \
     eirGraphics \
     eirGui \
     eirImage \
-    eirLogger \
-    eirLogmgr \
     eirMatgeo \
     eirNetwork \
     eirObjdet \
@@ -24,7 +21,6 @@ SUBDIRS += \
     eirState \
     eirStore \
     eirSvg \
-    eirType \
     eirVideo \
     eirWidgets \
     eirXml

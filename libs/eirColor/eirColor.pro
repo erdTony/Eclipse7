@@ -15,7 +15,7 @@ SOURCES += \
     Color.cpp \
     ColorTable.cpp \
     Pixel32.cpp \
-    RationalColorList.cpp \
+#    RationalColorList.cpp \
     RgbColor.cpp \
     Rgba32Table.cpp \
     eirColor.cpp
@@ -27,7 +27,7 @@ HEADERS += \
     Color.h \
     ColorTable.h \
     Pixel32.h \
-    RationalColorList.h \
+#    RationalColorList.h \
     RgbColor.h \
     Rgba32Table.h \
     eirColor.h \

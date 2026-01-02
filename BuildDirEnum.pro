@@ -3,8 +3,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS +=              \
-        eirBase		\
-        eirLogger	\
         eirCore		\
         eirExe          \
         eirNetwork      \
@@ -15,8 +13,6 @@ SUBDIRS +=              \
         eirWidgets	\
         DirEnum         \
 
-eirBase.subdir      = libs/eirBase
-eirLogger.subdir    = libs/eirLogger
 eirCore.subdir      = libs/eirCore
 eirExe.subdir       = libs/eirExe
 eirNetwork.subdir   = libs/eirNetwork
@@ -27,14 +23,12 @@ eirType.subdir      = libs/eirType
 eirWidgets.subdir   = libs/eirWidgets
 DirEnum.subdir      = desktop/DirEnum
 
-eirBase.depends     =
-eirLogger.depends   = eirBase
-eirCore.depends     = eirBase
-eirExe.depends      = eirBase eirType eirMatgeo eirCore
-eirNetwork.depends  = eirBase eirType
-eirGui.depends      = eirBase
-eirStore.depends    = eirBase eirType eirNetwork
-eirMatgeo.depends   = eirBase
-eirType.depends     = eirBase
-eirWidgets.depends  = eirBase eirMatgeo eirCore eirExe
-Sandbox.depends     = eirBase eirType eirNetwork eirStore
+eirCore.depends     =
+eirExe.depends      = eirCore eirType eirMatgeo
+eirNetwork.depends  = eirCore eirType
+eirGui.depends      = eirCore
+eirStore.depends    = eirCore eirType eirNetwork
+eirMatgeo.depends   = eirCore
+eirType.depends     = eirCore
+eirWidgets.depends  = eirCore eirMatgeo eirExe
+Sandbox.depends     = eirCore eirNetwork eirStore

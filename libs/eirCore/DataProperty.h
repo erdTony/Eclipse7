@@ -7,7 +7,7 @@ In .h file:
 @code
 #include <QSharedData>
 
-#include <eirBase/DataProperty.h>
+#include <DataProperty.h>
 
 #define LOGITEM_DATAPROPS(TND) \
     TND(MillisecondTime, TimeStamp, MillisecondTime()) \

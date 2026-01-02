@@ -3,8 +3,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS +=              \
-        eirBase		\
-        eirLogger	\
         eirColor	\
         eirCore		\
         eirExe          \
@@ -12,12 +10,9 @@ SUBDIRS +=              \
         eirGui		\
         eirImage	\
         eirMatgeo       \
-        eirType         \
         eirWidgets      \
         Sandbox         \
 
-eirBase.subdir      = libs/eirBase
-eirLogger.subdir    = libs/eirLogger
 eirColor.subdir     = libs/eirColor
 eirCore.subdir      = libs/eirCore
 eirExe.subdir       = libs/eirExe
@@ -25,23 +20,21 @@ eirGraphics.subdir  = libs/eirGraphics
 eirGui.subdir       = libs/eirGui
 eirImage.subdir     = libs/eirImage
 eirMatgeo.subdir    = libs/eirMatgeo
-eirType.subdir      = libs/eirType
 eirWidgets.subdir   = libs/eirWidgets
 
 Sandbox.subdir      = desktop/Sandbox
 
-eirBase.depends     =
-eirLogger.depends   = eirBase
-eirColor.depends    = eirBase eirMatgeo
-eirCore.depends     = eirBase
-eirWidgets.depends  = eirBase eirMatgeo eirCore # eirExe
-eirExe.depends      = eirBase eirType eirMatgeo eirCore eirWidgets
-eirGraphics.depends = eirBase
-eirGui.depends      = eirBase
-eirMatgeo.depends   = eirBase
-eirType.depends     = eirBase
-eirImage.depends    = eirBase eirLogger eirType eirMatgeo eirColor eirWidgets
-Sandbox.depends     = eirBase eirLogger eirType eirMatgeo eirCore \
+eirCore.depends     =
+eirLogger.depends   = eirCore
+eirColor.depends    = eirCore eirMatgeo
+eirWidgets.depends  = eirCore eirMatgeo  # eirExe
+eirExe.depends      = eirCore  eirMatgeo  eirWidgets
+eirGraphics.depends = eirCore
+eirGui.depends      = eirCore
+eirMatgeo.depends   = eirCore
+eirType.depends     = eirCore
+eirImage.depends    = eirCore   eirMatgeo eirColor eirWidgets
+Sandbox.depends     = eirCore   eirMatgeo  \
                         eirExe eirWidgets eirColor  eirImage
 
 

@@ -6,11 +6,9 @@ CONFIG += c++23
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include (../libs.pri)
-#include (../../OpenCV4.pri)
-include (../../useBase.pri)
-include (../../useType.pri)
-include (../../useMatgeo.pri)
 include (../../useCore.pri)
+include (../../useMatgeo.pri)
+#include (../../OpenCV4.pri)
 
 SOURCES += \
     DetectorResult.cpp \
@@ -27,7 +25,7 @@ SOURCES += \
     ObjdetResource.cpp \
     ObjdetResult.cpp \
     ObjdetResultMap.cpp \
-    eirobjdet.cpp
+    eirObjdet.cpp
 
 HEADERS += \
     DetectorResult.h \
@@ -44,8 +42,12 @@ HEADERS += \
     ObjdetResource.h \
     ObjdetResult.h \
     ObjdetResultMap.h \
-    eirObjdet_global.h \
-    eirobjdet.h
+    eirObjdet.h \
+    eirObjdet_global.h
+
+unix:!macx: LIBS += -L$$PWD/../../../../../../lib/x86_64-linux-gnu/ -lopencv_core -lopencv_imgproc -lopencv_objdetect
+INCLUDEPATH += $$PWD/../../../../../../usr/include/opencv4
+DEPENDPATH += $$PWD/../../../../../../usr/include/opencv4
 
 # Default rules for deployment.
 unix {
@@ -53,14 +55,3 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
-#unix|win32: LIBS += -L$$PWD/../../../../3rdParty/OpenCV4/x64/mingw/lib/
-#unix|win32: LIBS += -llibopencv_core4100
-#unix|win32: LIBS += -llibopencv_objdetect4100
-C:\code\repo\OpenCV-4.9.0-MinGW64
-#INCLUDEPATH += $$PWD/../../../../3rdParty/OpenCV4/include
-INCLUDEPATH += $$PWD/../../../OpenCV-4.9.0-MinGW64/include
-#DEPENDPATH += $$PWD/../../../../3rdParty/OpenCV4/include
-#LIBS *= $$PWD/../../../../3rdParty/OpenCV4/x64/mingw/lib/libopencv_core4100.dll.a
-#LIBS *= $$PWD/../../../../3rdParty/OpenCV4/x64/mingw/lib/libopencv_objdetect4100.dll.a
-#LIBS *= $$PWD/../../../OpenCV-4.9.0-MinGW64/x64/mingw/lib/libopencv_core4100.dll.a
-LIBS *= $$PWD/../../../OpenCV-4.9.0-MinGW64/x64/mingw/bin/libopencv_world490.dll

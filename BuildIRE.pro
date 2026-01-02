@@ -3,7 +3,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS +=          \
-	eirBase			\
 	eirColor		\
 	eirCore			\
     eirExe \
@@ -13,8 +12,6 @@ SUBDIRS +=          \
     eirGraphics \
 	eirGui			\
 	eirImage		\
-    eirLogger \
-    eirLogmgr \
     eirMatgeo \
     eirNetwork \
 	eirObjdet		\
@@ -24,25 +21,20 @@ SUBDIRS +=          \
     eirState \
 	eirStore		\
     eirSvg \
-    eirType \
 	eirWidgets		\
     eirVideo \
 	eirXml  		\
     IREngine        \
 
-eirBase.subdir      = libs/eirBase
 eirExe.subdir      = libs/eirExe
 eirFaceres.subdir      = libs/eirFaceres
 eirGraphics.subdir      = libs/eirGraphics
-eirLogger.subdir      = libs/eirLogger
-eirLogmgr.subdir      = libs/eirLogmgr
 eirMatgeo.subdir      = libs/eirMatgeo
 eirNetwork.subdir      = libs/eirNetwork
 eirQtVlan.subdir      = libs/eirQtVlan
 eirRemote.subdir      = libs/eirRemote
 eirState.subdir      = libs/eirState
 eirSvg.subdir      = libs/eirSvg
-eirType.subdir      = libs/eirType
 eirVideo.subdir      = libs/eirVideo
 eirColor.subdir     = libs/eirColor
 eirCore.subdir      = libs/eirCore
@@ -57,32 +49,30 @@ eirXml.subdir       = libs/eirXml
 eirWidgets.subdir   = libs/eirWidgets
 IREngine.subdir     = desktop/IREngine
 
-eirBase.depends     =
-eirExe.depends     = eirBase eirType eirMatgeo eirCore
-eirFaceres.depends     = eirBase
-eirGraphics.depends     = eirBase
-eirLogger.depends     = eirBase
-eirLogmgr.depends     = eirBase
-eirMatgeo.depends     = eirBase
-eirNetwork.depends     = eirBase
-eirQtVlan.depends     = eirBase
-eirRemote.depends     = eirBase
-eirState.depends     = eirBase
-eirSvg.depends     = eirBase
-eirType.depends     = eirBase
-eirVideo.depends     = eirBase
-eirCore.depends     = eirBase
-eirGui.depends      = eirBase
-eirWidgets.depends  = eirBase eirMatgeo eirCore eirExe
-eirXml.depends      = eirBase
-eirFacebase.depends = eirBase
-eirColor.depends    = eirBase eirMatgeo
-eirFacerec.depends  = eirBase
-eirImage.depends    = eirBase eirType eirMatgeo eirColor
-eirObjdet.depends   = eirBase
-eirQtCV.depends     = eirBase
-eirStore.depends    = eirBase
-IREngine.depends    = eirBase eirType eirMatgeo eirCore \
-eirExe eirWidgets eirColor  eirImage
+eirCore.depends     =
+eirExe.depends     = eirCore eirType eirMatgeo
+eirFaceres.depends     = eirCore
+eirGraphics.depends     = eirCore
+eirMatgeo.depends     = eirCore
+eirNetwork.depends     = eirCore
+eirQtVlan.depends     = eirCore
+eirRemote.depends     = eirCore
+eirState.depends     = eirCore
+eirSvg.depends     = eirCore
+eirType.depends     = eirCore
+eirVideo.depends     = eirCore
+eirCore.depends     = eirCore
+eirGui.depends      = eirCore
+eirWidgets.depends  = eirCore eirMatgeo  eirExe
+eirXml.depends      = eirCore
+eirFacebase.depends = eirCore
+eirColor.depends    = eirCore eirMatgeo
+eirFacerec.depends  = eirCore
+eirImage.depends    = eirCore  eirMatgeo eirColor
+eirObjdet.depends   = eirCore
+eirQtCV.depends     = eirCore
+eirStore.depends    = eirCore
+IREngine.depends    = eirCore  eirMatgeo  \
+    eirExe eirWidgets eirColor  eirImage
 
 

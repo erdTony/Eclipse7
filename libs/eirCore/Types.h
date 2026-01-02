@@ -1,4 +1,4 @@
-//!file {Eclipse7}/libs/eirBase/Types.h Common typedef's
+//!file {Eclipse7}/libs/eirCore/Types.h Common typedef's
 #pragma once
 
 #include <QtGlobal>

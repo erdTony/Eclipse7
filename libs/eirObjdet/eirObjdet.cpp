@@ -1,3 +1,3 @@
-#include "eirobjdet.h"
+#include "eirObjdet.h"
 
 eirObjdet::eirObjdet() {}
