@@ -9,6 +9,7 @@ class QAction;
 class BlobStore;
 
 class AppHelper;
+class EfpFrameProcessor;
 class EfpImageReader;
 class EfpMainWindow;
 
@@ -26,6 +27,8 @@ public slots:
     void setup();
     void start();
     void onPauseResume(const bool checked);
+    void process(const QImage &qimg);
+    void onCheck();
 
 signals:
     void initialized();
@@ -33,6 +36,8 @@ signals:
     void started();
     void paused();
     void resumed();
+    void procesed();
+    void detected(const QImage &qimg);
 
 public: // const
     QDir inputDir() const;
@@ -45,14 +50,15 @@ public: // pointers
     EfpMainWindow * main();
     AppHelper * wap();
 
-
 private:
     static EfpApplication * mpInstance;
     EfpMainWindow * mpMainWindow=nullptr;
+    EfpFrameProcessor * mpFrameProcessor=nullptr;
 //    AppHelper * mpAppHelper=nullptr;
     ActionManager * mpActions=nullptr;
-    QAction * mpPauseAction=nullptr;
-    QAction * mpResumeAction=nullptr;
+    ActionManager::Action mpPauseAction=nullptr;
+    ActionManager::Action mpResumeAction=nullptr;
+    ActionManager::Action mpStepAction=nullptr;
     QDir mInputDir;
 //    Url mBlobUrl;
   //  BlobStore * mpBlobStore=nullptr;

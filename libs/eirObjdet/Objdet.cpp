@@ -117,10 +117,10 @@ void Objdet::inputImage(const QImage &img)
     raw().inputSize(mInputImage.size());
 }
 
-void Objdet::inputImage(const QImage &img, const QRect rc)
+void Objdet::inputImage(const QImage &img, const QRect roi)
 {
-    qInfo() << Q_FUNC_INFO << img.size() << rc;
-    inputImage(img.copy(rc));
+    qInfo() << Q_FUNC_INFO << img.size() << roi;
+    inputImage(img.copy(roi));
 }
 
 void Objdet::clear()
@@ -132,9 +132,9 @@ void Objdet::clear()
     mGreyMat = cv::Mat();
 }
 
-bool Objdet::processCascadeClassifier(const bool returnAll)
+bool Objdet::processCascadeClassifier(const qreal factorReturnAll)
 {
-    qInfo() << Q_FUNC_INFO << returnAll << inputImage().size();
+    qInfo() << Q_FUNC_INFO << factorReturnAll << inputImage().size();
     foreach (const QString cs, info()) qDebug() << cs;
     bool result = false;
     if (inputImage().isNull())
@@ -145,10 +145,9 @@ bool Objdet::processCascadeClassifier(const bool returnAll)
     cascade()->detectMultiScale(mGreyMat, tRectVector, tCountVector,
                                 raw().factor(), raw().neighbors(), raw().flags(),
                                 raw().cvMinSize(), raw().cvMaxSize());
-    if (returnAll)
+    if ( ! qFuzzyIsNull(factorReturnAll))
         cascade()->detectMultiScale(mGreyMat, tAllRectVector,
-                                    raw().factor(), 0, raw().flags(),
-                                    raw().cvMinSize(), raw().cvMaxSize());
+                                    factorReturnAll, 0, raw().flags());
 
     result = processResults(tRectVector, tCountVector,
                             tAllRectVector, raw().factor());
@@ -208,7 +207,7 @@ int Objdet::calculateQuality(const int neighborCount,
 {
     int result = 0;
     Q_ASSERT(detectWidth);
-    if ( ! qFuzzyCompare(1.100, mRawArgs.factor()))
+    if ( ! qFuzzyCompare(1.100, factor))
         qWarning() << "Expected factor 1.100";
     result = int((qreal(neighborCount) / qreal(detectWidth))
                  * 500.0 * factor * factor);

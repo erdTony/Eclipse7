@@ -23,9 +23,11 @@ public slots:
     virtual void setup();
     virtual void activate();
     void start(const QDir &dir);
-    void hasCaptured(const FileInfo &fi, const QImage qi);
+    void hasCaptured(const FileInfo &fi, const QImage &qimg);
+    void showDetect(const QImage &qimg);
 
 signals:
+    void detectImage(const QImage &qimg);
 
 public: // const
 //    GalleryProperties props() const;

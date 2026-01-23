@@ -1,7 +1,7 @@
 # {Eclipse6}/src/DESTDIR.pri
 #message(========/src/DESTDIR.pri)
 
-OURDEST = "{bindir}/{bldcfg}{osbits}-Qt{qtmajor}{cvmajor}-{ver}"
+OURDEST = "{bindir}/{bldcfg}{osbits}-Qt{qtver}{cvmajor}-{ver}"
 #message(OURDEST = $$OURDEST)
 #message(VER_STRING = $$VER_STRING)
 
@@ -14,7 +14,7 @@ include(CVMAJOR.pri)
 OURDEST = $$replace(OURDEST, "{bindir}", $$BINDIR)
 OURDEST = $$replace(OURDEST, "{bldcfg}", $$BLDCFG)
 OURDEST = $$replace(OURDEST, "{osbits}", $$OSBITS)
-OURDEST = $$replace(OURDEST, "{qtmajor}", $$QT_MAJOR_VERSION)
+OURDEST = $$replace(OURDEST, "{qtver}", $$QT_VERSION)
 OURDEST = $$replace(OURDEST, "{cvmajor}", $$CVMAJOR)
 OURDEST = $$replace(OURDEST, "{ver}", $$VER_STRING)
 #message(OURDEST = $$OURDEST)

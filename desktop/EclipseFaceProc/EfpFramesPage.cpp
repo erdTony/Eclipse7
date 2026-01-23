@@ -68,14 +68,23 @@ void EfpFramesPage::start(const QDir &dir)
     reader()->start(dir);
 }
 
-void EfpFramesPage::hasCaptured(const FileInfo &fi, const QImage qi)
+void EfpFramesPage::hasCaptured(const FileInfo &fi, const QImage &qimg)
 {
     FNSLOT();
     UNUSED(fi); // TODO StatusBar
+    Q_CHECK_PTR(mpFrameLabel);
+    Q_CHECK_PTR(mpDetectLabel);
     // TODO FaceDetect heat map
-    QImage tGreyImage = qi.convertedTo(QImage::Format_Grayscale8);
-    mpDetectLabel->set(mpFrameLabel->size(), qi);
-    mpFrameLabel->set(mpDetectLabel->size(), tGreyImage);
+    QImage tGreyImage = qimg.convertedTo(QImage::Format_Grayscale8);
+    mpFrameLabel->set(mpFrameLabel->size(), tGreyImage);
+    mpDetectLabel->set(mpDetectLabel->size(), qimg);
+    emit detectImage(qimg);
+}
+
+void EfpFramesPage::showDetect(const QImage &qimg)
+{
+    Q_CHECK_PTR(mpDetectLabel);
+    mpDetectLabel->set(mpDetectLabel->size(), qimg);
 }
 
 void EfpFramesPage::setDefaultProperties(const Size baseGallerySize)

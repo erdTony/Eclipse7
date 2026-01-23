@@ -10,7 +10,7 @@ message(--------/src/useObjdet.pri LIBS=$$LIBS DESTDIR==$$DESTDIR LIBDIR==$$LIBD
 
 HEADERS +=
 
-#unix:!macx: LIBS += -L$$PWD/../../../../../../lib/x86_64-linux-gnu/ -lopencv_core -lopencv_objdetect
-#INCLUDEPATH += $$PWD/../../../../../../usr/include/opencv4
-#DEPENDPATH += $$PWD/../../../../../../usr/include/opencv4
+unix:!macx: LIBS *= -L$$PWD/../../../../../../lib/x86_64-linux-gnu/ -lopencv_core -lopencv_objdetect
+INCLUDEPATH *= $$PWD/../../../../../../usr/include/opencv4
+DEPENDPATH *= $$PWD/../../../../../../usr/include/opencv4
 

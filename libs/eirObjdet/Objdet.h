@@ -47,7 +47,7 @@ protected:  // ctors
     Objdet(const Class objcls, QObject * parent=0);
 
 public slots:
-    void loadDetectorName(const QString & name) { Q_UNUSED(name); } // TODO
+    void loadDetectorByName(const QString & name) { Q_UNUSED(name); } // TODO
     bool loadDetectorXml(const QString & fileName);
     void unloadDetector();
 
@@ -77,9 +77,9 @@ public: // const
 public: // non-const
     void set(const ObjdetRawArguments raw);
     void inputImage(const QImage &img);
-    void inputImage(const QImage &img, const QRect rc);
+    void inputImage(const QImage &img, const QRect roi);
     void clear();
-    bool processCascadeClassifier(const bool returnAll=false);
+    bool processCascadeClassifier(const qreal factorReturnAll=0.0);
 
 public: // pointers
     ObjdetRawArguments & raw();
