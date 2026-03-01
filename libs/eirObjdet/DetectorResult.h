@@ -6,7 +6,7 @@
 #include <QRect>
 #include <QSizeF>
 
-#include "../eirMatgeo/SCRect.h"
+#include <SCRect.h>
 
 class DetectorResult
 {

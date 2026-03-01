@@ -1,9 +1,9 @@
 #pragma once
-#include "eirColor.h"
+#include "eirCore.h"
 
 #include <Types.h>
 
-class EIRCOLOR_EXPORT BrightnessContrast
+class EIRCORE_EXPORT BrightnessContrast
 {
 public: // ctors
     BrightnessContrast(const bool makeFlat=false);

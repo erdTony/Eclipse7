@@ -1,5 +1,5 @@
 #pragma once
-#include "eirColor.h"
+#include "eirCore.h"
 
 #include <QRgb>
 
@@ -7,7 +7,7 @@
 
 #include "Color.h"
 
-class EIRCOLOR_EXPORT AnyColor
+class EIRCORE_EXPORT AnyColor
 {
 public: // types
     typedef QList<AnyColor> List;

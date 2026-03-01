@@ -5,9 +5,10 @@
 
 #include <QImage>
 
+#include <SCRect.h>
+
 #include "DetectorResult.h"
 #include "DetectorResultList.h"
-#include "../eirMatgeo/SCRect.h"
 
 class ObjdetEyes : public Objdet
 {

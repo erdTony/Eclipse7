@@ -1,10 +1,10 @@
 #pragma once
-#include "eirMatgeo.h"
+#include "eirCore.h"
 
 
-#include <Types.h>
+#include "Types.h"
 
-class EIRMATGEO_EXPORT Iota : public UIntList
+class EIRCORE_EXPORT Iota : public UIntList
 {
 public: // ctors
     Iota() { set(); }

@@ -1,9 +1,9 @@
 #pragma once
-#include "eirMatgeo.h"
+#include "eirCore.h"
 
 #include <Types.h>
 
-class EIRMATGEO_EXPORT Binary
+class EIRCORE_EXPORT Binary
 {
 public:
     enum Round { $null = 0, down, closest, up};

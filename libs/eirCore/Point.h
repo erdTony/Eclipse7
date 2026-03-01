@@ -1,5 +1,5 @@
 #pragma once
-#include "eirMatgeo.h"
+#include "eirCore.h"
 
 #include <QPoint>
 
@@ -7,7 +7,7 @@
 
 class Size;
 
-class EIRMATGEO_EXPORT Point : public QPoint
+class EIRCORE_EXPORT Point : public QPoint
 {
 public: // ctors
     Point(const bool zero=false);

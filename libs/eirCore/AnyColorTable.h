@@ -1,11 +1,11 @@
 #pragma once
-#include "eirColor.h"
+#include "eirCore.h"
 
 #include <Types.h>
 
 #include "AnyColor.h"
 
-class EIRCOLOR_EXPORT AnyColorTable
+class EIRCORE_EXPORT AnyColorTable
 {
 public:
     AnyColorTable();

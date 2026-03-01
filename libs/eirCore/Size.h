@@ -1,5 +1,5 @@
 #pragma once
-#include "eirMatgeo.h"
+#include "eirCore.h"
 
 #include <QList>
 #include <QSize>
@@ -7,7 +7,7 @@
 #include "Point.h"
 #include "Rational.h"
 
-class EIRMATGEO_EXPORT Size : public QSize
+class EIRCORE_EXPORT Size : public QSize
 {
 public: // types
     typedef QList<Size> List;

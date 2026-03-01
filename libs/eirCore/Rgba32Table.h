@@ -1,12 +1,12 @@
 #pragma once
-#include "eirColor.h"
+#include "eirCore.h"
 
 #include <QList>
 #include <QRgb>
 
 class AnyColorTable;
 
-class EIRCOLOR_EXPORT Rgba32Table
+class EIRCORE_EXPORT Rgba32Table
 {
 public: // types
     typedef QList<QRgb> RgbList;

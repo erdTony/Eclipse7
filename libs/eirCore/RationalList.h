@@ -1,5 +1,5 @@
 #pragma once
-#include "eirMatgeo.h"
+#include "eirCore.h"
 
 #include <QList>
 #include <Rational.h>
@@ -7,7 +7,7 @@
 #include <Types.h>
 
 
-class EIRMATGEO_EXPORT RationalList
+class EIRCORE_EXPORT RationalList
 {
 public: // types
     typedef Rational::Term Term;

@@ -12,12 +12,28 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 include(../libs.pri)
 
 SOURCES += \
+    AnyColor.cpp \
+    AnyColorTable.cpp \
+    Binary.cpp \
+    BrightnessContrast.cpp \
+    Color.cpp \
+    ColorTable.cpp \
     FileInfo.cpp \
     FileInfoList.cpp \
     FunctionInfo.cpp \
     FunctionInfoArgument.cpp \
     FunctionInfoEnum.cpp \
+    Iota.cpp \
     LogContext.cpp \
+    Pixel32.cpp \
+    Point.cpp \
+    Rational.cpp \
+    RationalColorList.cpp \
+    RationalList.cpp \
+    RgbColor.cpp \
+    Rgba32Table.cpp \
+    SCRect.cpp \
+    Size.cpp \
     Url.cpp \
     UrlType.cpp \
     VersionInfo.cpp \
@@ -66,12 +82,29 @@ SOURCES += \
     XText.cpp
 
 HEADERS += \
+    AnyColor.h \
+    AnyColorTable.h \
+    Binary.h \
+    BrightnessContrast.h \
+    Color.h \
+    ColorTable.h \
     FileInfo.h \
     FileInfoList.h \
     FunctionInfo.h \
     FunctionInfoArgument.h \
     FunctionInfoEnum.h \
+    Iota.h \
     LogContext.h \
+    MatrixT.h \
+    Pixel32.h \
+    Point.h \
+    Rational.h \
+    RationalColorList.h \
+    RationalList.h \
+    RgbColor.h \
+    Rgba32Table.h \
+    SCRect.h \
+    Size.h \
     Url.h \
     UrlType.h \
     VersionInfo.h \

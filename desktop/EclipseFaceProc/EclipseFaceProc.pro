@@ -5,18 +5,12 @@ CONFIG += c++23
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 include(../desktop.pri)
 include(../../useCore.pri)
-include(../../useMatgeo.pri)
-include(../../useNetwork.pri)
-include(../../useStore.pri)
-include(../../useGui.pri)
-include(../../useWidgets.pri)
-include(../../useQtCV.pri)
-include(../../useObjdet.pri)
 include(../../useExe.pri)
-
-#include(../../useColor.pri)
-#include(../../useGraphics.pri)
-#include(../../useImage.pri)
+include(../../useGui.pri)
+include(../../useImage.pri)
+include(../../useObjdet.pri)
+include(../../useStore.pri)
+include(../../useWidgets.pri)
 
 SOURCES += \
     EfpApplication.cpp \

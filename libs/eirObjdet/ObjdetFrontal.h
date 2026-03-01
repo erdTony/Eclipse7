@@ -2,7 +2,7 @@
 
 #include "Objdet.h"
 
-#include "../eirMatgeo/SCRect.h"
+#include <SCRect.h>
 
 class ObjdetFrontal : public Objdet
 {

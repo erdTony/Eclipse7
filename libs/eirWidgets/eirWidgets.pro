@@ -6,11 +6,13 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include (../libs.pri)
 include (../../useCore.pri)
-include (../../useMatgeo.pri)
+
 
 SOURCES += \
     BaseMainWindowPage.cpp \
     BinarySpinBox.cpp \
+    GraphicsScene.cpp \
+    GraphicsView.cpp \
     Label.cpp \
     LabelMap.cpp \
     LineEdit.cpp \
@@ -22,6 +24,8 @@ SOURCES += \
 HEADERS += \
     BaseMainWindowPage.h \
     BinarySpinBox.h \
+    GraphicsScene.h \
+    GraphicsView.h \
     Label.h \
     LabelMap.h \
     LineEdit.h \

@@ -1,5 +1,5 @@
 #pragma once
-#include "eirMatgeo.h"
+#include "eirCore.h"
 
 #include <QList>
 #include <QRect>
@@ -10,7 +10,7 @@
 #include "Size.h"
 class Rational;
 
-class EIRMATGEO_EXPORT SCRect
+class EIRCORE_EXPORT SCRect
 {
 public: // types
     typedef QList<SCRect> List;
@@ -78,7 +78,7 @@ private:
     Point mCenter;
 };
 
-extern EIRMATGEO_EXPORT QDebug operator<<(QDebug &stream, const SCRect scr);
+extern EIRCORE_EXPORT QDebug operator<<(QDebug &stream, const SCRect scr);
 
 inline Size SCRect::size() const { return mSize; }
 inline Count SCRect::area() const { return size().area(); }

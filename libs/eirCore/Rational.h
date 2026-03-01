@@ -1,7 +1,7 @@
 #pragma once
-#include "eirMatgeo.h"
+#include "eirCore.h"
 
-class EIRMATGEO_EXPORT Rational
+class EIRCORE_EXPORT Rational
 {
 public:
     typedef signed Term;

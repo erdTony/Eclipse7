@@ -6,7 +6,6 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 include (../libs.pri)
 include(../../useCore.pri)
-include(../../useMatgeo.pri)
 
 SOURCES += \
     Icon.cpp \
