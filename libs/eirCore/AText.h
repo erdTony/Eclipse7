@@ -1,11 +1,14 @@
 #pragma once
 #include "eirCore.h"
 
-
 #include <QtLogging>
 #include <QByteArray>
 #include <QList>
 #include <QString>
+
+#include <cstdio>
+
+#include "Types.h"
 
 class EIRCORE_EXPORT AText : public QByteArray
 {
@@ -18,11 +21,12 @@ public: // types
     };
 
 public: // ctors
-    AText() { clear(); }
-    AText(const char ch) { set(ch); }
-    AText(const char * pch) { set(pch); }
-    AText(const QByteArray &ba) { set(ba); }
-    AText(const QString &s) { set(s); }
+    AText();
+    AText(const char ch);
+    AText(const char * pch);
+    AText(const QByteArray &ba);
+    AText(const QString &s);
+    AText(const Count k, const char ch=' ');
 
 public: // const
     bool isEmpty() const;
@@ -41,6 +45,8 @@ public: // non-const
     void set(const QString &s);
     void set(const QByteArrayList &ba);
     void set(const QStringList &s);
+    void set(const Count k, const char ch=' ');
+    int vprintf(const char * format, va_list vlist);
     void setList(const char * pch);
     void setList(const QByteArray &ba);
     void setList(const QString &s);

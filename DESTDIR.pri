@@ -20,4 +20,5 @@ OURDEST = $$replace(OURDEST, "{ver}", $$VER_STRING)
 #message(OURDEST = $$OURDEST)
 
 DESTDIR = $$OURDEST
+QMAKE_RPATHDIR = $$OURDEST
 #message(DESTDIR = $$DESTDIR)

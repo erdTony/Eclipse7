@@ -44,7 +44,9 @@ HEADERS += \
     eirObjdet.h \
     eirObjdet_global.h
 
-unix:!macx: LIBS += -L$$PWD/../../../../../../lib/x86_64-linux-gnu/ -lopencv_core -lopencv_imgproc -lopencv_objdetect
+unix:!macx: LIBS += -L$$PWD/../../../../../../lib/x86_64-linux-gnu/libopencv_core.so.4.6.0
+unix:!macx: LIBS += -L$$PWD/../../../../../../lib/x86_64-linux-gnu/libopencv_imgproc.so.4.6.0
+unix:!macx: LIBS += -L$$PWD/../../../../../../lib/x86_64-linux-gnu/libopencv_objdetect.so.4.6.0
 INCLUDEPATH += $$PWD/../../../../../../usr/include/opencv4
 DEPENDPATH += $$PWD/../../../../../../usr/include/opencv4
 

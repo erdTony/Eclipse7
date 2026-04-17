@@ -18,7 +18,7 @@ public: // ctors
 public: // const
     QWORD hash64() const;
 
-protected: // static
+public: // static
     static char hinge();
 
 };

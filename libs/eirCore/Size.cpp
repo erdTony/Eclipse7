@@ -65,6 +65,12 @@ Size Size::expanded(const unsigned int u) const
     return Size(width() + u, height() + u);
 }
 
+Size Size::trimmed(const unsigned int modulo) const
+{
+    const unsigned cMask = ~ (modulo - 1);
+    return Size(width() & cMask, height() & cMask);
+}
+
 Size Size::scaled(const unsigned int u) const
 {
     return Size(width() * u, height() * u);

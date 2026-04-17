@@ -3,6 +3,7 @@ include(LIBDIR.pri)
 include(DESTDIR.pri)
 
 INCLUDEPATH *= $$LIBDIR/eirCore # ../../libs/eirCore ../eirCore
+INCLUDEPATH *= $$LIBDIR/../../Eclipse7/libs/eirCore
 windows:LIBS *= -leirCore7
 linux:LIBS *= -leirCore
 LIBS *= -L$$DESTDIR

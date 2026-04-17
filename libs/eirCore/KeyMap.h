@@ -6,10 +6,9 @@
 
 #include "AText.h"
 #include "Key.h"
-#include "KeySeg.h"
 
-template <typename KEY, typename T>
-class KeyMapT : public QMap<KEY, T>
+template <typename T>
+class KeyMapT : public QMap<Key, T>
 {
 public:
     KeyMapT() {;}
@@ -18,7 +17,6 @@ public:
 
 };
 
-typedef KeyMapT<Key, QVariant> KeyMap;
-typedef KeyMapT<Key, IdNo> KeyNoMap;
-typedef KeyMapT<Key, AText> KeyTextMap;
-typedef KeyMapT<KeySeg, QVariant> KeySegMap;
+typedef KeyMapT<QVariant> KeyMap;
+typedef KeyMapT<IdNo> KeyNoMap;
+typedef KeyMapT<AText> KeyTextMap;

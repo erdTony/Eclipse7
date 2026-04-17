@@ -5,6 +5,7 @@
 
 #include <QDir>
 #include <QFileInfo>
+#include <QList>
 #include <QUrl>
 #include <QUrlQuery>
 
@@ -18,6 +19,7 @@ class EIRCORE_EXPORT Url
 {
     Q_GADGET
 public: // types
+    typedef QList<Url> List;
 
 public: // ctors
     Url();
@@ -59,8 +61,8 @@ public: // non-const
     void setScheme(const AText &scheme);
     UrlType type(const AText &scheme);
 
-
-public: //
+public: // static
+    List list(const QString delimtedUrls, const QChar hinge=QChar(';'));
 
 private:
     Url it() const;
@@ -73,7 +75,7 @@ private:
     AText mQueryText;
     ATextList mQueryList;
     ATextList::PairList mQueryPairs;
-    ATextList::PairMMap mQueryPairMap;
+    ATextList::PairMMap mQueryPairMMap;
     QFileInfo mLocalFileInfo;
     QDir mLocalDir;
 

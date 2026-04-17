@@ -87,23 +87,23 @@ QDir Url::localDir() const
 
 bool Url::contains(const AText &queryName) const
 {
-    return mQueryPairMap.contains(queryName);
+    return mQueryPairMMap.contains(queryName);
 }
 
 AText Url::value(const AText &queryName) const
 {
-    return mQueryPairMap.value(queryName);
+    return mQueryPairMMap.value(queryName);
 }
 
 ATextList Url::queryMapList()
 {
-    return ATextList::toList(mQueryPairMap);
+    return ATextList::toList(mQueryPairMMap);
 }
 
 void Url::clear()
 {
     mType = UrlType::$null, mUrl.clear(), mQuery.clear(), mQueryText.clear(),
-        mQueryList.clear(), mQueryPairs.clear(), mQueryPairMap.clear();
+        mQueryList.clear(), mQueryPairs.clear(), mQueryPairMMap.clear();
 }
 
 void Url::set(const QString &s, QUrl::ParsingMode mode)
@@ -123,7 +123,7 @@ void Url::set(const QString &s, QUrl::ParsingMode mode)
         {
             const AText cName = cPair.first;
             const AText cValue = cPair.second;
-            mQueryPairMap.insert(cName, cValue);
+            mQueryPairMMap.insert(cName, cValue);
         }
     }
 
@@ -162,6 +162,18 @@ UrlType Url::type(const AText &scheme)
     UrlType result;
     result.set(scheme);
     return mType = result;
+}
+
+Url::List Url::list(const QString delimtedUrls, const QChar hinge)
+{
+    Url::List result;
+    foreach (QString s, delimtedUrls.split(hinge))
+    {
+        Url tUrl(s);
+        if (tUrl.isValid())
+            result << tUrl;
+    }
+    return result;
 }
 
 

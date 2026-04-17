@@ -10,6 +10,12 @@
 
 char AText::smHingeChar = ' ';
 
+AText::AText() { clear(); }
+AText::AText(const char ch) { set(ch); }
+AText::AText(const char *pch) { set(pch); }
+AText::AText(const QByteArray &ba) { set(ba); }
+AText::AText(const QString &s) { set(s); }
+AText::AText(const Count k, const char ch) { set(k, ch); }
 
 AText::List AText::toList(const char ch) const
 {
@@ -28,6 +34,7 @@ AText::Pair AText::pair(const char ch) const
         tKey = first(ix - 1), tValue = mid(ix + 1);
     return Pair(tKey, tValue);
 }
+
 
 bool AText::isEmpty() const
 {
@@ -66,6 +73,18 @@ void AText::set(const char *pch)
         }
     }
     QByteArray::append(char(0));
+}
+
+void AText::set(const Count k, const char ch)
+{
+    fill(ch, k);
+}
+
+int AText::vprintf(const char *format, va_list vlist)
+{
+    const Count k = vsnprintf(NULL, 0, format, vlist);
+    resize(k);
+    return vsnprintf(data(), k, format, vlist);
 }
 
 AText AText::append(const AText &more)

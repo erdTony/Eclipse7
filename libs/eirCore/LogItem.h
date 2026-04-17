@@ -27,7 +27,7 @@ class LogMessage;
 
 #define LOGITEM_DATAPROPS(TND) \
     TND(LogLevel,           level,          LogLevel()) \
-    TND(Milliseconds,       timeStamp,      0) \
+    TND(MilliSeconds,       timeStamp,      0) \
     TND(Uid,                logUid,         Uid()) \
     TND(LogFile,            file,           LogFile()) \
     TND(uint,               fileLine,       0) \

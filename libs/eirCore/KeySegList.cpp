@@ -26,6 +26,11 @@ QStringList KeySegList::toStringList() const
     return result;
 }
 
+KeySeg KeySegList::toSeg() const
+{
+    return KeySeg(toString().remove(QChar(hinge()), Qt::CaseInsensitive));
+}
+
 void KeySegList::set(const AText &at)
 {
     clear();

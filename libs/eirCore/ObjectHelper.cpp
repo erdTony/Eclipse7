@@ -156,14 +156,15 @@ ObjectHelper::NameMetaPropertyMap ObjectHelper::readProperties(const bool readAl
     return mNameMetaPropertyMap = result;
 }
 
-void ObjectHelper::set(const KeySegMap values, const bool okDynamic)
+void ObjectHelper::set(const KeyMap values, const bool okDynamic)
 {
-    foreach (const KeySeg &name, values.keys())
+    foreach (const Key &key, values.keys())
     {
-        if (okDynamic || isValidPropertyName(name))
+        const KeySeg cSeg = key.toSeg();
+        if (okDynamic || isValidPropertyName(cSeg))
         {
-            const QVariant cVar = values.value(name);
-            obj()->setProperty(name, cVar);
+            const QVariant cVar = values.value(key);
+            obj()->setProperty(cSeg, cVar);
         }
     }
 }

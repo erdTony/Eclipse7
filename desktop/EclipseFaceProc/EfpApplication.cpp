@@ -132,6 +132,7 @@ void EfpApplication::process(const QImage &qimg)
     Q_CHECK_PTR(mpPauseAction);
     Q_CHECK_PTR(mpResumeAction);
     Q_CHECK_PTR(mpStepAction);
+
     mpFrameProcessor->process(qimg);
 
     if (mpPauseAction->isChecked() && mpStepAction->isChecked())

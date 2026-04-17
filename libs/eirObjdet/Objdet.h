@@ -60,6 +60,7 @@ protected:
 public: // const
     Class objClass() const;
     QString className() const;
+    bool loaded() const;
     QStringList info() const;
     bool writeInfo(const QDir &dir) const;
     ObjdetParameters parms() const;

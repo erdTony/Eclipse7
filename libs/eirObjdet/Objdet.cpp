@@ -69,6 +69,11 @@ void Objdet::unloadDetector()
     mCascadeFileInfo = QFileInfo();
 }
 
+bool Objdet::loaded() const
+{
+    return nullptr != mpCascade;
+}
+
 QStringList Objdet::info() const
 {
     QStringList result;
@@ -104,15 +109,19 @@ void Objdet::set(const ObjdetRawArguments raw)
 
 void Objdet::inputImage(const QImage &img)
 {
-    qInfo() << Q_FUNC_INFO << img.size();
-    mInputImage = img.convertedTo(QImage::Format_ARGB32);
-    mGreyImage = inputImage().convertedTo(QImage::Format_Grayscale8);
+    const Size cInputSize(Size(img.size()).trimmed(16));
+    const SCRect cInputRect(cInputSize);
+    qInfo() << Q_FUNC_INFO << img.size() << cInputSize << cInputRect;
+    mInputImage = img.convertedTo(QImage::Format_ARGB32).copy(cInputRect);
+    mGreyImage = inputImage()
+                     .convertedTo(QImage::Format_Grayscale8);
     mGreyMat = cv::Mat(mGreyImage.height(),
                        mGreyImage.width(), CV_8U);
+    const int cvGreyImageBytes = mGreyImage.bytesPerLine() * mGreyImage.height();
     const int cGreyMatBytes = mGreyMat.total();
-    qDebug() << mGreyImage.size()
-             << mGreyImage.sizeInBytes() << cGreyMatBytes;
-    Q_ASSERT(mGreyImage.sizeInBytes() == cGreyMatBytes);
+    qDebug() << mInputImage.rect() << mGreyImage.size()
+             << cvGreyImageBytes << cGreyMatBytes;
+    Q_ASSERT(cvGreyImageBytes == cGreyMatBytes);
     memcpy(mGreyMat.ptr(0), mGreyImage.bits(), cGreyMatBytes);
     raw().inputSize(mInputImage.size());
 }
@@ -139,6 +148,8 @@ bool Objdet::processCascadeClassifier(const qreal factorReturnAll)
     bool result = false;
     if (inputImage().isNull())
         return result;                                  /*=====*/
+    if ( ! loaded())
+        return result;                                  /*=====*/
     std::vector<cv::Rect> tRectVector;
     std::vector<int> tCountVector;
     std::vector<cv::Rect> tAllRectVector;
@@ -162,6 +173,8 @@ bool Objdet::processResults(const std::vector<cv::Rect> rects,
                             const std::vector<cv::Rect> allrects,
                             const qreal factor)
 {
+    qDebug() << Q_FUNC_INFO << __LINE__ << rects.size()
+             << counts.size() << allrects.size() << factor;
     for (unsigned ix = 0; ix < allrects.size(); ++ix)
     {
         const cv::Rect cCvRect = allrects.at(ix);

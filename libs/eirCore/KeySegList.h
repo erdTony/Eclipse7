@@ -24,6 +24,7 @@ public: // const
     operator QString() const;
     QStringList toStringList() const;
     operator QStringList() const;
+    KeySeg toSeg() const;
 
 public: // non-const
     void set();

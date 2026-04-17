@@ -3,12 +3,21 @@
 #include <QtEndian>
 #include <QRandomGenerator>
 
+#include "../../../doctest/doctest/doctest.h"
+
 #include "KeySeg.h"
 #include "MillisecondTime.h"
 
 Uid::Uid() {;}
 Uid::Uid(const bool nil) : mNibbles(NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF)) {;}
+
+Uid::Uid(const QString &s) :
 Uid::Uid(const Version ver) { generate(ver); }
+
+
+bool Uid::isNull() const { return mNibbles.isNull(); }
+
+bool Uid::isNil() const { return mNibbles.isZero(); }
 
 bool Uid::equals(const Uid &rhs) const
 {
@@ -28,14 +37,16 @@ bool Uid::less(const Uid &rhs) const
 #endif
 }
 
-QString Uid::toString() const
+QString Uid::toString(const QUuid::StringFormat mode) const
 {
-    return uuid().toString();
+    return uuid().toString(mode);
 }
 
 Key Uid::toKey(const KeySeg &prefix) const
 {
-
+    Key result = prefix;
+    result.append(toString(QUuid::WithoutBraces).replace('-', Key::hinge()));
+    return result;
 }
 
 QString Uid::tail() const
@@ -53,6 +64,17 @@ void Uid::lo(const QWORD qw)
 {
     QWORD * pQW = (QWORD *)mNibbles.data(scmNibbleCount / 2);
     memcpy(pQW, &qw, sizeof(qw));
+}
+
+void Uid::set(const Segment seg, const QWORD qw)
+{
+    OWORD m = mask(seg);
+    OWORD ow = qw;
+    ow &= m;
+    ow <<= (scmNibbleCount - nixEnd(seg)) * 4;
+    OWORD * p = (OWORD *)mNibbles.data();
+    *p &= ~ m;
+    *p |= ow;
 }
 
 void Uid::set(const Version ver)
@@ -84,6 +106,22 @@ void Uid::randomize()
     hi(QRandomGenerator::global()->generate64());
 }
 
+Uid Uid::reference()
+{
+    Uid result(true); // nil
+    result.set(SegmentA, 0x01234567);
+    result.set(SegmentB, 0x89AB);
+    result.set(SegmentC, 0xCDEF);
+    result.set(SegmentD, 0x0123);
+    result.set(SegmentE, 0x456789ABCDEF);
+    return result;
+}
+
+Index Uid::byteIndex(const Index nibbleIndex)
+{
+    return 2 * nibbleIndex;
+}
+
 Index Uid::nixBegin(const Segment uidseg)
 {
     return (uidseg & 0x00FF0000) >> 16;
@@ -94,15 +132,26 @@ Index Uid::nixEnd(const Segment uidseg)
     return (uidseg & 0x0000FF00) >> 8;
 }
 
-Count Uid::nixCount(const Segment uidseg)
+Count Uid::nibbleCount(const Segment uidseg)
 {
     return uidseg & 0x000000FF;
 }
 
 XText Uid::xtext(const Segment uidseg) const
 {
-    NibbleArray tNA = mNibbles.segment(nixBegin(uidseg), nixCount(uidseg));
-    return tNA.toHex();
+    const NibbleArray cNA = mNibbles.segment(nixBegin(uidseg),
+                                             nibbleCount(uidseg));
+    return cNA.toHex();
+}
+
+bool Uid::isNull(const Segment uidseg)
+{
+    return uidseg == $nullSegment;
+}
+
+OWORD Uid::mask(const Segment uidseg)
+{
+    return ((OWORD)1 << (nibbleCount(uidseg) * 4)) - (OWORD)1;
 }
 
 /*

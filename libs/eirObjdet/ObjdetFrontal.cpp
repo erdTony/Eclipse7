@@ -66,6 +66,11 @@ QImage ObjdetFrontal::markedImage(const SCRect eyeLRect, const SCRect eyeRRect,
 
 QImage ObjdetFrontal::detectImage(const unsigned minQuality) const
 {
+    DetectorResult::List tResultList = resultList().rankedList();
+    qDebug() << Q_FUNC_INFO << minQuality
+             << inputImage().size() << tResultList.count()
+             << (tResultList.isEmpty() ? 0 : tResultList.first().quality())
+             << resultList().orphanList().count();
     QImage result = inputImage()
                         .convertedTo(QImage::Format_Grayscale8)
                         .convertedTo(QImage::Format_ARGB32);
@@ -74,10 +79,6 @@ QImage ObjdetFrontal::detectImage(const unsigned minQuality) const
     tPainter.setPen(Qt::magenta);
     tPainter.drawRects(resultList().orphanQRects());
     tPainter.setFont(QFont("helvetica", 16));
-    DetectorResult::List tResultList = resultList().rankedList();
-    qDebug() << Q_FUNC_INFO << inputImage().size() << tResultList.count()
-             << (tResultList.isEmpty() ? 0 : tResultList.first().quality())
-             << resultList().orphanList().count();
     while ( ! tResultList.isEmpty())
     {
         const DetectorResult cResult = tResultList.takeLast();

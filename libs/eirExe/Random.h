@@ -79,8 +79,8 @@ private:
 private:
     bool enableUInt=true;
     bool enableFloat=true;
-    Milliseconds shortPulseMsec=100;
-    Milliseconds longPulseMsec=1000;
+    MilliSeconds shortPulseMsec=100;
+    MilliSeconds longPulseMsec=1000;
     Count loCount=256;
     Count hiCount=2048;
     Count blockCount=512;

@@ -10,7 +10,7 @@ class EIRCORE_EXPORT MillisecondTime
 {
 public: // ctors
     MillisecondTime(void);
-    MillisecondTime(Milliseconds ems);
+    MillisecondTime(MilliSeconds ems);
     MillisecondTime(const QDateTime & dt);
 
 public: // const
@@ -19,10 +19,10 @@ public: // const
     bool isValid(void) const;
     MillisecondTime delta(MillisecondTime ems=current()) const;
     QDateTime toDateTime(void) const;
-    QString toSecString(const Milliseconds roll=1500) const;
+    QString toSecString(const MilliSeconds roll=1500) const;
     QString toString(const QString & format=QString()) const;
     QString timeString(const bool msec=false) const;
-    operator Milliseconds(void) const;
+    operator MilliSeconds(void) const;
 
 public: // non-const
     void set(const MillisecondTime other);
@@ -31,7 +31,7 @@ public: // non-const
     void nullify(void);
 
 public: // static
-    static Milliseconds base(void);
+    static MilliSeconds base(void);
     static MillisecondTime null(void);
     static MillisecondTime deltaBase(MillisecondTime ems=current());
     static QString baseString(const QString & format=QString());
@@ -40,7 +40,7 @@ public: // static
     static MillisecondTime fromString(const QString & dateTime);
 
 private:
-    Milliseconds mEpochMS;
+    MilliSeconds mEpochMS;
     static const QDateTime smBaseDateTime;
     static const MillisecondTime smBaseMST;
     static const MillisecondTime smNullMST;

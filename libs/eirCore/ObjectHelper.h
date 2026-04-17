@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+#include <QMap>
 #include <QString>
 #include <QStringList>
 
@@ -12,7 +13,7 @@
 class EIRCORE_EXPORT ObjectHelper
 {
 public: // types
-    typedef KeyMapT<CText, QMetaProperty> NameMetaPropertyMap;
+    typedef QMap<CText, QMetaProperty> NameMetaPropertyMap;
 
 public: // ctors
     ObjectHelper(QObject *obj);
@@ -34,7 +35,7 @@ public: // const
 public: // non-const
     bool setEnum(const CText &enumName, const CText &enumKey);
     NameMetaPropertyMap readProperties(const bool readAll=false);
-    void set(const KeySegMap values, const bool okDynamic=false);
+    void set(const KeyMap values, const bool okDynamic=false);
 
 public: // pointers
     QObject * obj();

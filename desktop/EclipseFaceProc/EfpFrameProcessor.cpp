@@ -44,7 +44,8 @@ void EfpFrameProcessor::process(const QImage &qimg)
     qInfo() << Q_FUNC_INFO;
     Q_CHECK_PTR(mpFrontal);
     mpFrontal->inputImage(qimg);
-    mpFrontal->processCascadeClassifier();
+    if ( ! mpFrontal->processCascadeClassifier())
+        qWarning() << "processCascadeClassifier failed";
     const QImage cDetImg = mpFrontal->detectImage(500); // TODO
     const DetectorResultList cDRL = mpFrontal->resultList();
     emit processed(cDetImg, cDRL);

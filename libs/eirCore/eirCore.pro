@@ -18,6 +18,8 @@ SOURCES += \
     BrightnessContrast.cpp \
     Color.cpp \
     ColorTable.cpp \
+    Error.cpp \
+    ErrorItem.cpp \
     FileInfo.cpp \
     FileInfoList.cpp \
     FunctionInfo.cpp \
@@ -88,6 +90,8 @@ HEADERS += \
     BrightnessContrast.h \
     Color.h \
     ColorTable.h \
+    Error.h \
+    ErrorItem.h \
     FileInfo.h \
     FileInfoList.h \
     FunctionInfo.h \
@@ -101,6 +105,7 @@ HEADERS += \
     Rational.h \
     RationalColorList.h \
     RationalList.h \
+    Result.h \
     RgbColor.h \
     Rgba32Table.h \
     SCRect.h \

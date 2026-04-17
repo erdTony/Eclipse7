@@ -76,8 +76,8 @@ void EfpFramesPage::hasCaptured(const FileInfo &fi, const QImage &qimg)
     Q_CHECK_PTR(mpDetectLabel);
     // TODO FaceDetect heat map
     QImage tGreyImage = qimg.convertedTo(QImage::Format_Grayscale8);
-    mpFrameLabel->set(mpFrameLabel->size(), tGreyImage);
-    mpDetectLabel->set(mpDetectLabel->size(), qimg);
+    mpFrameLabel->set(mpFrameLabel->size(), qimg);
+    mpDetectLabel->set(mpDetectLabel->size(), tGreyImage);
     emit detectImage(qimg);
 }
 

@@ -6,7 +6,6 @@ Usage:
 In .h file:
 @code
 #include <QSharedData>
-
 #include <DataProperty.h>
 
 #define LOGITEM_DATAPROPS(TND) \

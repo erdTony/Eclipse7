@@ -30,7 +30,7 @@ typedef signed          INT;
 typedef unsigned        UINT;
 typedef double          FLOAT;
 
-typedef QWORD           Milliseconds;
+typedef QWORD           MilliSeconds;
 typedef qsizetype       Index;
 typedef size_t          Count;
 typedef size_t          Seed;

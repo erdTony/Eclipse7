@@ -34,4 +34,6 @@ inline XText XText::it() const { return *this; }
 inline XText & XText::it() { return *this; }
 inline char XText::hinge() { return smHingeChar; }
 inline void XText::hinge(const char ch) { smHingeChar = ch; }
+inline bool XText::isValidFirst(const char ch) { return isxdigit(ch); }
+inline bool XText::isValidChar(const char ch) { return isxdigit(ch); }
 
