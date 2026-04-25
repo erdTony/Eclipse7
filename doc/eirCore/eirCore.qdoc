@@ -1,0 +1,13 @@
+/*!file {Eclipse7}/doc/eirCore/eirCore.qdoc
+ */
+
+/** begin
+ *  Text Classes:
+ *
+ *  base -  AText   In QByteArray - any Ascii Text 32~127
+ *          CText   Character Text: A~Za~z
+ *          XText   Hex Characters: 0~9A-Fa~f
+ *
+ *  base -  UText   In QString - any Unicode text
+ */
+

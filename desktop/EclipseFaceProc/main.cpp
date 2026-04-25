@@ -11,9 +11,12 @@
 #include "../../version.h"
 #include "version.h"
 
-//#include "EfpMainWindow.h"
+#define DOCTEST_CONFIG_IMPLEMENT
+#include "../../doctest/doctest/doctest.h"
 
 #define OPT app.wap()->opts()
+
+
 
 int main(int argc, char *argv[])
 {
@@ -21,6 +24,12 @@ int main(int argc, char *argv[])
                           VER_BRANCH, VER_BUILD, VER_BRANCHNAME,
                           EIRVER_APPNAME, EIRVER_ORGNAME,
                           EIRVER_PRODDESC);
+
+    doctest::Context context;
+    context.applyCommandLine(argc, argv);
+    int res = context.run();
+    if (context.shouldExit()) return res;
+
     EfpApplication app(argc, argv);
     cVI.updateApp(&app);
 //    OPT->set(cVI);

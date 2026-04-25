@@ -1,5 +1,6 @@
-QT += gui \
-    widgets
+QT += gui
+QT += network
+QT += widgets
 TEMPLATE = lib
 DEFINES += EIRIMAGE_LIBRARY
 CONFIG += c++23

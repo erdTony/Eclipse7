@@ -9,15 +9,13 @@
 #include "MillisecondTime.h"
 
 Uid::Uid() {;}
-Uid::Uid(const bool nil) : mNibbles(NibbleArray(scmNibbleCount, nil ? 0x0 : 0xF)) {;}
-
-Uid::Uid(const QString &s) :
+Uid::Uid(const bool nil) { nil ? randomize() : nilify(); }
 Uid::Uid(const Version ver) { generate(ver); }
 
-
-bool Uid::isNull() const { return mNibbles.isNull(); }
-
-bool Uid::isNil() const { return mNibbles.isZero(); }
+bool Uid::isNull() const
+{
+    return 0 == mUnion.data128[0];
+}
 
 bool Uid::equals(const Uid &rhs) const
 {
@@ -54,50 +52,74 @@ QString Uid::tail() const
     return toString().right(14);
 }
 
+QUuid Uid::uuid() const
+{
+    return QUuid(mUnion);
+}
+
+QWORD Uid::hi() const
+{
+    return mUnion.data64[0];
+}
+
+QWORD Uid::lo() const
+{
+    return mUnion.data64[1];
+}
+
+#ifndef Q_CC_MSVC
+OWORD Uid::oword() const
+{
+    return mUnion.data128[0];
+}
+#endif
+
 void Uid::hi(const QWORD qw)
 {
-    QWORD * pQW = (QWORD *)mNibbles.data();
-    memcpy(pQW, &qw, sizeof(qw));
+    mUnion.data64[0] = qw;
 }
 
 void Uid::lo(const QWORD qw)
 {
-    QWORD * pQW = (QWORD *)mNibbles.data(scmNibbleCount / 2);
-    memcpy(pQW, &qw, sizeof(qw));
+    mUnion.data64[1] = qw;
 }
 
-void Uid::set(const Segment seg, const QWORD qw)
+void Uid::segment(const Segment seg, const OWORD ow)
 {
-    OWORD m = mask(seg);
-    OWORD ow = qw;
-    ow &= m;
-    ow <<= (scmNibbleCount - nixEnd(seg)) * 4;
-    OWORD * p = (OWORD *)mNibbles.data();
-    *p &= ~ m;
-    *p |= ow;
+    const unsigned cBitOffset = segmentBitOffset(seg);
+    const OWORD cBitMask = segmentMask(seg);
+    const OWORD cValue = (ow << cBitOffset) & cBitMask;
+    mUnion.data128[0] = mUnion.data128[0] & ( ~ cBitMask);
+    mUnion.data128[0] = mUnion.data128[0] | cValue;
 }
 
 void Uid::set(const Version ver)
 {
-    mNibbles.set(scmVersionNIx, ver);
+    Q_ASSERT(!"not done");
 }
 
 Uid Uid::generate(const bool nil)
 {
     Uid result;
-    if (nil)
-        result.mNibbles.fill(0, scmNibbleCount);
-    else
-        result.randomize();
+    Q_ASSERT(!"not done");
     return result;
 }
 
 Uid Uid::generate(const Version ver)
 {
     Uid result(true);
-    // TODO fill nibbles random
-    result.set(ver);
+    Q_ASSERT(!"not done");
     return result;
+}
+
+void Uid::nullify()
+{
+    mUnion.data128[0] = 0;
+}
+
+void Uid::nilify()
+{
+    mUnion.data128[0] = 0;
 }
 
 void Uid::randomize()
@@ -108,50 +130,73 @@ void Uid::randomize()
 
 Uid Uid::reference()
 {
+#if 1
+    Uid result("{01234567-89AB-CDEF-0123-4567890ABCDEF}");
+#else
     Uid result(true); // nil
     result.set(SegmentA, 0x01234567);
     result.set(SegmentB, 0x89AB);
     result.set(SegmentC, 0xCDEF);
     result.set(SegmentD, 0x0123);
     result.set(SegmentE, 0x456789ABCDEF);
+#endif
     return result;
-}
-
-Index Uid::byteIndex(const Index nibbleIndex)
-{
-    return 2 * nibbleIndex;
-}
-
-Index Uid::nixBegin(const Segment uidseg)
-{
-    return (uidseg & 0x00FF0000) >> 16;
-}
-
-Index Uid::nixEnd(const Segment uidseg)
-{
-    return (uidseg & 0x0000FF00) >> 8;
-}
-
-Count Uid::nibbleCount(const Segment uidseg)
-{
-    return uidseg & 0x000000FF;
 }
 
 XText Uid::xtext(const Segment uidseg) const
 {
-    const NibbleArray cNA = mNibbles.segment(nixBegin(uidseg),
-                                             nibbleCount(uidseg));
-    return cNA.toHex();
+    Q_ASSERT(!"not done");
 }
 
 bool Uid::isNull(const Segment uidseg)
 {
-    return uidseg == $nullSegment;
+    return $nullSegment == uidseg;
 }
 
-OWORD Uid::mask(const Segment uidseg)
+bool Uid::isValidSegment(const Segment uidseg)
 {
-    return ((OWORD)1 << (nibbleCount(uidseg) * 4)) - (OWORD)1;
+    switch (uidseg)
+    {
+    case $nullSegment:          return false;
+
+    case SegmentA:
+    case SegmentB:
+    case SegmentC:
+    case SegmentD:
+    case SegmentE:              return true;
+
+    case SegmentVar:
+    case SegmentVer:            return true;
+
+    default:                    return false;
+    }
+}
+
+unsigned Uid::segmentBitOffset(const Segment uidseg)
+{
+    unsigned result = 0;
+    if (isValidSegment(uidseg))
+        result = (uidseg & 0xFF00) >> 8;
+    return result;
+}
+
+Count Uid::segmentBitLength(const Segment uidseg)
+{
+    int result = -1;
+    if (isValidSegment(uidseg))
+        result = uidseg & 0x00FF;
+    return result;
+}
+
+OWORD Uid::segmentMask(const Segment uidseg)
+{
+    OWORD result = -1;
+    if (isValidSegment(uidseg))
+    {
+        result = (1LL << segmentBitLength(uidseg)) - 1;
+        result <<= segmentBitOffset(uidseg);
+    }
+    return result;
 }
 
 /*
@@ -185,5 +230,3 @@ Uid Uid::generate7(const Type type)
     return result;
 }
 */
-
-

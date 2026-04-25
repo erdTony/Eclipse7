@@ -4,6 +4,7 @@
 #include <QtGlobal>
 #include <QList>
 #include <QString>
+#include <QUuid>
 
 typedef quint8                  BYTE;
 typedef quint16                 WORD;
@@ -15,6 +16,7 @@ typedef quint64                 QWORD;
 typedef quint128                OWORD; // octo
 //typedef unsigned _BitInt(256)   SEWORD; // sedecim
 #endif
+typedef QUuid::Id128Bytes       UID;
 
 typedef qint16          SWORD;
 typedef qint32          SDWORD;

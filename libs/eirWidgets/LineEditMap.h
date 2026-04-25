@@ -6,7 +6,7 @@
 #include <Key.h>
 #include "LineEdit.h"
 
-class EIRWIDGETS_EXPORT LineEditMap : public KeyMapT<Key, LineEdit *>
+class EIRWIDGETS_EXPORT LineEditMap : public KeyMapT<LineEdit *>
 {
 public:
     LineEditMap();

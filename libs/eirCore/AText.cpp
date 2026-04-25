@@ -22,7 +22,7 @@ AText::List AText::toList(const char ch) const
     return ATextList(mid(0).split(ch ? ch : hinge()));
 }
 
-AText::Pair AText::pair(const char ch) const
+AText::Pair AText::keyValue(const char ch) const
 {
     AText tKey, tValue;
     Index ix = indexOf(ch);
@@ -40,6 +40,20 @@ bool AText::isEmpty() const
 {
     bool result = QByteArray::isEmpty();
     if ( ! result) result |= QByteArray::at(0) == '\0';
+    return result;
+}
+
+bool AText::isValid(const Index ix)
+{
+    return ix >= 0 && ix < length();
+}
+
+AText AText::at(const IndexList ixs)
+{
+    AText result;
+    foreach (const Index ix, ixs)
+        if (isValid(ix))
+            result += QByteArray::at(ix);
     return result;
 }
 

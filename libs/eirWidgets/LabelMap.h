@@ -31,5 +31,5 @@ public: // pointers
 
 private:
     QWidget * mpLabelsParent=nullptr;
-    KeyMapT<Key, Label *> mKeyLabelMap;
+    KeyMapT<Label *> mKeyLabelMap;
 };

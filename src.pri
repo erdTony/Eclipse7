@@ -1,4 +1,4 @@
-# {ottoAcode}/src/src.pri
+# {Eclipse7}/src/src.pri
 #message(^^^^^^^^/src/src.pri)
 
 include(version.pri)

@@ -1,5 +1,6 @@
 QT += core
 QT += gui
+QT += network
 QT += sql
 QT += statemachine
 QT += xml
@@ -27,6 +28,8 @@ SOURCES += \
     FunctionInfoEnum.cpp \
     Iota.cpp \
     LogContext.cpp \
+    NAText.cpp \
+    NetworkMacAddress.cpp \
     Pixel32.cpp \
     Point.cpp \
     Rational.cpp \
@@ -100,6 +103,8 @@ HEADERS += \
     Iota.h \
     LogContext.h \
     MatrixT.h \
+    NAText.h \
+    NetworkMacAddress.h \
     Pixel32.h \
     Point.h \
     Rational.h \
@@ -173,3 +178,6 @@ unix {
     target.path = /usr/lib
 }
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    ../../doc/eirCore/eirCore.qdoc

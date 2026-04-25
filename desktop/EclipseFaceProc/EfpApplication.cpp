@@ -14,10 +14,8 @@
 
 EfpApplication * EfpApplication::mpInstance = nullptr;
 
-
 EfpApplication::EfpApplication(int &argc, char **argv)
     : BaseWidgetApplication{argc, argv}
-//    , mpAppHelper(new AppHelper(this))
 {
     FNENTER();
     Q_ASSERT(mpInstance == nullptr);

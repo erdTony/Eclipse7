@@ -44,7 +44,7 @@ ATextList::PairList ATextList::split(const char ch) const
     ATextList::PairList result;
     foreach (const AText cATextIn, it())
     {
-        const AText::Pair cPair = cATextIn.pair(ch);
+        const AText::Pair cPair = cATextIn.keyValue(ch);
         result.append(cPair);
     }
     return result;

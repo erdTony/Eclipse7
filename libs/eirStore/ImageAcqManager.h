@@ -25,5 +25,5 @@ public:
 
 
 private:
-    KeyMapT<KeySeg, ImageAcqConfig> mSourceConfigMap;
+    KeyMapT<ImageAcqConfig> mSourceConfigMap;
 };

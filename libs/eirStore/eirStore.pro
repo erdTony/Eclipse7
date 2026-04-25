@@ -1,4 +1,5 @@
 QT += core
+QT += network
 QT += statemachine
 TEMPLATE = lib
 DEFINES += EIRSTORE_LIBRARY

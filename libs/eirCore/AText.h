@@ -30,8 +30,10 @@ public: // ctors
 
 public: // const
     bool isEmpty() const;
+    bool isValid(const Index ix);
     List toList(const char ch=0) const;
-    Pair pair(const char ch) const;
+    Pair keyValue(const char ch) const;
+    AText at(const IndexList ixs);
     QString toString() const;
     operator QString() const;
     QString operator () () const;

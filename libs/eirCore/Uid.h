@@ -1,12 +1,13 @@
 #pragma once
 #include "eirCore.h"
 
-#include "NibbleArray.h"
-
-#include <QList>
 #include <QUuid>
 
+#include <QAnyStringView>
+#include <QList>
+
 #include "Key.h"
+#include "NetworkMacAddress.h"
 #include "Types.h"
 class KeySeg;
 
@@ -28,19 +29,13 @@ public: // types
     enum Segment
     {
         $nullSegment = 0,
-        SegmentNix0007      = 0x00000708,
-        SegmentNix0811      = 0x00080B04,
-        SegmentNix1215      = 0x000C0F04,
-        SegmentNix1619      = 0x00101304,
-        SegmentNix2031      = 0x00141F0C,
-        //                        ^^--Segment Nix Start
-        //                          ^^--Segment Nix End
-        //                            ^^--Segment Nibble Count
-        SegmentA            = SegmentNix0007,
-        SegmentB            = SegmentNix0811,
-        SegmentC            = SegmentNix1215,
-        SegmentD            = SegmentNix1619,
-        SegmentE            = SegmentNix2031,
+        SegmentA            = 0x0020, // A=32bits @0
+        SegmentB            = 0x2010, // B=16bits @32
+        SegmentVer          = 0x3004, // Ver=4bit @48
+        SegmentC            = 0x340C, // C=12bits @52
+        SegmentVar          = 0x4004, // Var=4bit @64
+        SegmentD            = 0x440C, // D=12bits @68
+        SegmentE            = 0x5030, // D=48bits @80
     };
 
     enum Variant
@@ -65,13 +60,13 @@ public: // types
     enum Version            // for VarDce 
     {
         $nullVer            = 0,
-        VerGTimeseqNode1    = QUuid::Time,
-        VerSecurity         = QUuid::EmbeddedPOSIX,
-        VerTextMd5          = QUuid::Name,
-        VerRandom           = QUuid::Random,
-        VerTextSha          = QUuid::Sha1,
+        VerGTimeseqNode1    = QUuid::Time,          // 1
+        VerSecurity         = QUuid::EmbeddedPOSIX, // 2
+        VerTextMd5          = QUuid::Name,          // 3 = QUuid::Md5
+        VerRandom           = QUuid::Random,        // 4
+        VerTextSha          = QUuid::Sha1,          // 5
         VerGTimeseqNode6    = 6,
-        VerUTimeseqRandom   = QUuid::UnixEpoch,
+        VerUTimeseqRandom   = QUuid::UnixEpoch,     // 7
         VerCustom           = 8, // 60,60
         VerCustom5,         // 9    32,16,12,12,48
         VerCustom4,         // 10   32,16,24,48
@@ -80,7 +75,7 @@ public: // types
         VerCustom2a40,      // 13   32,80
         VerCustom2b60,      // 14   48,72
         VerCustom2b72,      // 15   72,48
-        $invalidVer         = QUuid::VerUnknown
+        $invalidVer         = QUuid::VerUnknown     // -1
     };
     enum Class              // for VerCustom (8)
     {
@@ -97,23 +92,26 @@ public: // types
 public: // ctors
     Uid(); // null
     Uid(const bool nil); // nil or random
-    Uid(const QString & s);
+    Uid(const QAnyStringView & s);
     Uid(const XText & hex);
     Uid(const DWORD dw00, const WORD w08, const WORD w12,
         const WORD w16, const QWORD qw20 /*48bits*/);
     Uid(const Variant var); // NCS or GUID
     Uid(const Version ver); // DCE flavor
     Uid(const Uid &ns, const AText text); // DCEv5
-    Uid(const QByteArray &macOverride); // DCDv6
+    Uid(const Version ver, const NetworkMacAddress &macOverride); // DCDv6
 
 public: // const
     bool isNull() const;
     bool isNil() const;
+    UID qUnion() const;
     bool equals(const Uid &rhs) const;
     bool less(const Uid &rhs) const;
     bool operator == (const Uid &rhs) const;
     bool operator < (const Uid &rhs) const;
     QString toString(const QUuid::StringFormat mode=QUuid::WithBraces) const;
+    AText toAtx() const;
+    XText toHex() const;
     QWORD segment(const Segment uidseg);
     Key toKey() const { return toKey("URL"); }
     Key toKey(const KeySeg &prefix) const;
@@ -130,24 +128,23 @@ public: // non-const
     void hi(const QWORD qw);
     void lo(const QWORD qw);
     void set(const QUuid other);
-    void set(const Segment seg, const QWORD qw);
+    void segment(const Segment seg, const OWORD ow);
     void set(const Version ver);
     Uid generate(const bool nil);
     Uid generate(const Version ver);
     Uid generate(const Type type);
     void nullify();
+    void nilify();
     void randomize();
 
 public: // pointers
+    UID & ref() const;
+    UID & ref();
     Uid it() const;
     Uid & it();
 
 public: // static
     static Uid reference();
-    static Index byteIndex(const Index nibbleIndex);
-    static Index nixBegin(const Segment uidseg);
-    static Index nixEnd(const Segment uidseg);
-    static Count nibbleCount(const Segment uidseg);
 
 private: // const
     XText xtext(const Segment uidseg) const;
@@ -157,22 +154,21 @@ private: // non-const
 
 private: // static
     static bool isNull(const Segment uidseg);
-    static OWORD mask(const Segment uidseg);
+    static bool isValidSegment(const Segment uidseg);
+    static unsigned segmentBitOffset(const Segment uidseg);
+    static Count segmentBitLength(const Segment uidseg);
+    static OWORD segmentMask(const Segment uidseg);
 
 private:
+    UID mUnion;
 };
 
 
 
+inline bool Uid::isNil() const { return isNull(); }
+inline UID Uid::qUnion() const { return mUnion; }
 inline bool Uid::operator ==(const Uid &rhs) const { return equals(rhs); }
 inline bool Uid::operator <(const Uid &rhs) const { return less(rhs); }
 inline Uid::operator QString() const { return toString(); }
-inline QUuid Uid::uuid() const { return QUuid::fromBytes(mNibbles.data()); }
-#ifndef Q_CC_MSVC
-inline OWORD Uid::oword() const { return *(OWORD *)(mNibbles.data()); }
-#endif
-inline QWORD Uid::hi() const { return *(QWORD *)(mNibbles.data()); }
-inline QWORD Uid::lo() const { return *((QWORD *)(mNibbles.data()) + 1); }
-inline void Uid::nullify() { mNibbles.clear(); }
 inline Uid Uid::it() const { return *this; }
 inline Uid &Uid::it() { return *this; }

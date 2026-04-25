@@ -1,5 +1,6 @@
 QT += core 
 QT += gui
+QT += network
 QT += widgets
 CONFIG += c++23
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
