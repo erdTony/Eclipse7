@@ -8,11 +8,16 @@
 #include "KeySeg.h"
 #include "MillisecondTime.h"
 
-Uid::Uid() {;}
-Uid::Uid(const bool nil) { nil ? randomize() : nilify(); }
+Uid::Uid(const bool rand) { generate(rand); }
+Uid::Uid(const Variant var) { generate(var); }
 Uid::Uid(const Version ver) { generate(ver); }
 
 bool Uid::isNull() const
+{
+    return scmNullValue == mUnion.data128[0];
+}
+
+bool Uid::isNil() const
 {
     return 0 == mUnion.data128[0];
 }
@@ -84,37 +89,87 @@ void Uid::lo(const QWORD qw)
     mUnion.data64[1] = qw;
 }
 
-void Uid::segment(const Segment seg, const OWORD ow)
+void Uid::set(const QUuid other)
 {
-    const unsigned cBitOffset = segmentBitOffset(seg);
-    const OWORD cBitMask = segmentMask(seg);
-    const OWORD cValue = (ow << cBitOffset) & cBitMask;
-    mUnion.data128[0] = mUnion.data128[0] & ( ~ cBitMask);
-    mUnion.data128[0] = mUnion.data128[0] | cValue;
+    mUnion.data128[0] = other.toBytes(QSysInfo::BigEndian).data128[0];
+}
+
+void Uid::set(const Variant var)
+{
+    mUnion.data[8] &= 0x0F;
+    mUnion.data[8] |= ((BYTE)var) << 4;
 }
 
 void Uid::set(const Version ver)
 {
-    Q_ASSERT(!"not done");
+    mUnion.data[6] &= 0x0F;
+    mUnion.data[6] |= ((BYTE)ver) << 4;
 }
 
-Uid Uid::generate(const bool nil)
+void Uid::set(const Index bitOffset, const Count bitCount, const QWORD qw)
+{
+    OWORD tMask = -1;
+    tMask = (1LL << bitCount) - 1;
+    tMask <<= bitOffset;
+    OWORD tValue = qw;
+    mUnion.data128[0] = mUnion.data128[0] & ( ~ tMask);
+    mUnion.data128[0] = mUnion.data128[0] | ((tValue << bitCount) & ( ~ tMask));
+}
+
+void Uid::segment(const Segment seg, const QWORD qw)
+{
+    const Index cBitOffset = segmentBitOffset(seg);
+    const Count cBitCount = segmentBitLength(seg);
+    set(cBitOffset, cBitCount, qw);
+}
+
+Uid Uid::generate(const bool rand)
+{
+    if (rand)
+        randomize();
+    else
+        nilify();
+    return it();
+}
+
+Uid Uid::generate(const Variant var)
 {
     Uid result;
-    Q_ASSERT(!"not done");
-    return result;
+    if (isVarNcs(var) || isVarGuid(var))
+    {
+        result.randomize();
+        result.set(var);
+    }
+    return it() = result;
 }
 
 Uid Uid::generate(const Version ver)
 {
     Uid result(true);
-    Q_ASSERT(!"not done");
+    switch (ver)
+    {
+    case VerGTimeseqNode1:      result.generate1();     break;
+    case $nullVer:              result.nilify();        break;
+    case $invalidVer:           result.nullify();       break;
+    };
+    result.set(VarDce);
+    result.set(ver);
     return result;
+}
+
+Uid Uid::generate1(const NetworkMacAddress &mac)
+{
+
+}
+
+Uid Uid::generate6(const NetworkMacAddress &mac)
+{
+
 }
 
 void Uid::nullify()
 {
-    mUnion.data128[0] = 0;
+    mUnion.data128[0] = scmNullValue;
 }
 
 void Uid::nilify()
@@ -146,6 +201,16 @@ Uid Uid::reference()
 XText Uid::xtext(const Segment uidseg) const
 {
     Q_ASSERT(!"not done");
+}
+
+bool Uid::isVarNcs(const Variant var)
+{
+    return var >= VarNcs && var <= VarNcs7;
+}
+
+bool Uid::isVarGuid(const Variant var)
+{
+    return var >= VarGuid && var <= VarGuid13;
 }
 
 bool Uid::isNull(const Segment uidseg)

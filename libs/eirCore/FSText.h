@@ -22,8 +22,8 @@ public: // static
     static void hinge(const char ch);
 
 protected: // static
-    static bool isValidFirst(const char ch);
-    static bool isValidChar(const char ch);
+    virtual bool isValidFirst(const char ch) const;
+    virtual bool isValidChar(const char ch) const;
 
 private: // pointers
     FSText it() const;

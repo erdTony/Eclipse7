@@ -10,12 +10,12 @@ CText::CText(const char *pch) : AText(pch) {;}
 CText::CText(const QByteArray &ba) : AText(ba) {;}
 CText::CText(const QString &s) : AText(s) {;}
 
-bool CText::isValidFirst(const char ch)
+bool CText::isValidFirst(const char ch) const
 {
     return isupper(ch) || islower(ch);
 }
 
-bool CText::isValidChar(const char ch)
+bool CText::isValidChar(const char ch) const
 {
     return isupper(ch) || islower(ch) || isdigit(ch);
 }

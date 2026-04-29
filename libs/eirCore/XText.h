@@ -20,8 +20,8 @@ public: // static
     static void hinge(const char ch);
 
 protected: // static
-    static bool isValidFirst(const char ch);
-    static bool isValidChar(const char ch);
+    virtual bool isValidFirst(const char ch) const;
+    virtual bool isValidChar(const char ch) const;
 
 private:
     static char smHingeChar;
@@ -34,6 +34,6 @@ inline XText XText::it() const { return *this; }
 inline XText & XText::it() { return *this; }
 inline char XText::hinge() { return smHingeChar; }
 inline void XText::hinge(const char ch) { smHingeChar = ch; }
-inline bool XText::isValidFirst(const char ch) { return isxdigit(ch); }
-inline bool XText::isValidChar(const char ch) { return isxdigit(ch); }
+
+
 

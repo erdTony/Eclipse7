@@ -10,12 +10,12 @@ XText NAText::toXText() const
     return XText(it());
 }
 
-bool NAText::isValidFirst(const char ch)
+bool NAText::isValidFirst(const char ch) const
 {
     return isxdigit(ch);
 }
 
-bool NAText::isValidChar(const char ch)
+bool NAText::isValidChar(const char ch) const
 {
     return isxdigit(ch) || AText("-:").contains(ch);
 }

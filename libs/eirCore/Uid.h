@@ -2,6 +2,7 @@
 #include "eirCore.h"
 
 #include <QUuid>
+#include <QMetaType>
 
 #include <QAnyStringView>
 #include <QList>
@@ -23,7 +24,8 @@ class EIRCORE_EXPORT Uid : public QUuid
 public: // constants
     static const Count scmNibbleCount   = 32;
     static const Index scmVersionNIx    = 12;
-    static const Index scmVariantNIx    = 16;
+    static const Index scmVariantIx     = 8;
+    static const OWORD scmNullValue     = -1;
 
 public: // types
     enum Segment
@@ -40,6 +42,7 @@ public: // types
 
     enum Variant
     {
+        $nullVar    = -1,
         VarNcs      = 0,    // 0b0--+
         VarNcs1,
         VarNcs2,
@@ -52,9 +55,8 @@ public: // types
         VarDce9,
         VarDce10,
         VarDce11,
-        VarGuid     = 12,   // 0b110+ (Microsoft)
+        VarGuid   = 12,   // 0b110+ (Microsoft)
         VarGuid13,
-        $nullVar    = 14,
         $invalidVar = 15
     };
     enum Version            // for VarDce 
@@ -74,7 +76,7 @@ public: // types
         VerCustom3b48,      // 12   48,24,48
         VerCustom2a40,      // 13   32,80
         VerCustom2b60,      // 14   48,72
-        VerCustom2b72,      // 15   72,48
+        VerCustom2c72,      // 15   72,48
         $invalidVer         = QUuid::VerUnknown     // -1
     };
     enum Class              // for VerCustom (8)
@@ -90,8 +92,7 @@ public: // types
     typedef QList<Uid> List;
 
 public: // ctors
-    Uid(); // null
-    Uid(const bool nil); // nil or random
+    Uid(const bool rand); // nil or random
     Uid(const QAnyStringView & s);
     Uid(const XText & hex);
     Uid(const DWORD dw00, const WORD w08, const WORD w12,
@@ -113,26 +114,32 @@ public: // const
     AText toAtx() const;
     XText toHex() const;
     QWORD segment(const Segment uidseg);
-    Key toKey() const { return toKey("URL"); }
+    Key toKey() const;
     Key toKey(const KeySeg &prefix) const;
     QString tail() const;
     operator QString () const;
     QUuid uuid() const;
+    QWORD hi() const;
+    QWORD lo() const;
 #ifndef Q_CC_MSVC
     OWORD oword() const;
 #endif
-    QWORD hi() const;
-    QWORD lo() const;
 
 public: // non-const
     void hi(const QWORD qw);
     void lo(const QWORD qw);
     void set(const QUuid other);
-    void segment(const Segment seg, const OWORD ow);
+    void set(const Variant var);
     void set(const Version ver);
-    Uid generate(const bool nil);
+    void set(const Index bitOffset, const Count bitCount, const QWORD qw);
+    void segment(const Segment seg, const QWORD qw);
+    Uid generate(const bool rand);
+    Uid generate(const Variant var);
     Uid generate(const Version ver);
     Uid generate(const Type type);
+    Uid generate1(const NetworkMacAddress &mac=NetworkMacAddress(true));
+    Uid generate6(const NetworkMacAddress &mac=NetworkMacAddress(true));
+    Uid generate7(const Type type);
     void nullify();
     void nilify();
     void randomize();
@@ -150,25 +157,34 @@ private: // const
     XText xtext(const Segment uidseg) const;
 
 private: // non-const
-    Uid generate7(const Type type);
 
 private: // static
+    static bool isVarNcs(const Variant var);
+    static bool isVarGuid(const Variant var);
     static bool isNull(const Segment uidseg);
     static bool isValidSegment(const Segment uidseg);
     static unsigned segmentBitOffset(const Segment uidseg);
     static Count segmentBitLength(const Segment uidseg);
     static OWORD segmentMask(const Segment uidseg);
 
+public: // QMetaType
+    Uid() = default;
+    ~Uid() = default;
+    Uid(const Uid &) = default;
+    Uid &operator=(const Uid &) = default;
+
 private:
-    UID mUnion;
+    UID mUnion = { { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+                     0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF } };
 };
 
+Q_DECLARE_METATYPE(Uid);
 
 
-inline bool Uid::isNil() const { return isNull(); }
 inline UID Uid::qUnion() const { return mUnion; }
 inline bool Uid::operator ==(const Uid &rhs) const { return equals(rhs); }
 inline bool Uid::operator <(const Uid &rhs) const { return less(rhs); }
+inline Key Uid::toKey() const { return toKey("UID:"); }
 inline Uid::operator QString() const { return toString(); }
 inline Uid Uid::it() const { return *this; }
 inline Uid &Uid::it() { return *this; }

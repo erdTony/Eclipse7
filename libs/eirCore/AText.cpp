@@ -113,12 +113,12 @@ AText AText::append(const char ch)
     return it();
 }
 
-bool AText::isValidFirst(const char ch)
+bool AText::isValidFirst(const char ch) const
 {
     return isprint(ch);
 }
 
-bool AText::isValidChar(const char ch)
+bool AText::isValidChar(const char ch) const
 {
     return isprint(ch);
 }

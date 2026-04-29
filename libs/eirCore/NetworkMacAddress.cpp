@@ -1,9 +1,11 @@
 #include "NetworkMacAddress.h"
 
+#include <QtDebug>
+
 #include "../../doctest/doctest/doctest.h"
 
 NetworkMacAddress::NetworkMacAddress() : m48bits(-1) {;} // invalid
-NetworkMacAddress::NetworkMacAddress(const bool null) { set(null); } // null or local
+NetworkMacAddress::NetworkMacAddress(const bool local) { set(local); } // null or local
 NetworkMacAddress::NetworkMacAddress(const QWORD &u48) { set(u48); }
 NetworkMacAddress::NetworkMacAddress(const DWORD &org24, const DWORD &oui24) { set(org24, oui24); }
 NetworkMacAddress::NetworkMacAddress(const NAText &natx) { set(natx); }
@@ -62,13 +64,16 @@ void NetworkMacAddress::clear()
     m48bits = 0;
 }
 
-void NetworkMacAddress::set(const bool null)
+void NetworkMacAddress::set(const bool local)
 {
-    if (null)
-        clear();
-    else
+    clear();
+    if (local)
+    {
+        mNetIf = QNetworkInterface::interfaceFromIndex(2);
         set(NAText(mNetIf.hardwareAddress()));
-    if ( ! isValid()) clear();
+        qDebug() << Q_FUNC_INFO << local << mNetIf
+                 << mNetIf.hardwareAddress() << Qt::hex << m48bits;
+    }
 }
 
 bool NetworkMacAddress::set(const QWORD &u48)
@@ -95,6 +100,7 @@ bool NetworkMacAddress::set(const XText &xtx)
 {
     QWORD t48 = *QByteArray::fromHex(xtx).constData();
     m48bits = isValid(t48) ? t48 : 0;
+    qDebug() << Q_FUNC_INFO << xtx << Qt::hex << t48 << m48bits << isNull();
     return isNull();
 }
 

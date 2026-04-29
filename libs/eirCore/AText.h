@@ -65,9 +65,9 @@ public: // static
     static char hinge();
     static void hinge(const char ch);
 
-protected: // static
-    static bool isValidFirst(const char ch);
-    static bool isValidChar(const char ch);
+protected: // virtual const
+    virtual bool isValidFirst(const char ch) const;
+    virtual bool isValidChar(const char ch) const;
 
 private:
     static char smHingeChar;

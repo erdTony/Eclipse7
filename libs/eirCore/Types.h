@@ -33,6 +33,7 @@ typedef unsigned        UINT;
 typedef double          FLOAT;
 
 typedef QWORD           MilliSeconds;
+typedef SQWORD          NanoSeconds;
 typedef qsizetype       Index;
 typedef size_t          Count;
 typedef size_t          Seed;

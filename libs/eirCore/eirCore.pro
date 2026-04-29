@@ -103,6 +103,7 @@ HEADERS += \
     Iota.h \
     LogContext.h \
     MatrixT.h \
+    MetaType.h \
     NAText.h \
     NetworkMacAddress.h \
     Pixel32.h \

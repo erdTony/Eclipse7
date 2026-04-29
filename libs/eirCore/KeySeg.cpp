@@ -16,12 +16,12 @@ WORD KeySeg::hash16() const
     return 0xFFFF & qHash((QByteArray)(*this), smHashSeed());
 }
 
-bool KeySeg::isValidFirst(const char ch)
+bool KeySeg::isValidFirst(const char ch) const
 {
     return std::isalpha(ch) || '_' == ch;
 }
 
-bool KeySeg::isValidChar(const char ch)
+bool KeySeg::isValidChar(const char ch) const
 {
     return std::isalnum(ch) || '_' == ch;
 }

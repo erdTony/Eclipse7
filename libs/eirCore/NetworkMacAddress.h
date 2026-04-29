@@ -10,7 +10,7 @@ class NetworkMacAddress
 {
 public: // ctors
     NetworkMacAddress(); // invalid
-    NetworkMacAddress(const bool null); // null or local
+    NetworkMacAddress(const bool local); // null or local
     NetworkMacAddress(const QWORD &u48);
     NetworkMacAddress(const DWORD &org24, const DWORD &oui24);
     NetworkMacAddress(const NAText &natx);
@@ -26,7 +26,7 @@ public: // const
 
 public: // non-const
     void clear();
-    void set(const bool null); // null or local
+    void set(const bool local); // null or local
     bool set(const QWORD &u48);
     bool set(const DWORD &org24, const DWORD &oui24);
     bool set(const NAText &natx);
