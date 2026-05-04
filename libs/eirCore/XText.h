@@ -5,11 +5,16 @@
 
 class EIRCORE_EXPORT XText : public AText
 {
-public:
+public: // ctors
     XText();
     XText(const char * pch);
     XText(const QByteArray &ba);
     XText(const QString &s);
+    XText(const void * p, const Count k);
+
+
+public: // non-const
+    void set(const void * p, const Count k);
 
 public: // pointers
     XText it() const;

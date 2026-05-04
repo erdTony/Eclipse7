@@ -6,7 +6,8 @@
 #include "../../../doctest/doctest/doctest.h"
 
 #include "KeySeg.h"
-#include "MillisecondTime.h"
+#include "NanosecondTime.h"
+#include "RandomGenerator.h"
 
 Uid::Uid(const bool rand) { generate(rand); }
 Uid::Uid(const Variant var) { generate(var); }
@@ -43,6 +44,19 @@ bool Uid::less(const Uid &rhs) const
 QString Uid::toString(const QUuid::StringFormat mode) const
 {
     return uuid().toString(mode);
+}
+
+QWORD Uid::segment(const Segment uidseg) const
+{
+    QWORD result = 0;
+    if (isValidSegment(uidseg))
+    {
+        OWORD tOW = mUnion.data128[0];
+        tOW &= segmentMask(uidseg);
+        tOW >>= segmentBitOffset(uidseg);
+        result = QWORD(tOW);
+    }
+    return result;
 }
 
 Key Uid::toKey(const KeySeg &prefix) const
@@ -108,15 +122,13 @@ void Uid::set(const Version ver)
 
 void Uid::set(const Index bitOffset, const Count bitCount, const QWORD qw)
 {
-    OWORD tMask = -1;
-    tMask = (1LL << bitCount) - 1;
-    tMask <<= bitOffset;
+    OWORD tMask = ((1LL << bitCount) - 1) << bitOffset;
     OWORD tValue = qw;
     mUnion.data128[0] = mUnion.data128[0] & ( ~ tMask);
     mUnion.data128[0] = mUnion.data128[0] | ((tValue << bitCount) & ( ~ tMask));
 }
 
-void Uid::segment(const Segment seg, const QWORD qw)
+void Uid::set(const Segment seg, const QWORD qw)
 {
     const Index cBitOffset = segmentBitOffset(seg);
     const Count cBitCount = segmentBitLength(seg);
@@ -177,6 +189,12 @@ void Uid::nilify()
     mUnion.data128[0] = 0;
 }
 
+void Uid::maxify()
+{
+    nilify();
+    mUnion.data128[0] = ~ mUnion.data128[0];
+}
+
 void Uid::randomize()
 {
     lo(QRandomGenerator::global()->generate64());
@@ -185,10 +203,10 @@ void Uid::randomize()
 
 Uid Uid::reference()
 {
-#if 1
+#if 0
     Uid result("{01234567-89AB-CDEF-0123-4567890ABCDEF}");
 #else
-    Uid result(true); // nil
+    Uid result(false); // nil
     result.set(SegmentA, 0x01234567);
     result.set(SegmentB, 0x89AB);
     result.set(SegmentC, 0xCDEF);
@@ -200,7 +218,36 @@ Uid Uid::reference()
 
 XText Uid::xtext(const Segment uidseg) const
 {
-    Q_ASSERT(!"not done");
+    XText result;
+    if (isValidSegment(uidseg))
+    {
+        const QWORD cQW = segment(uidseg);
+        result.set(&cQW, segmentBitLength(uidseg) / 8);
+    }
+    return result;
+}
+
+void Uid::insert(Uid &uid, const Uid::Version ver, const SQWORD gtime,
+                 const WORD seq, const NetworkMacAddress &mac)
+{
+    switch (ver)
+    {
+    case VerGTimeseqNode1:
+        uid.set(SegmentA,  gtime & 0x00000000FFFFFFFF);
+        uid.set(SegmentB, (gtime & 0x0000FFFF00000000) >> 32);
+        uid.set(SegmentC, (gtime & 0x0FFF000000000000) >> 48);
+        break;
+    case VerGTimeseqNode6:
+        uid.set(SegmentA, (gtime & 0x00FFFFFFF0000000) >> 28);
+        uid.set(SegmentB, (gtime & 0x000000000FFFF000) >> 12);
+        uid.set(SegmentC,  gtime & 0x0000000000000FFF);
+        break;
+    default:
+        break;
+    }
+    uid.set(SegmentD, (seq & 0x0FFF0000) >> 16);
+    uid.set(SegmentE, ((seq & 0x0000FFFF) << 24)
+                          | (mac.u48() & 0x00FFFFFF));
 }
 
 bool Uid::isVarNcs(const Variant var)
@@ -264,34 +311,6 @@ OWORD Uid::segmentMask(const Segment uidseg)
     return result;
 }
 
-/*
-Uid Uid::generate(const Type type)
-{
-    Uid result(false);
-    switch (type)
-    {
-    case Type7:     result = generate7(type);   break;
-    default:                                    break;
-    }
-    return result;
-}
 
-Uid Uid::generate7(const Type type)
-{
-    Q_UNUSED(type);
-    Uid result;
-    Milliseconds tCurrentEms = MillisecondTime::current();
-    QRandomGenerator tRG(tCurrentEms);
-    quint64 tNetworkEms = qToBigEndian<quint64>(tCurrentEms);
-    const BYTE cVersion = 7;
-    const BYTE cVariant = 8;
-    const quint16 cRandom7A = tRG.generate();
-    const quint64 cRandom7B = tRG.generate64();
-    mNibbles.set( 0, 12, ((BYTE *)(&tNetworkEms)) + 8);
-    mNibbles.set(12,  1, &cVersion);
-    mNibbles.set(16,  1, &cVariant);
-    mNibbles.set(13,  3, (BYTE *)&cRandom7A);
-    mNibbles.set(17, 15, (BYTE *)&cRandom7B);
-    return result;
-}
-*/
+
+

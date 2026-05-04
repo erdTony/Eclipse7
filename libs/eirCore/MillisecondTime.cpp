@@ -9,7 +9,7 @@ MillisecondTime::MillisecondTime(void)
 {
 }
 
-MillisecondTime::MillisecondTime(MilliSeconds ems)
+MillisecondTime::MillisecondTime(Milliseconds ems)
     : mEpochMS(ems)
 {
 }
@@ -52,7 +52,7 @@ bool MillisecondTime::isBaseNull(void) const
     return smNullMST == smBaseMST;
 }
 
-MillisecondTime::operator MilliSeconds(void) const
+MillisecondTime::operator Milliseconds(void) const
 {
     return mEpochMS;
 }
@@ -79,7 +79,7 @@ void MillisecondTime::nullify(void)
     mEpochMS = smNullMST;
 }
 
-MilliSeconds MillisecondTime::base(void)
+Milliseconds MillisecondTime::base(void)
 {
     return smBaseMST;
 }
@@ -104,7 +104,7 @@ QDateTime MillisecondTime::toDateTime(void) const
     return QDateTime::fromMSecsSinceEpoch(mEpochMS);
 }
 
-QString MillisecondTime::toSecString(const MilliSeconds roll) const
+QString MillisecondTime::toSecString(const Milliseconds roll) const
 {
     QString result("###????");
     if (mEpochMS == 0)

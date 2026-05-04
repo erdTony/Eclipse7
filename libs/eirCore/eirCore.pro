@@ -26,12 +26,14 @@ SOURCES += \
     FunctionInfo.cpp \
     FunctionInfoArgument.cpp \
     FunctionInfoEnum.cpp \
+    GerogianHNanoTime.cpp \
     Iota.cpp \
     LogContext.cpp \
     NAText.cpp \
     NetworkMacAddress.cpp \
     Pixel32.cpp \
     Point.cpp \
+    RandomGenerator.cpp \
     Rational.cpp \
     RationalColorList.cpp \
     RationalList.cpp \
@@ -39,6 +41,7 @@ SOURCES += \
     Rgba32Table.cpp \
     SCRect.cpp \
     Size.cpp \
+    StructTM.cpp \
     Url.cpp \
     UrlType.cpp \
     VersionInfo.cpp \
@@ -100,6 +103,7 @@ HEADERS += \
     FunctionInfo.h \
     FunctionInfoArgument.h \
     FunctionInfoEnum.h \
+    GerogianHNanoTime.h \
     Iota.h \
     LogContext.h \
     MatrixT.h \
@@ -108,6 +112,7 @@ HEADERS += \
     NetworkMacAddress.h \
     Pixel32.h \
     Point.h \
+    RandomGenerator.h \
     Rational.h \
     RationalColorList.h \
     RationalList.h \
@@ -116,6 +121,7 @@ HEADERS += \
     Rgba32Table.h \
     SCRect.h \
     Size.h \
+    StructTM.h \
     Url.h \
     UrlType.h \
     VersionInfo.h \

@@ -2,10 +2,15 @@
 
 #include "AText.h"
 
+#include <QList>
+
 #include "XText.h"
 
 class NAText : public AText
 {
+public: // types
+    typedef QList<NAText> List;
+
 public: // ctors
     NAText();
     NAText(const char * pch);

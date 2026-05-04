@@ -2,7 +2,7 @@
 
 #include <chrono>
 
-NanosecondTime::NanosecondTime(const NanoSeconds kTicks) { set(kTicks); }
+NanosecondTime::NanosecondTime(const Nanoseconds kTicks) { set(kTicks); }
 
 bool NanosecondTime::isNull() const
 {
@@ -18,8 +18,8 @@ time_t NanosecondTime::timeT() const
 {
     std::time_t result;
     std::chrono::time_point<std::chrono::system_clock,
-                            std::chrono::duration<NanoSeconds> >
-        tTPns( (std::chrono::duration<NanoSeconds>(mNanoTicks)) );
+                            std::chrono::duration<Nanoseconds> >
+        tTPns( (std::chrono::duration<Nanoseconds>(mNanoTicks)) );
     result = std::chrono::system_clock::to_time_t(tTPns);
     return result;
 }
@@ -29,7 +29,7 @@ SQWORD NanosecondTime::hecto() const
     return mNanoTicks / 100LL;
 }
 
-void NanosecondTime::set(const NanoSeconds kTicks)
+void NanosecondTime::set(const Nanoseconds kTicks)
 {
     std::chrono::nanoseconds tKT(kTicks);
     if (0 == kTicks) // 0=use current
@@ -46,9 +46,26 @@ void NanosecondTime::hecto(const SQWORD hns)
 }
 
 // static
-NanoSeconds NanosecondTime::nanoYear(const WORD year)
+Nanoseconds NanosecondTime::nanoYear(const WORD year)
 {
-    return NanoSeconds(DWORDF(year) * 365.2422) * 24LL * 3600LL * cmNanoFactor;
+    return Nanoseconds(DWORDF(year) * 365.2422) * 24LL * 3600LL * nanoFactor();
+}
+
+std::time_t NanosecondTime::base()
+{
+    std::time_t result;
+    std::chrono::time_point<std::chrono::system_clock,
+                            std::chrono::duration<Nanoseconds> >
+        tTPns( (std::chrono::duration<Nanoseconds>(0)) );
+    result = std::chrono::system_clock::to_time_t(tTPns);
+    return result;
+}
+
+Nanoseconds NanosecondTime::offset(const StructTM other)
+{
+    std::time_t tSTTbase = base();
+    std::time_t tSTTother = other.timeT();
+    return Nanoseconds(tSTTother) - Nanoseconds(tSTTbase);
 }
 
 

@@ -21,7 +21,7 @@
     TND(QVariant, var, QVariant()) \
     TND(Uid, parentuid, Uid()) \
     TND(UidList, childuids, UidList()) \
-    TND(MilliSeconds, ctorEms, 0) \
+    TND(Milliseconds, ctorEms, 0) \
     TND(QWORD, ctorSeq, 0) \
 
 class IdData : public QSharedData

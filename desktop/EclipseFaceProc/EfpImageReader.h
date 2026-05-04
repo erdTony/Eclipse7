@@ -48,7 +48,7 @@ private slots:
 
 private:
     QDir mInputDir;
-    MilliSeconds mSampleMsec=1000;
+    Milliseconds mSampleMsec=1000;
     QTimer * mpCaptureTimer;
     bool mPaused=false;
     bool mLoop=false;

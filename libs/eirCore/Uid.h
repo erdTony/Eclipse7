@@ -20,7 +20,13 @@ class EIRCORE_EXPORT Uid : public QUuid
  * Hex Nix: 01234567 89AB CDEF 0123 456789ABCDEF
  * Dec Nix: 01234567 8901 2345 6789 012345678901
  *                   Ver--^    ^--Var
+ *          ^^^^^^^^--SegmentA
+ *                   ^^^^--SegmentB
+ *                         ^^^--SegmentC
+ *                              ^^^-SegmentD
+ *                                  ^^^^^^^^^^^^--SegmentE
  */
+
 public: // constants
     static const Count scmNibbleCount   = 32;
     static const Index scmVersionNIx    = 12;
@@ -31,10 +37,10 @@ public: // types
     enum Segment
     {
         $nullSegment = 0,
-        SegmentA            = 0x0020, // A=32bits @0
-        SegmentB            = 0x2010, // B=16bits @32
+        SegmentA            = 0x0020, // A=32bits @0    time_low
+        SegmentB            = 0x2010, // B=16bits @32   time_mid
         SegmentVer          = 0x3004, // Ver=4bit @48
-        SegmentC            = 0x340C, // C=12bits @52
+        SegmentC            = 0x340C, // C=12bits @52   time_hi
         SegmentVar          = 0x4004, // Var=4bit @64
         SegmentD            = 0x440C, // D=12bits @68
         SegmentE            = 0x5030, // D=48bits @80
@@ -113,7 +119,7 @@ public: // const
     QString toString(const QUuid::StringFormat mode=QUuid::WithBraces) const;
     AText toAtx() const;
     XText toHex() const;
-    QWORD segment(const Segment uidseg);
+    QWORD segment(const Segment uidseg) const;
     Key toKey() const;
     Key toKey(const KeySeg &prefix) const;
     QString tail() const;
@@ -132,7 +138,7 @@ public: // non-const
     void set(const Variant var);
     void set(const Version ver);
     void set(const Index bitOffset, const Count bitCount, const QWORD qw);
-    void segment(const Segment seg, const QWORD qw);
+    void set(const Segment seg, const QWORD qw);
     Uid generate(const bool rand);
     Uid generate(const Variant var);
     Uid generate(const Version ver);
@@ -142,6 +148,7 @@ public: // non-const
     Uid generate7(const Type type);
     void nullify();
     void nilify();
+    void maxify();
     void randomize();
 
 public: // pointers
@@ -157,6 +164,8 @@ private: // const
     XText xtext(const Segment uidseg) const;
 
 private: // non-const
+    void insert(Uid &uid, const Uid::Version ver, const SQWORD gtime,
+                const WORD seq, const NetworkMacAddress &mac);
 
 private: // static
     static bool isVarNcs(const Variant var);

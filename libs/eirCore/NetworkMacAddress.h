@@ -20,9 +20,13 @@ public: // const
     bool isNull() const;
     bool isValid() const;
     bool isOui48() const;
+    bool equals(const NetworkMacAddress &other) const;
+    BYTE at(const Index ix);
     DWORD org24() const;
     DWORD oui24() const;
     QWORD u48() const;
+    NAText toText() const;
+    bool operator == (const NetworkMacAddress &other);
 
 public: // non-const
     void clear();
@@ -43,3 +47,5 @@ private:
 };
 
 inline QWORD NetworkMacAddress::u48() const { return m48bits; }
+inline bool NetworkMacAddress::operator ==(const NetworkMacAddress &other) { return equals(other); }
+inline void NetworkMacAddress::clear() { m48bits = 0; }

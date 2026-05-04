@@ -14,8 +14,8 @@ NetworkMacAddress::NetworkMacAddress(const XText &xtx) { set(xtx); }
 TEST_CASE("eirCore/NetworkMacAddress ctors")
 {
     NetworkMacAddress nmaInvalid;
-    NetworkMacAddress nmaNull(true);
-    NetworkMacAddress nmaLocal(false);
+    NetworkMacAddress nmaLocal(true);
+    NetworkMacAddress nmaNull(false);
     NetworkMacAddress nmaOrgOui(0x00123456, 0x00789ABC);
     NetworkMacAddress nmaNAText("12:34:56-78:9A:BC");
     NetworkMacAddress nmaXText("123456789ABC");
@@ -45,6 +45,19 @@ bool NetworkMacAddress::isOui48() const
     return result;
 }
 
+bool NetworkMacAddress::equals(const NetworkMacAddress &other) const
+{
+    return m48bits == other.m48bits;
+}
+
+BYTE NetworkMacAddress::at(const Index ix)
+{
+    BYTE result = 0xFF;
+    if (ix >= 0 && ix <= 5)
+        result = (m48bits >> (ix * 8)) & 0xFF;
+    return result;
+}
+
 DWORD NetworkMacAddress::org24() const
 {
     DWORD result = 0;
@@ -59,10 +72,15 @@ DWORD NetworkMacAddress::oui24() const
     return result;
 }
 
-void NetworkMacAddress::clear()
+NAText NetworkMacAddress::toText() const
 {
-    m48bits = 0;
+    QByteArray tBA((const char *)(&m48bits), sizeof(m48bits));
+    NAText result(tBA.toHex(':'));
+    result[9] = '-';
+    return result;
 }
+
+
 
 void NetworkMacAddress::set(const bool local)
 {

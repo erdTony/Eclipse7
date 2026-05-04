@@ -32,8 +32,8 @@ typedef signed          INT;
 typedef unsigned        UINT;
 typedef double          FLOAT;
 
-typedef QWORD           MilliSeconds;
-typedef SQWORD          NanoSeconds;
+typedef QWORD           Milliseconds;
+typedef SQWORD          Nanoseconds;
 typedef qsizetype       Index;
 typedef size_t          Count;
 typedef size_t          Seed;
@@ -41,8 +41,8 @@ typedef Count           Seq;
 typedef QWORD           IdNo;
 
 typedef QList<Index>     IndexList;
-typedef QList<signed>    IntList;
-typedef QList<unsigned>  UIntList;
+typedef QList<INT>    IntList;
+typedef QList<UINT>  UIntList;
 typedef QList<QWORD>     QWordList;
-typedef QList<double>    FloatList;
+typedef QList<FLOAT>    FloatList;
 

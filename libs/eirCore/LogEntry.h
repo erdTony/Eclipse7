@@ -47,7 +47,7 @@ public: // ctors
 public: // const
     bool isNull() const;
     LogLevel level() const;
-    MilliSeconds entryMsec() const;
+    Milliseconds entryMsec() const;
     AText format() const;
     LogCondition condition() const;
     QVariantList arguments() const;
@@ -68,7 +68,7 @@ private: // non-const
 private:
     static const FourCC scmLESignature;
     LogLevel mLevel;
-    MilliSeconds mEntryMsec;
+    Milliseconds mEntryMsec;
     AText mFormat;
     LogCondition mCondition;
     QVariantList mArguments;
@@ -78,7 +78,7 @@ private:
 
 
 inline LogLevel LogEntry::level() const { return mLevel; }
-inline MilliSeconds LogEntry::entryMsec() const { return mEntryMsec; }
+inline Milliseconds LogEntry::entryMsec() const { return mEntryMsec; }
 inline AText LogEntry::format() const { return mFormat; }
 inline LogCondition LogEntry::condition() const { return mCondition; }
 inline QVariantList LogEntry::arguments() const { return mArguments; }
